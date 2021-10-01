@@ -35,3 +35,8 @@ text
 ### Persistentielaag
 
 text
+
+
+## Frontend design (WPF)
+
+text
