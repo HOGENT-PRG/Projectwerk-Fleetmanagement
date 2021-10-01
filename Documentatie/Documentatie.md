@@ -20,6 +20,19 @@ text
 
 ### Architectureel design (beslissingen / motivaties)
 
+#### Dependencies
+
+WPFApp **DEPENDS ON** BusinessLaag **DEPENDS ON** DataLaag
+
+Een interactie met de WPF Applicatie resulteert dus in een function call binnen de BusinessLaag.
+Een operatie binnen de Businesslaag die data vereist uit de databank resulteert dus in een function call binnen de DataLaag.
+
+Hieronder een vergelijking tussen het MVC model en de dependencies zoals ze nu ingesteld staan.
+
+
+![Vergelijking](https://i.imgur.com/eZnbI9K.png)
+
+
 ### Diagrammen en schemas
 
 text
