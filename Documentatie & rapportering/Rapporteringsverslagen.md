@@ -17,7 +17,7 @@
 *   Github repository aangemaakt, rollen toegekend, filestructuur gecreerd
 *   Eerste versie van het klassendiagram business laag (met relaties en enkele methodes)
 *   Aanmaken van het VS project en toevoegen van lagen, configureren van de dependencies
-*   
+*   Maken van 2 user interface mockups (SplashScreen, Bestuurders): [UI_mockups](https://github.com/HOGENT-PRG/Projectwerk-Fleetmanagement/tree/main/UI_mockups)
 
 ### Obstakels
 
