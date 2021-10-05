@@ -36,4 +36,10 @@ Een alternatieve implementatiemethode zou kunnen zijn om de Manager op te splits
 
 .. welke de applicatie overzichtelijker zou maken indien het in de toekomst onderwerp wordt van uitbreidingen.
 
+*"The controller should delegate the work that needs to be done to other objects; it coordinates or controls the activity. It should not do much work itself."*
+
+De Manager roept functies aan van de Data Laag en:
+- vormt om in objecten (EF?)
+- retourneert de status van een operatie samen met eventuele objecten of error messages
+
 ## Data laag
