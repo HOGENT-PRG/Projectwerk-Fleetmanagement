@@ -40,6 +40,10 @@ Een alternatieve implementatiemethode zou kunnen zijn om de Manager op te splits
 
 De Manager roept functies aan van de Data Laag en:
 - vormt om in objecten (EF?)
-- retourneert de status van een operatie samen met eventuele objecten of error messages
+- retourneert de status van een CRUD operatie samen met eventuele objecten of error messages
+
+*"Coupling is usually contrasted with cohesion. Low coupling often correlates with high cohesion, and vice versa. Low coupling is often thought to be a sign of a well-structured computer system and a good design, and when combined with high cohesion, supports the general goals of high readability and maintainability."*
+
+Als men de coupling van deze klasse echter in acht neemt (High coupling) vormt het een relatief sterk argument om de klasse alsnog onder te verdelen zoals hierboven vermeld staat. 
 
 ## Data laag
