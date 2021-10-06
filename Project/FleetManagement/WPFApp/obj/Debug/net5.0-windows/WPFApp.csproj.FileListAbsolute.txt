@@ -1,0 +1,5 @@
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\WPFApp.csprojAssemblyReference.cache
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\MainWindow.g.cs
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\App.g.cs
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\WPFApp_MarkupCompile.cache
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\WPFApp_MarkupCompile.lref
