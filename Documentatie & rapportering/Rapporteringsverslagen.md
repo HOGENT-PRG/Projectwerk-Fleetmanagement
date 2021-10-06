@@ -5,7 +5,7 @@
 
 "Elke week wordt er een stand van zaken gegeven (planning / realisaties / obstakels / demo)"
 
-## Week 1 - 30/09-07/10 - v1.0.1
+## Week 1 - 30/09-07/10 
 
 ### Planning
 
