@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj": {}
+    "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj": {}
   },
   "projects": {
-    "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj": {
+    "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
+        "projectUniqueName": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
         "projectName": "xUnitTesting",
-        "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
-        "packagesPath": "C:\\Users\\server\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\obj\\",
+        "projectPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
+        "packagesPath": "C:\\Users\\abdellah\\.nuget\\packages\\",
+        "outputPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\abdellah\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +22,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://packagesource": {}
         },
         "frameworks": {
           "net5.0": {
@@ -46,6 +44,10 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[16.7.1, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
             },
             "coverlet.collector": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -79,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

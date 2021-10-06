@@ -1,0 +1,5 @@
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\BusinessLaag\bin\Debug\net5.0\DataLaag.dll
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.csprojAssemblyReference.cache
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.GeneratedMSBuildEditorConfig.editorconfig
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.AssemblyInfoInputs.cache
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.AssemblyInfo.cs
