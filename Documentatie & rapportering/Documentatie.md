@@ -39,7 +39,9 @@ text
 
 ### Presentatielaag (WPF)
 
-text
+#### UI componenten
+
+Er wordt gebruik gemaakt van MaterialDesign libraries om [componenten](https://www.nuget.org/packages/MaterialDesignThemes/4.3.0-ci49) en [kleuren](https://www.nuget.org/packages/MaterialDesignColors/2.0.4-ci49) toe te voegen.
 
 ### Businesslaag 
 
@@ -70,10 +72,5 @@ Voorbeeld van structuur in AdresBeheer:
 **DOCUMENTATIE NOG UIT TE BREIDEN VOOR DEZE KLASSE NADAT FUNCTIES ONTWIKKELD ZIJN**
 
 ### Persistentielaag
-
-text
-
-
-## Frontend design (WPF)
 
 text

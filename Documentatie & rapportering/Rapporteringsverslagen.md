@@ -9,8 +9,8 @@
 
 ### Planning
 
-*   Meeting gepland op Discord (zaterdag)
-*   item 2
+*   Meeting gepland op Discord (zaterdag 02/10)
+*   Fysieke meeting gepland (woensdag 06/10)
 
 ### Realisaties
 
