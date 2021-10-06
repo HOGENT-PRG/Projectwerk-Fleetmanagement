@@ -45,23 +45,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\server\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\abdellah\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
+      "projectUniqueName": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
       "projectName": "WPFApp",
-      "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
-      "packagesPath": "C:\\Users\\server\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\obj\\",
+      "projectPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
+      "packagesPath": "C:\\Users\\abdellah\\.nuget\\packages\\",
+      "outputPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\WPFApp\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\abdellah\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -69,14 +65,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://packagesource": {}
       },
       "frameworks": {
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
           "projectReferences": {
-            "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
-              "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
+            "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+              "projectPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
             }
           }
         }
@@ -108,7 +105,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
