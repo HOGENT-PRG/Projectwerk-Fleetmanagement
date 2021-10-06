@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLaag.Exceptions
 {
-    class BestuurderException:Exception
+    public class BestuurderException:Exception
     {
         public BestuurderException(string boodschap) : base(boodschap) { }
         public BestuurderException(string boodschap,Exception ex) : base(boodschap, ex) { }

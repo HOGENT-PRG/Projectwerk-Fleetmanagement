@@ -18,15 +18,21 @@
 *   Eerste versie van het klassendiagram business laag (met relaties en enkele methodes)
 *   Aanmaken van het VS project en toevoegen van lagen, configureren van de dependencies
 *   Maken van 2 user interface mockups (SplashScreen, Bestuurders): [UI_mockups](https://github.com/HOGENT-PRG/Projectwerk-Fleetmanagement/tree/main/UI_mockups)
+*   Eerste versie klasses business laag
+
+### To-do (in geen specifieke volgorde)
+
+* UI mockups maken
+* Unit tests voor business laag v1
+* Rijksregisternummer klasse + valideer functie
+* Logica Controllers + Fleetmanager
 
 ### Obstakels
 
 *   Hoe zoeken we eenvoudig een object op in de databank ("Bij het maken van lijstweergaves in de applicatie moet het telkens
-mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Kan Entity Framework / iets ORM gerelateerd van pas komen?
-*   Hoe zorgen we ervoor dat tijdens het ontwikkelen, iedereen met eenzelfde/gelijklopende databank werkt / gebruikt voor testing?
+mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Huidige gedachtegang gaat uit naar query + Type.GetProperties (reflection) + linq
 *   Wat is de beste aanpak mbt branches en synchroon samenwerken
 
 ### Demo
 
-*   item 1 
-*   item 2
+*   NVT

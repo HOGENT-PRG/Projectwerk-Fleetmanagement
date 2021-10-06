@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLaag
+namespace BusinessLaag.Controllers
 {
-    public enum VoertuigKleur
+    class VoertuigController
     {
-        wit,rood,zwart,blauw,grijs,groen,geel,paars,gebrokenWit
     }
 }

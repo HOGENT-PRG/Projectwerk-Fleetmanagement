@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLaag
 {
-    public class RijksregisterNumm
+    class FleetManager
     {
     }
 }

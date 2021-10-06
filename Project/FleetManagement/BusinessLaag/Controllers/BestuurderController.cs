@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLaag
+namespace BusinessLaag.Controllers
 {
-    public enum RijbewijsSoort
+    class BestuurderController
     {
-        AM,AB,B,C,D,G
     }
 }
