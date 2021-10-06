@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj": {}
+    "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj": {}
   },
   "projects": {
-    "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj": {
+    "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
+        "projectUniqueName": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
         "projectName": "xUnitTesting",
-        "projectPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
-        "packagesPath": "C:\\Users\\abdellah\\.nuget\\packages\\",
-        "outputPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\obj\\",
+        "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
+        "packagesPath": "C:\\Users\\server\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\abdellah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,8 +25,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://packagesource": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -81,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }
