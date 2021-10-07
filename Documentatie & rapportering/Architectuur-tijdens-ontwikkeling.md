@@ -82,6 +82,6 @@ Solution: A use case controller should be used to deal with all system events of
 
 ~~*"Coupling is usually contrasted with cohesion. Low coupling often correlates with high cohesion, and vice versa. Low coupling is often thought to be a sign of a well-structured computer system and a good design, and when combined with high cohesion, supports the general goals of high readability and maintainability."*~~
 
-~~Als men de coupling van deze klasse echter in acht neemt (High coupling) vormt het een relatief sterk argument om de klasse alsnog onder te verdelen zoals hierboven vermeld staat. ~~
+~~Als men de coupling van deze klasse echter in acht neemt (High coupling) vormt het een relatief sterk argument om de klasse alsnog onder te verdelen zoals hierboven vermeld staat.~~
 
 ## Data laag

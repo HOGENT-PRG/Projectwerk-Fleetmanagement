@@ -45,31 +45,83 @@ Er wordt gebruik gemaakt van MaterialDesign libraries om [componenten](https://w
 
 ### Businesslaag 
 
-#### Klasse **Rijksregisternummer** 
+#### Helper **RRNValideerder** 
 
 Het Rijksregisternummer (RRN) dient gevalideerd te worden aan de hand van [dit document](https://nl.wikipedia.org/wiki/Rijksregisternummer).
 
 Er waren enkele mogelijkheden om dit te bereiken, als volgt:
-* het RRN valideren in de FleetManager klasse - aangezien dit niet de verantwoordelijkheid van deze klasse is dit ondergeschikt
-* het RRN valideren in de Bestuurder klasse aangezien het RRN toebehoort aan deze persoon, aangezien de valideerfunctie vrij uitgebreid zal worden is dit niet de meest optimale beslissing (maar er kan echter wel beargumenteerd worden dat dit een correcte aanpak zou zijn)
-* **de gekozen methode, het aanmaken van een Rijksregisternummer** klasse welke beschikt over een private methode valideer die aangeroepen wordt wanneer het object aangemaakt wordt, indien validatie faalt zal er een exception gethrowt worden (die op gepaste wijze opgevangen wordt in de FleetManager en gereturnt wordt naar de Presentatielaag)
+* het RRN valideren in de BestuurderController klasse - aangezien dit niet de verantwoordelijkheid van deze klasse is, is dit ondergeschikt
+* het RRN valideren in de Bestuurder klasse aangezien het RRN toebehoort aan deze persoon (maar dat is niet echt de verantwoordelijkheid van de Bestuurder)
+* **de gekozen methode, het aanmaken van een RRNValideerder als Helper/Utility** klasse welke beschikt over een methode valideer
 
-De [Single-Responsibility-Principle](https://en.wikipedia.org/wiki/Single-responsibility_principle) voor deze klasse is dus het valideren van de input tijdens aanmaak van het object.
+Bij instantiering van de Bestuurder klasse zal in de constructor body gebruik gemaakt worden van deze helper, indien validatie faalt zal er een ArgumentException gethrowt worden. Indien validatie succesvol is wordt het gevalideerdeRRN geretourneerd en de attribuut Rijksregisternummer in klasse Bestuurder gepopuleerd.
 
-De klasse beschikt daarnaast over een override functie ToString, welke het RRN retourneert in string formaat.
+De [Single-Responsibility-Principle](https://en.wikipedia.org/wiki/Single-responsibility_principle) voor deze helper is dus het valideren van een RRN.
 
+#### FleetManager + Voertuig-, Bestuurder- & TankkaartController
 
-#### Klasse **FleetManager**
+Gebruikt patroon: [GRASP - controller](https://en.wikipedia.org/wiki/GRASP_(object-oriented_design))
 
-De algemene architectuur doet denken aan de opdracht Adresbeheer van het eerste jaar, in dat project was er in de Business Layer sprake van een Adresbeheerder welke als intermediair fungeerde tussen de Data en WPF laag.
+Bij de eerste versies van het CD was er sprake van 1 enkele klasse (FleetManager) die instond voor het afhandelen van interacties van de presentatielaag.
+Aangezien, bij eventuele uitbreidingen, het geheel onoverzichtelijk zou worden is besloten om de FleetManager op te splitsen in 3 Controller klassen en de FleetManager deze te laten beheren.
 
-Op een gelijkaardige manier kan dus de FleetManager dezelfde functie uitoefenen. 
+- VoertuigController
+- BestuurderController
+- TankkaartController
 
-Voorbeeld van structuur in AdresBeheer:
+Elke Controller staat in voor:
+- intermediaire rol tussen presentatielaag en datalaag
+- waarborgen domeinregels (bijv. geen 2 personen met zelfde rijksregisternummer toegestaan)
+- transformatie van data afkomstig van de datalaag naar Model objecten
+- rapporteren over de uitgevoerde functie (geslaagd/niet geslaagd) en het retourneren van eventuele data naar de persistentielaag
 
-![Structuur](https://cdn.discordapp.com/attachments/893498024972673044/893502925773627412/unknown.png)
+Aangezien een controller in sommige gevallen (bijv updaten van Voertuig na het verwijderen van een/zijn Bestuurder) een andere controller moet kunnen aanspreken,
+wordt als argument de fleetmanager meegegeven.
 
-**DOCUMENTATIE NOG UIT TE BREIDEN VOOR DEZE KLASSE NADAT FUNCTIES ONTWIKKELD ZIJN**
+De FleetManager:
+- beheert Controllers, eenvoudig uit te breiden indien nodig
+- bevat de link tussen de business laag en de data laag door instantiering van DataManager
+
+Indien de FleetManager niet zou bestaan is:
+- interactie tussen controllers niet mogelijk (behalve door ze tig maal te instantieren)
+
+*"Problem: Who should be responsible for handling an input system event?
+Solution: A use case controller should be used to deal with all system events of a use case, and may be used for more than one use case. For instance, for the use cases Create User and Delete User, one can have a single class called UserController, instead of two separate use case controllers."*
+
+*"The controller should delegate the work that needs to be done to other objects; it coordinates or controls the activity. It should not do much work itself."*
+
+De beheerder "geeft het werk door" aan de Controller, welke op zijn beurt instaat voor het op correcte wijze aanroepen (coordineren) van andere controllers en functies in de datalaag.
+De **verantwoordelijkheid van de Controller** is om te verzekeren dat de domeinregels gerespecteerd worden en werkt hiervoor samen met de datalaag en andere controllers.
+
+*"Coupling is usually contrasted with cohesion. Low coupling often correlates with high cohesion, and vice versa. Low coupling is often thought to be a sign of a well-structured computer system and a good design, and when combined with high cohesion, supports the general goals of high readability and maintainability."*
+
+Bij de FleetManager kan de cohesion als hoog aanschouwt worden (zijn taak is enkel en alleen beheren) en de coupling als low (zelfs indien het model 5 maal groter zou zijn in de toekomst) -- dit heeft volgens de definitie hierboven het resultaat dat readability en maintainability verbeterd zijn. Indien de FleetManager de verantwoordelijke geweest zou zijn voor zowel het beheer als het coordineren zou dit niet het geval zijn en uitbreidingen in de weg staan.
+
+De Controllers kunnen zich focussen op het coordineren van business events door gebruik te maken van het beheer van de FleetManager.
+
+#### VoertuigController
+
+text
+
+#### BestuurderController
+
+text
+
+#### TankkaartController
+
+text
+
+#### Voertuig
+
+text
+
+#### Bestuurder 
+
+text
+
+#### Tankkaart
+
+text
 
 ### Persistentielaag
 
