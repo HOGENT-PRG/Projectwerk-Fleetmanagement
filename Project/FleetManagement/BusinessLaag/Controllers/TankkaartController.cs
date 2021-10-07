@@ -9,7 +9,7 @@ namespace BusinessLaag.Controllers
 {
     public class TankkaartController: ITankkaartController
     {
-        private FleetManager FleetManager;
+        private static FleetManager FleetManager;
         public TankkaartController(FleetManager fleetmanager)
         {
             FleetManager = fleetmanager;

@@ -9,7 +9,7 @@ namespace BusinessLaag.Controllers
 {
     public class VoertuigController : IVoertuigController
     {
-        private FleetManager FleetManager;
+        private static FleetManager FleetManager;
         public VoertuigController(FleetManager fleetmanager)
         {
             FleetManager = fleetmanager;

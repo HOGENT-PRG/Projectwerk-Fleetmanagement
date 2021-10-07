@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 using BusinessLaag.Interfaces;
 
 namespace BusinessLaag.Controllers
 {
     public class BestuurderController : IBestuurderController
     {
-        private FleetManager FleetManager;
+        private static FleetManager FleetManager;
         public BestuurderController(FleetManager fleetmanager)
         {
             FleetManager = fleetmanager;
@@ -22,7 +23,16 @@ namespace BusinessLaag.Controllers
 
         public IEnumerable<string> fetchBestuurderProperties()
         {
-            throw new NotImplementedException();
+            //PropertyInfo[] myPropertyInfo = Type.GetType("BusinessLaag.Model.Voertuig,BusinessLaag").GetProperties();
+            PropertyInfo[] myPropertyInfo = typeof(Voertuig).GetProperties();
+            List<string> props = new List<string>();
+
+            for (int i = 0; i < myPropertyInfo.Length; i++)
+            {
+                props.Add(myPropertyInfo[i].Name);
+            }
+
+            return props;
         }
 
         public IEnumerable<Bestuurder> fetchBestuurders()
