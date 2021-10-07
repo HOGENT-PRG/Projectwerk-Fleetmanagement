@@ -8,5 +8,12 @@ namespace BusinessLaag.Interfaces
 {
     public interface IVoertuigController
     {
+        void voegVoertuigToe(Voertuig voertuig);
+        void updateVoertuig(Voertuig voertuig);
+        void verwijderVoertuig(Voertuig voertuig);
+        IEnumerable<Voertuig> fetchVoertuigen();
+        Voertuig fetchVoertuigDetail(int id);
+        IEnumerable<Voertuig> zoekVoertuig();
+        IEnumerable<string> fetchVoertuigProperties();
     }
 }
