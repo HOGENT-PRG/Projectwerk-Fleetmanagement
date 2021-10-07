@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace BusinessLaag.Controllers
 {
-    class VoertuigController
+    public class VoertuigController
     {
+        private FleetManager FleetManager;
+        public VoertuigController(FleetManager fleetmanager)
+        {
+            FleetManager = fleetmanager;
+        }
     }
 }
