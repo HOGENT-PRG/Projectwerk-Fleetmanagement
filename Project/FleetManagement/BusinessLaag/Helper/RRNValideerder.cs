@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLaag.Exceptions;
 
-namespace BusinessLaag
+namespace BusinessLaag.Helpers
 {
     public class RRNValideerder
     {
         public string valideer(string ongevalideerdRijksregisternummer)
         {
             // indien successvol:
-            // GevalideerdRRN = teValiderenRRN
+            // return GevalideerdRRN
+            throw new NotImplementedException();
+
             // indien niet successvol:
-            throw new ArgumentException("Het opgegeven rijksregisternummer is ongeldig.");
+            // throw new BestuurderException("Het opgegeven rijksregisternummer is ongeldig.");
         }
     }
 }
