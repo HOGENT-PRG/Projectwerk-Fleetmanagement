@@ -11,7 +11,7 @@ namespace DataLaag
 {
     public class DataManager
     {
-        // wellicht is het zinvol om connection string uit bestand te lezen (config file) -> zie opdracht
+        // wellicht is het zinvol om connection string / flags uit bestand te lezen (config file) -> zie opdracht
         // niet getest, wellicht zinvol om onder te verdelen in 3 klasses in de trend van de businesslaag sinds functies vrij groot zijn
         private string _connectionString;
         public DataManager(bool? truncateTablesOnStartup, bool? insertMockData)
