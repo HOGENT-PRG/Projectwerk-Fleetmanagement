@@ -36,3 +36,29 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 ### Demo
 
 *   NVT
+
+## Week 1 - 07/10-14/10
+
+### Planning
+
+* 
+*
+
+### Realisaties
+
+*
+*
+*
+*
+*
+
+### To-do (in geen specifieke volgorde)
+
+* Schrijven van unit tests voor business laag
+* * Aan de hand van unit test resultaten de business laag verbeteren
+* Methodes voor model klasses
+* Data Laag klassendiagram
+* Ontwikkelen valideer functie RRNValideerder
+
+### Obstakels
+* 
