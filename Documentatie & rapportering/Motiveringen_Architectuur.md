@@ -13,6 +13,10 @@ Hieronder een vergelijking tussen het MVC model en de dependencies zoals ze nu i
 
 ![Vergelijking](https://i.imgur.com/eZnbI9K.png)
 
+Hieronder een voorbeeld van een klassiek n-lagen architectuur design.
+
+![Design n-lagen](https://i.imgur.com/Lg32GFf.png)
+
 ## Design klassen
 
 >TODO: class diagrams invoegen
