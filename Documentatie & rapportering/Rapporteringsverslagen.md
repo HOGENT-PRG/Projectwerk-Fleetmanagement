@@ -47,7 +47,7 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 ### Realisaties
 
-*
+* Toevoegen DataManager & Initializer met custom exceptions
 *
 *
 *
