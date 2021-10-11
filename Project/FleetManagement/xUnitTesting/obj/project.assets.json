@@ -1768,33 +1768,6 @@
         "build": {
           "build/netcoreapp2.1/xunit.runner.visualstudio.props": {}
         }
-      },
-      "BusinessLaag/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "DataLaag": "1.0.0",
-          "System.Data.SqlClient": "4.8.3"
-        },
-        "compile": {
-          "bin/placeholder/BusinessLaag.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BusinessLaag.dll": {}
-        }
-      },
-      "DataLaag/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "System.Data.SqlClient": "4.8.3"
-        },
-        "compile": {
-          "bin/placeholder/DataLaag.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DataLaag.dll": {}
-        }
       }
     }
   },
@@ -5984,21 +5957,10 @@
         "xunit.runner.visualstudio.2.4.3.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
-    },
-    "BusinessLaag/1.0.0": {
-      "type": "project",
-      "path": "../BusinessLaag/BusinessLaag.csproj",
-      "msbuildProject": "../BusinessLaag/BusinessLaag.csproj"
-    },
-    "DataLaag/1.0.0": {
-      "type": "project",
-      "path": "../DataLaag/DataLaag.csproj",
-      "msbuildProject": "../DataLaag/DataLaag.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "BusinessLaag >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 16.7.1",
       "System.Data.SqlClient >= 4.8.3",
       "coverlet.collector >= 1.3.0",
@@ -6007,35 +5969,23 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\server\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
-=======
-    "C:\\Users\\abdellah\\.nuget\\packages\\": {}
->>>>>>> 23865f005982288edc46309b0ccd7cfaa7fcedec
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
       "projectName": "xUnitTesting",
       "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
       "packagesPath": "C:\\Users\\server\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\obj\\",
-=======
-      "projectUniqueName": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
-      "projectName": "xUnitTesting",
-      "projectPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
-      "packagesPath": "C:\\Users\\abdellah\\.nuget\\packages\\",
-      "outputPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\xUnitTesting\\obj\\",
->>>>>>> 23865f005982288edc46309b0ccd7cfaa7fcedec
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\abdellah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6043,17 +5993,12 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://packagesource": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {
-            "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
-              "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -6106,11 +6051,7 @@
             "privateAssets": "all"
           }
         },
-<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
-=======
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
->>>>>>> 23865f005982288edc46309b0ccd7cfaa7fcedec
       }
     }
   }

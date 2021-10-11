@@ -348,3 +348,21 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+~$ogboek.docx
+Project/FleetManagement/xUnitTesting/obj/xUnitTesting.csproj.nuget.g.targets
+Project/FleetManagement/xUnitTesting/obj/xUnitTesting.csproj.nuget.g.props
+Project/FleetManagement/xUnitTesting/obj/xUnitTesting.csproj.nuget.dgspec.json
+Project/FleetManagement/xUnitTesting/obj/Release/net5.0/xUnitTesting.GeneratedMSBuildEditorConfig.editorconfig
+Project/FleetManagement/xUnitTesting/obj/Release/net5.0/xUnitTesting.assets.cache
+Project/FleetManagement/xUnitTesting/obj/Release/net5.0/xUnitTesting.AssemblyInfoInputs.cache
+Project/FleetManagement/xUnitTesting/obj/Release/net5.0/xUnitTesting.AssemblyInfo.cs
+Project/FleetManagement/xUnitTesting/obj/Release/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs
+Project/FleetManagement/xUnitTesting/obj/project.nuget.cache
+Project/FleetManagement/xUnitTesting/obj/project.assets.json
+Project/FleetManagement/xUnitTesting/obj/Debug/net5.0/xUnitTesting.GeneratedMSBuildEditorConfig.editorconfig
+Project/FleetManagement/xUnitTesting/obj/Debug/net5.0/xUnitTesting.csprojAssemblyReference.cache
+Project/FleetManagement/xUnitTesting/obj/Debug/net5.0/xUnitTesting.csproj.AssemblyReference.cache
+Project/FleetManagement/xUnitTesting/obj/Debug/net5.0/xUnitTesting.assets.cache
+Project/FleetManagement/xUnitTesting/obj/Debug/net5.0/xUnitTesting.AssemblyInfoInputs.cache
+Project/FleetManagement/xUnitTesting/obj/Debug/net5.0/xUnitTesting.AssemblyInfo.cs
+Project/FleetManagement/xUnitTesting/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs
