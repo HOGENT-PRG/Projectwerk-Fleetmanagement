@@ -45,11 +45,7 @@ namespace WPFApp {
         /// InitializeComponent
         /// </summary>
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-<<<<<<< HEAD
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.9.0")]
-=======
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.2.0")]
->>>>>>> 23865f005982288edc46309b0ccd7cfaa7fcedec
         public void InitializeComponent() {
             
             #line 5 "..\..\..\App.xaml"
@@ -64,11 +60,7 @@ namespace WPFApp {
         /// </summary>
         [System.STAThreadAttribute()]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-<<<<<<< HEAD
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.9.0")]
-=======
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.2.0")]
->>>>>>> 23865f005982288edc46309b0ccd7cfaa7fcedec
         public static void Main() {
             WPFApp.App app = new WPFApp.App();
             app.InitializeComponent();

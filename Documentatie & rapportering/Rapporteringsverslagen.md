@@ -41,12 +41,13 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 ### Planning
 
-* 
-*
+* Klassendiagram Data Laag : Robrecht
+* Rijksregisternummer validatie : Abdellah
+* Unit tests model business laag (zonder controllers) & rechtzetting property visibilities business laag : Benjamin
 
 ### Realisaties
 
-*
+* Toevoegen DataManager & Initializer met custom exceptions
 *
 *
 *
