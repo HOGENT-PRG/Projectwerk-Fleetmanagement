@@ -14,9 +14,9 @@ namespace BusinessLaag
             Valideer(rijksregisternummer);
         }
         public string Rijksregisternummer { get; set; }
-       public void Valideer(string rijksregnummer)
+       public string Valideer(string rijksregnummer)
         {
-           
+            Rijksregisternummer = rijksregnummer;
             int geboortejaar = int.Parse(rijksregnummer.Substring(0, 2));
             int geboorteMaand = int.Parse(rijksregnummer.Substring(2, 2));
             int geboortedag = int.Parse(rijksregnummer.Substring(4, 2));
@@ -32,16 +32,18 @@ namespace BusinessLaag
                 Controlecijfer += divide;
             }else{
                 int divide = 97 - (int.Parse(rijksregnummer.Substring(0, 9)) % 97);
-                Console.WriteLine(divide);
+              //  Console.WriteLine(divide);
                 Controlecijfer += divide;
             }if (Controlecijfer == int.Parse(rijksregnummer.Substring(9, 2))){
-                Console.WriteLine("Rijksregnummer geldig");
+                // Console.WriteLine("Rijksregnummer geldig");
+                return "Rijksregisternummer geldig";
 
             }
             else {
-                Console.WriteLine("Rijksregnummer ongeldig");
+                // Console.WriteLine("Rijksregnummer ongeldig");
+                return "Rijksregisternummer ongeldig";
             }
-            Rijksregisternummer = rijksregnummer;
+    
         }
     }
 
