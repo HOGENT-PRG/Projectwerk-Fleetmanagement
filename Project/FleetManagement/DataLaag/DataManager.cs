@@ -17,12 +17,12 @@ namespace DataLaag
         public DataManager(bool? truncateTablesOnStartup, bool? insertMockData)
         {
             _connectionString = new Configuraties().ConnectionString;
-            Initializer Initializer = new Initializer(truncateTablesOnStartup, insertMockData, _connectionString);
+            Initializer Initializer = new(truncateTablesOnStartup, insertMockData, _connectionString);
         }
 
         public List<Dictionary<string, object>> SelecteerBestuurders()
         {
-            List<Dictionary<string, object>> geselecteerdeBestuurders = new List<Dictionary<string, object>>();
+            List<Dictionary<string, object>> geselecteerdeBestuurders = new();
 
             SqlConnection connection = new SqlConnection(_connectionString);
 
@@ -36,6 +36,9 @@ namespace DataLaag
                     while (reader.Read())
                     {
                         geselecteerdeBestuurders.Add(Enumerable.Range(0, reader.FieldCount).ToDictionary(reader.GetName, reader.GetValue));
+                        // indien bovenstaande niet werkt, manueel dict bouwen
+                        // de argumenten per dict in de constructor van de object initiatie steken (BusinessLaag.Model)
+                        // geen reflectie e.d. vereist (wellicht wel voor zoekfunctie, misschien manueel een mapping aanmaken)
                     }
                     return geselecteerdeBestuurders;
                 } catch (Exception e)

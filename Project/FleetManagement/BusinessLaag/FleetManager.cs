@@ -19,7 +19,7 @@ namespace BusinessLaag
             VoertuigController = new VoertuigController(this);
             BestuurderController = new BestuurderController(this);
             TankkaartController = new TankkaartController(this);
-            DataManager = new DataManager();
+            DataManager = new DataManager(truncateTablesOnStartup:true,insertMockData:true);
         }
     }
 }

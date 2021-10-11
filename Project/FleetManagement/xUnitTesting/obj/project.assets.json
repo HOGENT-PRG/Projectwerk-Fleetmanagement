@@ -1768,6 +1768,33 @@
         "build": {
           "build/netcoreapp2.1/xunit.runner.visualstudio.props": {}
         }
+      },
+      "BusinessLaag/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DataLaag": "1.0.0",
+          "System.Data.SqlClient": "4.8.3"
+        },
+        "compile": {
+          "bin/placeholder/BusinessLaag.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BusinessLaag.dll": {}
+        }
+      },
+      "DataLaag/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "System.Data.SqlClient": "4.8.3"
+        },
+        "compile": {
+          "bin/placeholder/DataLaag.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DataLaag.dll": {}
+        }
       }
     }
   },
@@ -5957,10 +5984,21 @@
         "xunit.runner.visualstudio.2.4.3.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "BusinessLaag/1.0.0": {
+      "type": "project",
+      "path": "../BusinessLaag/BusinessLaag.csproj",
+      "msbuildProject": "../BusinessLaag/BusinessLaag.csproj"
+    },
+    "DataLaag/1.0.0": {
+      "type": "project",
+      "path": "../DataLaag/DataLaag.csproj",
+      "msbuildProject": "../DataLaag/DataLaag.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "BusinessLaag >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 16.7.1",
       "System.Data.SqlClient >= 4.8.3",
       "coverlet.collector >= 1.3.0",
@@ -5998,7 +6036,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+              "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

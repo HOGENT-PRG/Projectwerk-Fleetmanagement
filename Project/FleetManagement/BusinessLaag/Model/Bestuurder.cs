@@ -4,22 +4,27 @@ using System.Linq;
 using System.Text;
 using BusinessLaag.Exceptions;
 using BusinessLaag.Helpers;
+using BusinessLaag.Model.Attributes;
 using System.Threading.Tasks;
 
 namespace BusinessLaag
 {
-    public class Bestuurder
-    {
 #nullable enable
-        public int? Id { get; private set; }
-        public string Naam { get; private set; }
-        public string Voornaam { get; private set; }
-        public string? Adres { get; private set; }
-        public long GeboorteDatum { get; private set; }
-        public string RijksRegisterNummer { get; private set; }
-        public RijbewijsSoort RijbewijsSoort { get; private set; }
-        public Voertuig? Voertuig { get; private set; }
-        public Tankkaart? Tankkaart { get; private set; }
+    [TableMap(tableName:"bestuurder")] public class Bestuurder
+    {
+        [TableMap(colName: "id")]  public int? Id { get; private set; }
+        [TableMap(colName: "naam")]  public string Naam { get; private set; }
+        [TableMap(colName: "voornaam")] public string Voornaam { get; private set; }
+        [TableMap(colName: "adres")] public string? Adres { get; private set; }
+        [TableMap(colName: "geboortedatum")] public long GeboorteDatum { get; private set; }
+
+        [TableMap(colName: "rijksregisternummer")] public string RijksRegisterNummer { get; private set; }
+
+        [TableMap(colName: "rijbewijssoort")] public RijbewijsSoort RijbewijsSoort { get; private set; }
+
+        [TableMap(colName: "voertuig_id")] public Voertuig? Voertuig { get; private set; }
+
+        [TableMap(colName: "tankkaart_id")] public Tankkaart? Tankkaart { get; private set; }
 
         public Bestuurder(int? id, string naam, string voornaam, string? adres, long geboortedatum, 
             string rijksregisternummer, RijbewijsSoort rijbewijssoort, Voertuig? voertuig, Tankkaart? tankkaart)
