@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "j8mNdtDlYLRDMWFCZ3wgk/3d0innnrF8/Kru17CU1pHj6fDr53T5kamkFid0nOGO+stYOb1Wgz95OeYnCWmEmg==",
   "success": true,
   "projectFilePath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
@@ -13,6 +14,21 @@
     "C:\\Users\\server\\.nuget\\packages\\system.data.sqlclient\\4.8.3\\system.data.sqlclient.4.8.3.nupkg.sha512",
     "C:\\Users\\server\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
     "C:\\Users\\server\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"
+=======
+  "dgSpecHash": "Bzwv9FgpKLSuiLFwVBXo1yVXTgw16xqJlCRaV6RuTl/EghnAfI3N6J7Db4bfhsyXfWFljLby6OB8m+/pI6cSUQ==",
+  "success": true,
+  "projectFilePath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\abdellah\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\abdellah\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\abdellah\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
+    "C:\\Users\\abdellah\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\abdellah\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\abdellah\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\abdellah\\.nuget\\packages\\system.data.sqlclient\\4.8.3\\system.data.sqlclient.4.8.3.nupkg.sha512",
+    "C:\\Users\\abdellah\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
+    "C:\\Users\\abdellah\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"
+>>>>>>> 23865f005982288edc46309b0ccd7cfaa7fcedec
   ],
   "logs": []
 }

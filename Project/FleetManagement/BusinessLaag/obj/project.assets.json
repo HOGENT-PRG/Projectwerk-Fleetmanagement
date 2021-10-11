@@ -470,23 +470,35 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\server\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+=======
+    "C:\\Users\\abdellah\\.nuget\\packages\\": {}
+>>>>>>> 23865f005982288edc46309b0ccd7cfaa7fcedec
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
       "projectName": "BusinessLaag",
       "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
       "packagesPath": "C:\\Users\\server\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\obj\\",
+=======
+      "projectUniqueName": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
+      "projectName": "BusinessLaag",
+      "projectPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
+      "packagesPath": "C:\\Users\\abdellah\\.nuget\\packages\\",
+      "outputPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\BusinessLaag\\obj\\",
+>>>>>>> 23865f005982288edc46309b0ccd7cfaa7fcedec
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\abdellah\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -494,14 +506,20 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://packagesource": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+<<<<<<< HEAD
             "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
               "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj"
+=======
+            "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
+              "projectPath": "D:\\Jaar2 Programm\\Projectwerk\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj"
+>>>>>>> 23865f005982288edc46309b0ccd7cfaa7fcedec
             }
           }
         }
@@ -536,7 +554,11 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+=======
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+>>>>>>> 23865f005982288edc46309b0ccd7cfaa7fcedec
       }
     }
   }
