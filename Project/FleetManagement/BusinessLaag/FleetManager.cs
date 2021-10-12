@@ -15,10 +15,14 @@ namespace BusinessLaag
         public IStartupSequence StartupSequence { get; private set; }
 
         /* Repositories van DAL */
-        /** Stelt functies van de data laag beschikbaar aan de Managers. */
-        public IVoertuigRepository VoertuigRepository { get; private set; }
-        public IBestuurderRepository BestuurderRepository { get; private set; }
-        public ITankkaartRepository TankkaartRepository { get; private set; }
+        /** Stelt functies van de data laag beschikbaar aan de Managers. 
+            De visibiliteit van de repositories staat op private, elke Manager
+            krijgt bij instantiering de correcte repository mee en kan dus niet
+            per ongeluk de taken van een andere Manager overnemen.
+         */
+        private IVoertuigRepository VoertuigRepository { get; set; }
+        private IBestuurderRepository BestuurderRepository { get; set; }
+        private ITankkaartRepository TankkaartRepository { get; set; }
 
         /* Managers uit domeinlaag */
         /** Deze roepen functies aan van de ...Repository klassen en handhaven de domeinregels */
@@ -49,10 +53,12 @@ namespace BusinessLaag
                 TankkaartRepository.ZetConnectionString(connectionString);
 
                 /* De fleetmanager wordt meegegeven zodat zij elkaar niet tig maal hoeven te importeren.
-                   Tevens geeft het de presentatielaag toegang tot alle Managers op 1 centraal punt. */
-                VoertuigManager = new(this);
-                BestuurderManager = new(this);
-                TankkaartManager = new(this);
+                   Tevens geeft het de presentatielaag toegang tot alle Managers op 1 centraal punt.
+                   Daarnaast wordt de correcte repository meegegeven welke binnen de klasse nodig is.
+                */
+                VoertuigManager = new(this, VoertuigRepository);
+                BestuurderManager = new(this, BestuurderRepository);
+                TankkaartManager = new(this, TankkaartRepository);
             }
         }
     }
