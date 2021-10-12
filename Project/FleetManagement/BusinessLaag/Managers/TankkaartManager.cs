@@ -10,10 +10,12 @@ namespace BusinessLaag.Managers
     public class TankkaartManager : ITankkaartManager
     {
         private static FleetManager _fleetManager;
+        private ITankkaartRepository _repository;
 
-        public TankkaartManager(FleetManager fleetmanager)
+        public TankkaartManager(FleetManager fleetmanager, ITankkaartRepository repository)
         {
             _fleetManager = fleetmanager;
+            _repository = repository;
         }
 
         public Tankkaart fetchTankkaartDetail(int id)

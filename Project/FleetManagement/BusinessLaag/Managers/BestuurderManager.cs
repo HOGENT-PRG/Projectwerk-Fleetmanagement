@@ -11,10 +11,12 @@ namespace BusinessLaag.Managers
     public class BestuurderManager : IBestuurderManager
     {
         private static FleetManager _fleetManager;
+        private IBestuurderRepository _repository;
 
-        public BestuurderManager(FleetManager fleetmanager)
+        public BestuurderManager(FleetManager fleetmanager, IBestuurderRepository repository)
         {
             _fleetManager = fleetmanager;
+            _repository = repository;
         }
 
         public Bestuurder fetchBestuurderDetail(int id)

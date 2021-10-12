@@ -10,10 +10,12 @@ namespace BusinessLaag.Managers
     public class VoertuigManager : IVoertuigManager
     {
         private static FleetManager _fleetManager;
+        private IVoertuigRepository _repository;
 
-        public VoertuigManager(FleetManager fleetmanager)
+        public VoertuigManager(FleetManager fleetmanager, IVoertuigRepository repository)
         {
             _fleetManager = fleetmanager;
+            _repository = repository;
         }
 
         public Voertuig fetchVoertuigDetail(int id)
