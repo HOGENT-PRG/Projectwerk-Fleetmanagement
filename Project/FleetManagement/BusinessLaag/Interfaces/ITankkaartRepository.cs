@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BusinessLaag.Interfaces
 {
-    public interface ITankkaartController
+    public interface ITankkaartRepository
     {
+        void ZetConnectionString(string connectionString);
         void voegTankkaartToe(Tankkaart tankkaart);
         void updateTankkaart(Tankkaart tankkaart);
         void verwijderTankkaart(Tankkaart tankkaart);

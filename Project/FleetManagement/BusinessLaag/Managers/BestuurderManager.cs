@@ -1,38 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using BusinessLaag.Interfaces;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Reflection;
-using BusinessLaag.Interfaces;
 
-namespace BusinessLaag.Controllers
+namespace BusinessLaag.Managers
 {
-    public class BestuurderController : IBestuurderController
+    public class BestuurderManager : IBestuurderManager
     {
-        private static FleetManager FleetManager;
-        public BestuurderController(FleetManager fleetmanager)
+        private static FleetManager _fleetManager;
+
+        public BestuurderManager(FleetManager fleetmanager)
         {
-            FleetManager = fleetmanager;
+            _fleetManager = fleetmanager;
         }
 
         public Bestuurder fetchBestuurderDetail(int id)
         {
             throw new NotImplementedException();
-        }
-
-        public IEnumerable<string> fetchBestuurderProperties()
-        {
-            //PropertyInfo[] myPropertyInfo = Type.GetType("BusinessLaag.Model.Voertuig,BusinessLaag").GetProperties();
-            PropertyInfo[] myPropertyInfo = typeof(Voertuig).GetProperties();
-            List<string> props = new List<string>();
-
-            for (int i = 0; i < myPropertyInfo.Length; i++)
-            {
-                props.Add(myPropertyInfo[i].Name);
-            }
-
-            return props;
         }
 
         public IEnumerable<Bestuurder> fetchBestuurders()
@@ -56,6 +43,13 @@ namespace BusinessLaag.Controllers
         }
 
         public IEnumerable<Bestuurder> zoekBestuurders()
+        {
+            throw new NotImplementedException();
+        }
+
+        // eventueel gebruiken voor TableMap, indien het een goed idee is
+
+        public IEnumerable<string> fetchBestuurderProperties()
         {
             throw new NotImplementedException();
         }

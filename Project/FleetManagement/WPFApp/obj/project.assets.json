@@ -135,7 +135,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "DataLaag": "1.0.0",
           "System.Data.SqlClient": "4.8.3"
         },
         "compile": {
@@ -143,19 +142,6 @@
         },
         "runtime": {
           "bin/placeholder/BusinessLaag.dll": {}
-        }
-      },
-      "DataLaag/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "System.Data.SqlClient": "4.8.3"
-        },
-        "compile": {
-          "bin/placeholder/DataLaag.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DataLaag.dll": {}
         }
       }
     }
@@ -475,11 +461,6 @@
       "type": "project",
       "path": "../BusinessLaag/BusinessLaag.csproj",
       "msbuildProject": "../BusinessLaag/BusinessLaag.csproj"
-    },
-    "DataLaag/1.0.0": {
-      "type": "project",
-      "path": "../DataLaag/DataLaag.csproj",
-      "msbuildProject": "../DataLaag/DataLaag.csproj"
     }
   },
   "projectFileDependencyGroups": {

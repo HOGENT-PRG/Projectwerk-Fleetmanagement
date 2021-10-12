@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataLaag.Exceptions
 {
-    public class DataManagerException : Exception
+    public class StartupSequenceException : Exception
     {
-        public DataManagerException(string msg): base(msg){}
+        public StartupSequenceException(string msg) : base(msg) { }
     }
 }

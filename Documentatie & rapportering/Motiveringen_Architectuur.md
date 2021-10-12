@@ -4,18 +4,18 @@
 
 ### Layer dependencies
 
-De WPF applicatie **DEPENDS ON** de Business Laag welke op zijn beurt **DEPENDS ON** de Data Laag.
+De dependencies staan ingesteld als volgt:
+![Dependencies Visualized](https://i.imgur.com/hR0gUvS.png)
 
-Een interactie met de WPF Applicatie resulteert dus in een function call binnen de BusinessLaag.
-Een operatie binnen de Businesslaag die data vereist uit de databank resulteert dus in een function call binnen de DataLaag.
+In de WPF applicatie worden de Controllers geinstantieerd, in de constructor krijgen deze een instantie van de relevante repository mee. (bv BestuurderController ontvangt BestuurderRepository)
 
-Hieronder een vergelijking tussen het MVC model en de dependencies zoals ze nu ingesteld staan.
+Hierdoor kunnen de functionaliteiten van de Data Laag gebruikt worden in de Business Laag zonder hiervoor een dependency nodig te hebben.
+De Data Laag kent, dankzij zijn dependency van de Business Laag het model en kan dus aan de hand van data uit de databank, deze direct omvormen naar Model objecten.
 
-![Vergelijking](https://i.imgur.com/eZnbI9K.png)
+Een interactie met de WPF Applicatie resulteert in een function call binnen de BusinessLaag.
+De Business Laag past de domeinregels toe en interageert met de meegegeven repository om het doel van de aangeroepen functie te voltooien.
 
-Hieronder een voorbeeld van een klassiek n-lagen architectuur design.
-
-![Design n-lagen](https://i.imgur.com/Lg32GFf.png)
+![Solution Layers](https://media.discordapp.net/attachments/893108471011090502/895043004274974780/1920px-Overview_of_a_three-tier_application_vectorVersion.png)
 
 ## Design klassen
 
@@ -39,7 +39,7 @@ Aangezien, bij eventuele uitbreidingen, het geheel onoverzichtelijk zou worden i
 Elke Controller staat in voor:
 - intermediaire rol tussen presentatielaag en datalaag
 - waarborgen domeinregels (bijv. geen 2 personen met zelfde rijksregisternummer toegestaan)
-- transformatie van data afkomstig van de datalaag naar Model objecten
+~~- transformatie van data afkomstig van de datalaag naar Model objecten
 - rapporteren over de uitgevoerde functie (geslaagd/niet geslaagd) en het retourneren van eventuele data naar de persistentielaag
 
 Aangezien een controller in sommige gevallen (bijv updaten van Voertuig na het verwijderen van een/zijn Bestuurder) een andere controller moet kunnen aanspreken,
@@ -47,7 +47,6 @@ wordt als argument de fleetmanager meegegeven.
 
 De FleetManager:
 - beheert Controllers, eenvoudig uit te breiden indien nodig
-- bevat de link tussen de business laag en de data laag door instantiering van DataManager
 
 Indien de FleetManager niet zou bestaan is:
 - interactie tussen controllers niet mogelijk (behalve door ze tig maal te instantieren)

@@ -130,6 +130,19 @@
             "rid": "win"
           }
         }
+      },
+      "BusinessLaag/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "System.Data.SqlClient": "4.8.3"
+        },
+        "compile": {
+          "bin/placeholder/BusinessLaag.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BusinessLaag.dll": {}
+        }
       }
     }
   },
@@ -443,10 +456,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "BusinessLaag/1.0.0": {
+      "type": "project",
+      "path": "../BusinessLaag/BusinessLaag.csproj",
+      "msbuildProject": "../BusinessLaag/BusinessLaag.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "BusinessLaag >= 1.0.0",
       "System.Data.SqlClient >= 4.8.3"
     ]
   },
@@ -480,7 +499,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+              "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

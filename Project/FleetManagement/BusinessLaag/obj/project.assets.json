@@ -130,19 +130,6 @@
             "rid": "win"
           }
         }
-      },
-      "DataLaag/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "System.Data.SqlClient": "4.8.3"
-        },
-        "compile": {
-          "bin/placeholder/DataLaag.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DataLaag.dll": {}
-        }
       }
     }
   },
@@ -456,16 +443,10 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "DataLaag/1.0.0": {
-      "type": "project",
-      "path": "../DataLaag/DataLaag.csproj",
-      "msbuildProject": "../DataLaag/DataLaag.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "DataLaag >= 1.0.0",
       "System.Data.SqlClient >= 4.8.3"
     ]
   },
@@ -499,11 +480,7 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {
-            "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
-              "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

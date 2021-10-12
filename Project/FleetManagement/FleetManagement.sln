@@ -4,18 +4,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLaag", "DataLaag\DataLaag.csproj", "{A2ACB39D-72AD-48F3-979A-ABF7D8CDC835}"
+	ProjectSection(ProjectDependencies) = postProject
+		{93072F16-B371-4B8D-B7FE-8AFAA6B7FED6} = {93072F16-B371-4B8D-B7FE-8AFAA6B7FED6}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLaag", "BusinessLaag\BusinessLaag.csproj", "{93072F16-B371-4B8D-B7FE-8AFAA6B7FED6}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A2ACB39D-72AD-48F3-979A-ABF7D8CDC835} = {A2ACB39D-72AD-48F3-979A-ABF7D8CDC835}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFApp", "WPFApp\WPFApp.csproj", "{658B98C5-8C11-40F4-96D2-47665E8A2123}"
 	ProjectSection(ProjectDependencies) = postProject
 		{93072F16-B371-4B8D-B7FE-8AFAA6B7FED6} = {93072F16-B371-4B8D-B7FE-8AFAA6B7FED6}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xUnitTesting", "xUnitTesting\xUnitTesting.csproj", "{640C3D40-1260-4720-8DA6-0E68FFB3364D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xUnitTesting", "xUnitTesting\xUnitTesting.csproj", "{640C3D40-1260-4720-8DA6-0E68FFB3364D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{93072F16-B371-4B8D-B7FE-8AFAA6B7FED6} = {93072F16-B371-4B8D-B7FE-8AFAA6B7FED6}
 	EndProjectSection
