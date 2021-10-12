@@ -4,7 +4,8 @@
 
 ### Layer dependencies
 
-De WPF applicatie **DEPENDS ON** de Business Laag, de Data Laag **DEPENDS ON** de Business Laag
+De dependencies staan ingesteld als volgt:
+![Dependencies Visualized](https://i.imgur.com/hR0gUvS.png)
 
 In de WPF applicatie worden de Controllers geinstantieerd, in de constructor krijgen deze een instantie van de relevante repository mee. (bv BestuurderController ontvangt BestuurderRepository)
 
