@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
-using DataLaag.Exceptions;
 using BusinessLaag.Model;
 using BusinessLaag;
 using BusinessLaag.Exceptions;
@@ -20,7 +19,7 @@ namespace DataLaag.Repositories
 
         public void ZetConnectionString(string connectionString)
         {
-            _connectionString = connectionString.Length > 5 ? connectionString : throw new BestuurderException("Connection string moet langer zijn dan 5 karakters");
+            _connectionString = connectionString.Length > 5 ? connectionString : throw new BestuurderRepositoryException("Connection string moet langer zijn dan 5 karakters");
         }
 
         public Bestuurder fetchBestuurderDetail(int id)
@@ -30,7 +29,7 @@ namespace DataLaag.Repositories
 
         public IEnumerable<Bestuurder> fetchBestuurders()
         {
-            List<Bestuurder> geselecteerdeBestuurders = new();
+            List<Bestuurder> geselecteerdeBestuurders = new List<Bestuurder>();
 
             SqlConnection connection = new SqlConnection(_connectionString);
 
@@ -46,12 +45,12 @@ namespace DataLaag.Repositories
                         // TODO
                         // de objecten dienen hier aangemaakt te worden en in de lijst geselecteerdeBestuurders gestoken te worden
                     }
+
                     return geselecteerdeBestuurders;
                 }
                 catch (Exception e)
                 {
-                    // TODO: custom exception aanmaken voor ....Repository klassen (opslaan in businesslaag)
-                    throw new Exception(e.Message);
+                    throw new BestuurderRepositoryException(e.Message);
                 }
                 finally
                 {

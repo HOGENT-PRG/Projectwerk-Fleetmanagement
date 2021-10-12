@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLaag.Exceptions
+namespace BusinessLaag.Exceptions
 {
     public class StartupSequenceException : Exception
     {

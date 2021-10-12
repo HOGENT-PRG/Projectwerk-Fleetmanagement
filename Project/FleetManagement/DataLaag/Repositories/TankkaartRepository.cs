@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
-using DataLaag.Exceptions;
 using BusinessLaag.Model;
 using BusinessLaag;
 using BusinessLaag.Interfaces;
@@ -19,7 +18,7 @@ namespace DataLaag.Repositories
 
         public void ZetConnectionString(string connectionString)
         {
-            _connectionString = connectionString.Length > 5 ? connectionString : throw new TankkaartException("Connection string moet langer zijn dan 5 karakters");
+            _connectionString = connectionString.Length > 5 ? connectionString : throw new TankkaartRepositoryException("Connection string moet langer zijn dan 5 karakters");
         }
 
         public Tankkaart fetchTankkaartDetail(int id)
