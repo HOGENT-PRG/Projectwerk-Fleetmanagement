@@ -38,7 +38,7 @@ Aangezien, bij eventuele uitbreidingen, het geheel onoverzichtelijk zou worden i
 Elke Controller staat in voor:
 - intermediaire rol tussen presentatielaag en datalaag
 - waarborgen domeinregels (bijv. geen 2 personen met zelfde rijksregisternummer toegestaan)
-- transformatie van data afkomstig van de datalaag naar Model objecten
+~~- transformatie van data afkomstig van de datalaag naar Model objecten
 - rapporteren over de uitgevoerde functie (geslaagd/niet geslaagd) en het retourneren van eventuele data naar de persistentielaag
 
 Aangezien een controller in sommige gevallen (bijv updaten van Voertuig na het verwijderen van een/zijn Bestuurder) een andere controller moet kunnen aanspreken,
@@ -46,7 +46,6 @@ wordt als argument de fleetmanager meegegeven.
 
 De FleetManager:
 - beheert Controllers, eenvoudig uit te breiden indien nodig
-- bevat de link tussen de business laag en de data laag door instantiering van DataManager
 
 Indien de FleetManager niet zou bestaan is:
 - interactie tussen controllers niet mogelijk (behalve door ze tig maal te instantieren)
