@@ -5,47 +5,48 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessLaag.Interfaces;
 
-namespace BusinessLaag.Controllers
+namespace BusinessLaag.Managers
 {
-    public class TankkaartController: ITankkaartController
+    public class VoertuigManager : IVoertuigManager
     {
-        private static FleetManager FleetManager;
-        public TankkaartController(FleetManager fleetmanager)
+        private static FleetManager _fleetManager;
+
+        public VoertuigManager(FleetManager fleetmanager)
         {
-            FleetManager = fleetmanager;
+            _fleetManager = fleetmanager;
         }
 
-        public Tankkaart fetchTankkaartDetail(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Tankkaart> fetchTankkaarten()
+        public Voertuig fetchVoertuigDetail(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> fetchTankkaartProperties()
+        public IEnumerable<Voertuig> fetchVoertuigen()
         {
             throw new NotImplementedException();
         }
 
-        public void updateTankkaart(Tankkaart tankkaart)
+        public IEnumerable<string> fetchVoertuigProperties()
         {
             throw new NotImplementedException();
         }
 
-        public void verwijderTankkaart(Tankkaart tankkaart)
+        public void updateVoertuig(Voertuig voertuig)
         {
             throw new NotImplementedException();
         }
 
-        public void voegTankkaartToe(Tankkaart tankkaart)
+        public void verwijderVoertuig(Voertuig voertuig)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Tankkaart> zoekTankkaarten()
+        public void voegVoertuigToe(Voertuig voertuig)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Voertuig> zoekVoertuig()
         {
             throw new NotImplementedException();
         }

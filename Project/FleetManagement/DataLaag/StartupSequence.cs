@@ -4,46 +4,68 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataLaag.Exceptions;
+using BusinessLaag.Interfaces;
 
 namespace DataLaag
 {
     //niet getest
+    // kan eventueel config bestand uitlezen zoals gevraagd in opdracht
 
     // het doel van deze klasse is om:
     // - de connectie te testen dmv de connection string (altijd als de applicatie start)
     // - de databank te legen bij het opstarten indien enabled
     // - mock data in de db te steken indien enabled
-    public class StartupSequence
+    public class StartupSequence : IStartupSequence
     {
-        public bool ConnectionSuccessful { get; init; }
+        public bool HasRan { get; private set; }
+        public bool ConnectionSuccessful { get; private set; }
         public bool TruncatedTables { get; private set; }
         public bool InsertedMockData { get; private set; }
-        public StartupSequence(bool? truncateTablesOnStartup, bool? insertMockData, string connectionString)
-        {
-            ConnectionSuccessful = _attemptDatabaseConnection(connectionString);
 
-            if (!(truncateTablesOnStartup is null or false)) _truncateTablesOnStartup();
-            else TruncatedTables = false;
-            if (!(insertMockData is null or false)) _insertMockData();
-            else InsertedMockData = false;
+        private string _connectionString { get; set; }
+
+        public void Execute(string connectionString, bool truncateTablesOnStartup=false, bool insertMockData=false)
+        {
+            if (!HasRan)
+            {
+                _connectionString = connectionString.Length > 5 ? connectionString : throw new StartupSequenceException("Connection string moet minstens 5 karakters lang zijn.");
+
+                _attemptDatabaseConnection();
+
+                if (!(truncateTablesOnStartup is false)) _truncateTablesOnStartup();
+                else TruncatedTables = false;
+                if (!(insertMockData is false)) _insertMockData();
+                else InsertedMockData = false;
+
+                HasRan = true;
+            } else
+            {
+                throw new StartupSequenceException("De startup sequentie heeft reeds plaatsgevonden, je kan deze slechts 1 keer per startup uitvoeren.");
+            }
         }
 
-        private bool _attemptDatabaseConnection(string connectionString)
+        private void _attemptDatabaseConnection()
         {
             // indien succesvol
-            return true;
+            ConnectionSuccessful = true;
             // indien connectie maken niet succesvol is
-            return false;
+            ConnectionSuccessful = false;
         }
 
         private void _truncateTablesOnStartup()
         {
-            throw new NotImplementedException();
+            // indien succesvol:
+            TruncatedTables = true;
+            // anders:
+            TruncatedTables = false;
         }
 
         private void _insertMockData()
         {
-            throw new NotImplementedException();
+            // indien succesvol:
+            InsertedMockData = true;
+            // anders: 
+            InsertedMockData = false;
         }
 
     }

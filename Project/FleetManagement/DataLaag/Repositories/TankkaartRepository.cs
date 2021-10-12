@@ -8,10 +8,53 @@ using System.Data.SqlClient;
 using DataLaag.Exceptions;
 using BusinessLaag.Model;
 using BusinessLaag;
+using BusinessLaag.Interfaces;
+using BusinessLaag.Exceptions;
 
 namespace DataLaag.Repositories
 {
-    public class TankkaartRepository
+    public class TankkaartRepository : ITankkaartRepository
     {
+        private string _connectionString { get; set; }
+
+        public void ZetConnectionString(string connectionString)
+        {
+            _connectionString = connectionString.Length > 5 ? connectionString : throw new TankkaartException("Connection string moet langer zijn dan 5 karakters");
+        }
+
+        public Tankkaart fetchTankkaartDetail(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Tankkaart> fetchTankkaarten()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<string> fetchTankkaartProperties()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void updateTankkaart(Tankkaart tankkaart)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void verwijderTankkaart(Tankkaart tankkaart)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void voegTankkaartToe(Tankkaart tankkaart)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Tankkaart> zoekTankkaarten()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
