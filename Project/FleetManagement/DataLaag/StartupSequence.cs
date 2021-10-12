@@ -13,19 +13,27 @@ namespace DataLaag
     // - de connectie te testen dmv de connection string (altijd als de applicatie start)
     // - de databank te legen bij het opstarten indien enabled
     // - mock data in de db te steken indien enabled
-    public class Initializer
+    public class StartupSequence
     {
-        public Initializer(bool? truncateTablesOnStartup, bool? insertMockData, string connectionString)
+        public bool ConnectionSuccessful { get; init; }
+        public bool TruncatedTables { get; private set; }
+        public bool InsertedMockData { get; private set; }
+        public StartupSequence(bool? truncateTablesOnStartup, bool? insertMockData, string connectionString)
         {
-            _attemptDatabaseConnection(connectionString);
+            ConnectionSuccessful = _attemptDatabaseConnection(connectionString);
+
             if (!(truncateTablesOnStartup is null or false)) _truncateTablesOnStartup();
+            else TruncatedTables = false;
             if (!(insertMockData is null or false)) _insertMockData();
+            else InsertedMockData = false;
         }
 
-        private void _attemptDatabaseConnection(string connectionString)
+        private bool _attemptDatabaseConnection(string connectionString)
         {
+            // indien succesvol
+            return true;
             // indien connectie maken niet succesvol is
-            throw new InitializerException("Er kon geen verbinding gemaakt worden met de databank.\nControleer de connection string en databank status.");
+            return false;
         }
 
         private void _truncateTablesOnStartup()

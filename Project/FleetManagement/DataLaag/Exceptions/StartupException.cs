@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataLaag.Exceptions
 {
-    public class InitializerException : Exception
+    public class StartupException : Exception
     {
-        public InitializerException(string msg) : base(msg) { }
+        public StartupException(string msg) : base(msg) { }
     }
 }
