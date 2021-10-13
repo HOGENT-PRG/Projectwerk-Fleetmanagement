@@ -37,7 +37,7 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 *   NVT
 
-## Week 1 - 07/10-14/10
+## Week 2 - 07/10-14/10
 
 ### Planning
 
@@ -70,3 +70,26 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 ### Demo
 * NVT
+
+
+
+## Week 3 - 14/10-21/10
+
+### Planning
+
+* t
+
+### Realisaties
+
+* t
+
+### To-do (in geen specifieke volgorde)
+
+*
+
+### Obstakels
+
+* t
+
+### Demo
+* (Unit testen + UI design) ???
