@@ -41,25 +41,32 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 ### Planning
 
-* Klassendiagram Data Laag : Robrecht
+* ~~Klassendiagram Data Laag : Robrecht~~ OK
 * Rijksregisternummer validatie : Abdellah
-* Unit tests model business laag (zonder controllers) & rechtzetting property visibilities business laag : Benjamin
+* Unit tests model business laag (**NOK: overgedragen naar volgende week**) ~~& rechtzetting property visibilities business laag~~ (OK) : Benjamin
 
 ### Realisaties
 
-* Toevoegen DataManager & Initializer met custom exceptions
-*
-*
-*
-*
+* Aanpassen layer dependencies (zie ![https://github.com/HOGENT-PRG/Projectwerk-Fleetmanagement/blob/main/Documentatie%20%26%20rapportering/Motiveringen_Architectuur.md](Motivering_Architectuur.md))
+* Controllers hernoemd naar Managers
+* Repositories toegevoegd in de data laag (met NotImplemented methodes)
+* De Managers en Repositories voorzien van interfaces
+* De Managers en Repositories voorzien van custom exceptions
+* FleetManager voorzien van inline commentaar
+* Aanmaak van StartSequence klasse
+* Herwerken van klassendiagram zodat deze de codebase accuraat representeert: toevoegen layer dependencies, corrigeren visibilities properties, toevoegen interfaces, toevoegen data laag klasses (StartSequence nog niet inbegrepen)
 
 ### To-do (in geen specifieke volgorde)
 
 * Schrijven van unit tests voor business laag
 * * Aan de hand van unit test resultaten de business laag verbeteren
-* Methodes voor model klasses
-* Data Laag klassendiagram
+* Methodes toevoegen aan Model klasses indien muteerbaarheid gewenst is
+* Verderwerken aan user interface mockups
+* ~~Data Laag klassendiagram~~
 * Ontwikkelen valideer functie RRNValideerder
 
 ### Obstakels
-* 
+* Branches beheren en pull requests maken (force push incident)
+
+### Demo
+* NVT
