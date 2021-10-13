@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
-using DataLaag.Exceptions;
 using BusinessLaag.Model;
 using BusinessLaag;
 using BusinessLaag.Interfaces;
@@ -20,7 +19,7 @@ namespace DataLaag.Repositories
 
         public void ZetConnectionString(string connectionString)
         {
-            _connectionString = connectionString.Length > 5 ? connectionString : throw new VoertuigException("Connection string moet langer zijn dan 5 karakters");
+            _connectionString = connectionString.Length > 5 ? connectionString : throw new VoertuigRepositoryException("Connection string moet langer zijn dan 5 karakters");
         }
 
         public Voertuig fetchVoertuigDetail(int id)

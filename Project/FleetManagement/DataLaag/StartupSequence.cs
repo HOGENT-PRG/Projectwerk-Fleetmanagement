@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataLaag.Exceptions;
+using BusinessLaag.Exceptions;
 using BusinessLaag.Interfaces;
 
 namespace DataLaag
@@ -46,6 +46,8 @@ namespace DataLaag
 
         private void _attemptDatabaseConnection()
         {
+            throw new NotImplementedException();
+
             // indien succesvol
             ConnectionSuccessful = true;
             // indien connectie maken niet succesvol is
@@ -54,6 +56,8 @@ namespace DataLaag
 
         private void _truncateTablesOnStartup()
         {
+            throw new NotImplementedException();
+
             // indien succesvol:
             TruncatedTables = true;
             // anders:
@@ -62,6 +66,8 @@ namespace DataLaag
 
         private void _insertMockData()
         {
+            throw new NotImplementedException();
+
             // indien succesvol:
             InsertedMockData = true;
             // anders: 

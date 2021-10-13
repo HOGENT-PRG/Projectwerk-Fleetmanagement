@@ -43,7 +43,7 @@ namespace BusinessLaag
 
             if (StartupSequence.ConnectionSuccessful)
             {
-                /* Deze kunnen gebruikt worden door de Managers */
+                /* Deze worden hieronder meegegeven bij de juiste Manager */
                 VoertuigRepository = voertuigRepo;
                 BestuurderRepository = bestuurderRepo;
                 TankkaartRepository = tankkaartRepo;
