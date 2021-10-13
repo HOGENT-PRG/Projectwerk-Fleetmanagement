@@ -7,11 +7,11 @@
 De dependencies staan ingesteld als volgt:
 ![Dependencies Visualized](https://i.imgur.com/hR0gUvS.png)
 
-In de WPF applicatie worden de Managers geinstantieerd, in de constructor krijgen deze een instantie van de relevante repository mee. (bv BestuurderController ontvangt BestuurderRepository)
+In de WPF applicatie wordt de FleetManager geinstantieerd welke Managers bevat, deze Managers krijgen in de constructor deze een instantie van de relevante repository mee. (bv BestuurderController ontvangt BestuurderRepository)
 
 Hierdoor kunnen de functionaliteiten van de Data Laag gebruikt worden in de Business Laag zonder hiervoor een dependency nodig te hebben.
 
-**De Data Laag kent**, dankzij zijn dependency **van de Business Laag het model** en kan dus aan de hand van **data uit de databank, deze direct omvormen naar Model objecten**, dat was bij de vorige dependency-constructie niet het geval (daar was de Business Laag dependent op de Data Laag om zijn functies te kunnen aanroepen **dit tov** het huidige model waarbij interfaces ingezet worden die door de Managers gebruikt worden om te interageren met de databank)
+**De Data Laag kent**, kent dankzij zijn dependency **van de Business Laag het model** en kan dus aan de hand van **data uit de databank, deze direct omvormen naar Model objecten**, dat was bij de vorige dependency-constructie niet het geval (daar was de Business Laag dependent op de Data Laag om zijn functies te kunnen aanroepen **dit tov** het huidige model waarbij interfaces ingezet worden die door de Managers gebruikt worden om te interageren met de databank)
 
 Een interactie met de WPF Applicatie resulteert in een function call binnen de BusinessLaag.
 De Business Laag past de domeinregels toe en interageert met de meegegeven repository om het doel van de aangeroepen functie te voltooien.
