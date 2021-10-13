@@ -47,7 +47,7 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 ### Realisaties
 
-* Aanpassen layer dependencies (zie ![https://github.com/HOGENT-PRG/Projectwerk-Fleetmanagement/blob/main/Documentatie%20%26%20rapportering/Motiveringen_Architectuur.md](Motivering_Architectuur.md))
+* Aanpassen layer dependencies (zie [Motivering_Architectuur.md](https://github.com/HOGENT-PRG/Projectwerk-Fleetmanagement/blob/main/Documentatie%20%26%20rapportering/Motiveringen_Architectuur.md))
 * Controllers hernoemd naar Managers
 * Repositories toegevoegd in de data laag (met NotImplemented methodes)
 * De Managers en Repositories voorzien van interfaces
