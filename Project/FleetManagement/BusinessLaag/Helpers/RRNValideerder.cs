@@ -24,7 +24,7 @@ namespace BusinessLaag.Helpers
             if (a.Year >= 2000)
             {
                 int divide = 97 - (int.Parse("2" + rijksregnummer.Substring(0, 9)) % 97);
-                Console.WriteLine(divide);
+               // Console.WriteLine(divide);
                 Controlecijfer += divide;
             }
             else
