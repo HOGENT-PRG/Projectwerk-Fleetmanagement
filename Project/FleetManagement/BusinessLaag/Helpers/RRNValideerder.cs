@@ -5,12 +5,8 @@ namespace BusinessLaag.Helpers
 {
     public class RRNValideerder
     {
-        public RRNValideerder(string rijksregisternummer)
-        {
-            Valideer(rijksregisternummer);
-        }
         public string Rijksregisternummer { get; set; }
-        public bool Valideer(string rijksregnummer)
+        public string Valideer(string rijksregnummer)
         {
             Rijksregisternummer = rijksregnummer;
             int geboortejaar = int.Parse(rijksregnummer.Substring(0, 2));
@@ -36,7 +32,7 @@ namespace BusinessLaag.Helpers
             if (Controlecijfer == int.Parse(rijksregnummer.Substring(9, 2)))
             {
                 // ("Rijksregnummer geldig");
-                return true;
+                return Rijksregisternummer;
 
             }
             else

@@ -32,9 +32,11 @@ namespace BusinessLaag
 
         public FleetManager(IVoertuigRepository voertuigRepo, IBestuurderRepository bestuurderRepo, ITankkaartRepository tankkaartRepo, IStartupSequence startupSequence, string connectionString= @"Data Source =.\SQLEXPRESS;Initial Catalog = FleetManagement; Integrated Security = True", bool truncateTablesOnStartup=false, bool insertMockData=false)
         {
-            /** Er kan voor de parameters van de StartupSequence gekozen worden voor het uitlezen van een config bestand, kan hier geimplementeerd worden */
+            /** Er kan voor de parameters van de StartupSequence gekozen worden voor het uitlezen van een config bestand, kan hier of in StartupSequence geimplementeerd worden */
             StartupSequence = startupSequence;
-            StartupSequence.Execute(connectionString, truncateTablesOnStartup, insertMockData);
+            StartupSequence.Execute(connectionString, truncateTablesOnStartup, insertMockData); 
+            //TODO high risk om te implementeren (kans op accidenteel verwijderen van databank)
+            //mogelijk om dit enkel open te zetten voor gebruik door de unit testing?
 
             /** Aangezien deze klasse geinstantieerd wordt tijdens het opstarten van de presentatielaag, zal de presentatielaag na instantiering FleetManager.StartupSequence raadplegen en de gebruiker op de hoogte stellen van enige fouten / de status (bv databank connectie mislukt). 
              -----> Hiervoor hoeft de FleetManager zelf niks te doen. 
