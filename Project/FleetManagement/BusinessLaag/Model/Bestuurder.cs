@@ -34,7 +34,7 @@ namespace BusinessLaag
             Voornaam = voornaam.Length > 1 ? voornaam : throw new BestuurderException("Voornaam moet bestaan uit minstens 2 karakters");
             Adres = adres;
             GeboorteDatum = geboortedatum > -2208988800 ? geboortedatum : throw new BestuurderException("Geboortejaar moet na 1900 zijn");
-            RijksRegisterNummer = new RRNValideerder().Valideer(rijksregisternummer);
+            RijksRegisterNummer = (new RRNValideerder().Valideer(rijksregisternummer)) ? rijksregisternummer : throw new BestuurderException("Rijksregisternummer is ongeldig");
             RijbewijsSoort = rijbewijssoort;
             Voertuig = voertuig;
             Tankkaart = tankkaart;
