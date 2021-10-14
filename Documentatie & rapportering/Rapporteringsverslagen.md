@@ -42,7 +42,7 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 ### Planning
 
 * ~~Klassendiagram Data Laag : Robrecht~~ OK
-* Rijksregisternummer validatie : Abdellah
+* ~~Rijksregisternummer validatie : Abdellah~~ OK
 * Unit tests model business laag (**NOK: overgedragen naar volgende week**) ~~& rechtzetting property visibilities business laag~~ (OK) : Benjamin
 
 ### Realisaties
@@ -56,14 +56,9 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 * Aanmaak van StartSequence klasse
 * Herwerken van klassendiagram zodat deze de codebase accuraat representeert: toevoegen layer dependencies, corrigeren visibilities properties, toevoegen interfaces, toevoegen data laag klasses (StartSequence nog niet inbegrepen)
 
-### To-do (in geen specifieke volgorde)
+### To-do (op volgorde)
 
-* Schrijven van unit tests voor business laag
-* * Aan de hand van unit test resultaten de business laag verbeteren
-* Methodes toevoegen aan Model klasses indien muteerbaarheid gewenst is
-* Verderwerken aan user interface mockups
-* ~~Data Laag klassendiagram~~
-* Ontwikkelen valideer functie RRNValideerder
+* Zie volgende week
 
 ### Obstakels
 * Branches beheren en pull requests maken (force push incident)
@@ -77,19 +72,40 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 ### Planning
 
-* t
+#### Op volgorde
+
+* Toevoegen methodes aan Model klassendiagram **Benjamin**
+* ^ Indien voltooid, toevoegen Adres klasse en methoden implementeren in Model **Abdellah**
+* Schrijven van unit tests voor business laag Model **Benjamin**
+* * Aan de hand van unit test resultaten de business laag verbeteren **Benjamin**
+
+#### Gedurende de week
+
+* Er dient vanaf deze week een powerpoint aangemaakt te worden van enkele slides die de vooruitgang samenvat
+* Ontwerp klassendiagram Presentatielaag in apart VP project om conflicten te vermijden **Robrecht**
+* Veranderen van Engelstalige benamingen naar Nederlands in klassendiagram en project **Benjamin**
+* De StartupSequence klasse achterwege laten en een ConnectionTest klasse maken, truncate table en mock data functies toewijden aan unit testing project (evt gebruik van aparte db met zelfde design) **Benjamin**
+
+#### Indien taken al klaar zijn
+
+* Database design beginnen
+* Dit design vertalen naar SQL
+* Eventuele aanmaak van een InitializationManager (+ InitializationRepository ) met als taken:
+* * Controle of databank bestaat, zonee wordt een nieuwe databank gemaakt ( https://stackoverflow.com/a/39500898/8623540 )
+* * Controle of databank over de juiste tabellen beschikt, indien nee worden deze aangemaakt ( Voorbeeld van query https://pastebin.com/raw/tTciV7Cb )
+* Verderwerken aan user interface mockups (lage prioriteit, database design krijgt voorrang)
 
 ### Realisaties
 
-* t
+* 
 
-### To-do (in geen specifieke volgorde)
+### To-do volgende week
 
 *
 
 ### Obstakels
 
-* t
+* 
 
 ### Demo
-* (Unit testen + UI design) ???
+* PPT: Unit testen, methodes in model klassen, ontwerp presentatielaag
