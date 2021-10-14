@@ -13,6 +13,7 @@ namespace BusinessLaag.Helpers
         {
             // indien successvol:
             // return GevalideerdRRN
+            return ongevalideerdRijksregisternummer;
             throw new NotImplementedException();
 
             // indien niet successvol:

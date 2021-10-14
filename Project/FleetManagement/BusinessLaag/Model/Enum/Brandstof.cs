@@ -8,6 +8,11 @@ namespace BusinessLaag
 {
     public enum Brandstof
     {
-        diesel,benzine,cng,elektrisch,hybrideDiesel,hybrideBenzine
+        diesel,
+        benzine,
+        cng,
+        elektrisch,
+        hybrideDiesel,
+        hybrideBenzine
     }
 }
