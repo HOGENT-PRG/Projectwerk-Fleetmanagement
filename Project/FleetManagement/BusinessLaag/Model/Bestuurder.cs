@@ -4,21 +4,26 @@ using System.Linq;
 using System.Text;
 using BusinessLaag.Exceptions;
 using BusinessLaag.Helpers;
+using BusinessLaag.Model.Attributes;
 using System.Threading.Tasks;
 
 namespace BusinessLaag
 {
+#nullable enable
     public class Bestuurder
     {
-#nullable enable
         public int? Id { get; private set; }
         public string Naam { get; private set; }
         public string Voornaam { get; private set; }
         public string? Adres { get; private set; }
         public long GeboorteDatum { get; private set; }
+
         public string RijksRegisterNummer { get; private set; }
+
         public RijbewijsSoort RijbewijsSoort { get; private set; }
+
         public Voertuig? Voertuig { get; private set; }
+
         public Tankkaart? Tankkaart { get; private set; }
 
         public Bestuurder(int? id, string naam, string voornaam, string? adres, long geboortedatum, 

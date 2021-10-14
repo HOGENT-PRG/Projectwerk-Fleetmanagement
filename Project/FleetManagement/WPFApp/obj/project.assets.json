@@ -135,7 +135,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "DataLaag": "1.0.0",
           "System.Data.SqlClient": "4.8.3"
         },
         "compile": {
@@ -143,19 +142,6 @@
         },
         "runtime": {
           "bin/placeholder/BusinessLaag.dll": {}
-        }
-      },
-      "DataLaag/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "System.Data.SqlClient": "4.8.3"
-        },
-        "compile": {
-          "bin/placeholder/DataLaag.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DataLaag.dll": {}
         }
       }
     }
@@ -475,11 +461,6 @@
       "type": "project",
       "path": "../BusinessLaag/BusinessLaag.csproj",
       "msbuildProject": "../BusinessLaag/BusinessLaag.csproj"
-    },
-    "DataLaag/1.0.0": {
-      "type": "project",
-      "path": "../DataLaag/DataLaag.csproj",
-      "msbuildProject": "../DataLaag/DataLaag.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -489,21 +470,17 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\server\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\server\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
+      "projectUniqueName": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
       "projectName": "WPFApp",
-      "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
+      "projectPath": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
       "packagesPath": "C:\\Users\\server\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\obj\\",
+      "outputPath": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -519,8 +496,8 @@
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
           "projectReferences": {
-            "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
-              "projectPath": "C:\\Users\\server\\Desktop\\HOGENT\\GithubHogent\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
+            "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+              "projectPath": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
             }
           }
         }
@@ -558,7 +535,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }
