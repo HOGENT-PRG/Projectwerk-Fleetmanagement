@@ -55,6 +55,7 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 * FleetManager voorzien van inline commentaar
 * Aanmaak van StartSequence klasse
 * Herwerken van klassendiagram zodat deze de codebase accuraat representeert: toevoegen layer dependencies, corrigeren visibilities properties, toevoegen interfaces, toevoegen data laag klasses (StartSequence nog niet inbegrepen)
+* Toevoegen logica in rijksregisternummer
 
 ### To-do (op volgorde)
 
