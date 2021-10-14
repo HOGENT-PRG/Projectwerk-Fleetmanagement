@@ -5988,19 +5988,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\server\\.nuget\\packages\\": {}
+    "C:\\Users\\abdellah\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
+      "projectUniqueName": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
       "projectName": "xUnitTesting",
-      "projectPath": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
-      "packagesPath": "C:\\Users\\server\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\obj\\",
+      "projectPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\xUnitTesting.csproj",
+      "packagesPath": "C:\\Users\\abdellah\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\xUnitTesting\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\abdellah\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6008,14 +6008,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://packagesource": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
-              "projectPath": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
+            "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+              "projectPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
             }
           }
         }
@@ -6070,7 +6071,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
