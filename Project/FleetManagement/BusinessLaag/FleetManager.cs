@@ -24,44 +24,34 @@ namespace BusinessLaag
         private IBestuurderRepository BestuurderRepository { get; set; }
         private ITankkaartRepository TankkaartRepository { get; set; }
 
+        public IDatabankConfigureerder DatabankConfigureerder { get; private set; }
+
         /* Managers uit domeinlaag */
         /** Deze roepen functies aan van de ...Repository klassen en handhaven de domeinregels */
         public VoertuigManager VoertuigManager { get; private set; }
         public BestuurderManager BestuurderManager { get; private set; }
         public TankkaartManager TankkaartManager { get; private set; }
 
-        public FleetManager(IVoertuigRepository voertuigRepo, IBestuurderRepository bestuurderRepo, ITankkaartRepository tankkaartRepo, IStartupSequence startupSequence, string connectionString= @"Data Source =.\SQLEXPRESS;Initial Catalog = FleetManagement; Integrated Security = True", bool truncateTablesOnStartup=false, bool insertMockData=false)
+        public FleetManager(IVoertuigRepository voertuigRepo, IBestuurderRepository bestuurderRepo, ITankkaartRepository tankkaartRepo, IDatabankConfigureerder databankConfig, string connectionString)
         {
-            /** Er kan voor de parameters van de StartupSequence gekozen worden voor het uitlezen van een config bestand, kan hier of in StartupSequence geimplementeerd worden */
-            StartupSequence = startupSequence;
-            StartupSequence.Execute(connectionString, truncateTablesOnStartup, insertMockData); 
-            //TODO high risk om te implementeren (kans op accidenteel verwijderen van databank)
-            //mogelijk om dit enkel open te zetten voor gebruik door de unit testing?
+            DatabankConfigureerder = databankConfig;
 
-            /** Aangezien deze klasse geinstantieerd wordt tijdens het opstarten van de presentatielaag, zal de presentatielaag na instantiering FleetManager.StartupSequence raadplegen en de gebruiker op de hoogte stellen van enige fouten / de status (bv databank connectie mislukt). 
-             -----> Hiervoor hoeft de FleetManager zelf niks te doen. 
-             -----TODO: dit implementeren in de presentatielaag.
-             */
+            VoertuigRepository = voertuigRepo;
+            BestuurderRepository = bestuurderRepo;
+            TankkaartRepository = tankkaartRepo;
 
-            if (StartupSequence.ConnectionSuccessful)
-            {
-                /* Deze worden hieronder meegegeven bij de juiste Manager */
-                VoertuigRepository = voertuigRepo;
-                BestuurderRepository = bestuurderRepo;
-                TankkaartRepository = tankkaartRepo;
+            VoertuigRepository.ZetConnectionString(connectionString);
+            BestuurderRepository.ZetConnectionString(connectionString);
+            TankkaartRepository.ZetConnectionString(connectionString);
 
-                VoertuigRepository.ZetConnectionString(connectionString);
-                BestuurderRepository.ZetConnectionString(connectionString);
-                TankkaartRepository.ZetConnectionString(connectionString);
+            /* De fleetmanager wordt meegegeven zodat zij elkaar niet tig maal hoeven te importeren.
+                Tevens geeft het de presentatielaag toegang tot alle Managers op 1 centraal punt.
+                Daarnaast wordt de correcte repository meegegeven welke binnen de klasse nodig is.
+            */
+            VoertuigManager = new(this, VoertuigRepository);
+            BestuurderManager = new(this, BestuurderRepository);
+            TankkaartManager = new(this, TankkaartRepository);
 
-                /* De fleetmanager wordt meegegeven zodat zij elkaar niet tig maal hoeven te importeren.
-                   Tevens geeft het de presentatielaag toegang tot alle Managers op 1 centraal punt.
-                   Daarnaast wordt de correcte repository meegegeven welke binnen de klasse nodig is.
-                */
-                VoertuigManager = new(this, VoertuigRepository);
-                BestuurderManager = new(this, BestuurderRepository);
-                TankkaartManager = new(this, TankkaartRepository);
-            }
         }
     }
 }

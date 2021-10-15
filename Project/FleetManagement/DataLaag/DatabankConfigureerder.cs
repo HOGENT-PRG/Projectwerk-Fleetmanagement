@@ -26,34 +26,36 @@ namespace DataLaag
 
         private List<string> _ontbrekendeTabellen = new List<string>();
 
+        // TODO: custom exception
         public DatabankConfigureerder(List<string> tabellen,
                                      string databanknaam = "FleetManager",
-                                     string databanknaam_debug = "FleetManagerTests",
                                      string dataSource = @".\SQLEXPRESS",
                                      bool integratedSecurity = true,
-                                     string? sqlFolderPad = null)
+                                     string? relatiefTovSolutionPad = null,  // bijv. "/DataLaag/_SQL/"
+                                     string? volledigFolderPad = null)
         {
 
-            if (sqlFolderPad == null)
+            //AppDomain.CurrentDomain.BaseDirectory niet toegelaten als default param in ctor signatuur, dus toekennen in body
+            if (volledigFolderPad == null && relatiefTovSolutionPad == null)
             {
-                // Niet toegelaten als default param in ctor signatuur, dus toekennen in body
-                sqlFolderPad = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "/DataLaag/_SQL/");
+                volledigFolderPad = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "/DataLaag/_SQL/");
+            }
+            else if (relatiefTovSolutionPad != null && volledigFolderPad == null)
+            {
+                volledigFolderPad = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relatiefTovSolutionPad);
+            }
+            else if (relatiefTovSolutionPad != null && volledigFolderPad != null)
+            {
+                throw new Exception("Stel het relatief pad in OF het volledige pad, niet allebei tegelijk.");
+            }
+            else // volledigFolderPad != null && relatiefTovSolutionPad == null
+            {
+                // Er verandert niks.
             }
 
-            // Aanmaken SqlConnections
-            SqlConnectionStringBuilder masterBouwer = new SqlConnectionStringBuilder();
-            masterBouwer.InitialCatalog = "Master";
-            masterBouwer.DataSource = dataSource;
-            masterBouwer.IntegratedSecurity = integratedSecurity;
-            MasterConnectieString = masterBouwer.ConnectionString;
-            MasterConnectie = new(MasterConnectieString);
 
-            SqlConnectionStringBuilder productieBouwer = new SqlConnectionStringBuilder();
-            productieBouwer.InitialCatalog = databanknaam;
-            productieBouwer.DataSource = dataSource;
-            productieBouwer.IntegratedSecurity = integratedSecurity;
-            ProductieConnectieString = productieBouwer.ConnectionString;
-            ProductieConnectie = new(ProductieConnectieString);
+            // Stelt de SqlConnection en string in
+            _zetConnecties(databanknaam, dataSource, integratedSecurity); // CS8618
 
             // Kunnen we verbinden met sql server en bestaat de databank?
             _connecteerMetDatabase(databanknaam);
@@ -73,7 +75,7 @@ namespace DataLaag
                 _controleerBestaanTabellen(tabellen);
                 if (!AlleTabellenBestaan)
                 {
-                    _maakOntbrekendeTabellenAan(databanknaam, sqlFolderPad);
+                    _maakOntbrekendeTabellenAan(databanknaam, volledigFolderPad);
                 }
 
             }
@@ -81,16 +83,22 @@ namespace DataLaag
             SequentieDoorlopen = true;
         }
 
-        public IList<string> geefTabellen()
+        private void _zetConnecties(string dbnaam, string datasource, bool integratedsecurity)
         {
-            List<string> tables = new List<string>();
-            DataTable dt = ProductieConnectie.GetSchema("Tables");
-            foreach (DataRow row in dt.Rows)
-            {
-                string tablename = (string)row[2];
-                tables.Add(tablename);
-            }
-            return tables;
+            // Aanmaken SqlConnections
+            SqlConnectionStringBuilder masterBouwer = new SqlConnectionStringBuilder();
+            masterBouwer.InitialCatalog = "Master";
+            masterBouwer.DataSource = datasource;
+            masterBouwer.IntegratedSecurity = integratedsecurity;
+            MasterConnectieString = masterBouwer.ConnectionString;
+            MasterConnectie = new(MasterConnectieString);
+
+            SqlConnectionStringBuilder productieBouwer = new SqlConnectionStringBuilder();
+            productieBouwer.InitialCatalog = dbnaam;
+            productieBouwer.DataSource = datasource;
+            productieBouwer.IntegratedSecurity = integratedsecurity;
+            ProductieConnectieString = productieBouwer.ConnectionString;
+            ProductieConnectie = new(ProductieConnectieString);
         }
 
         private void _connecteerMetDatabase(string databanknaam)
@@ -238,6 +246,19 @@ namespace DataLaag
                     ProductieConnectie.Close();
                 }
             }
+        }
+
+        //Publieke methoden hieronder -----------------------------------------------------
+        public IList<string> geefTabellen()
+        {
+            List<string> tables = new List<string>();
+            DataTable dt = ProductieConnectie.GetSchema("Tables");
+            foreach (DataRow row in dt.Rows)
+            {
+                string tablename = (string)row[2];
+                tables.Add(tablename);
+            }
+            return tables;
         }
 
 
