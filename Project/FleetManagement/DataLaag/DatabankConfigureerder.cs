@@ -13,7 +13,7 @@ using System.IO;
 namespace DataLaag
 {
 #nullable enable
-    public class DatabaseConfigureerder : IDatabaseConfigureerder
+    public class DatabankConfigureerder : IDatabankConfigureerder
     {
         public string MasterConnectieString { get; private set; }
         public string ProductieConnectieString { get; private set; }
@@ -26,8 +26,9 @@ namespace DataLaag
 
         private List<string> _ontbrekendeTabellen = new List<string>();
 
-        public DatabaseConfigureerder(List<string> tabellen,
+        public DatabankConfigureerder(List<string> tabellen,
                                      string databanknaam = "FleetManager",
+                                     string databanknaam_debug = "FleetManagerTests",
                                      string dataSource = @".\SQLEXPRESS",
                                      bool integratedSecurity = true,
                                      string? sqlFolderPad = null)

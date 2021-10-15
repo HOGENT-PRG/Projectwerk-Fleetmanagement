@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace BusinessLaag.Interfaces
 {
-    public interface IDatabaseConfigureerder
+    public interface IDatabankConfigureerder
     {
         SqlConnection MasterConnectie { get; }
         string MasterConnectieString { get; }
