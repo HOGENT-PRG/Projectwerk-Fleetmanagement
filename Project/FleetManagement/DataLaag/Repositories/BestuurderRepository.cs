@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data;
-using System.Data.SqlClient;
 using BusinessLaag.Model;
 using BusinessLaag;
 using BusinessLaag.Exceptions;
 using BusinessLaag.Interfaces;
 using System.Reflection;
+using System.Data.SqlClient;
 
 namespace DataLaag.Repositories
 {

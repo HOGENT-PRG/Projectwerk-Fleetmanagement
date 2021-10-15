@@ -22,12 +22,12 @@ namespace BusinessLaag
 
         public RijbewijsSoort RijbewijsSoort { get; private set; }
 
-        public Voertuig? Voertuig { get; private set; }
+        public Voertuig Voertuig { get; private set; }
 
-        public Tankkaart? Tankkaart { get; private set; }
+        public Tankkaart Tankkaart { get; private set; }
 
         public Bestuurder(int? id, string naam, string voornaam, string? adres, long geboortedatum, 
-            string rijksregisternummer, RijbewijsSoort rijbewijssoort, Voertuig? voertuig, Tankkaart? tankkaart)
+            string rijksregisternummer, RijbewijsSoort rijbewijssoort, Voertuig voertuig, Tankkaart tankkaart)
         {
             Id = id;
             Naam = naam.Length > 1 ? naam : throw new BestuurderException("Naam moet bestaan uit minstens 2 karakters");

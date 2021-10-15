@@ -10,13 +10,18 @@ namespace BusinessLaag.Helpers
         public string Rijksregisternummer { get; set; }
         public bool Valideer(string rijksregnummer)
         {
+            // Controle van lengte (anders kan int.Parse mogelijk exception throwen)
+            if(rijksregnummer.Length != 11)
+            {
+                return false;
+            }
+
             //* Wat nog ontbrak is de controle of getallen 6,7,8 niet hoger zijn dan 998
-            // "Dit reeksnummer is even voor een vrouw en oneven voor een man.
-            // Het is de dagteller van de geboortes. Voor een man van 001 tot 997 en voor een vrouw van 002 tot 998."
-            int reeksnummer = int.Parse(rijksregnummer.Substring(6, 3));
+            // "... Het is de dagteller van de geboortes. Voor een man van 001 tot 997 en voor een vrouw van 002 tot 998."
+            int dagteller = int.Parse(rijksregnummer.Substring(6, 3));
 
             /// 998 en 999 zijn dus ongeldig
-            if(reeksnummer >= 998)
+            if(dagteller >= 998)
             {
                 return false;
             }
