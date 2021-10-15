@@ -10,9 +10,9 @@ namespace BusinessLaag
 {
     public class FleetManager
     {
-        /* Startup */
-        /** Laat toe om tijdens het opstarten van de applicatie een sequentie te doorlopen, waaronder db connectie test, legen van tabellen en toevoegen van fake data aan tabellen (conditionele executie) */
-        public IStartupSequence StartupSequence { get; private set; }
+        // Checkt connectie met databank, maakt indien nodig databank en tabellen aan
+        // Is public want bevat informatie (connectie succesvol etc.) voor de Presentatielaag
+        public IDatabankConfigureerder DatabankConfigureerder { get; private set; }
 
         /* Repositories van DAL */
         /** Stelt functies van de data laag beschikbaar aan de Managers. 
@@ -23,8 +23,6 @@ namespace BusinessLaag
         private IVoertuigRepository VoertuigRepository { get; set; }
         private IBestuurderRepository BestuurderRepository { get; set; }
         private ITankkaartRepository TankkaartRepository { get; set; }
-
-        public IDatabankConfigureerder DatabankConfigureerder { get; private set; }
 
         /* Managers uit domeinlaag */
         /** Deze roepen functies aan van de ...Repository klassen en handhaven de domeinregels */
