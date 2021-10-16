@@ -14,19 +14,6 @@ namespace BusinessLaag
         // Is public want bevat informatie (connectie succesvol etc.) voor de Presentatielaag
         public IDatabankConfigureerder DatabankConfigureerder { get; private set; }
 
-
-        /* Repositories van DAL */
-        /** Stelt functies van de data laag beschikbaar aan de Managers. 
-            De visibiliteit van de repositories staat op private, elke Manager
-            krijgt bij instantiering de correcte repository mee en kan dus niet
-            per ongeluk de taken van een andere Manager overnemen.
-         */
-
-        private IVoertuigOpslag VoertuigOpslag { get; set; }
-        private IBestuurderOpslag BestuurderOpslag { get; set; }
-        private ITankkaartOpslag TankkaartOpslag { get; set; }
-
-
         /* Managers uit domeinlaag */
         /** Deze roepen functies aan van de ...Repository klassen en van andere Managers en handhaven de domeinregels */
         public VoertuigManager VoertuigManager { get; private set; }
@@ -36,24 +23,28 @@ namespace BusinessLaag
 
         public FleetManager(IVoertuigOpslag voertuigRepo, IBestuurderOpslag bestuurderRepo, ITankkaartOpslag tankkaartRepo, IDatabankConfigureerder databankConfig)
         {
+            // Stelt db info (voor app laag) en connection string ter beschikking
             DatabankConfigureerder = databankConfig;
 
-            VoertuigOpslag = voertuigRepo;
-            BestuurderOpslag = bestuurderRepo;
-            TankkaartOpslag = tankkaartRepo;
+            /** Repositories van DAL
+                    Stelt functies van de data laag beschikbaar aan de Managers. 
+                    Lokale property is niet nodig, elke Manager
+                    krijgt bij instantiering de correcte repository mee en kan dus niet
+                    per ongeluk de taken van een andere Manager overnemen.
+                                                                            **/
 
             // De SqlConnection voor gebruik in productie wordt ingesteld
-            VoertuigOpslag.ZetConnectionString(DatabankConfigureerder.ProductieConnectieString);
-            BestuurderOpslag.ZetConnectionString(DatabankConfigureerder.ProductieConnectieString);
-            TankkaartOpslag.ZetConnectionString(DatabankConfigureerder.ProductieConnectieString);
+            voertuigRepo.ZetConnectionString(DatabankConfigureerder.ProductieConnectieString);
+            bestuurderRepo.ZetConnectionString(DatabankConfigureerder.ProductieConnectieString);
+            tankkaartRepo.ZetConnectionString(DatabankConfigureerder.ProductieConnectieString);
 
-            /* De fleetmanager wordt meegegeven zodat zij elkaar niet tig maal hoeven te importeren.
-                Tevens geeft het de presentatielaag toegang tot alle Managers op 1 centraal punt.
+            /* De fleetmanager wordt meegegeven zodat zij elkaar niet tig maal hoeven te importeren en
+                het geeft de presentatielaag toegang tot alle Managers op 1 centraal punt.
                 Daarnaast wordt de correcte repository meegegeven welke binnen de klasse nodig is.
             */
-            VoertuigManager = new(this, VoertuigOpslag);
-            BestuurderManager = new(this, BestuurderOpslag);
-            TankkaartManager = new(this, TankkaartOpslag);
+            VoertuigManager = new(this, voertuigRepo);
+            BestuurderManager = new(this, bestuurderRepo);
+            TankkaartManager = new(this, tankkaartRepo);
 
         }
     }
