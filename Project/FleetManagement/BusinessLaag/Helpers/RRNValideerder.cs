@@ -16,7 +16,6 @@ namespace BusinessLaag.Helpers
                 return false;
             }
 
-            //* Wat nog ontbrak is de controle of getallen 6,7,8 niet hoger zijn dan 998
             // "... Het is de dagteller van de geboortes. Voor een man van 001 tot 997 en voor een vrouw van 002 tot 998."
             int dagteller = int.Parse(rijksregnummer.Substring(6, 3));
 
@@ -25,7 +24,6 @@ namespace BusinessLaag.Helpers
             {
                 return false;
             }
-
 
             //* Aangezien het eindjaar (TwoDigitYearMax) voor de kalender standaard staat ingesteld op 7 jaar in de toekomst dan zou dat betekenen 
             //* dat we kans hebben foutief een jaar in de toekomst toe te kennen, 22-29 wordt met default configuratie 2022-2029 ipv 1922-1929
@@ -37,7 +35,8 @@ namespace BusinessLaag.Helpers
 
 
             //* "Indien de persoon vluchteling is en de geboortedatum niet gekend is, wordt de geboortemaand op 00 gezet en de geboortedag op 00 gezet."
-            //* In dat geval zal DateTime echter een exception throwen, maar we hebben het toch niet meer nodig door de cultureinfo kalender hierboven.
+            //* "Bij het bisnummer wordt de geboortemaand verhoogd met 20 of 40. Als bij de aanvraag het geslacht bekend is, wordt de geboortemaand verhoogd met 40, anders wordt ze verhoogd met 20."
+            //* In deze gevallen zal DateTime echter een exception throwen, maar we hebben het toch niet meer nodig door de cultureinfo kalender hierboven.
             // DateTime a = new DateTime(e, geboorteMaand, geboortedag);
             // Output: [System.ArgumentOutOfRangeException: Year, Month, and Day parameters describe an un-representable DateTime.]
 

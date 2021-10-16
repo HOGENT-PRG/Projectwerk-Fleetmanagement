@@ -5,9 +5,6 @@ namespace BusinessLaag.Interfaces
 {
     public interface IDatabankConfigureerder
     {
-        SqlConnection MasterConnectie { get; }
-        string MasterConnectieString { get; }
-        SqlConnection ProductieConnectie { get; }
         string ProductieConnectieString { get; }
         bool ConnectieSuccesvol { get; }
         bool DatabaseBestaat { get; }

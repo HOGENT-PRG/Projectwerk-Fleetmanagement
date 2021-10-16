@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using System.Data.SqlClient;
+using BusinessLaag.Model;
+using BusinessLaag;
 using BusinessLaag.Interfaces;
+using BusinessLaag.Exceptions;
 
-namespace BusinessLaag.Managers
+namespace DataLaag.Repositories
 {
-    public class TankkaartManager : ITankkaartManager
+    public class TankkaartOpslag : ITankkaartOpslag
     {
-        private static FleetManager _fleetManager;
-        private ITankkaartOpslag _opslag;
+        private SqlConnection _connector { get; set; }
 
-        public TankkaartManager(FleetManager fleetmanager, ITankkaartOpslag repository)
+        public void ZetConnectionString(string connString)
         {
-            _fleetManager = fleetmanager;
-            _opslag = repository;
+            _connector = connString.Length > 5 ? new SqlConnection(connString) : throw new TankkaartOpslagException("Connectiestring moet langer zijn dan 5 karakters.");
         }
 
         public Tankkaart geefTankkaartDetail(int id)

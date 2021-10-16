@@ -4,9 +4,9 @@ namespace BusinessLaag.Interfaces
 {
     public interface IBestuurderManager
     {
-        Bestuurder fetchBestuurderDetail(int id);
-        IEnumerable<string> fetchBestuurderProperties();
-        IEnumerable<Bestuurder> fetchBestuurders();
+        Bestuurder geefBestuurderDetail(int id);
+        IEnumerable<string> geefBestuurderProperties();
+        IEnumerable<Bestuurder> geefBestuurders();
         void updateBestuurder(Bestuurder bestuurder);
         void verwijderBestuurder(Bestuurder bestuurder);
         void voegBestuurderToe(Bestuurder bestuurder);

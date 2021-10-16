@@ -11,20 +11,20 @@ namespace BusinessLaag.Managers
     public class BestuurderManager : IBestuurderManager
     {
         private static FleetManager _fleetManager;
-        private IBestuurderRepository _repository;
+        private IBestuurderOpslag _opslag;
 
-        public BestuurderManager(FleetManager fleetmanager, IBestuurderRepository repository)
+        public BestuurderManager(FleetManager fleetmanager, IBestuurderOpslag repository)
         {
             _fleetManager = fleetmanager;
-            _repository = repository;
+            _opslag = repository;
         }
 
-        public Bestuurder fetchBestuurderDetail(int id)
+        public Bestuurder geefBestuurderDetail(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Bestuurder> fetchBestuurders()
+        public IEnumerable<Bestuurder> geefBestuurders()
         {
             throw new NotImplementedException();
         }
@@ -49,9 +49,7 @@ namespace BusinessLaag.Managers
             throw new NotImplementedException();
         }
 
-        // eventueel gebruiken voor TableMap, indien het een goed idee is
-
-        public IEnumerable<string> fetchBestuurderProperties()
+        public IEnumerable<string> geefBestuurderProperties()
         {
             throw new NotImplementedException();
         }

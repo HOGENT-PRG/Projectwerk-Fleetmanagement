@@ -4,6 +4,8 @@ using System.Reflection;
 
 namespace BusinessLaag.Model.Attributes
 {
+    // Gebruik voor weergeven zoekfilter / zoek functionaliteiten?
+    // Nog te bepalen.
 #nullable enable
     public sealed class TableMapAttribute : Attribute
     {
