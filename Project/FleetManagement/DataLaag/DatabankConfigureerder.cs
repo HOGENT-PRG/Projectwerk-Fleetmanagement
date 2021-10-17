@@ -31,6 +31,7 @@ namespace DataLaag
         public bool ConnectieSuccesvol { get; private set; }
         public bool DatabaseBestaat { get; private set; }
         public bool AlleTabellenBestaan { get; private set; }
+        public int AantalTabellen { get; private set; }
         public bool SequentieDoorlopen { get; private set; }
 
         private List<string> _ontbrekendeTabellen = new List<string>();
@@ -90,6 +91,7 @@ namespace DataLaag
                     _controleerBestaanTabellen(tabellen);
                 }
 
+                _ = _geefAantalTabellenVoorDatabase(databanknaam); // AantalTabellen populaten
             }
 
             SequentieDoorlopen = true;
@@ -205,6 +207,7 @@ namespace DataLaag
                 var test = cmd.ExecuteScalar();
                 int output;
                 int.TryParse(test.ToString(), out output);
+                AantalTabellen = output;
                 return output;
             }
             catch (Exception e)
