@@ -263,16 +263,23 @@ namespace DataLaag
         //Publieke methoden hieronder -----------------------------------------------------
         public IList<string> geefTabellen()
         {
-            ProductieConnectie.Open();
             List<string> tables = new List<string>();
-            DataTable dt = ProductieConnectie.GetSchema("Tables");
-            foreach (DataRow row in dt.Rows)
+            try
             {
-                string tablename = (string)row[2];
-                tables.Add(tablename);
+                ProductieConnectie.Open();
+                DataTable dt = ProductieConnectie.GetSchema("Tables");
+                foreach (DataRow row in dt.Rows)
+                {
+                    string tablename = (string)row[2];
+                    tables.Add(tablename);
+                }
+                ProductieConnectie.Close();
+                return tables;
             }
-            ProductieConnectie.Close();
-            return tables;
+            catch (Exception e)
+            {
+                return tables;
+            }
         }
 
 
