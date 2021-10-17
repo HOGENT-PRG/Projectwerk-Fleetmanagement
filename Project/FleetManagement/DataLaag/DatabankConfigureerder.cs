@@ -80,12 +80,14 @@ namespace DataLaag
                 if (!DatabaseBestaat)
                 {
                     _maakOntbrekendeDatabank(databanknaam);
+                    _connecteerMetDatabase(databanknaam);
                 }
 
                 _controleerBestaanTabellen(tabellen);
                 if (!AlleTabellenBestaan)
                 {
                     _maakOntbrekendeTabellenAan(databanknaam, volledigFolderPad);
+                    _controleerBestaanTabellen(tabellen);
                 }
 
             }
@@ -166,15 +168,11 @@ namespace DataLaag
         {
             try
             {
-                string query = "CREATE DATABASE @dbNaam;";
+                string query = string.Format("CREATE DATABASE {0}", databanknaam);
                 MasterConnectie.Open();
                 SqlCommand command = MasterConnectie.CreateCommand();
-                command.Parameters.Add("@dbNaam", SqlDbType.VarChar);
                 command.CommandText = query;
-                command.Parameters["@dbNaam"].Value = databanknaam;
-                command.ExecuteScalar();
-
-                _connecteerMetDatabase(databanknaam);
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
