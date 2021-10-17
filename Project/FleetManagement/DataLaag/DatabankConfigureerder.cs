@@ -15,10 +15,19 @@ namespace DataLaag
 #nullable enable
     public class DatabankConfigureerder : IDatabankConfigureerder
     {
-        public string MasterConnectieString { get; private set; }
+        // Het gebruik van een master connectie is enkel intern vereist, voor het aanmaken van een databank
+        private string MasterConnectieString { get; set; }
+
+        // Wordt gebruikt om SqlConnections aan te maken in de Repositories
         public string ProductieConnectieString { get; private set; }
-        public SqlConnection MasterConnectie { get; private set; }
-        public SqlConnection ProductieConnectie { get; private set; }
+
+        // SqlConnections zijn private omdat ze anders aanroepbaar worden door managers,
+        // een SqlConnection maken daar kunnen ze niet dus enkel de connectionstrings worden ge-exposed
+        private SqlConnection MasterConnectie { get; set; }
+        private SqlConnection ProductieConnectie { get; set; } 
+        
+        // Volgende zaken zijn van belang voor interne werking (moeten er db/tables aangemaakt worden?)
+        // en laat de presentatielaag weten wat de stand van zaken is bij initialisatie
         public bool ConnectieSuccesvol { get; private set; }
         public bool DatabaseBestaat { get; private set; }
         public bool AlleTabellenBestaan { get; private set; }
@@ -26,7 +35,6 @@ namespace DataLaag
 
         private List<string> _ontbrekendeTabellen = new List<string>();
 
-        // TODO: custom exception
         public DatabankConfigureerder(List<string> tabellen,
                                      string databanknaam = "FleetManager",
                                      string dataSource = @".\SQLEXPRESS",
@@ -46,18 +54,21 @@ namespace DataLaag
             }
             else if (relatiefTovSolutionPad != null && volledigFolderPad != null)
             {
-                throw new Exception("Stel het relatief pad in OF het volledige pad, niet allebei tegelijk.");
+                throw new DatabankConfigureerderException("Stel het relatief pad in OF het volledige pad, niet allebei tegelijk.");
             }
-            else // volledigFolderPad != null && relatiefTovSolutionPad == null
+            else if (volledigFolderPad != null && relatiefTovSolutionPad == null)// volledigFolderPad != null && relatiefTovSolutionPad == null
             {
-                // Er verandert niks.
+                if (volledigFolderPad.Length < 3)
+                    throw new DatabankConfigureerderException("Volledig pad moet minimum 3 karakters lang zijn.");
+                
+                // Else: Er verandert niks.
             }
 
 
-            // Stelt de SqlConnection en string in
+            // Stelt de SqlConnections en strings in
             _zetConnecties(databanknaam, dataSource, integratedSecurity); // CS8618
 
-            // Kunnen we verbinden met sql server en bestaat de databank?
+
             _connecteerMetDatabase(databanknaam);
 
             if (!ConnectieSuccesvol)
@@ -71,7 +82,6 @@ namespace DataLaag
                     _maakOntbrekendeDatabank(databanknaam);
                 }
 
-                // Bestaan de tabellen?
                 _controleerBestaanTabellen(tabellen);
                 if (!AlleTabellenBestaan)
                 {
@@ -107,8 +117,8 @@ namespace DataLaag
             {
                 string query = "select count(*) from master.dbo.sysdatabases where name=@dbNaam;";
 
-                ProductieConnectie.Open();
-                SqlCommand command = ProductieConnectie.CreateCommand();
+                MasterConnectie.Open();
+                SqlCommand command = MasterConnectie.CreateCommand();
 
                 command.Parameters.Add("@dbNaam", SqlDbType.VarChar);
                 command.CommandText = query;
@@ -126,7 +136,7 @@ namespace DataLaag
             }
             finally
             {
-                ProductieConnectie.Close();
+                MasterConnectie.Close();
             }
         }
 
@@ -224,7 +234,9 @@ namespace DataLaag
 
                     using (SqlCommand command = ProductieConnectie.CreateCommand())
                     {
-                        command.CommandText = data.Replace(@"\r", "").Replace(@"\n", ""); //eventueel ook quotes ' en " naar backtick ` hier
+                        command.CommandText = data.Replace(@"\r", "").Replace(@"\n", ""); 
+                        //eventueel ook quotes ' en " naar backtick ` hier
+
                         command.ExecuteNonQuery();
 
                         int tussenGetal = _geefAantalTabellenVoorDatabase(databanknaam);
@@ -232,14 +244,14 @@ namespace DataLaag
                         tussenGetal++;
                         if (!(tussenGetal > tabelTeller))
                         {
-                            throw new Exception($"Tabel aanmaken mislukt! Voor: {tabelTeller - 1} Na: {tussenGetal - 1}");
+                            throw new DatabankConfigureerderException($"Tabel aanmaken mislukt! Voor: {tabelTeller - 1} Na: {tussenGetal - 1}");
                         }
 
                     }
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(e.Message); // testing purposes, anders continue
+                    throw new DatabankConfigureerderException(e.Message); // testing purposes, anders continue
                 }
                 finally
                 {
