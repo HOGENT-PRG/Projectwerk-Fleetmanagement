@@ -29,7 +29,7 @@ namespace BusinessLaag.Model
         public string Provincie { get; private set; }
         public string Land { get; private set; }
 
-        public void zetId(int id)
+        public void zetId(int id) // kan hier niet null zijn door type int
         {
             Id = id > 0 ? id : throw new AdresException("Id kan niet kleiner zijn dan 1");
         }
