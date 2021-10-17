@@ -63,13 +63,15 @@ namespace BusinessLaag.Managers
 
         public void voegTankkaartToe(Tankkaart tankkaart)
         {
-            // if kaartnummer bestaat al (vraag tankkaarten op en check)
+            // if kaartnummer bestaat al (vraag tankkaart op met id en check)
             // throw
             // else insert
             // daarna, indien het een bestuurder bevat,
             // update deze bestuurder en tankkaart met referentie naar elkaar
             throw new NotImplementedException();
         }
+
+        // functie veranderblokkeringsstatus
 
         public IEnumerable<Tankkaart> zoekTankkaarten()
         {

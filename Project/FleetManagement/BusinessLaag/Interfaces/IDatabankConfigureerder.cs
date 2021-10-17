@@ -9,6 +9,7 @@ namespace BusinessLaag.Interfaces
         bool ConnectieSuccesvol { get; }
         bool DatabaseBestaat { get; }
         bool AlleTabellenBestaan { get; }
+        int AantalTabellen { get; }
         bool SequentieDoorlopen { get; }
 
         IList<string> geefTabellen();
