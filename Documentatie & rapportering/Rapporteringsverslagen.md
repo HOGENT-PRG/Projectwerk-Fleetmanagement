@@ -85,7 +85,8 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 * Er dient vanaf deze week een powerpoint aangemaakt te worden van enkele slides die de vooruitgang samenvat
 * Ontwerp klassendiagram Presentatielaag in apart VP project om conflicten te vermijden **Robrecht**
 * Veranderen van Engelstalige benamingen naar Nederlands in klassendiagram en project **Benjamin**
-* De StartupSequence klasse achterwege laten en een ConnectionTest klasse maken, truncate table en mock data functies toewijden aan unit testing project (evt gebruik van aparte db met zelfde design) **Benjamin**
+* De StartupSequence klasse achterwege laten (truncate te riskant om te automatiseren in geval van applicatie in productie) en een DatabaseConfigureerder klasse maken 
+*  ^ Truncate table en mock data functies toewijden aan unit testing project (evt gebruik van aparte debug db met zelfde design) **Benjamin**
 
 #### Indien taken al klaar zijn
 
