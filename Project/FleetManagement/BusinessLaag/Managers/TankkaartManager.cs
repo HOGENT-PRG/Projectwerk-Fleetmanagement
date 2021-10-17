@@ -20,31 +20,54 @@ namespace BusinessLaag.Managers
 
         public Tankkaart geefTankkaartDetail(int id)
         {
+            // krijgt tankkaart
+            // vraagt bestuurder op (if any), voegt deze bij obj
+            // return
             throw new NotImplementedException();
         }
 
         public IEnumerable<Tankkaart> geefTankkaarten()
         {
+            // krijgt tankkaarten
+            // vraagt bestuurders op en voegt toe bij elke kaart
+            // return
             throw new NotImplementedException();
         }
 
         public IEnumerable<string> geefTankkaartProperties()
         {
+            // GetProperties
             throw new NotImplementedException();
         }
 
         public void updateTankkaart(Tankkaart tankkaart)
         {
+            // vraagt huidige versie op
+            // indien bestuurder wijzigt -> oude bestuurder referentie verwijderen -> continue
+            // indien null bestuurder -> nieuwe bestuurder -> continue
+            // indien bestuurder -> null bestuurder -> oude bestuurder ref weg -> cont
+            // indien niet geupdate : throw
             throw new NotImplementedException();
         }
 
         public void verwijderTankkaart(Tankkaart tankkaart)
         {
+            // zijn er bestuurders? - vraag op
+            // bestuurder referenties naar kaart verwijderen
+            // kaart verwijderen
+            // indien niet deleted : throw
             throw new NotImplementedException();
         }
 
+        // nog een functie brandstof toevoegen/verwijderen, dmv tussentabel <-------------
+
         public void voegTankkaartToe(Tankkaart tankkaart)
         {
+            // if kaartnummer bestaat al (vraag tankkaarten op en check)
+            // throw
+            // else insert
+            // daarna, indien het een bestuurder bevat,
+            // update deze bestuurder en tankkaart met referentie naar elkaar
             throw new NotImplementedException();
         }
 

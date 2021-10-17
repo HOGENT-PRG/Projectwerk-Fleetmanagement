@@ -24,31 +24,37 @@ namespace DataLaag.Repositories
 
         public Voertuig geefVoertuigDetail(int id)
         {
+
             throw new NotImplementedException();
         }
 
         public IEnumerable<Voertuig> geefVoertuigen()
         {
+            
             throw new NotImplementedException();
         }
 
         public IEnumerable<string> geefVoertuigProperties()
         {
+            // GetProperties klasse
             throw new NotImplementedException();
         }
 
         public void updateVoertuig(Voertuig voertuig)
         {
+            
             throw new NotImplementedException();
         }
 
         public void verwijderVoertuig(Voertuig voertuig)
         {
+            
             throw new NotImplementedException();
         }
 
         public void voegVoertuigToe(Voertuig voertuig)
         {
+            
             throw new NotImplementedException();
         }
 

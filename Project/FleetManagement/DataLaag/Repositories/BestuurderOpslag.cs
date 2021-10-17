@@ -23,7 +23,7 @@ namespace DataLaag.Repositories
 
         public Bestuurder geefBestuurderDetail(int id)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //enum cast rijbewijssoort
         }
 
         public IEnumerable<Bestuurder> geefBestuurders()
