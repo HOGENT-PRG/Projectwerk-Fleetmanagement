@@ -263,6 +263,7 @@ namespace DataLaag
         //Publieke methoden hieronder -----------------------------------------------------
         public IList<string> geefTabellen()
         {
+            ProductieConnectie.Open();
             List<string> tables = new List<string>();
             DataTable dt = ProductieConnectie.GetSchema("Tables");
             foreach (DataRow row in dt.Rows)
@@ -270,6 +271,7 @@ namespace DataLaag
                 string tablename = (string)row[2];
                 tables.Add(tablename);
             }
+            ProductieConnectie.Close();
             return tables;
         }
 
