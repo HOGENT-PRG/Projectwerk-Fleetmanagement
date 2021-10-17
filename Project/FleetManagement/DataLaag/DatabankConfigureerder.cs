@@ -236,15 +236,15 @@ namespace DataLaag
                         //eventueel ook quotes ' en " naar backtick ` hier
 
                         command.ExecuteNonQuery();
-
+                        ProductieConnectie.Close();
                         int tussenGetal = _geefAantalTabellenVoorDatabase(databanknaam);
-                        tabelTeller++;
-                        tussenGetal++;
+
                         if (!(tussenGetal > tabelTeller))
                         {
-                            throw new DatabankConfigureerderException($"Tabel aanmaken mislukt! Voor: {tabelTeller - 1} Na: {tussenGetal - 1}");
+                            throw new DatabankConfigureerderException($"Tabel aanmaken mislukt! Voor: {tabelTeller - 1} Na: {tussenGetal-1}");
                         }
 
+                        tabelTeller = tussenGetal;
                     }
                 }
                 catch (Exception e)
