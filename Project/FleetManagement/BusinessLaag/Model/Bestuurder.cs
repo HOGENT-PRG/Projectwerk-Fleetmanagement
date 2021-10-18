@@ -47,7 +47,7 @@ namespace BusinessLaag
         {
             if (bestuurderTankkaart.Keys.Contains(tankkaart.Bestuurder))
             {
-                throw new VoertuigException("Tankkaart hoort al bij een bestuurder");
+                throw new BestuurderException("Tankkaart hoort al bij een bestuurder");
             }
             else
             {
@@ -58,7 +58,7 @@ namespace BusinessLaag
         {
             if (bestuurderVoertuig.Keys.Contains(Voertuig.Bestuurder))
             {
-                throw new VoertuigException("Bestuurder hoort al bij een wagen");
+                throw new BestuurderException("Bestuurder hoort al bij een wagen");
             }
             else
             {
