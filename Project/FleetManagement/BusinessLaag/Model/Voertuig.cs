@@ -37,7 +37,7 @@ namespace BusinessLaag
         }
 
 #nullable disable
-        public void zetBestuurder(Bestuurder bestuurder,Voertuig voertuig)
+        public void zetBestuurder(Bestuurder bestuurder)
         {
             if (voertuigBestuurder.Keys.Contains(bestuurder))
             {
@@ -45,7 +45,7 @@ namespace BusinessLaag
             }
             else
             {
-                voertuigBestuurder.Add(bestuurder, voertuig);
+                voertuigBestuurder.Add(bestuurder, bestuurder.Voertuig);
             }
         }
 
