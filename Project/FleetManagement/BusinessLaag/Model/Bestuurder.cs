@@ -12,6 +12,8 @@ namespace BusinessLaag
 #nullable enable
     public class Bestuurder
     {
+        private Dictionary<Bestuurder, Voertuig> bestuurderVoertuig = new Dictionary<Bestuurder, Voertuig>();
+        private Dictionary<Bestuurder, Tankkaart> bestuurderTankkaart = new Dictionary<Bestuurder, Tankkaart>();
         public int? Id { get; private set; }
         public string Naam { get; private set; }
         public string Voornaam { get; private set; }
@@ -43,12 +45,27 @@ namespace BusinessLaag
 #nullable disable
         public void zetTankkaart(Tankkaart tankkaart)
         {
-
+            if (bestuurderTankkaart.Keys.Contains(tankkaart.Bestuurder))
+            {
+                throw new VoertuigException("Tankkaart hoort al bij een bestuurder");
+            }
+            else
+            {
+                bestuurderTankkaart.Add(tankkaart.Bestuurder, tankkaart);
+            }
         }
         public void zetVoertuig(Voertuig voertuig)
         {
-
+            if (bestuurderVoertuig.Keys.Contains(Voertuig.Bestuurder))
+            {
+                throw new VoertuigException("Bestuurder hoort al bij een wagen");
+            }
+            else
+            {
+                bestuurderVoertuig.Add(voertuig.Bestuurder, voertuig);
+            }
         }
+    }
 
     }
-}
+
