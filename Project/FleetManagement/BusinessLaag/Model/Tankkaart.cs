@@ -27,6 +27,10 @@ namespace BusinessLaag
             GeldigVoorBrandstoffen = geldigvoorbrandstoffen;
             Bestuurder = bestuurder;
        }
+        public void zetTankkaart()
+        {
+
+        }
     }
 #nullable disable
 }

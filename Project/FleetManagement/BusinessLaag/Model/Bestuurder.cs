@@ -6,7 +6,7 @@ using BusinessLaag.Exceptions;
 using BusinessLaag.Helpers;
 using BusinessLaag.Model.Attributes;
 using System.Threading.Tasks;
-
+using BusinessLaag.Model;
 namespace BusinessLaag
 {
 #nullable enable
@@ -39,6 +39,16 @@ namespace BusinessLaag
             Voertuig = voertuig;
             Tankkaart = tankkaart;
         }
+
 #nullable disable
+        public void zetTankkaart(Tankkaart tankkaart)
+        {
+
+        }
+        public void zetVoertuig(Voertuig voertuig)
+        {
+
+        }
+
     }
 }

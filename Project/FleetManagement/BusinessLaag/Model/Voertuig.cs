@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLaag.Exceptions;
-
+using BusinessLaag.Model;
 namespace BusinessLaag
 {
    public class Voertuig
     {
 #nullable enable
+        private Dictionary<Bestuurder, Voertuig> voertuigBestuurder = new Dictionary<Bestuurder, Voertuig>();
+
         public int? Id { get; private set; }
         public Merk Merk { get; private set; }
         public string Nummerplaat { get; private set; }
@@ -35,6 +37,18 @@ namespace BusinessLaag
         }
 
 #nullable disable
+        public void zetBestuurder(Bestuurder bestuurder,Voertuig voertuig)
+        {
+            if (voertuigBestuurder.Keys.Contains(bestuurder))
+            {
+                throw new VoertuigException("Bestuurder hoort al bij een wagen");
+            }
+            else
+            {
+                voertuigBestuurder.Add(bestuurder, voertuig);
+            }
+        }
+
 
     }
 }
