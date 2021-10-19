@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using BusinessLaag.Exceptions;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 
 using BusinessLaag.Interfaces;
-using System.IO;
+using System.Net;
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Management.Common;
 
 namespace DataLaag
 {
@@ -36,40 +36,14 @@ namespace DataLaag
 
         private List<string> _ontbrekendeTabellen = new List<string>();
 
-        public DatabankConfigureerder(List<string> tabellen,
+        public DatabankConfigureerder(Dictionary<string, string> tabellen,
                                      string databanknaam = "FleetManager",
                                      string dataSource = @".\SQLEXPRESS",
-                                     bool integratedSecurity = true,
-                                     string? relatiefTovSolutionPad = null,  // bijv. "/DataLaag/_SQL/"
-                                     string? volledigFolderPad = null)
+                                     bool integratedSecurity = true)
         {
-
-            //AppDomain.CurrentDomain.BaseDirectory niet toegelaten als default param in ctor signatuur, dus toekennen in body
-            if (volledigFolderPad == null && relatiefTovSolutionPad == null)
-            {
-                volledigFolderPad = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "/DataLaag/_SQL/");
-            }
-            else if (relatiefTovSolutionPad != null && volledigFolderPad == null)
-            {
-                volledigFolderPad = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relatiefTovSolutionPad);
-            }
-            else if (relatiefTovSolutionPad != null && volledigFolderPad != null)
-            {
-                throw new DatabankConfigureerderException("Stel het relatief pad in OF het volledige pad, niet allebei tegelijk.");
-            }
-            else if (volledigFolderPad != null && relatiefTovSolutionPad == null)// volledigFolderPad != null && relatiefTovSolutionPad == null
-            {
-                if (volledigFolderPad.Length < 3)
-                    throw new DatabankConfigureerderException("Volledig pad moet minimum 3 karakters lang zijn.");
-                
-                // Else: Er verandert niks.
-            }
-
 
             // Stelt de SqlConnections en strings in
             _zetConnecties(databanknaam, dataSource, integratedSecurity); // CS8618
-
-
             _connecteerMetDatabase(databanknaam);
 
             if (!ConnectieSuccesvol)
@@ -84,11 +58,11 @@ namespace DataLaag
                     _connecteerMetDatabase(databanknaam);
                 }
 
-                _controleerBestaanTabellen(tabellen);
+                _controleerBestaanTabellen(tabellen.Keys.ToList());
                 if (!AlleTabellenBestaan)
                 {
-                    _maakOntbrekendeTabellenAan(databanknaam, volledigFolderPad);
-                    _controleerBestaanTabellen(tabellen);
+                    _maakOntbrekendeTabellenAan(databanknaam, tabellen);
+                    _controleerBestaanTabellen(tabellen.Keys.ToList());
                 }
 
                 _ = _geefAantalTabellenVoorDatabase(databanknaam); // AantalTabellen populaten
@@ -165,7 +139,6 @@ namespace DataLaag
             }
         }
 
-        // TODO: db create functie testen (wat als db al bestaat)
         private void _maakOntbrekendeDatabank(string databanknaam)
         {
             try
@@ -185,10 +158,6 @@ namespace DataLaag
                 MasterConnectie.Close();
             }
         }
-
-        // TODO: tabel functie testen (is het pad juist?)
-        // uitproberen met een bestand dat in human-readable format is gemaakt (met enters)
-        // Het script gaat op zoek naar .sql files welke matchen met een entry uit _ontbrekendeTabellen
 
         // moeten backticks gebruikt worden? https://stackoverflow.com/questions/44819719/check-if-table-creation-was-successful
         private int _geefAantalTabellenVoorDatabase(string databanknaam)
@@ -221,33 +190,37 @@ namespace DataLaag
 
 
         }
-        private void _maakOntbrekendeTabellenAan(string databanknaam, string sqlpad)
+        private void _maakOntbrekendeTabellenAan(string databanknaam, Dictionary<string, string> tabellen)
         {
-            IEnumerable<string> sqlBestandPaden = Directory.EnumerateFiles(sqlpad, "*.sql");
-            int tabelTeller = _geefAantalTabellenVoorDatabase(databanknaam);
+            IList<string> bestaandeTabellen = geefTabellen();
+            List<string> bronnenTeBehandelen = new List<string>();
 
-            foreach (string filePad in sqlBestandPaden)
+            foreach (KeyValuePair<string, string> entry in tabellen)
+            {
+                if (!bestaandeTabellen.Contains(entry.Key))
+                {
+                    bronnenTeBehandelen.Add(entry.Value);
+                }
+            }
+
+            foreach (string url in bronnenTeBehandelen)
             {
                 try
                 {
-                    ProductieConnectie.Open();
-                    string data = File.ReadAllText(filePad);
-
-                    using (SqlCommand command = ProductieConnectie.CreateCommand())
+                    string data;
+                    using (WebClient client = new WebClient())
                     {
-                        command.CommandText = data.Replace(@"\r", "").Replace(@"\n", ""); 
-                        //eventueel ook quotes ' en " naar backtick ` hier
+                        data = client.DownloadString(url);
+                    }
 
-                        command.ExecuteNonQuery();
-                        ProductieConnectie.Close();
-                        int tussenGetal = _geefAantalTabellenVoorDatabase(databanknaam);
+                    if (!string.IsNullOrEmpty(data))
+                    {
+                        ProductieConnectie.Open();
 
-                        if (!(tussenGetal > tabelTeller))
-                        {
-                            throw new DatabankConfigureerderException($"Tabel aanmaken mislukt! Voor: {tabelTeller - 1} Na: {tussenGetal-1}");
-                        }
+                        //laat toe om GO statements te gebruiken
+                        Server server = new Server(new ServerConnection(ProductieConnectie));
+                        server.ConnectionContext.ExecuteNonQuery(data);
 
-                        tabelTeller = tussenGetal;
                     }
                 }
                 catch (Exception e)
