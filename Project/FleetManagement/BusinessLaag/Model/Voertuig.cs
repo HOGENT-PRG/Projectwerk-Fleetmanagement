@@ -25,25 +25,43 @@ namespace BusinessLaag
         public Voertuig(int? id, Merk merk, string nummerplaat, Brandstof brandstof , 
             Voertuigsoort soort, string? kleur, int? aantalDeuren, Bestuurder? bestuurder , string chassisnummer)
         {
-            Id = id;
-            Merk = merk;
-            Nummerplaat = nummerplaat;
-            Brandstof = brandstof;
-            Soort = soort;
-            Kleur = kleur;
-            AantalDeuren = aantalDeuren;
-            Bestuurder = bestuurder;
-            Chassisnummer = chassisnummer;
+            zetId(id);
+            zetMerk(merk);
+            zetNummerplaat(nummerplaat);
+            zetBrandstof(brandstof);
+            zetVoertuigSoort(soort);
+            zetKleur(kleur);
+            zetAantalDeuren(aantalDeuren);
+            zetBestuurder(bestuurder);
+            zetChasisnummer(chassisnummer);
+    
+         
         }
-        public void zetId(int id) { }
-        public void zetMerk(Merk merk) { }
+        public void zetId(int id)
+        {
+            if (id <= 0)
+            {
+                throw new VoertuigException("Uw voertuig id mag niet gelijk of kleiner dan nul zijn ");
+            }
+            else if (id.GetType() != typeof(int))
+            {
+                throw new VoertuigException("Wat u heeft ingevuld is geen numeriek getal");
+            }
+            Id = id;
+        }
+        public void zetMerk(Merk merk) {  Merk = merk; }
+        //Model is toch hetzelfde als voertuigsoort
         public void zetModel(string model) { }
-        public void zetNummerplaat(string nummerplaat) { }
-        public void zetChasisnummer(string chasisnummer) { }
-        public void zetBrandstof(Brandstof brandstof) { }
-        public void zetVoertuigSoort(Voertuigsoort voertuigsoort) { }
-        public void zetKleur(string kleur) { }
-        public void zetAantalDeuren(int aantal) { }
+        public void zetNummerplaat(string nummerplaat) { Nummerplaat = nummerplaat; }
+        public void zetChasisnummer(string chasisnummer) { Chassisnummer = chasisnummer; }
+        public void zetBrandstof(Brandstof brandstof) { Brandstof = brandstof; }
+        public void zetVoertuigSoort(Voertuigsoort voertuigsoort) { Soort = voertuigsoort; }
+        public void zetKleur(string kleur) {
+            Kleur = kleur;
+        }
+        public void zetAantalDeuren(int aantal) {
+            AantalDeuren = aantal;
+        }
 #nullable disable
         public void zetBestuurder(Bestuurder bestuurder)
         {
@@ -57,6 +75,7 @@ namespace BusinessLaag
                 {
                     voertuigBestuurder.Add(bestuurder, bestuurder.Voertuig);
                 }
+                Bestuurder = bestuurder;
             }catch (Exception ex)
             {
                 throw new VoertuigException("Voertuig", ex);
