@@ -24,20 +24,19 @@ namespace xUnitTesting
         public int AantalTabellen { get; private set; }
         public bool SequentieDoorlopen { get; private set; }
 
-        public TestDatabankConfigureerder(List<string> tabellen,
+        public TestDatabankConfigureerder(Dictionary<string, string> tabellen,
                                      string databanknaam = "FleetManagerTESTING",
                                      string dataSource = @".\SQLEXPRESS",
-                                     bool integratedSecurity = true,
-                                     string? relatiefTovSolutionPad = null,  
-                                     string? volledigFolderPad = null)
+                                     bool integratedSecurity = true)
         {
+
+            // evt toevoegen relatief pad voor testdata 
             _initialisatieParameters = new Dictionary<string, object>()
             {
                 {"databanknaam", databanknaam},
                 {"dataSource", dataSource},
                 {"integratedSecurity", integratedSecurity},
-                {"relatiefTovSolutionPad", relatiefTovSolutionPad},
-                {"volledigFolderPad", volledigFolderPad}
+                { "tabellen", tabellen }
             };
         }
             // Toe te voegen:
