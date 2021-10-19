@@ -35,17 +35,31 @@ namespace BusinessLaag
             Bestuurder = bestuurder;
             Chassisnummer = chassisnummer;
         }
-
+        public void zetId(int id) { }
+        public void zetMerk(Merk merk) { }
+        public void zetModel(string model) { }
+        public void zetNummerplaat(string nummerplaat) { }
+        public void zetChasisnummer(string chasisnummer) { }
+        public void zetBrandstof(Brandstof brandstof) { }
+        public void zetVoertuigSoort(Voertuigsoort voertuigsoort) { }
+        public void zetKleur(string kleur) { }
+        public void zetAantalDeuren(int aantal) { }
 #nullable disable
         public void zetBestuurder(Bestuurder bestuurder)
         {
-            if (voertuigBestuurder.Keys.Contains(bestuurder))
+            try
             {
-                throw new VoertuigException("Bestuurder hoort al bij een wagen");
-            }
-            else
+                if (voertuigBestuurder.Keys.Contains(bestuurder))
+                {
+                    throw new VoertuigException("Bestuurder hoort al bij een wagen");
+                }
+                else
+                {
+                    voertuigBestuurder.Add(bestuurder, bestuurder.Voertuig);
+                }
+            }catch (Exception ex)
             {
-                voertuigBestuurder.Add(bestuurder, bestuurder.Voertuig);
+                throw new VoertuigException("Voertuig", ex);
             }
         }
 

@@ -43,6 +43,14 @@ namespace BusinessLaag
         }
 
 #nullable disable
+        public void zetId(int id) { }
+        public void zetNaam(string naam) { }
+        public void zetVoornaam(string voornaam) { }
+        public void zetAdres(Adres adres) { }
+        public void zetGeboortedatum(DateTime geboortedatum) { }
+        public void zetRijksregisternummer(string rijksregisternummer) { }
+        public void zetRijbewijs(RijbewijsSoort rijbewijs) { }
+
         public void zetTankkaart(Tankkaart tankkaart)
         {
             if (bestuurderTankkaart.Keys.Contains(tankkaart.Bestuurder))
