@@ -12,12 +12,12 @@ namespace xUnitTesting
 {
     public static class Gemeenschappelijk
     {
-        // In te vullen - de namen van de bestanden waar de create table
-        // statements in staan, zonder .sql extensie, zie:
-        // ./DataLaag/_SQL
-        public static List<string> tabelfilenamen = new List<string>() { };
 
-        public static TestDatabankConfigureerder TestDatabankConfigureerder = new TestDatabankConfigureerder(tabelfilenamen);
+        public static Dictionary<string, string> tabeldatasources = new Dictionary<string, string>{ 
+            {"", ""}
+        };
+
+        public static TestDatabankConfigureerder TestDatabankConfigureerder = new TestDatabankConfigureerder(tabeldatasources);
         public static FleetManager _testFleetManager = new(new VoertuigOpslag(), new BestuurderOpslag(), 
                                                           new TankkaartOpslag(), TestDatabankConfigureerder);
     }
