@@ -12,21 +12,19 @@ namespace BusinessLaag
 #nullable enable
     public class Bestuurder
     {
-        private Dictionary<Bestuurder, Voertuig> bestuurderVoertuig = new Dictionary<Bestuurder, Voertuig>();
-        private Dictionary<Bestuurder, Tankkaart> bestuurderTankkaart = new Dictionary<Bestuurder, Tankkaart>();
+        
         public int? Id { get; private set; }
         public string Naam { get; private set; }
         public string Voornaam { get; private set; }
-        public Adres? Adres { get; private set; } // TODO -- aparte klasse
+        public Adres? Adres { get; private set; }
         public long GeboorteDatum { get; private set; }
 
         public string RijksRegisterNummer { get; private set; }
 
         public RijbewijsSoort RijbewijsSoort { get; private set; }
 
-        public Voertuig Voertuig { get; private set; }
-
-        public Tankkaart Tankkaart { get; private set; }
+        private List<Voertuig> Voertuigen = new();
+        private List<Tankkaart> Tankkaarten = new ();
 
         public Bestuurder(int? id, string naam, string voornaam, Adres? adres, long geboortedatum, 
             string rijksregisternummer, RijbewijsSoort rijbewijssoort, Voertuig voertuig, Tankkaart tankkaart)
@@ -40,91 +38,69 @@ namespace BusinessLaag
             zetRijbewijs(rijbewijssoort);
             zetVoertuig(voertuig);
             zetTankkaart(tankkaart);
-            /*  Id = id;
-            Naam = naam.Length > 1 ? naam : throw new BestuurderException("Naam moet bestaan uit minstens 2 karakters");
-            Voornaam = voornaam.Length > 1 ? voornaam : throw new BestuurderException("Voornaam moet bestaan uit minstens 2 karakters");
-            Adres = adres;
-            GeboorteDatum = geboortedatum > -2208988800 ? geboortedatum : throw new BestuurderException("Geboortejaar moet na 1900 zijn");
-            RijksRegisterNummer = (new RRNValideerder().Valideer(rijksregisternummer)) ? rijksregisternummer : throw new BestuurderException("Rijksregisternummer is ongeldig");
-            RijbewijsSoort = rijbewijssoort;
-            Voertuig = voertuig;
-            Tankkaart = tankkaart;*/
         }
 
 #nullable disable
-        public void zetId(int id)
+        public void zetId(int? id)
         {
-            if (id <= 0)
-            {
-                throw new BestuurderException("Uw bestuurder id mag niet gelijk of kleiner dan nul zijn ");
-            }
-            else if (id.GetType() != typeof(int))
-            {
-                throw new BestuurderException("Wat u heeft ingevuld is geen numeriek getal");
-            }
-            Id = id;
+            if(id is not null)
+                if (id <= 0)
+                    throw new BestuurderException("Uw bestuurder id mag niet gelijk of kleiner dan nul zijn ");
+            
+            Id = id; // nullable toelaten
         }
         public void zetNaam(string naam) {
-            if (naam.GetType() != typeof(string))
-            {
-                throw new BestuurderException("wat u heeft ingegeven is niet het juiste datatype voor een naam");
-            }else if (naam.Length > 1)
-            {
+            if (naam.Length > 1)
                 throw new BestuurderException("Naam moet bestaan uit minstens 2 karakters");
-            }
+
             Naam = naam;
         }
         public void zetVoornaam(string voornaam)
         {
-            if (voornaam.GetType() != typeof(string))
-            {
-                throw new BestuurderException("wat u heeft ingegeven is niet het juiste datatype voor een naam");
-            }
-            else if (voornaam.Length > 1)
-            {
+            if (voornaam.Length < 2)
                 throw new BestuurderException("Naam moet bestaan uit minstens 2 karakters");
-            }
+
             Voornaam = voornaam;
         }
-        public void zetAdres(Adres adres) { Adres = adres; }
+        public void zetAdres(Adres adres) { 
+            Adres = adres; 
+        }
         public void zetGeboortedatum(long geboortedatum) { 
             if (geboortedatum > -2208988800)
-            {
                 throw new BestuurderException("Geboortejaar moet na 1900 zijn");
-            }
+
             GeboorteDatum = geboortedatum;
         }
         public void zetRijksregisternummer(string rijksregisternummer) {
-            if (new RRNValideerder().Valideer(rijksregisternummer)==false) {
+            if (!(new RRNValideerder().Valideer(rijksregisternummer)))
                 throw new BestuurderException("Rijksregisternummer is ongeldig");
-            }
+
             RijksRegisterNummer = rijksregisternummer;
-            }
+        }
+
         public void zetRijbewijs(RijbewijsSoort rijbewijs) { RijbewijsSoort = rijbewijs; }
 
         public void zetTankkaart(Tankkaart tankkaart)
         {
-            if (bestuurderTankkaart.Keys.Contains(tankkaart.Bestuurder))
+            if (Tankkaarten.Contains(tankkaart))
             {
-                throw new BestuurderException("Tankkaart hoort al bij een bestuurder");
+                throw new BestuurderException("Tankkaart hoort al bij deze bestuurder");
             }
             else
             {
-                bestuurderTankkaart.Add(tankkaart.Bestuurder, tankkaart);
+                Tankkaarten.Add(tankkaart);
             }
-            Tankkaart = tankkaart;
         }
         public void zetVoertuig(Voertuig voertuig)
         {
-            if (bestuurderVoertuig.Keys.Contains(Voertuig.Bestuurder))
+            if (Voertuigen.Contains(voertuig))
             {
-                throw new BestuurderException("Bestuurder hoort al bij een wagen");
+                throw new BestuurderException("Voertuig reeds bekend bij bestuurder");
             }
             else
             {
-                bestuurderVoertuig.Add(voertuig.Bestuurder, voertuig);
+                Voertuigen.Add(voertuig);
             }
-            Voertuig = voertuig;
         }
     }
 

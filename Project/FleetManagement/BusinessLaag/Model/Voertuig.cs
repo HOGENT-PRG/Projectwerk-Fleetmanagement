@@ -10,8 +10,6 @@ namespace BusinessLaag
    public class Voertuig
     {
 #nullable enable
-        private Dictionary<Bestuurder, Voertuig> voertuigBestuurder = new Dictionary<Bestuurder, Voertuig>();
-
         public int? Id { get; private set; }
         public Merk Merk { get; private set; }
         public string Nummerplaat { get; private set; }
@@ -37,49 +35,37 @@ namespace BusinessLaag
     
          
         }
-        public void zetId(int id)
+        public void zetId(int? id)
         {
-            if (id <= 0)
-            {
-                throw new VoertuigException("Uw voertuig id mag niet gelijk of kleiner dan nul zijn ");
-            }
-            else if (id.GetType() != typeof(int))
-            {
-                throw new VoertuigException("Wat u heeft ingevuld is geen numeriek getal");
-            }
-            Id = id;
+            if (id is not null)
+                if (id <= 0)
+                    throw new TankkaartException("Uw bestuurder id mag niet gelijk of kleiner dan nul zijn ");
+
+            Id = id; // nullable toelaten
         }
         public void zetMerk(Merk merk) {  Merk = merk; }
-        //Model is toch hetzelfde als voertuigsoort
-        public void zetModel(string model) { }
-        public void zetNummerplaat(string nummerplaat) { Nummerplaat = nummerplaat; }
-        public void zetChasisnummer(string chasisnummer) { Chassisnummer = chasisnummer; }
+        public void zetNummerplaat(string nummerplaat) { Nummerplaat = nummerplaat.Length > 0 ? nummerplaat : throw new VoertuigException("Gelieve een nummerplaat op te geven"); }
+        public void zetChasisnummer(string chasisnummer) { Chassisnummer = chasisnummer.Length == 17 ? chasisnummer : throw new VoertuigException("Een chassisnummer moet bestaan uit 17 karakters"); }
+        //https://nl.wikipedia.org/wiki/Framenummer
+
         public void zetBrandstof(Brandstof brandstof) { Brandstof = brandstof; }
         public void zetVoertuigSoort(Voertuigsoort voertuigsoort) { Soort = voertuigsoort; }
         public void zetKleur(string kleur) {
-            Kleur = kleur;
+            Kleur = kleur.Length > 0 ? kleur : throw new VoertuigException("Gelieve een kleur op te geven");
         }
-        public void zetAantalDeuren(int aantal) {
-            AantalDeuren = aantal;
+        public void zetAantalDeuren(int? aantal) {
+            if(aantal is not null)
+                AantalDeuren = aantal > 0 ? aantal : throw new VoertuigException("Minimum aantal deuren is 1");
+
+            AantalDeuren = aantal; //nullable toelaten
         }
 #nullable disable
-        public void zetBestuurder(Bestuurder bestuurder)
+        public void zetBestuurder(Bestuurder? bestuurder)
         {
-            try
-            {
-                if (voertuigBestuurder.Keys.Contains(bestuurder))
-                {
-                    throw new VoertuigException("Bestuurder hoort al bij een wagen");
-                }
-                else
-                {
-                    voertuigBestuurder.Add(bestuurder, bestuurder.Voertuig);
-                }
-                Bestuurder = bestuurder;
-            }catch (Exception ex)
-            {
-                throw new VoertuigException("Voertuig", ex);
-            }
+            if (Bestuurder == bestuurder)
+                throw new VoertuigException("Bestuurder hoort al bij deze wagen");
+
+            Bestuurder = bestuurder; //nullable toelaten
         }
 
 

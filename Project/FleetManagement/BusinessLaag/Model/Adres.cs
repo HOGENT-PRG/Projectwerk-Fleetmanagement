@@ -29,9 +29,13 @@ namespace BusinessLaag.Model
         public string Provincie { get; private set; }
         public string Land { get; private set; }
 
-        public void zetId(int id) // kan hier niet null zijn door type int
+        public void zetId(int? id) 
         {
-            Id = id > 0 ? id : throw new AdresException("Id kan niet kleiner zijn dan 1");
+            if (id is not null)
+                if (id <= 0)
+                    throw new TankkaartException("Uw bestuurder id mag niet gelijk of kleiner dan nul zijn ");
+
+            Id = id; // nullable toelaten
         }
         public void zetStraatnaam(string straatnaam)
         {
