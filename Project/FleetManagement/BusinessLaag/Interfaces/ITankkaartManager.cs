@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BusinessLaag.Model;
+using System.Collections.Generic;
 
 namespace BusinessLaag.Interfaces
 {

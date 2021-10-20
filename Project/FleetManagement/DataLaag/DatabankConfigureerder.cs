@@ -44,24 +44,28 @@ namespace DataLaag
 
             // Stelt de SqlConnections en strings in
             _zetConnecties(databanknaam, dataSource, integratedSecurity);
+
+            // Test verbinding, populeer ConnectieSuccesvol en DatabaseBestaat
             _connecteerMetDatabase(databanknaam);
+
+            List<string> verwachteTabellen = tabellen.Keys.ToList();
 
             if (ConnectieSuccesvol)
             {
                 if (!DatabaseBestaat)
                 {
                     _maakOntbrekendeDatabank(databanknaam);
-                    _connecteerMetDatabase(databanknaam);
+                    _connecteerMetDatabase(databanknaam); // populeert DatabaseBestaat
                 }
 
-                _controleerBestaanTabellen(tabellen.Keys.ToList());
+                _controleerBestaanTabellen(verwachteTabellen); // populeert AlleTabellenBestaan
                 if (!AlleTabellenBestaan)
                 {
                     _maakOntbrekendeTabellenAan(databanknaam, tabellen);
-                    _controleerBestaanTabellen(tabellen.Keys.ToList());
+                    _controleerBestaanTabellen(verwachteTabellen); // populeert AlleTabellenBestaan
                 }
 
-                _ = _geefAantalTabellenVoorDatabase(databanknaam); // AantalTabellen populaten
+                _ = _geefAantalTabellenVoorDatabase(databanknaam); // populeert AantalTabellen
             }
 
             SequentieDoorlopen = true;

@@ -16,11 +16,10 @@ namespace BusinessLaag.Helpers
                 return false;
             }
 
-            // "... Het is de dagteller van de geboortes. Voor een man van 001 tot 997 en voor een vrouw van 002 tot 998."
+            // "... Het is de dagteller van de geboortes. Voor een man van 001 tot en met 999 en voor een vrouw van 002 tot en met 998."
             int dagteller = int.Parse(rijksregnummer.Substring(6, 3));
 
-            /// 998 en 999 zijn dus ongeldig
-            if(dagteller >= 998)
+            if (dagteller == 0)
             {
                 return false;
             }

@@ -19,13 +19,15 @@ namespace xUnitTesting.Model
         private static Adres validAdres = new Adres(validId, validStraat, validHuisnummer, validPostcode, validPlaatsnaam, validProvincie, validLand);
 
         [Theory]
-        [InlineData(null)]
+        [InlineData(null)] // dit omvat tevens de valid Zet methodes (ctor gebruikt deze)
         [InlineData(1)]
         public void Test_Ctor_valid(int? id)
         {
             Adres adr = new Adres(id, validStraat, validHuisnummer, validPostcode, validPlaatsnaam, validProvincie, validLand);
 
-            Assert.Equal(id, adr.Id);
+            if (id is null) Assert.Null(adr.Id);
+            else Assert.Equal(id, adr.Id);
+
             Assert.Equal(validHuisnummer, adr.Huisnummer);
             Assert.Equal(validPostcode, adr.Postcode);
             Assert.Equal(validPlaatsnaam, adr.Plaatsnaam);

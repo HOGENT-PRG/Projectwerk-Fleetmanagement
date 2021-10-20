@@ -10,7 +10,8 @@ namespace BusinessLaag.Model
    public class Adres
     {
 
-        public Adres(int? id, string straatnaam,string huisnummer,string postcode,string plaatsnaam,string provincie, string land)
+        public Adres(int? id, string straatnaam,string huisnummer,
+            string postcode,string plaatsnaam,string provincie, string land)
         {
             if(id == null) { Id = id; } else { zetId((int)id); } // bij constr. null id toelaten
             zetStraatnaam(straatnaam);
@@ -31,9 +32,9 @@ namespace BusinessLaag.Model
 
         public void zetId(int? id) 
         {
-            if (id is not null)
+            if (id is not null || id.HasValue)
                 if (id <= 0)
-                    throw new TankkaartException("Uw bestuurder id mag niet gelijk of kleiner dan nul zijn ");
+                    throw new AdresException("Uw bestuurder id mag niet gelijk of kleiner dan nul zijn ");
 
             Id = id; // nullable toelaten
         }
@@ -42,30 +43,26 @@ namespace BusinessLaag.Model
             if (string.IsNullOrEmpty(straatnaam) || straatnaam.Any(char.IsDigit)) throw new AdresException("Straat moet ingevuld worden en mag geen cijfers bevatten");
             Straatnaam = straatnaam;
         }    
-        
         public void zetHuisnummer(string huisnummer)
         {
             if (string.IsNullOrEmpty(huisnummer) || !(huisnummer.Any(char.IsDigit))) throw new AdresException("Huisnummer moet ingevuld worden en ten minste 1 cijfer bevatten");
             Huisnummer = huisnummer;
         }
-          public void zetPostcode(string postcode)
+        public void zetPostcode(string postcode)
         {
             if (string.IsNullOrEmpty(postcode) || !postcode.Any(char.IsDigit)) throw new AdresException("Postcode moet ingevuld worden en cijfer(s) bevatten");
             Postcode = postcode.Length >= 4 ? postcode : throw new AdresException("Postcode moet op zijn minst bestaan uit 4 karakters");
         }  
-        
         public void zetPlaatsnaam(string plaatsnaam)
         {
             if (string.IsNullOrEmpty(plaatsnaam) || plaatsnaam.Any(char.IsDigit)) throw new AdresException("Plaatsnaam moet ingevuld worden en mag geen cijfers bevatten");
             Plaatsnaam = plaatsnaam;
         } 
-        
         public void zetProvincie(string provincie)
         {
             if (string.IsNullOrEmpty(provincie) || provincie.Any(char.IsDigit)) throw new AdresException("Provincie moet ingevuld worden en mag geen cijfers bevatten");
             Provincie = provincie;
         }
-
         public void zetLand(string land)
         {
             if (string.IsNullOrEmpty(land) || land.Any(char.IsDigit)) throw new AdresException("Land moet ingevuld worden en mag geen cijfers bevatten");
