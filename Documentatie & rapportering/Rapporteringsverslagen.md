@@ -75,39 +75,49 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 #### Op volgorde
 
-* Toevoegen methodes aan Model klassendiagram **Benjamin**
-* ^ Indien voltooid, toevoegen Adres klasse en methoden implementeren in Model **Abdellah**
-* Schrijven van unit tests voor business laag Model **Benjamin**
-* * Aan de hand van unit test resultaten de business laag verbeteren **Benjamin**
+* ~~Toevoegen methodes aan Model klassendiagram **Benjamin**~~
+* ~~^ Indien voltooid, toevoegen Adres klasse en methoden implementeren in Model **Abdellah**~~
+* ~~Schrijven van unit tests voor business laag Model **Benjamin**~~
+* ~~* Aan de hand van unit test resultaten de business laag verbeteren **Benjamin**~~
 
 #### Gedurende de week
 
-* Er dient vanaf deze week een powerpoint aangemaakt te worden van enkele slides die de vooruitgang samenvat
+* ~~Er dient vanaf deze week een powerpoint aangemaakt te worden van enkele slides die de vooruitgang samenvat~~
 * Ontwerp klassendiagram Presentatielaag in apart VP project om conflicten te vermijden **Robrecht**
-* Veranderen van Engelstalige benamingen naar Nederlands in klassendiagram en project **Benjamin**
-* De StartupSequence klasse achterwege laten (truncate te riskant om te automatiseren in geval van applicatie in productie) en een DatabaseConfigureerder klasse maken 
-*  ^ Truncate table en mock data functies toewijden aan unit testing project (evt gebruik van aparte debug db met zelfde design) **Benjamin**
+* ~~Veranderen van Engelstalige benamingen naar Nederlands in klassendiagram en project **Benjamin**~~
+* ~~De StartupSequence klasse achterwege laten (truncate te riskant om te automatiseren in geval van applicatie in productie) en een DatabaseConfigureerder klasse maken~~ 
+*  ~~^ Truncate table en mock data functies toewijden aan unit testing project (evt gebruik van aparte debug db met zelfde design) **Benjamin**~~
 
 #### Indien taken al klaar zijn
 
 * Database design beginnen
 * Dit design vertalen naar SQL
-* Eventuele aanmaak van een InitializationManager (+ InitializationRepository ) met als taken:
-* * Controle of databank bestaat, zonee wordt een nieuwe databank gemaakt ( https://stackoverflow.com/a/39500898/8623540 )
-* * Controle of databank over de juiste tabellen beschikt, indien nee worden deze aangemaakt ( Voorbeeld van query https://pastebin.com/raw/tTciV7Cb )
+* ~~Eventuele aanmaak van een InitializationManager (+ InitializationRepository ) met als taken:~~
+* ~~* Controle of databank bestaat, zonee wordt een nieuwe databank gemaakt ( https://stackoverflow.com/a/39500898/8623540 )~~
+* ~~* Controle of databank over de juiste tabellen beschikt, indien nee worden deze aangemaakt ( Voorbeeld van query https://pastebin.com/raw/tTciV7Cb )~~
 * Verderwerken aan user interface mockups (lage prioriteit, database design krijgt voorrang)
 
 ### Realisaties
 
-* 
+* Toevoegen methodes aan Model klassendiagram 
+* Toevoegen Adres klasse en methoden implementeren in Model 
+* Schrijven van unit tests voor business laag Model 
+* Aan de hand van unit test resultaten de business laag verbeteren 
+* Powerpoint
+* Veranderen van Engelstalige benamingen naar Nederlands in klassendiagram en project
+* Aanmaken databaseconfigureerder + variant voor unit testing 
 
 ### To-do volgende week
 
-*
+* Database design beginnen
+* Dit design vertalen naar SQL
+* Logica Managers beginnen
+* Verderwerken aan user interface mockups (lage prioriteit, database design krijgt voorrang)
+* Ontwerp klassendiagram Presentatielaag 
 
 ### Obstakels
 
 * 
 
 ### Demo
-* PPT: Unit testen, methodes in model klassen, ontwerp presentatielaag
+* PPT: Unit testen, model klassen, dbconfig
