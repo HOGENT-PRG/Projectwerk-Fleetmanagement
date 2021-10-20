@@ -141,9 +141,7 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 #### Indien taken al klaar zijn
 
-* Database design beginnen
-* Dit design vertalen naar SQL
-* Verderwerken aan user interface mockups (lage prioriteit, database design krijgt voorrang)
+* 
 
 ### Realisaties
 
