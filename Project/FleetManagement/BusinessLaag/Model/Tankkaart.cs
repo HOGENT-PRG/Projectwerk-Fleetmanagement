@@ -10,14 +10,15 @@ namespace BusinessLaag
 #nullable enable
     public class Tankkaart
     {
-        public int? Id { get; private set; }
+        public int? Id { get; private set; } // nullable toegelaten
         public string Kaartnummer { get; private set; }
         public long Vervaldatum { get; private set; }
-        public int? Pincode { get; private set; }
+        public int? Pincode { get; private set; } // nullable toegelaten
         public List<Brandstof> GeldigVoorBrandstoffen { get; private set; }
         public Bestuurder? Bestuurder { get; private set; }
 
-        public Tankkaart(int id, string kaartnummer, long vervaldatum, string pincode, List<Brandstof>? geldigvoorbrandstoffen, Bestuurder? bestuurder)
+        public Tankkaart(int id, string kaartnummer, long vervaldatum, 
+            string pincode, List<Brandstof>? geldigvoorbrandstoffen, Bestuurder? bestuurder)
         {
             zetId(id);
             zetKaartnummer(kaartnummer);

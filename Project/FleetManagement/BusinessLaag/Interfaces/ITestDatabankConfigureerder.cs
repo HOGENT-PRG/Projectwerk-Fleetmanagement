@@ -11,9 +11,10 @@ namespace BusinessLaag.Interfaces
     {
         // Inherited:
         //   geefTabellen();
-        void maakTabellenAan();
-        void truncateTabellen();
-        void verwijderTabellen();
+        void maakTabellenAan(Dictionary<string, string> tabellen);
+        void truncateTabellen(List<string> tabellen);
+        void verwijderTabellen(List<string> tabellen);
+        void voerDataIn(Dictionary<string, object> data);
         IEnumerable geefInitialisatieParameters();
     }
 }

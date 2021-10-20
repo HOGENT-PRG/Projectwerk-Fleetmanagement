@@ -4,29 +4,27 @@ using System.Linq;
 using System.Text;
 using BusinessLaag.Exceptions;
 using BusinessLaag.Helpers;
-using BusinessLaag.Model.Attributes;
 using System.Threading.Tasks;
 using BusinessLaag.Model;
 namespace BusinessLaag
 {
-#nullable enable
     public class Bestuurder
     {
         
-        public int? Id { get; private set; }
+        public int? Id { get; private set; } // nullable toegelaten
         public string Naam { get; private set; }
         public string Voornaam { get; private set; }
-        public Adres? Adres { get; private set; }
+        public Adres Adres { get; private set; } // nullable toegelaten
         public long GeboorteDatum { get; private set; }
 
         public string RijksRegisterNummer { get; private set; }
 
         public RijbewijsSoort RijbewijsSoort { get; private set; }
 
-        private List<Voertuig> Voertuigen = new();
-        private List<Tankkaart> Tankkaarten = new ();
+        public Voertuig Voertuig { get; private set; } // nullable toegelaten
+        public Tankkaart Tankkaart { get; private set; } // nullable toegelaten
 
-        public Bestuurder(int? id, string naam, string voornaam, Adres? adres, long geboortedatum, 
+        public Bestuurder(int? id, string naam, string voornaam, Adres adres, long geboortedatum, 
             string rijksregisternummer, RijbewijsSoort rijbewijssoort, Voertuig voertuig, Tankkaart tankkaart)
         {
             zetId(id);
@@ -40,7 +38,6 @@ namespace BusinessLaag
             zetTankkaart(tankkaart);
         }
 
-#nullable disable
         public void zetId(int? id)
         {
             if(id is not null)
@@ -63,7 +60,7 @@ namespace BusinessLaag
             Voornaam = voornaam;
         }
         public void zetAdres(Adres adres) { 
-            Adres = adres; 
+            Adres = adres; //nullable toelaten
         }
         public void zetGeboortedatum(long geboortedatum) { 
             if (geboortedatum > -2208988800)
@@ -77,30 +74,24 @@ namespace BusinessLaag
 
             RijksRegisterNummer = rijksregisternummer;
         }
-
         public void zetRijbewijs(RijbewijsSoort rijbewijs) { RijbewijsSoort = rijbewijs; }
-
         public void zetTankkaart(Tankkaart tankkaart)
         {
-            if (Tankkaarten.Contains(tankkaart))
+            if (Tankkaart == tankkaart)
             {
                 throw new BestuurderException("Tankkaart hoort al bij deze bestuurder");
             }
-            else
-            {
-                Tankkaarten.Add(tankkaart);
-            }
+
+            Tankkaart = tankkaart; //nullable toelaten
         }
         public void zetVoertuig(Voertuig voertuig)
         {
-            if (Voertuigen.Contains(voertuig))
+            if (Voertuig == voertuig)
             {
                 throw new BestuurderException("Voertuig reeds bekend bij bestuurder");
             }
-            else
-            {
-                Voertuigen.Add(voertuig);
-            }
+
+            Voertuig = voertuig; //nullable toelaten
         }
     }
 

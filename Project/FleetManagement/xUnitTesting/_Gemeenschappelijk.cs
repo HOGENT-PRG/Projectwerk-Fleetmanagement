@@ -12,6 +12,10 @@ namespace xUnitTesting
 {
     public static class Gemeenschappelijk
     {
+        // Tabelnaam : url , de tabelnaam aan te maken (case sensitive) en de databron die er voor gebruikt wordt
+        // voorbeeld:
+        // {"bestelling", "https://pastebin.com/raw/ZnbbC6vu" },
+        // {"klant", "https://pastebin.com/raw/KMVXnGRG" }
 
         public static Dictionary<string, string> tabeldatasources = new Dictionary<string, string>{ 
             {"", ""}

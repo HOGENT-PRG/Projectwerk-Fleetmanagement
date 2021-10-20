@@ -30,7 +30,6 @@ namespace xUnitTesting
                                      bool integratedSecurity = true)
         {
 
-            // evt toevoegen relatief pad voor testdata 
             _initialisatieParameters = new Dictionary<string, object>()
             {
                 {"databanknaam", databanknaam},
@@ -39,35 +38,31 @@ namespace xUnitTesting
                 { "tabellen", tabellen }
             };
         }
-            // Toe te voegen:
-            // constructor logica
-            // private methodes
-            // ---------- haal deze uit DatabankConfigureerder als de bugs er uit zijn, en wanneer testen van de managers
-            // ---------- nodig is (na database design en tijdens/na ontwikkelen managers om functionaliteiten te testen)
+
+        // Toe te voegen:
+        // constructor logica (kan overgenomen worden van dbconfigureerder)
+        // methodes logica
 
         public IEnumerable geefInitialisatieParameters()
         {
             return _initialisatieParameters;
         }
-
         public IList<string> geefTabellen()
         {
             throw new NotImplementedException();
         }
-
-        public void maakTabellenAan()           //hetzelfde pad gebruiken als de reguliere dbconfigureerder waar de 
-        {                                       //create table statements zich bevinden: "/DataLaag/_SQL/"
+        public void maakTabellenAan(Dictionary<string,string> tabellen) {
             throw new NotImplementedException();
         }
-
-        public void truncateTabellen()
+        public void truncateTabellen(List<string> tabellen)
         {
             throw new NotImplementedException();
         }
-
-        public void verwijderTabellen()
+        public void verwijderTabellen(List<string> tabellen)
         {
             throw new NotImplementedException();
+        }
+        public void voerDataIn(Dictionary<string, object> data) { 
         }
     }
 }

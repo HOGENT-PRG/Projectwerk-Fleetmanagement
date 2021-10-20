@@ -14,9 +14,12 @@ namespace xUnitTesting.Managers
         BestuurderManager _bestuurderManager = Gemeenschappelijk._testFleetManager.BestuurderManager;
         TestDatabankConfigureerder _beheerDatabank = Gemeenschappelijk.TestDatabankConfigureerder;
 
-        // Zet hier wat uitgevoerd moet worden voor het starten van de tests
+        // Zet hieronder wat uitgevoerd moet worden voor het starten van de tests
+        
 
+        // Zet hieronder je unit tests en eventuele interacties met db (naar een vorige state bijvoorbeeld)
 
-        //---------------------------------------------------------
+        
+        
     }
 }

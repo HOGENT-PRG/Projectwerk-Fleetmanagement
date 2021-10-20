@@ -15,7 +15,7 @@ namespace DataLaag
 #nullable enable
     public class DatabankConfigureerder : IDatabankConfigureerder
     {
-        // Het gebruik van een master connectie is enkel intern vereist, voor het aanmaken van een databank
+        // Het gebruik van een master connectie is enkel intern vereist
         private string MasterConnectieString { get; set; }
 
         // Wordt gebruikt om SqlConnections aan te maken in de Repositories
@@ -159,7 +159,6 @@ namespace DataLaag
             }
         }
 
-        // moeten backticks gebruikt worden? https://stackoverflow.com/questions/44819719/check-if-table-creation-was-successful
         private int _geefAantalTabellenVoorDatabase(string databanknaam)
         {
             string sql = "SELECT count(*) FROM information_schema.TABLES WHERE (TABLE_CATALOG=@dbNaam)";
@@ -234,7 +233,7 @@ namespace DataLaag
             }
         }
 
-        //Publieke methoden hieronder -----------------------------------------------------
+        //--
         public IList<string> geefTabellen()
         {
             List<string> tables = new List<string>();
