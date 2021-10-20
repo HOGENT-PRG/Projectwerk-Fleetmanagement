@@ -121,3 +121,42 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 ### Demo
 * PPT: Unit testen, model klassen, dbconfig
+
+
+
+
+## Week 4 - 21/10-28/10
+
+### Planning
+
+#### Op volgorde
+
+*
+
+#### Gedurende de week
+
+* Database design beginnen
+* Dit design vertalen naar SQL
+* Verderwerken aan user interface mockups (lage prioriteit, database design krijgt voorrang)
+
+#### Indien taken al klaar zijn
+
+* Database design beginnen
+* Dit design vertalen naar SQL
+* Verderwerken aan user interface mockups (lage prioriteit, database design krijgt voorrang)
+
+### Realisaties
+
+* 
+
+### To-do volgende week
+
+* 
+
+### Obstakels
+
+* 
+
+### Demo
+* PPT: Unit testen, model klassen, dbconfig
+
