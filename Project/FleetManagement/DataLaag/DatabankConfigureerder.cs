@@ -43,14 +43,10 @@ namespace DataLaag
         {
 
             // Stelt de SqlConnections en strings in
-            _zetConnecties(databanknaam, dataSource, integratedSecurity); // CS8618
+            _zetConnecties(databanknaam, dataSource, integratedSecurity);
             _connecteerMetDatabase(databanknaam);
 
-            if (!ConnectieSuccesvol)
-            {
-                SequentieDoorlopen = true;
-            }
-            else
+            if (ConnectieSuccesvol)
             {
                 if (!DatabaseBestaat)
                 {
