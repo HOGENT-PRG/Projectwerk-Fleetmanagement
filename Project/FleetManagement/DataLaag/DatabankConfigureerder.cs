@@ -41,36 +41,40 @@ namespace DataLaag
                                      string dataSource = @".\SQLEXPRESS",
                                      bool integratedSecurity = true)
         {
-
-            // Stelt de SqlConnections en strings in
+            // Stelt de SqlConnections en connectionstrings in
             _zetConnecties(databanknaam, dataSource, integratedSecurity);
 
-            // Test verbinding, populeer ConnectieSuccesvol en DatabaseBestaat
-            _connecteerMetDatabase(databanknaam);
+            // Doorloopt de configuratiesequentie, stelt overige properties in
+            _doorloopSequentie(databanknaam, tabellen);  
+        }
 
-            List<string> verwachteTabellen = tabellen.Keys.ToList();
+        private void _doorloopSequentie(string databanknaam, Dictionary<string, string> gewensteTabellen)
+        {
+            List<string> gewensteTabellenNamen = gewensteTabellen.Keys.ToList();
+
+            // Test verbinding, populeert ConnectieSuccesvol en DatabaseBestaat
+            _connecteerMetDatabase(databanknaam);
 
             if (ConnectieSuccesvol)
             {
                 if (!DatabaseBestaat)
                 {
                     _maakOntbrekendeDatabank(databanknaam);
-                    _connecteerMetDatabase(databanknaam); // populeert DatabaseBestaat
                 }
 
-                _controleerBestaanTabellen(verwachteTabellen); // populeert AlleTabellenBestaan
+                _controleerBestaanTabellen(gewensteTabellenNamen); // populeert AlleTabellenBestaan
                 if (!AlleTabellenBestaan)
                 {
-                    _maakOntbrekendeTabellenAan(databanknaam, tabellen);
-                    _controleerBestaanTabellen(verwachteTabellen); // populeert AlleTabellenBestaan
+                    _maakOntbrekendeTabellenAan(databanknaam, gewensteTabellen);
                 }
 
-                _ = _geefAantalTabellenVoorDatabase(databanknaam); // populeert AantalTabellen
+                _connecteerMetDatabase(databanknaam); // populeert DatabaseBestaat
+                _controleerBestaanTabellen(gewensteTabellenNamen); // populeert AlleTabellenBestaan
+                _geefAantalTabellenVoorDatabase(databanknaam); // AantalTabellen populaten
             }
 
             SequentieDoorlopen = true;
         }
-
         private void _zetConnecties(string dbnaam, string datasource, bool integratedsecurity)
         {
             // Aanmaken SqlConnections
@@ -88,7 +92,6 @@ namespace DataLaag
             ProductieConnectieString = productieBouwer.ConnectionString;
             ProductieConnectie = new(ProductieConnectieString);
         }
-
         private void _connecteerMetDatabase(string databanknaam)
         {
             try
@@ -117,7 +120,6 @@ namespace DataLaag
                 MasterConnectie.Close();
             }
         }
-
         private void _controleerBestaanTabellen(List<string> verwachteTabellen)
         {
             IList<string> bestaandeTabellen = this.geefTabellen();
@@ -138,7 +140,6 @@ namespace DataLaag
                 AlleTabellenBestaan = true;
             }
         }
-
         private void _maakOntbrekendeDatabank(string databanknaam)
         {
             try
@@ -158,7 +159,6 @@ namespace DataLaag
                 MasterConnectie.Close();
             }
         }
-
         private int _geefAantalTabellenVoorDatabase(string databanknaam)
         {
             string sql = "SELECT count(*) FROM information_schema.TABLES WHERE (TABLE_CATALOG=@dbNaam)";
@@ -174,20 +174,22 @@ namespace DataLaag
 
                 var test = cmd.ExecuteScalar();
                 int output;
-                int.TryParse(test.ToString(), out output);
-                AantalTabellen = output;
+
+                if (int.TryParse(test.ToString(), out output))
+                    AantalTabellen = output;
+                else AantalTabellen = 0;
+
                 return output;
             }
             catch (Exception e)
             {
-                return 0;
+                AantalTabellen = -1;
+                return -1;
             }
             finally
             {
                 ProductieConnectie.Close();
             }
-
-
         }
         private void _maakOntbrekendeTabellenAan(string databanknaam, Dictionary<string, string> tabellen)
         {
