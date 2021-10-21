@@ -17,7 +17,7 @@ namespace BusinessLaag.Model
         public string Naam { get; private set; }
         public string Voornaam { get; private set; }
         public Adres Adres { get; private set; } // nullable toegelaten
-        public long GeboorteDatum { get; private set; }
+        public DateTime GeboorteDatum { get; private set; }
 
         public string RijksRegisterNummer { get; private set; }
 
@@ -26,7 +26,7 @@ namespace BusinessLaag.Model
         public Voertuig Voertuig { get; private set; } // nullable toegelaten 
         public Tankkaart Tankkaart { get; private set; } // nullable toegelaten
 
-        public Bestuurder(int? id, string naam, string voornaam, Adres adres, long geboortedatum, 
+        public Bestuurder(int? id, string naam, string voornaam, Adres adres, DateTime geboortedatum, 
             string rijksregisternummer, RijbewijsSoort rijbewijssoort, Voertuig voertuig, Tankkaart tankkaart)
         {
             zetId(id);
@@ -49,15 +49,15 @@ namespace BusinessLaag.Model
             Id = id; // nullable toelaten
         }
         public void zetNaam(string naam) {
-            if (naam.Length < 2)
-                throw new BestuurderException("Naam moet bestaan uit minstens 2 karakters");
+            if (string.IsNullOrEmpty(naam) || naam.Length < 2 || naam.Length > 100 || naam.ToCharArray().Any(c => Char.IsDigit(c)))
+                throw new BestuurderException("Naam moet bestaan uit min 2 en max 100 karakters, mag niet leeg zijn en mag geen cijfers bevatten.");
 
             Naam = naam;
         }
         public void zetVoornaam(string voornaam)
         {
-            if (voornaam.Length < 2)
-                throw new BestuurderException("Naam moet bestaan uit minstens 2 karakters");
+            if (string.IsNullOrEmpty(voornaam) || voornaam.Length < 2 || voornaam.Length > 100 || voornaam.ToCharArray().Any(c => Char.IsDigit(c)))
+                throw new BestuurderException("Naam moet bestaan uit minstens 2, max 100 karakters en mag geen cijfers bevatten.");
 
             Voornaam = voornaam;
         }
@@ -69,11 +69,11 @@ namespace BusinessLaag.Model
 
             Adres = adres; //nullable toelaten
         }
-        public void zetGeboortedatum(long geboortedatum) { 
-            if (geboortedatum < int.MinValue)
-                throw new BestuurderException("Geboortejaar moet na 1900 zijn");
-
-            GeboorteDatum = geboortedatum;
+        public void zetGeboortedatum(DateTime geboortedatum) { 
+            DateTime minimumdate = DateTime.Now.AddYears(-120);
+            if ((DateTime.Compare(minimumdate, geboortedatum) < 0) && (DateTime.Compare(DateTime.Now, geboortedatum) > 0))
+                GeboorteDatum = geboortedatum;
+            else throw new BestuurderException($"Geboortejaar moet na {minimumdate.Year} zijn, en mag niet later zijn dan vandaag.");
         }
         public void zetRijksregisternummer(string rijksregisternummer) {
             if (new RRNValideerder().Valideer(rijksregisternummer) is false)

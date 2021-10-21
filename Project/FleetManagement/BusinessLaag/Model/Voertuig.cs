@@ -66,7 +66,7 @@ namespace BusinessLaag.Model
         }
         public void zetAantalDeuren(int? aantal) {
             if(aantal is not null)
-                AantalDeuren = aantal > 0 ? aantal : throw new VoertuigException("Het minimum aantal deuren is 1");
+                AantalDeuren = aantal > 0 && aantal < 21 ? aantal : throw new VoertuigException("Het minimum aantal deuren is 1, max 20.");
 
             AantalDeuren = aantal; //nullable toelaten
         }

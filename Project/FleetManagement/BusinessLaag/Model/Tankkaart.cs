@@ -13,12 +13,12 @@ namespace BusinessLaag.Model
     {
         public int? Id { get; private set; } // nullable toegelaten
         public string Kaartnummer { get; private set; }
-        public long Vervaldatum { get; private set; }
+        public DateTime Vervaldatum { get; private set; }
         public string? Pincode { get; private set; } // nullable toegelaten
         public List<Brandstof> GeldigVoorBrandstoffen { get; private set; }
         public Bestuurder? Bestuurder { get; private set; }
 
-        public Tankkaart(int? id, string kaartnummer, long vervaldatum, 
+        public Tankkaart(int? id, string kaartnummer, DateTime vervaldatum, 
             string pincode, List<Brandstof>? geldigvoorbrandstoffen, Bestuurder? bestuurder)
         {
             zetId(id);
@@ -43,51 +43,42 @@ namespace BusinessLaag.Model
             }
             Kaartnummer = kaartnummer;
         }
-        public void zetVervaldatum(long vervaldatum)
+        public void zetVervaldatum(DateTime vervaldatum)
         {
-            if (DateTimeOffset.Now.ToUnixTimeSeconds() > vervaldatum)
-            {
-                throw new TankkaartException("De vervaldatum van de kaart moet zich in de toekomst bevinden.");
-                
-            }
-            Vervaldatum = vervaldatum;
+            DateTime minimumdate = DateTime.Now.AddHours(24 - DateTime.Now.Hour + 1);
+
+            if (DateTime.Compare(minimumdate, vervaldatum) < 0)
+                Vervaldatum = vervaldatum;
+            else throw new TankkaartException("De vervaldatum van de kaart moet zich in de toekomst bevinden en minimum 1 dag geldig zijn.");            
         }
         public void zetPincode(string pincode)
         {
-            if (pincode.Length is not 4)
+            if (pincode.Length is not 4 || pincode.ToCharArray().Any(c => !Char.IsDigit(c)))
             {
-                throw new TankkaartException("Pincode moet 4 cijfers bevatten");
+                throw new TankkaartException("Pincode moet 4 karakters bevatten, welke enkel cijfers mogen zijn.");
             }
             Pincode = pincode;
         }
         public void VoegBrandstofToe(Brandstof brandstof) 
         {
             if (GeldigVoorBrandstoffen.Contains(brandstof))
-            {
                 throw new TankkaartException("Brandstof zit al in het lijstje met de brandstoffen");
-            }
 
             GeldigVoorBrandstoffen.Add(brandstof);
         }
         public void VerwijderBrandstof(Brandstof brandstof)
         {
             if (!GeldigVoorBrandstoffen.Contains(brandstof))
-            {
                 throw new TankkaartException("Deze brandstof bestaat niet in het lijstje vooraleer je hem kunt verwijderen moet je het eerst hebben toegevoegd");
-            }
 
             GeldigVoorBrandstoffen.Remove(brandstof);
         }
         public void zetBestuurder(Bestuurder bestuurder)
         {
             if (Bestuurder == bestuurder && bestuurder is not null)
-            {
                 throw new TankkaartException("Bestuurder hoort al bij deze tankkaart");
-            }
             else
-            {
                 Bestuurder = bestuurder;
-            }
         }
     }
 #nullable disable
