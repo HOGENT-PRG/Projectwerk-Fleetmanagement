@@ -256,7 +256,17 @@ namespace DataLaag
                 return tables;
             }
         }
+        public Dictionary<string, object> geefInformatie()
+        {
+            var res = new Dictionary<string, object>();
+            res.Add(nameof(ConnectieSuccesvol), ConnectieSuccesvol);
+            res.Add(nameof(DatabaseBestaat), DatabaseBestaat);
+            res.Add(nameof(AlleTabellenBestaan), AlleTabellenBestaan);
+            res.Add(nameof(AantalTabellen), AantalTabellen);
+            res.Add(nameof(SequentieDoorlopen), SequentieDoorlopen);
 
+            return res;
+        }
 
     }
 #nullable disable

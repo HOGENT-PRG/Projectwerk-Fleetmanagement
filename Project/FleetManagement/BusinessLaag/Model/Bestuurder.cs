@@ -23,7 +23,7 @@ namespace BusinessLaag.Model
 
         public RijbewijsSoort RijbewijsSoort { get; private set; }
 
-        public Voertuig Voertuig { get; private set; } // nullable toegelaten
+        public Voertuig Voertuig { get; private set; } // nullable toegelaten 
         public Tankkaart Tankkaart { get; private set; } // nullable toegelaten
 
         public Bestuurder(int? id, string naam, string voornaam, Adres adres, long geboortedatum, 
