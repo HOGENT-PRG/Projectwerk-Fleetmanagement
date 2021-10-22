@@ -36,7 +36,16 @@ namespace DataLaag
 
         private List<string> _ontbrekendeTabellen = new List<string>();
 
-        public DatabankConfigureerder(Dictionary<string, string> tabellen,
+        // Volgorde is van belang (denk hierbij aan de foreign keys, welke tabel eerst moet aangemaakt worden)
+        SortedDictionary<string, string> TabellenVoorbeeld = new SortedDictionary<string, string> { 
+            {"Adres", "https://pastebin.com/raw/jHuhQpx7"},                  // geen fk's
+            {"Tankkaart", "https://pastebin.com/raw/TzX54cM6"},              // geen fk's
+            {"Voertuig", "https://pastebin.com/raw/PUKHBXca"},               // geen fk's
+            {"TankkaartBrandstof", "https://pastebin.com/raw/jgDci5Yu"},     // 1 fk: Tankkaart
+            {"Bestuurder", "https://pastebin.com/raw/kNy4sQ0V"},             // 3 fk's: Adres, Voertuig en Tankkaart
+        };
+
+        public DatabankConfigureerder(SortedDictionary<string, string> tabellen,
                                      string databanknaam = "FleetManager",
                                      string dataSource = @".\SQLEXPRESS",
                                      bool integratedSecurity = true)
@@ -48,7 +57,7 @@ namespace DataLaag
             _doorloopSequentie(databanknaam, tabellen);  
         }
 
-        private void _doorloopSequentie(string databanknaam, Dictionary<string, string> gewensteTabellen)
+        private void _doorloopSequentie(string databanknaam, SortedDictionary<string, string> gewensteTabellen)
         {
             List<string> gewensteTabellenNamen = gewensteTabellen.Keys.ToList();
 
@@ -58,19 +67,16 @@ namespace DataLaag
             if (ConnectieSuccesvol)
             {
                 if (!DatabaseBestaat)
-                {
                     _maakOntbrekendeDatabank(databanknaam);
-                }
 
                 _controleerBestaanTabellen(gewensteTabellenNamen); // populeert AlleTabellenBestaan
+                
                 if (!AlleTabellenBestaan)
-                {
                     _maakOntbrekendeTabellenAan(databanknaam, gewensteTabellen);
-                }
 
                 _connecteerMetDatabase(databanknaam); // populeert DatabaseBestaat
                 _controleerBestaanTabellen(gewensteTabellenNamen); // populeert AlleTabellenBestaan
-                _geefAantalTabellenVoorDatabase(databanknaam); // AantalTabellen populaten
+                _geefAantalTabellenVoorDatabase(databanknaam); // populeert AantalTabellen
             }
 
             SequentieDoorlopen = true;
@@ -124,21 +130,10 @@ namespace DataLaag
         {
             IList<string> bestaandeTabellen = this.geefTabellen();
             foreach (string tabel in verwachteTabellen)
-            {
                 if (!bestaandeTabellen.Contains(tabel))
-                {
                     _ontbrekendeTabellen.Add(tabel);
-                }
-            }
 
-            if (_ontbrekendeTabellen.Count > 0)
-            {
-                AlleTabellenBestaan = false;
-            }
-            else
-            {
-                AlleTabellenBestaan = true;
-            }
+            AlleTabellenBestaan = _ontbrekendeTabellen.Count > 0 ? false : true;
         }
         private void _maakOntbrekendeDatabank(string databanknaam)
         {
@@ -150,10 +145,7 @@ namespace DataLaag
                 command.CommandText = query;
                 command.ExecuteNonQuery();
             }
-            catch (Exception e)
-            {
-                DatabaseBestaat = false;
-            }
+            catch (Exception e) { DatabaseBestaat = false; }
             finally
             {
                 MasterConnectie.Close();
@@ -191,7 +183,7 @@ namespace DataLaag
                 ProductieConnectie.Close();
             }
         }
-        private void _maakOntbrekendeTabellenAan(string databanknaam, Dictionary<string, string> tabellen)
+        private void _maakOntbrekendeTabellenAan(string databanknaam, SortedDictionary<string, string> tabellen)
         {
             IList<string> bestaandeTabellen = geefTabellen();
             List<string> bronnenTeBehandelen = new List<string>();
