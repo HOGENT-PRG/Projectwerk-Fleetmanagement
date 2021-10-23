@@ -40,7 +40,7 @@ namespace WPFApp
                 throw new ExterneBronParserException("Kon de data niet parsen. Staat InkomendeBronJsonStringVerwacht juist ingesteld?");
             }
 
-    /**/    if (InkomendeBronJsonStringVerwacht && parsed_as_json is not null) {
+    /**/    if (parsed_as_json is not null) {
                 if (ValidatieSchema is not null)
                     if (!parsed_as_json.IsValid(ValidatieSchema))
                         throw new ExterneBronParserException("Het JSON object voldoet niet aan de voorwaarden opgelegd in het meegegeven schema.");
@@ -50,7 +50,7 @@ namespace WPFApp
 
             }
 
-    /**/    if(!InkomendeBronJsonStringVerwacht && parsed_as_obj is not null){
+    /**/    if(parsed_as_obj is not null){
                 if(retourneerJObject)
                     return new Dictionary<string, object>() { { "JObject", parsed_as_obj } };
                 else return (Dictionary<string, object>)_maakNestedObjectVanJObject(parsed_as_obj);
