@@ -20,9 +20,19 @@ namespace WPFApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private void ZetWindowGrootte(double deductiePercentage) {
+            double width = SystemParameters.PrimaryScreenWidth;
+            double height = SystemParameters.PrimaryScreenHeight;
+            double adjusted_width = (width * ((100 - deductiePercentage) / 100));
+            double adjusted_height = (height * ((100 - deductiePercentage) / 100));
+
+            this.Width = adjusted_width;
+            this.Height = adjusted_height;
+        }
         public MainWindow()
         {
             InitializeComponent();
+            ZetWindowGrootte(20);
         }
     }
 }

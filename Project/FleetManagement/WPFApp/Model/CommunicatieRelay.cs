@@ -25,8 +25,8 @@ namespace WPFApp {
 }
 
 // In tegenstelling tot de FleetManager die
-// - initieert en beschikbaar stelt (managers & DatabankConfigureerder)
-// fungeert de mediator als funnel naar de gekozen communiceerder.
+// - initieert en beschikbaar stelt (managers & databankConfigureerder)
+// fungeert de relay als funnel naar de door de relay geselecteerde communiceerder.
 //
 // Indien de applicatie in een later stadium losgekoppeld zou worden
 // van de business laag, om een api in de plaats te gebruiken,

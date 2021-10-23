@@ -4,7 +4,6 @@ using System.Linq;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Linq;
 using WPFApp.Exceptions;
-using WPFApp.Model.Response;
 
 namespace WPFApp.Model {
     internal static class BronParser {
