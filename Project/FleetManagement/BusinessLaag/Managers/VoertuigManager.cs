@@ -43,7 +43,7 @@ namespace BusinessLaag.Managers
             throw new NotImplementedException();
         }
 
-        public void updateVoertuig(Voertuig voertuig)
+        public bool updateVoertuig(Voertuig voertuig)
         {
             // chassisnummer bestaat al voor voertuig met ander voertuig.id? -- afbreken
             // nummerplaat bestaat al voor voertuig met ander voertuig.id? -- afbreken
@@ -54,7 +54,7 @@ namespace BusinessLaag.Managers
             throw new NotImplementedException();
         }
 
-        public void verwijderVoertuig(Voertuig voertuig)
+        public bool verwijderVoertuig(Voertuig voertuig)
         {
             // indien een bestuurder aangewezen is -- afbreken (of verwijder relaties??)
             // verwijder bestuurder referentie naar voertuig
@@ -62,7 +62,7 @@ namespace BusinessLaag.Managers
             throw new NotImplementedException();
         }
 
-        public void voegVoertuigToe(Voertuig voertuig)
+        public bool voegVoertuigToe(Voertuig voertuig)
         {
             // chassisnummer bestaat al? -- afbreken
             // nummerplaat bestaat al? -- afbreken

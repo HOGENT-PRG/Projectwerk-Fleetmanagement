@@ -9,19 +9,16 @@ using BusinessLaag.Model;
 
 namespace BusinessLaag.Managers
 {
-    public class BestuurderManager : IBestuurderManager
-    {
+    public class BestuurderManager : IBestuurderManager {
         private static FleetManager _fleetManager;
         private IBestuurderOpslag _opslag;
 
-        public BestuurderManager(FleetManager fleetmanager, IBestuurderOpslag repository)
-        {
+        public BestuurderManager(FleetManager fleetmanager, IBestuurderOpslag repository) {
             _fleetManager = fleetmanager;
             _opslag = repository;
         }
 
-        public Bestuurder geefBestuurderDetail(int id)
-        {
+        public Bestuurder geefBestuurderDetail(int id) {
             // indien een adres hem refereert
             // indien een voertuig hem refereert
             // indien een tankkaart hem refereert
@@ -31,48 +28,43 @@ namespace BusinessLaag.Managers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Bestuurder> geefBestuurders()
-        {
+        public IEnumerable<Bestuurder> geefBestuurders() {
             // ontvang bestuurders
             // voor elke bestuurder
-                // indien een adres hem refereert
-                // indien een voertuig hem refereert
-                // indien een tankkaart hem refereert
-                // refereert hij ze tevens ook? (allebei checken voor redundantie) -> indien mismatch conflict oplossen
-                // opvragen refs en obj toevoegen
-                // return bestuurder
+            // indien een adres hem refereert
+            // indien een voertuig hem refereert
+            // indien een tankkaart hem refereert
+            // refereert hij ze tevens ook? (allebei checken voor redundantie) -> indien mismatch conflict oplossen
+            // opvragen refs en obj toevoegen
+            // return bestuurder
             throw new NotImplementedException();
         }
 
-        public void updateBestuurder(Bestuurder bestuurder)
-        {
+        public bool updateBestuurder(Bestuurder bestuurder) {
             // indien adres wijzigt: verwijder oud adres, insert new adres if geen adres.id
             // indien voertuig/tankkaart wijzigt: referenties wijzigen
             // 
             throw new NotImplementedException();
         }
 
-        public void verwijderBestuurder(Bestuurder bestuurder)
-        {
+        public bool verwijderBestuurder(Bestuurder bestuurder) {
             // referenties checken en behandelen (lees bovenstaanden), indien ok verwijderen
             throw new NotImplementedException();
         }
 
-        public void voegBestuurderToe(Bestuurder bestuurder)
-        {
+        public bool voegBestuurderToe(Bestuurder bestuurder) {
+            //Bestuurder Bestuurder = (Bestuurder)bestuurder;
             // indien rijksreg reeds bestaat: throw
             // eventueel inserten van adres,voertuig,tankkaart en deze opnemen in bestuurder
             // doorgaan met insert
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Bestuurder> zoekBestuurders()
-        {
+        public IEnumerable<Bestuurder> zoekBestuurders() {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> geefBestuurderProperties()
-        {
+        public IEnumerable<string> geefBestuurderProperties() {
             throw new NotImplementedException(); //GetProperties
         }
     }

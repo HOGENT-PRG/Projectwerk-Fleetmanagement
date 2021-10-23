@@ -41,7 +41,7 @@ namespace BusinessLaag.Managers
             throw new NotImplementedException();
         }
 
-        public void updateTankkaart(Tankkaart tankkaart)
+        public bool updateTankkaart(Tankkaart tankkaart)
         {
             // vraagt huidige versie op
             // indien bestuurder wijzigt -> oude bestuurder referentie verwijderen -> continue
@@ -51,7 +51,7 @@ namespace BusinessLaag.Managers
             throw new NotImplementedException();
         }
 
-        public void verwijderTankkaart(Tankkaart tankkaart)
+        public bool verwijderTankkaart(Tankkaart tankkaart)
         {
             // zijn er bestuurders? - vraag op
             // bestuurder referenties naar kaart verwijderen
@@ -62,7 +62,7 @@ namespace BusinessLaag.Managers
 
         // nog een functie brandstof toevoegen/verwijderen, dmv tussentabel <-------------
 
-        public void voegTankkaartToe(Tankkaart tankkaart)
+        public bool voegTankkaartToe(Tankkaart tankkaart)
         {
             // if kaartnummer bestaat al (vraag tankkaart op met id en check)
             // throw

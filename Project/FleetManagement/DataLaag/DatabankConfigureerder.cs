@@ -37,7 +37,7 @@ namespace DataLaag
         private List<string> _ontbrekendeTabellen = new List<string>();
 
         // Volgorde is van belang (denk hierbij aan de foreign keys, welke tabel eerst moet aangemaakt worden)
-        SortedDictionary<string, string> TabellenVoorbeeld = new SortedDictionary<string, string> { 
+        SortedDictionary<string, string> TabellenDefault = new SortedDictionary<string, string> { 
             {"Adres", "https://pastebin.com/raw/jHuhQpx7"},                  // geen fk's
             {"Tankkaart", "https://pastebin.com/raw/TzX54cM6"},              // geen fk's
             {"Voertuig", "https://pastebin.com/raw/PUKHBXca"},               // geen fk's
@@ -45,11 +45,13 @@ namespace DataLaag
             {"Bestuurder", "https://pastebin.com/raw/kNy4sQ0V"},             // 3 fk's: Adres, Voertuig en Tankkaart
         };
 
-        public DatabankConfigureerder(SortedDictionary<string, string> tabellen,
+        public DatabankConfigureerder(SortedDictionary<string, string> tabellen=null,
                                      string databanknaam = "FleetManager",
                                      string dataSource = @".\SQLEXPRESS",
                                      bool integratedSecurity = true)
         {
+            if(tabellen is null) { tabellen = TabellenDefault; }
+
             // Stelt de SqlConnections en connectionstrings in
             _zetConnecties(databanknaam, dataSource, integratedSecurity);
 

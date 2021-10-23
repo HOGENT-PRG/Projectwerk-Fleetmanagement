@@ -8,9 +8,9 @@ namespace BusinessLaag.Interfaces
         Tankkaart geefTankkaartDetail(int id);
         IEnumerable<Tankkaart> geefTankkaarten();
         IEnumerable<string> geefTankkaartProperties();
-        void updateTankkaart(Tankkaart tankkaart);
-        void verwijderTankkaart(Tankkaart tankkaart);
-        void voegTankkaartToe(Tankkaart tankkaart);
+        bool updateTankkaart(Tankkaart tankkaart);
+        bool verwijderTankkaart(Tankkaart tankkaart);
+        bool voegTankkaartToe(Tankkaart tankkaart);
         IEnumerable<Tankkaart> zoekTankkaarten();
     }
 }

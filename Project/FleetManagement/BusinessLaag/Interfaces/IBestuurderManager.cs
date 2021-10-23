@@ -8,9 +8,9 @@ namespace BusinessLaag.Interfaces
         Bestuurder geefBestuurderDetail(int id);
         IEnumerable<string> geefBestuurderProperties();
         IEnumerable<Bestuurder> geefBestuurders();
-        void updateBestuurder(Bestuurder bestuurder);
-        void verwijderBestuurder(Bestuurder bestuurder);
-        void voegBestuurderToe(Bestuurder bestuurder);
+        bool updateBestuurder(Bestuurder bestuurder);
+        bool verwijderBestuurder(Bestuurder bestuurder);
+        bool voegBestuurderToe(Bestuurder bestuurder);
         IEnumerable<Bestuurder> zoekBestuurders();
     }
 }
