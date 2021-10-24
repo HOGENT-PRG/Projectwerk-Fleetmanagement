@@ -48,7 +48,9 @@ namespace xUnitTesting {
         }
 
         public static DbType GetDbType(Type giveType) {
-            giveType = Nullable.GetUnderlyingType(giveType) ?? giveType;
+            //giveType = Nullable.GetUnderlyingType(giveType) ?? giveType;
+
+
 
             if (typeMap.ContainsKey(giveType)) {
                 return typeMap[giveType];

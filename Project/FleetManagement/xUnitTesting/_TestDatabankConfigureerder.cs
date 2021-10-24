@@ -14,8 +14,8 @@ namespace xUnitTesting
 {
     public class TestDatabankConfigureerder : DatabankConfigureerder, ITestDatabankConfigureerder {
 
-        private SqlConnection TestMasterConnectie { get { return MasterConnectie; } }
-        private SqlConnection TestConnectie { get { return ProductieConnectie; } }
+        internal SqlConnection TestMasterConnectie { get { return MasterConnectie; } }
+        internal SqlConnection TestConnectie { get { return ProductieConnectie; } }
 
         public TestDatabankConfigureerder(SortedDictionary<string, string>? tabellen=null,
                                           string databanknaam = "FleetManagerTESTING",
@@ -27,54 +27,64 @@ namespace xUnitTesting
         // methodes logica
 
         internal bool MaakTabellenAan() {
+            _maakOntbrekendeTabellenAan((string)_initialisatieParameters["databanknaam"], TabellenDefault);
             _controleerBestaanTabellen(TabellenDefault.Keys.ToList());
-            if(_ontbrekendeTabellen.Count > 0) {
-                _maakOntbrekendeTabellenAan((string)_initialisatieParameters["databanknaam"], TabellenDefault);
-                _controleerBestaanTabellen(TabellenDefault.Keys.ToList());
-                if (_ontbrekendeTabellen.Count == 0) return true;
-                else return false;
-            } else {
-                return true;
-            }
+            if (_ontbrekendeTabellen.Count == 0) return true;
+            else return false;
         }
-        internal bool TruncateTabellen(List<string> tabellen)
+        internal bool TruncateTabellen(List<string> tabellen=null)
         {
+            if(tabellen is null) { 
+                tabellen = ((SortedDictionary<string, string>)InitialisatieParameters["tabellen"]).Keys.ToList() ?? new(); 
+            }
+
             IList<string> bestaandeTabellen = geefTabellenLowercase();
             try {
-                TestMasterConnectie.Open();
+                TestConnectie.Open();
                 foreach (string table in tabellen) {
                     if (bestaandeTabellen.Contains(table.ToLower())) {
                         string query = "TRUNCATE TABLE " + table;
-                        SqlCommand cmd = new SqlCommand(query, TestMasterConnectie);
+                        SqlCommand cmd = new SqlCommand(query, TestConnectie);
                         cmd.ExecuteNonQuery();
                     }
                 }
-            } catch { throw; } finally { TestMasterConnectie.Close(); }
+            } catch { throw; } finally { TestConnectie.Close(); }
 
             return true;
         }
-        internal bool VerwijderTabellen(List<string> tabellen)
-        {
-            IList<string> bestaandeTabellen = geefTabellenLowercase();
-            try {
-                TestMasterConnectie.Open();
-                foreach (string table in tabellen) {
-                    if (bestaandeTabellen.Contains(table.ToLower())) {
-                        string query = "DROP TABLE " + table;
-                        SqlCommand cmd = new SqlCommand(query, TestMasterConnectie);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            } catch { throw; } finally { TestMasterConnectie.Close(); }
+        //internal bool VerwijderTabellen(IEnumerable<string> tabellen)
+        //{
+        //    IList<string> bestaandeTabellen = geefTabellenLowercase();
+        //    try {
+        //        TestConnectie.Open();
+        //        foreach (string table in tabellen) {
+        //            if (bestaandeTabellen.Contains(table.ToLower())) {
+        //                string constr_query = $"SELECT 'ALTER TABLE ' + OBJECT_SCHEMA_NAME(k.parent_object_id) + '.[' + OBJECT_NAME(k.parent_object_id) + '] DROP CONSTRAINT ' + k.name FROM sys.foreign_keys k WHERE referenced_object_id = object_id('{table}')";
 
-            return true;
-        }
+        //                SqlCommand cmd_constr = new SqlCommand(constr_query, TestConnectie);
+        //                string alter_query = cmd_constr.ExecuteScalar()?.ToString();
 
-        Func<string, string> keyFormatted = p => String.Concat("?", p);
+        //                SqlCommand cmd_alter = new SqlCommand(alter_query, TestConnectie);
+        //                cmd_alter.ExecuteNonQuery();
 
+        //                string query = "DROP TABLE IF EXISTS " + table;
+        //                SqlCommand cmd = new SqlCommand(query, TestConnectie);
+        //                cmd.ExecuteNonQuery();
+        //            }
+        //        }
+        //    } catch { throw; } finally { TestConnectie.Close(); }
+
+        //    return true;
+        //}
+
+        Func<string, string> keyFormatted = p => String.Concat("@", p);
+
+        // zonder relaties data inserten
         // data = lijst met dicts waarbij string=column name en object is insert value
         // elke dict hoort, aangezien het 1 tabel betreft, dezelfde keys te bevatten
-        internal bool VoerDataIn(string tabelnaam, List<Dictionary<string, object>> data) {
+        internal List<int> VoerDataIn(string tabelnaam, List<Dictionary<string, object>> data) {
+            List<int> insertRowIds = new();
+
             IList<string> bestaandeTabellen = geefTabellenLowercase();
             try {
                 TestConnectie.Open();
@@ -82,7 +92,7 @@ namespace xUnitTesting
                 if (bestaandeTabellen.Contains(tabelnaam.ToLower())) {
 
                     string query = string.Format(
-                            "INSERT INTO {0} ({1}) VALUES ({2})",
+                            "INSERT INTO {0} ({1}) VALUES ({2}); SELECT CAST(SCOPE_IDENTITY() AS INT) AS LAST_IDENTITY;",
                             tabelnaam,
                             string.Join(",", data[0].Keys.ToArray()),
                             string.Join(",", data[0].Keys.Select(keyFormatted).ToArray())
@@ -90,24 +100,46 @@ namespace xUnitTesting
 
                     SqlCommand cmd = new SqlCommand(query, TestConnectie);
 
-                    foreach (KeyValuePair<string, object> item in data[0]) {
-                        SqlParameter param = new SqlParameter(keyFormatted(item.Key), SqlHelper.GetDbType(item.Value.GetType()));
+                    //Dictionary<string, object> item = data[0];
+                    foreach(KeyValuePair<string,object?> row in data[0]) {
+                        SqlParameter param = new();
+                        param.ParameterName = keyFormatted(row.Key);
+                        Type t;
+                        try {
+                            t = row.Value.GetType();
+                        } catch {
+                            t = new string(" ").GetType();
+                        }
+                        param.DbType = SqlHelper.GetDbType(t);
                         cmd.Parameters.Add(param);
                     }
 
                     foreach (Dictionary<string, object> entry in data) {
                         foreach(KeyValuePair<string,object> item in entry) {
-                            cmd.Parameters[keyFormatted(item.Key)].Value = item.Value;
+                            object val;
+                            try {
+                                val = item.Value ?? DBNull.Value;
+                            } catch {
+                                val = DBNull.Value;
+                            }
+                            cmd.Parameters[keyFormatted(item.Key)].Value = val;
                         }
 
-                        cmd.ExecuteNonQuery();
+
+                        var resultRowId = cmd.ExecuteScalar();
+
+                        if (resultRowId != null && resultRowId != DBNull.Value) {
+                            insertRowIds.Add((int)resultRowId);
+                        } else {
+                            throw new ArgumentNullException("");
+                        }
                     }
 
                 } else {
-                    return false;
+                    return insertRowIds;
                 }
 
-                return true;
+                return insertRowIds;
 
             } catch { throw; } finally { TestConnectie.Close();  }
         }

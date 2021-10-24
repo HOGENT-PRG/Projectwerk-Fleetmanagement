@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 using WPFApp.Exceptions;
 
 namespace WPFApp.Model {
-    internal static class BronParser {
+    public static class BronParser {
         public static object MaakNestedDictionaryVanJObject(object reqObj) {
             switch (reqObj) {
                 case JObject jObject:

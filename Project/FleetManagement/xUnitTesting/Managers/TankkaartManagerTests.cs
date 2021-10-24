@@ -1,6 +1,8 @@
 ﻿using BusinessLaag;
 using BusinessLaag.Interfaces;
 using BusinessLaag.Managers;
+using BusinessLaag.Model;
+using System.Collections.Generic;
 using Xunit;
 
 namespace xUnitTesting.Managers
@@ -16,6 +18,7 @@ namespace xUnitTesting.Managers
 
         // Zet hier wat uitgevoerd moet worden voor het starten van de tests
 
+        
 
         //---------------------------------------------------------
     }

@@ -14,10 +14,10 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="12*" />
             <ColumnDefinition Width="22*" />
             <ColumnDefinition Width="22*" />
-            <ColumnDefinition Width="22*" />
-            <ColumnDefinition Width="22*" />
+            <ColumnDefinition Width="12*" />
             <ColumnDefinition Width="20*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>

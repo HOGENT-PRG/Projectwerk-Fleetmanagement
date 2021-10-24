@@ -33,9 +33,9 @@ namespace DataLaag
         public bool AlleTabellenBestaan { get; private set; }
         public int AantalTabellen { get; private set; }
         public bool SequentieDoorlopen { get; private set; }
+        public Dictionary<string, object> InitialisatieParameters { get { return _initialisatieParameters; } }
 
         protected List<string> _ontbrekendeTabellen = new List<string>();
-
         protected Dictionary<string, object> _initialisatieParameters;
 
         // Volgorde is van belang (denk hierbij aan de foreign keys, welke tabel eerst moet aangemaakt worden)
@@ -213,6 +213,8 @@ namespace DataLaag
                 }
             }
 
+            ProductieConnectie.Open();
+
             foreach (string url in bronnenTeBehandelen)
             {
                 try
@@ -225,7 +227,7 @@ namespace DataLaag
 
                     if (!string.IsNullOrEmpty(data))
                     {
-                        ProductieConnectie.Open();
+                        
 
                         //laat toe om GO statements te gebruiken
                         Server server = new Server(new ServerConnection(ProductieConnectie));
@@ -233,9 +235,9 @@ namespace DataLaag
 
                     }
                 }
-                catch (Exception e)
+                catch 
                 {
-                    throw new DatabankConfigureerderException(e.Message); // testing purposes, anders continue
+                    throw; // testing purposes, anders continue
                 }
                 finally
                 {
@@ -258,12 +260,14 @@ namespace DataLaag
                     tablename = tablename.ToLower();
                     tables.Add(tablename);
                 }
-                ProductieConnectie.Close();
+               
                 return tables;
             }
             catch (Exception e)
             {
                 return tables;
+            } finally {
+                ProductieConnectie.Close();
             }
         }
         public Dictionary<string, object> geefInformatie()

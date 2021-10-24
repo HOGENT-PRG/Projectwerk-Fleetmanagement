@@ -49,20 +49,20 @@ namespace BusinessLaag.Model
             Id = id; // nullable toelaten
         }
         public void zetNaam(string naam) {
-            if (string.IsNullOrEmpty(naam) || naam.Length < 2 || naam.Length > 100 || naam.ToCharArray().Any(c => Char.IsDigit(c)))
-                throw new BestuurderException("Naam moet bestaan uit min 2 en max 100 karakters, mag niet leeg zijn en mag geen cijfers bevatten.");
+            if (string.IsNullOrEmpty(naam) || naam.Length < 2 || naam.Length > 70 || naam.ToCharArray().Any(c => Char.IsDigit(c)))
+                throw new BestuurderException("Naam moet bestaan uit min 2 en max 70 karakters, mag niet leeg zijn en mag geen cijfers bevatten.");
 
             Naam = naam;
         }
         public void zetVoornaam(string voornaam)
         {
-            if (string.IsNullOrEmpty(voornaam) || voornaam.Length < 2 || voornaam.Length > 100 || voornaam.ToCharArray().Any(c => Char.IsDigit(c)))
-                throw new BestuurderException("Naam moet bestaan uit minstens 2, max 100 karakters en mag geen cijfers bevatten.");
+            if (string.IsNullOrEmpty(voornaam) || voornaam.Length < 2 || voornaam.Length > 70 || voornaam.ToCharArray().Any(c => Char.IsDigit(c)))
+                throw new BestuurderException("Naam moet bestaan uit minstens 2, max 70 karakters en mag geen cijfers bevatten.");
 
             Voornaam = voornaam;
         }
         public void zetAdres(Adres adres) { 
-            if(Adres == adres)
+            if(Adres == adres && adres is not null)
             {
                 throw new BestuurderException("Dit is reeds het ingestelde adres van de bestuurder");
             }

@@ -1,6 +1,8 @@
 ﻿using BusinessLaag;
 using BusinessLaag.Interfaces;
 using BusinessLaag.Managers;
+using BusinessLaag.Model;
+using System.Collections.Generic;
 using Xunit;
 
 namespace xUnitTesting.Managers
@@ -15,7 +17,9 @@ namespace xUnitTesting.Managers
         TestDatabankConfigureerder _beheerDatabank = Gemeenschappelijk.TestDatabankConfigureerder;
 
         // Zet hieronder wat uitgevoerd moet worden voor het starten van de tests
-        
+
+
+
 
         // Zet hieronder je unit tests en eventuele interacties met db (naar een vorige state bijvoorbeeld)
 

@@ -77,7 +77,7 @@ namespace xUnitTesting.Model
         [InlineData("Benjamin")]
         [InlineData("Bo")]
         [InlineData("Been Jammin For Days")]
-        [InlineData("AAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCD")] // 100
+        [InlineData("AAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCD")] // 70
         public void Test_Setter_ZetNaam_valid(string n)
         {
             Assert.NotEqual(n, validBestuurder.Naam);
@@ -91,7 +91,7 @@ namespace xUnitTesting.Model
         [InlineData("B")]
         [InlineData("Benjamin9")]
         [InlineData("Been Jammin 9")]
-        [InlineData("AAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDD")] // 101
+        [InlineData("AAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDZ")] // 71
         public void Test_Setter_ZetNaam_invalid(string n)
         {
             Assert.Throws<BestuurderException>(() => validBestuurder.zetNaam(n));
@@ -101,7 +101,7 @@ namespace xUnitTesting.Model
         [InlineData("Bo")]
         [InlineData("Benjamin")]
         [InlineData("Been Jammin")]
-        [InlineData("AAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCD")] // 100
+        [InlineData("AAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCD")] // 70
         public void Test_Setter_ZetVoornaam_valid(string n)
         {
             Assert.NotEqual(n, validBestuurder.Voornaam);
@@ -114,7 +114,7 @@ namespace xUnitTesting.Model
         [InlineData(" ")]
         [InlineData("B")]
         [InlineData("Benjamin9")]
-        [InlineData("AAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDD")] // 101
+        [InlineData("AAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDZ")] // 71
         public void Test_Setter_ZetVoornaam_invalid(string n)
         {
             Assert.Throws<BestuurderException>(() => validBestuurder.zetVoornaam(n));
