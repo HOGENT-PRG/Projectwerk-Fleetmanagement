@@ -9,6 +9,7 @@ using Xunit;
 using xUnitTesting._TESTDATA;
 
 namespace xUnitTesting.Datalaag {
+
     [Collection("DisableParallelTests")]
     public class TestDatabankConfigureerderTests {
         // Deze unit test klasse test zowel functies van DatabankConfigureerder als van de
