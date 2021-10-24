@@ -40,10 +40,20 @@ namespace xUnitTesting._TESTDATA {
 
         // ---------------------
 
-        public static List<Dictionary<string, object>> geefBestuurdersZonderRelaties(int aantal) {
+        public static List<Dictionary<string, object>> geefBestuurdersDict(int aantal, bool metRelaties=false) {
             List<Dictionary<string, object>> res = new();
             foreach(var i in Enumerable.Range(1, aantal)) {
-                res.Add(_bestuurderNaarDict(_genereerBestuurderZonderRelaties()));
+                if(!metRelaties)
+                    res.Add(_bestuurderNaarDict(_genereerBestuurderZonderRelaties()));
+            }
+            return res;
+        }
+
+        public static List<Bestuurder> geefBestuurders(int aantal, bool metRelaties = false) {
+            List<Bestuurder> res = new();
+            foreach (var i in Enumerable.Range(1, aantal)) {
+                if (!metRelaties)
+                    res.Add(_genereerBestuurderZonderRelaties());
             }
             return res;
         }

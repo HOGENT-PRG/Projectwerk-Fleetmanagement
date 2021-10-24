@@ -94,7 +94,7 @@ namespace xUnitTesting.Datalaag {
 
         [Fact]
         public void Test_InsertWerkt() {
-            List<int> rowIds =_beheerDatabank.VoerDataIn("Bestuurder", BestuurderData.geefBestuurdersZonderRelaties(10));
+            List<int> rowIds =_beheerDatabank.VoerDataIn("Bestuurder", BestuurderData.geefBestuurdersDict(10));
 
                 try {
                     _beheerDatabank.TestMasterConnectie.Open();
