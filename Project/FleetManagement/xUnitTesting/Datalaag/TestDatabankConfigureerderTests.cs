@@ -136,6 +136,16 @@ namespace xUnitTesting.Datalaag {
             Assert.Equal(tabellen.Count(), _geefAantalTabellen());
         }
 
+        [Fact]
+        public void Test_ParametersCorrect() {
+            Assert.NotNull(_beheerDatabank.InitialisatieParameters["tabellen"]);
+            Assert.NotNull(_beheerDatabank.InitialisatieParameters["databanknaam"]);
+            Assert.NotNull(_beheerDatabank.InitialisatieParameters["dataSource"]);
+            Assert.NotNull(_beheerDatabank.InitialisatieParameters["integratedSecurity"]);
+
+            Assert.Equal(_geefAantalTabellen(), _beheerDatabank.AantalTabellen);
+        }
+
         #endregion
     }
 }

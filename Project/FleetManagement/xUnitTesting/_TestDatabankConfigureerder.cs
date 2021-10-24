@@ -52,30 +52,6 @@ namespace xUnitTesting
 
             return true;
         }
-        //internal bool VerwijderTabellen(IEnumerable<string> tabellen)
-        //{
-        //    IList<string> bestaandeTabellen = geefTabellenLowercase();
-        //    try {
-        //        TestConnectie.Open();
-        //        foreach (string table in tabellen) {
-        //            if (bestaandeTabellen.Contains(table.ToLower())) {
-        //                string constr_query = $"SELECT 'ALTER TABLE ' + OBJECT_SCHEMA_NAME(k.parent_object_id) + '.[' + OBJECT_NAME(k.parent_object_id) + '] DROP CONSTRAINT ' + k.name FROM sys.foreign_keys k WHERE referenced_object_id = object_id('{table}')";
-
-        //                SqlCommand cmd_constr = new SqlCommand(constr_query, TestConnectie);
-        //                string alter_query = cmd_constr.ExecuteScalar()?.ToString();
-
-        //                SqlCommand cmd_alter = new SqlCommand(alter_query, TestConnectie);
-        //                cmd_alter.ExecuteNonQuery();
-
-        //                string query = "DROP TABLE IF EXISTS " + table;
-        //                SqlCommand cmd = new SqlCommand(query, TestConnectie);
-        //                cmd.ExecuteNonQuery();
-        //            }
-        //        }
-        //    } catch { throw; } finally { TestConnectie.Close(); }
-
-        //    return true;
-        //}
 
         Func<string, string> keyFormatted = p => String.Concat("@", p);
 
