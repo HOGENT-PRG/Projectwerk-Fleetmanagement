@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFApp.Exceptions;
 using WPFApp.Interfaces;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
@@ -17,15 +18,35 @@ namespace WPFApp.Model.Communiceerders {
             this.API_BASIS_PAD = api_basispad;
         }
 
+        private string _voerAPIRequestUit(string jsonConstruct, string urlPad) {
+
+            throw new NotImplementedException();
+        }
+
+        private string _converteerDTOnaarJSON(object DTOConstruct) {
+            List<Type> toegestaneTypes = new() { typeof(AdresRequestDTO), typeof(BestuurderRequestDTO), typeof(TankkaartRequestDTO), typeof(VoertuigRequestDTO) };
+
+            if (toegestaneTypes.Contains(DTOConstruct.GetType())) { // <-- werkt deze assertie?
+
+                return BronParser.Parse<string>(DTOConstruct);
+                throw new NotImplementedException();
+
+            } else { throw new ApiCommuniceerdeerException("_conveertDTOnaarJSON : invalide brontype"); }
+        }
+
+        /*------------------------------->> Einde private methodes <<-------------------------------*/
+
         public BestuurderResponseDTO geefBestuurderDetail(int tankkaartId) {
+            // construct api request (url + body met id)
+            //
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> geefBestuurderProperties() {
+        public List<string> geefBestuurderProperties() {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<BestuurderResponseDTO> geefBestuurders() {
+        public List<BestuurderResponseDTO> geefBestuurders(bool inclusiefRelaties) {
             throw new NotImplementedException();
         }
 
@@ -33,11 +54,11 @@ namespace WPFApp.Model.Communiceerders {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TankkaartResponseDTO> geefTankkaarten() {
+        public List<TankkaartResponseDTO> geefTankkaarten() {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> geefTankkaartProperties() {
+        public List<string> geefTankkaartProperties() {
             throw new NotImplementedException();
         }
 
@@ -45,11 +66,11 @@ namespace WPFApp.Model.Communiceerders {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<VoertuigResponseDTO> geefVoertuigen() {
+        public List<VoertuigResponseDTO> geefVoertuigen() {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> geefVoertuigProperties() {
+        public List<string> geefVoertuigProperties() {
             throw new NotImplementedException();
         }
 
@@ -89,15 +110,15 @@ namespace WPFApp.Model.Communiceerders {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<BestuurderResponseDTO> zoekBestuurders() {
+        public List<BestuurderResponseDTO> zoekBestuurders() {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TankkaartResponseDTO> zoekTankkaarten() {
+        public List<TankkaartResponseDTO> zoekTankkaarten() {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<VoertuigResponseDTO> zoekVoertuig() {
+        public List<VoertuigResponseDTO> zoekVoertuig() {
             throw new NotImplementedException();
         }
     }

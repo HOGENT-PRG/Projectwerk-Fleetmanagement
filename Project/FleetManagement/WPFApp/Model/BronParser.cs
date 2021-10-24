@@ -21,11 +21,11 @@ namespace WPFApp.Model {
         }
 
         public static T Parse<T>(object data,
-            bool IsJsonString = true, Type castNaarDTOType = null,
+            bool IsJsonString = false, Type castNaarDTOType = null,
             JSchema ValidatieSchema=null){
 
             List<Type> validTypes = new() { typeof(string), typeof(object), typeof(JObject), castNaarDTOType };
-    /**/    if (!validTypes.Contains(typeof(T)))
+    /**/    if (!validTypes.Contains(typeof(T)) || typeof(T) is null)
                 throw new BronParserException("Omzetten slechts mogelijk naar json-string, object of DTO type.");
 
             JObject parsed_as_json = null;
@@ -47,13 +47,13 @@ namespace WPFApp.Model {
 
                 if(castNaarDTOType is not null) return (T)parsed_as_json.ToObject(castNaarDTOType);
                 if (typeof(T) == typeof(string)) return (T)Convert.ChangeType(parsed_as_json.ToString(), typeof(T));
-                else return (T)parsed_as_json.ToObject(typeof(object));
+                else return (T)parsed_as_json.ToObject(typeof(T));
             }
 
     /**/    if(parsed_as_obj is not null){
                 if (castNaarDTOType is not null) return (T)parsed_as_obj.ToObject(castNaarDTOType);
                 if (typeof(T) == typeof(string)) return (T)Convert.ChangeType(parsed_as_obj.ToString(), typeof(T));
-                else return (T)parsed_as_obj.ToObject(typeof(object));
+                else return (T)parsed_as_obj.ToObject(typeof(T));
             }
 
             throw new BronParserException("Kon de data niet parsen.");

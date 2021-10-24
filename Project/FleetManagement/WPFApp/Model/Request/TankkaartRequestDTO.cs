@@ -7,5 +7,11 @@ using WPFApp.Interfaces;
 
 namespace WPFApp.Model.Request {
     public class TankkaartRequestDTO {
+        public int? Id { get; set; }
+        public string Kaartnummer { get; set; }
+        public DateTime Vervaldatum { get; set; }
+        public string? Pincode { get; set; }
+        public List<string> GeldigVoorBrandstoffen { get; set; }
+        public BestuurderRequestDTO? Bestuurder { get; set; }
     }
 }

@@ -16,15 +16,15 @@ namespace DataLaag
     public class DatabankConfigureerder : IDatabankConfigureerder
     {
         // Het gebruik van een master connectie is enkel intern vereist
-        private string MasterConnectieString { get; set; }
+        protected string MasterConnectieString { get; set; }
 
         // Wordt gebruikt om SqlConnections aan te maken in de Repositories
         public string ProductieConnectieString { get; private set; }
 
         // SqlConnections zijn private omdat ze anders aanroepbaar worden door managers,
         // een SqlConnection maken daar kunnen ze niet dus enkel de connectionstrings worden ge-exposed
-        private SqlConnection MasterConnectie { get; set; }
-        private SqlConnection ProductieConnectie { get; set; } 
+        protected SqlConnection MasterConnectie { get; set; }
+        protected SqlConnection ProductieConnectie { get; set; } 
         
         // Volgende zaken zijn van belang voor interne werking (moeten er db/tables aangemaakt worden?)
         // en laat de presentatielaag weten wat de stand van zaken is bij initialisatie
@@ -34,10 +34,12 @@ namespace DataLaag
         public int AantalTabellen { get; private set; }
         public bool SequentieDoorlopen { get; private set; }
 
-        private List<string> _ontbrekendeTabellen = new List<string>();
+        protected List<string> _ontbrekendeTabellen = new List<string>();
+
+        protected Dictionary<string, object> _initialisatieParameters;
 
         // Volgorde is van belang (denk hierbij aan de foreign keys, welke tabel eerst moet aangemaakt worden)
-        SortedDictionary<string, string> TabellenDefault = new SortedDictionary<string, string> { 
+        protected SortedDictionary<string, string> TabellenDefault = new SortedDictionary<string, string> { 
             {"Adres", "https://pastebin.com/raw/jHuhQpx7"},                  // geen fk's
             {"Tankkaart", "https://pastebin.com/raw/TzX54cM6"},              // geen fk's
             {"Voertuig", "https://pastebin.com/raw/PUKHBXca"},               // geen fk's
@@ -45,12 +47,19 @@ namespace DataLaag
             {"Bestuurder", "https://pastebin.com/raw/kNy4sQ0V"},             // 3 fk's: Adres, Voertuig en Tankkaart
         };
 
-        public DatabankConfigureerder(SortedDictionary<string, string> tabellen=null,
+        public DatabankConfigureerder(SortedDictionary<string, string>? tabellen =null,
                                      string databanknaam = "FleetManager",
                                      string dataSource = @".\SQLEXPRESS",
                                      bool integratedSecurity = true)
         {
             if(tabellen is null) { tabellen = TabellenDefault; }
+
+            _initialisatieParameters = new() {
+                {"tabellen", tabellen},
+                {"databanknaam", databanknaam},
+                {"dataSource", dataSource},
+                {"integratedSecurity", integratedSecurity}
+            };
 
             // Stelt de SqlConnections en connectionstrings in
             _zetConnecties(databanknaam, dataSource, integratedSecurity);
@@ -59,7 +68,7 @@ namespace DataLaag
             _doorloopSequentie(databanknaam, tabellen);  
         }
 
-        private void _doorloopSequentie(string databanknaam, SortedDictionary<string, string> gewensteTabellen)
+        protected void _doorloopSequentie(string databanknaam, SortedDictionary<string, string> gewensteTabellen)
         {
             List<string> gewensteTabellenNamen = gewensteTabellen.Keys.ToList();
 
@@ -83,7 +92,7 @@ namespace DataLaag
 
             SequentieDoorlopen = true;
         }
-        private void _zetConnecties(string dbnaam, string datasource, bool integratedsecurity)
+        protected void _zetConnecties(string dbnaam, string datasource, bool integratedsecurity)
         {
             // Aanmaken SqlConnections
             SqlConnectionStringBuilder masterBouwer = new SqlConnectionStringBuilder();
@@ -100,7 +109,7 @@ namespace DataLaag
             ProductieConnectieString = productieBouwer.ConnectionString;
             ProductieConnectie = new(ProductieConnectieString);
         }
-        private void _connecteerMetDatabase(string databanknaam)
+        protected void _connecteerMetDatabase(string databanknaam)
         {
             try
             {
@@ -128,16 +137,22 @@ namespace DataLaag
                 MasterConnectie.Close();
             }
         }
-        private void _controleerBestaanTabellen(List<string> verwachteTabellen)
+        protected void _controleerBestaanTabellen(List<string> verwachteTabellen)
         {
-            IList<string> bestaandeTabellen = this.geefTabellen();
-            foreach (string tabel in verwachteTabellen)
-                if (!bestaandeTabellen.Contains(tabel))
-                    _ontbrekendeTabellen.Add(tabel);
+            IList<string> bestaandeTabellen = this.geefTabellenLowercase();
+            _ontbrekendeTabellen.Clear();
+
+            foreach (string tabel in verwachteTabellen) {
+                string t = tabel.ToLower();
+
+                if (!bestaandeTabellen.Contains(t))
+                    _ontbrekendeTabellen.Add(t);
+            }
+                
 
             AlleTabellenBestaan = _ontbrekendeTabellen.Count > 0 ? false : true;
         }
-        private void _maakOntbrekendeDatabank(string databanknaam)
+        protected void _maakOntbrekendeDatabank(string databanknaam)
         {
             try
             {
@@ -153,7 +168,7 @@ namespace DataLaag
                 MasterConnectie.Close();
             }
         }
-        private int _geefAantalTabellenVoorDatabase(string databanknaam)
+        protected int _geefAantalTabellenVoorDatabase(string databanknaam)
         {
             string sql = "SELECT count(*) FROM information_schema.TABLES WHERE (TABLE_CATALOG=@dbNaam)";
 
@@ -185,14 +200,14 @@ namespace DataLaag
                 ProductieConnectie.Close();
             }
         }
-        private void _maakOntbrekendeTabellenAan(string databanknaam, SortedDictionary<string, string> tabellen)
+        protected void _maakOntbrekendeTabellenAan(string databanknaam, SortedDictionary<string, string> tabellen)
         {
-            IList<string> bestaandeTabellen = geefTabellen();
+            IList<string> bestaandeTabellen = geefTabellenLowercase();
             List<string> bronnenTeBehandelen = new List<string>();
 
             foreach (KeyValuePair<string, string> entry in tabellen)
             {
-                if (!bestaandeTabellen.Contains(entry.Key))
+                if (!bestaandeTabellen.Contains(entry.Key.ToLower()))
                 {
                     bronnenTeBehandelen.Add(entry.Value);
                 }
@@ -230,7 +245,7 @@ namespace DataLaag
         }
 
         //--
-        public IList<string> geefTabellen()
+        public IList<string> geefTabellenLowercase()
         {
             List<string> tables = new List<string>();
             try
@@ -240,6 +255,7 @@ namespace DataLaag
                 foreach (DataRow row in dt.Rows)
                 {
                     string tablename = (string)row[2];
+                    tablename = tablename.ToLower();
                     tables.Add(tablename);
                 }
                 ProductieConnectie.Close();

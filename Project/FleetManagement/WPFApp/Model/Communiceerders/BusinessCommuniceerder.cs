@@ -1,4 +1,5 @@
 ﻿using BusinessLaag;
+using BusinessLaag.Model;
 using DataLaag;
 using DataLaag.Repositories;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFApp.Exceptions;
 using WPFApp.Interfaces;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
@@ -21,27 +23,117 @@ namespace WPFApp.Model.Communiceerders {
             _fleetManager = new(new VoertuigOpslag(), new BestuurderOpslag(), new TankkaartOpslag(), new DatabankConfigureerder(null));
         }
 
-        public BestuurderResponseDTO geefBestuurderDetail(int tankkaartId) {
-            throw new NotImplementedException();
+        #region Private methodes
+
+        private AdresResponseDTO _conveerAdresNaarDTO(Adres a) {
+            try {
+                AdresResponseDTO geconvAdres = BronParser.Parse<AdresResponseDTO>(a);
+                return geconvAdres;
+            } catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
         }
 
-        public IEnumerable<string> geefBestuurderProperties() {
-            throw new NotImplementedException();
+        private BestuurderResponseDTO _converteerBestuurderNaarDTO(Bestuurder b, bool inclusiefRelaties) {
+            try {
+                AdresResponseDTO geconvAdres = null;
+                VoertuigResponseDTO geconvVoertuig = null;
+                TankkaartResponseDTO geconvTankkaart = null;
+
+                if (inclusiefRelaties) {
+                    if (b.Adres != null) {
+                        geconvAdres = _conveerAdresNaarDTO(b.Adres);
+                    }
+                    if (b.Voertuig != null) {
+                        b.Voertuig.zetBestuurder(null);
+                        geconvVoertuig = _converteerVoertuigNaarDTO(b.Voertuig, false);
+                    }
+                    if (b.Tankkaart != null) {
+                        b.Tankkaart.zetBestuurder(null);
+                        geconvTankkaart = _converteerTankkaartNaarDTO(b.Tankkaart, false);
+                    }
+                }
+
+                b.zetAdres(null);
+                b.zetVoertuig(null);
+                b.zetTankkaart(null);
+
+                BestuurderResponseDTO geconvBestuurder = BronParser.Parse<BestuurderResponseDTO>(b);
+                geconvBestuurder.Adres = geconvAdres;
+                geconvBestuurder.Voertuig = geconvVoertuig;
+                geconvBestuurder.Tankkaart = geconvTankkaart;
+
+                return geconvBestuurder;
+            } catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
         }
 
-        public IEnumerable<BestuurderResponseDTO> geefBestuurders() {
-            throw new NotImplementedException();
+        private TankkaartResponseDTO _converteerTankkaartNaarDTO(Tankkaart t, bool inclusiefRelaties) {
+                
+            try {
+                BestuurderResponseDTO geconvBestuurder = null;
+                if (inclusiefRelaties) {
+                    if(t.Bestuurder != null) {
+                        geconvBestuurder = _converteerBestuurderNaarDTO(t.Bestuurder, false);
+                    } 
+                }
+
+                t.zetBestuurder(null);
+
+                TankkaartResponseDTO geconvTankkaart = BronParser.Parse<TankkaartResponseDTO>(t);
+                geconvTankkaart.Bestuurder = geconvBestuurder;
+
+                return geconvTankkaart;
+            } catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
+        }
+
+        private VoertuigResponseDTO _converteerVoertuigNaarDTO(Voertuig v, bool inclusiefRelaties) {
+            try {
+                BestuurderResponseDTO geconvBestuurder = null;
+                if (inclusiefRelaties) {
+                    if (v.Bestuurder != null) {
+                        geconvBestuurder = _converteerBestuurderNaarDTO(v.Bestuurder, false);
+                    }
+                }
+
+                v.zetBestuurder(null);
+
+                VoertuigResponseDTO geconvVoertuig = BronParser.Parse<VoertuigResponseDTO>(v);
+                geconvVoertuig.Bestuurder = geconvBestuurder;
+
+                return geconvVoertuig;
+            } catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
+        }
+
+        #endregion
+        /*------------------------------->> Einde private methodes <<-------------------------------*/
+
+        public BestuurderResponseDTO geefBestuurderDetail(int bestuurder_id) {
+            var resultaat = _fleetManager.BestuurderManager.geefBestuurderDetail(bestuurder_id);
+            return _converteerBestuurderNaarDTO(resultaat, true);
+        }
+
+        public List<string> geefBestuurderProperties() {
+            return _fleetManager.BestuurderManager.geefBestuurderProperties().ToList();
+        }
+
+        public List<BestuurderResponseDTO> geefBestuurders(bool inclusiefRelaties=true) {
+            var resultaten = _fleetManager.BestuurderManager.geefBestuurders();
+            List<BestuurderResponseDTO> geconverteerdeResultaten = new();
+
+            foreach(Bestuurder b in resultaten) {
+                geconverteerdeResultaten.Add(_converteerBestuurderNaarDTO(b, inclusiefRelaties));
+            }
+
+            return geconverteerdeResultaten;
         }
 
         public TankkaartResponseDTO geefTankkaartDetail(int tankkaartId) {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TankkaartResponseDTO> geefTankkaarten() {
+        public List<TankkaartResponseDTO> geefTankkaarten() {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> geefTankkaartProperties() {
+        public List<string> geefTankkaartProperties() {
             throw new NotImplementedException();
         }
 
@@ -49,11 +141,11 @@ namespace WPFApp.Model.Communiceerders {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<VoertuigResponseDTO> geefVoertuigen() {
+        public List<VoertuigResponseDTO> geefVoertuigen() {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> geefVoertuigProperties() {
+        public List<string> geefVoertuigProperties() {
             throw new NotImplementedException();
         }
 
@@ -93,15 +185,15 @@ namespace WPFApp.Model.Communiceerders {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<BestuurderResponseDTO> zoekBestuurders() {
+        public List<BestuurderResponseDTO> zoekBestuurders() {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TankkaartResponseDTO> zoekTankkaarten() {
+        public List<TankkaartResponseDTO> zoekTankkaarten() {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<VoertuigResponseDTO> zoekVoertuig() {
+        public List<VoertuigResponseDTO> zoekVoertuig() {
             throw new NotImplementedException();
         }
     }
