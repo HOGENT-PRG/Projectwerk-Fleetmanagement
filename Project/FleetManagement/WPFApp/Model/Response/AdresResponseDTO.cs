@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 namespace WPFApp.Model.Response {
     public class AdresResponseDTO {
         public int? Id { get; set; }
-        public string Straatnaam { get; set; }
-        public string Huisnummer { get; set; }
-        public string Postcode { get; set; }
-        public string Plaatsnaam { get; set; }
-        public string Provincie { get; set; }
-        public string Land { get; set; }
+        public string? Straatnaam { get; set; }
+        public string? Huisnummer { get; set; }
+        public string? Postcode { get; set; }
+        public string? Plaatsnaam { get; set; }
+        public string? Provincie { get; set; }
+        public string? Land { get; set; }
+        public int? BestuurderId { get; set; }
+        public string? BestuurderNaam { get; set; }
     }
 }

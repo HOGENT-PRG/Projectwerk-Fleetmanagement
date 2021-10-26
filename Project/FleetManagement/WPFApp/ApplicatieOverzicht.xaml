@@ -40,7 +40,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
-            <RowDefinition Height="7*" />
+            <RowDefinition Height="5*" />
             <RowDefinition Height="20*" />
             <RowDefinition Height="30*" />
             <RowDefinition Height="30*" />
@@ -54,38 +54,43 @@
         <materialDesign:Card Grid.Row="2"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#FF191818" Grid.Column="1" Opacity="0.4" Grid.ColumnSpan="5" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="5">
         </materialDesign:Card>
 
-        <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Height="5" IsEnabled="False" Background="White" BorderBrush="White" Panel.ZIndex="1000000000" Margin="0,0,0,0" Opacity="0.8"/>
+        <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Height="3" IsEnabled="False" Background="#FF179100" BorderBrush="#FF179100" Panel.ZIndex="1000000000" Margin="0,0,0,0" Opacity="0.8"/>
 
         <!-- Adres -->
         <Button x:Name="Adres"  Grid.Row="1" Grid.Column="1" Content="{Binding PaginaViewModels[0].Naam}"
                 Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Click="ActiveTab_Click"
                 CommandParameter="{Binding PaginaViewModels[0]}"
-                Margin="1,0,1,4" VerticalAlignment="Bottom" Foreground="#FFE8E8E8" />
+                Margin="1,0,1,2" VerticalAlignment="Bottom" Foreground="#FFE8E8E8" Background="#FF729D3F" />
 
         <!-- Bestuurder -->
         <Button x:Name="Bestuurder" Grid.Row="1" Grid.Column="2" Content="{Binding PaginaViewModels[1].Naam}"
                 Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Click="ActiveTab_Click"
                 CommandParameter="{Binding PaginaViewModels[1]}"
-                Margin="0,0,1,4" VerticalAlignment="Bottom" Foreground="#FFE8E8E8"/>
+                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="#FFE8E8E8" Background="#FF729D3F"/>
 
         <!-- Tankkaart -->
         <Button x:Name="Tankkaart" Grid.Row="1" Grid.Column="3" Content="{Binding PaginaViewModels[2].Naam}"
                 Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Click="ActiveTab_Click"
                 CommandParameter="{Binding PaginaViewModels[2]}"
-                Margin="0,0,1,4" VerticalAlignment="Bottom" Foreground="#FFE8E8E8"/>
+                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="#FFE8E8E8" Background="#FF729D3F"/>
 
         <!-- Voertuig -->
         <Button x:Name="Voertuig" Grid.Row="1" Grid.Column="4" Content="{Binding PaginaViewModels[3].Naam}"
                 Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Click="ActiveTab_Click"
                 CommandParameter="{Binding PaginaViewModels[3]}"
-                Margin="0,0,1,4" VerticalAlignment="Bottom" Foreground="#FFE8E8E8"/>
+                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="#FFE8E8E8" Background="#FF729D3F"/>
 
         <!-- Databank info -->
         <Button x:Name="Databank"  Grid.Row="1" Grid.Column="5" Content="{Binding PaginaViewModels[4].Naam}"
                 Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Click="ActiveTab_Click"
                 CommandParameter="{Binding PaginaViewModels[4]}"
-                Margin="0,0,1,4" VerticalAlignment="Bottom" Foreground="#FFE8E8E8"/>
-        
+                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="#FFE8E8E8" Background="#FF729D3F"/>
+
         <!-- content -->
         <ContentControl Grid.Row="2" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding HuidigePaginaViewModel}"></ContentControl>
     </Grid>

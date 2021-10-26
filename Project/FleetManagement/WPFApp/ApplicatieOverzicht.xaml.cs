@@ -17,6 +17,8 @@ namespace WPFApp
 {
     public partial class ApplicatieOverzicht : Window
     {
+        private List<Button> historical = new();
+
         private void ZetWindowGrootte(double deductiePercentage) {
             double width = SystemParameters.PrimaryScreenWidth;
             double height = SystemParameters.PrimaryScreenHeight;
@@ -30,6 +32,23 @@ namespace WPFApp
         {
             InitializeComponent();
             ZetWindowGrootte(30);
+        }
+
+        private void ActiveTab_Click(object sender, RoutedEventArgs e) {
+            SolidColorBrush active = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF4AC355"));
+            SolidColorBrush inactive = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF729D3F"));//FF8BC34A
+
+            foreach (Button historicalBtn in historical.ToList()) {
+                historicalBtn.Background = inactive;
+                historicalBtn.BorderBrush = inactive;
+                historical.Remove(historicalBtn);
+            }
+
+            Button btn = sender as Button;
+            btn.Background = active;
+            btn.BorderBrush = active;
+
+            historical.Add(btn);
         }
     }
 }
