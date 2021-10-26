@@ -17,7 +17,18 @@ namespace WPFApp {
     /// Interaction logic for SplashScreenWindow.xaml
     /// </summary>
     public partial class SplashScreenWindow : Window {
+        //private Size GetDpiSafeResolution() {
+        //    PresentationSource _presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
+        //    Matrix matix = _presentationSource.CompositionTarget.TransformToDevice;
+        //    return new System.Windows.Size(
+        //        System.Windows.SystemParameters.PrimaryScreenWidth * matix.M22,
+        //        System.Windows.SystemParameters.PrimaryScreenHeight * matix.M11);
+        //}
+
         private void ZetWindowGrootte(double deductiePercentage) {
+            //Size s = GetDpiSafeResolution();
+            //double width = s.Width;
+            //double height = s.Height;
             double width = SystemParameters.PrimaryScreenWidth;
             double height = SystemParameters.PrimaryScreenHeight;
             double adjusted_width = (width * ((100 - deductiePercentage)/100));
@@ -25,39 +36,18 @@ namespace WPFApp {
 
             this.Width = adjusted_width;
             this.Height = adjusted_height;
+            
+            Application.Current.MainWindow.Width = adjusted_width;
+            Application.Current.MainWindow.Height = adjusted_height;
+            this.UpdateLayout();
         }
 
         public SplashScreenWindow() {
             InitializeComponent();
-            ZetWindowGrootte(35);
         }
 
-        //private void Window_SizeChanged(object sender, SizeChangedEventArgs e) {
-        //    this.Width = e.NewSize.Width;
-        //    this.Height = e.NewSize.Height;
-
-        //    double xChange = 1, yChange = 1;
-
-        //    if (e.PreviousSize.Width != 0)
-        //        xChange = (e.NewSize.Width / e.PreviousSize.Width);
-
-        //    if (e.PreviousSize.Height != 0)
-        //        yChange = (e.NewSize.Height / e.PreviousSize.Height);
-
-        //    foreach (FrameworkElement fe in this.LogicalChildren) {
-        //        /*because I didn't want to resize the grid I'm having inside the canvas in this particular instance. (doing that from xaml) */
-        //        if (fe is Grid == false) {
-        //            fe.Height = fe.ActualHeight * yChange;
-        //            fe.Width = fe.ActualWidth * xChange;
-
-        //            Canvas.SetTop(fe, Canvas.GetTop(fe) * yChange);
-        //            Canvas.SetLeft(fe, Canvas.GetLeft(fe) * xChange);
-
-        //        }
-        //    }
-        //}
-
-
-
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            ZetWindowGrootte(30);
+        }
     }
 }

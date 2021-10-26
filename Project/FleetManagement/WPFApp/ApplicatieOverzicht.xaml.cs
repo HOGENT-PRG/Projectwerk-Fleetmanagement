@@ -15,10 +15,7 @@ using System.Windows.Shapes;
 
 namespace WPFApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class ApplicatieOverzicht : Window
     {
         private void ZetWindowGrootte(double deductiePercentage) {
             double width = SystemParameters.PrimaryScreenWidth;
@@ -29,10 +26,10 @@ namespace WPFApp
             this.Width = adjusted_width;
             this.Height = adjusted_height;
         }
-        public MainWindow()
+        public ApplicatieOverzicht()
         {
             InitializeComponent();
-            ZetWindowGrootte(20);
+            ZetWindowGrootte(30);
         }
     }
 }

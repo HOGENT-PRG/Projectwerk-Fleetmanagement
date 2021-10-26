@@ -10,12 +10,42 @@
     <Compile Update="SplashScreenWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\AdresOverzicht.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\BestuurderOverzicht.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DatabankOverzicht.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TankkaartOverzicht.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\VoertuigOverzicht.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="MainWindow.xaml">
+    <Page Update="ApplicatieOverzicht.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SplashScreenWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdresOverzicht.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\BestuurderOverzicht.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DatabankOverzicht.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TankkaartOverzicht.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\VoertuigOverzicht.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
