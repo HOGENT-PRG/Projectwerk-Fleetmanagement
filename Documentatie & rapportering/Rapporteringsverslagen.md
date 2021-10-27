@@ -129,15 +129,13 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 ### Planning
 
-#### Op volgorde
-
-*
-
 #### Gedurende de week
 
-* Database design beginnen
-* Dit design vertalen naar SQL
-* Verderwerken aan user interface mockups (lage prioriteit, database design krijgt voorrang)
+* ~~Database design beginnen~~
+* ~~Dit design vertalen naar SQL~~
+* ~~Verderwerken aan user interface mockups (lage prioriteit, database design krijgt voorrang)~~
+* ~~Methodes TestDatabankConfigureerder uitwerken~~
+* ~~Uitbreiden van unit testen (Valid cases), en tests ivm dbconfigureerder~~
 
 #### Indien taken al klaar zijn
 
@@ -145,16 +143,26 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 
 ### Realisaties
 
-* 
+* Database design
+* Database SQL
+* MVVM Structuur met DTO's en communiceerders
+* * Business of API communicatie eenvoudig om te switchen
+* * Elk tabblad aparte viewmodel
+* Eerste user interfaces in WPF
+* Klassendiagrammen unit testing & presentatielaag
 
 ### To-do volgende week
 
-* 
+* Logica ontwikkelen managers
+* Testen schrijven voor managers
+* User interfaces maken zonder viewmodel code
+* Van enkele views het viewmodel uitwerken
+* Logica ontwikkelen datalaag
 
 ### Obstakels
 
 * 
 
 ### Demo
-* PPT: Unit testen, model klassen, dbconfig
+* PPT: Unit testen, db model. VS: applicatie tabbladen
 
