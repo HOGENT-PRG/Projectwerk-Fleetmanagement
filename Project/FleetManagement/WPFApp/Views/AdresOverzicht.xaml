@@ -33,7 +33,7 @@
                    FontWeight="Bold" FontSize="18"
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-        <Label MouseLeftButtonDown="LMB_VoegAdresToe" Content="Voeg een adres toe" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Visibility="Visible">
+        <Label MouseLeftButtonDown="LMB_VoegAdresToe" Content="Voeg een adres toe" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Visibility="Visible" Cursor="Hand">
             <Label.InputBindings>
                 <MouseBinding Gesture="LeftClick" Command="{Binding FooCommand}"/>
             </Label.InputBindings>

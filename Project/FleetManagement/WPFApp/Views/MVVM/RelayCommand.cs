@@ -9,21 +9,21 @@ using System.Windows.Input;
 namespace WPFApp.Views.MVVM {
     public class RelayCommand : ICommand {
 
-        readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
+        readonly Action<object> _uittevoeren;
+        readonly Predicate<object> _kanUitvoeren;
 
         public RelayCommand(Action<object> execute, Predicate<object> canExecute) {
             if (execute == null)
-                throw new ArgumentNullException("Te executen functie kan niet null zijn");
+                throw new ArgumentNullException("Uit te voeren functie kan niet null zijn");
 
-            _execute = execute;
-            _canExecute = canExecute;
+            _uittevoeren = execute;
+            _kanUitvoeren = canExecute;
         }
 
 
         [DebuggerStepThrough]
         public bool CanExecute(object parameters) {
-            return _canExecute == null ? true : _canExecute(parameters);
+            return _kanUitvoeren == null ? true : _kanUitvoeren(parameters);
         }
 
         public event EventHandler CanExecuteChanged {
@@ -32,7 +32,7 @@ namespace WPFApp.Views.MVVM {
         }
 
         public void Execute(object parameters) {
-            _execute(parameters);
+            _uittevoeren(parameters);
         }
 
     }

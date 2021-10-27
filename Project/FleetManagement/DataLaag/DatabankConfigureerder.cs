@@ -237,7 +237,7 @@ namespace DataLaag
                 }
                 catch 
                 {
-                    throw; // testing purposes, anders continue
+                   // throw;  //TODO: indien db problemen, best deze eens uncommenten :-)
                 }
                 finally
                 {

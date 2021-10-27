@@ -121,5 +121,9 @@ namespace WPFApp.Model.Communiceerders {
         public List<VoertuigResponseDTO> zoekVoertuig() {
             throw new NotImplementedException();
         }
+
+        public DatabankStatusResponseDTO geefDatabankStatus() {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -32,6 +32,9 @@ namespace WPFApp.Model.Communiceerders {
         // Manueel te mappen, zullen door bronparser waarschijnlijk (hopelijk) terugkeren als null
         // casten naar type en instellen alvorens te returnen
 
+        // eventueel over laten aan de viewmodel, maar dat is nogal cru en zou hier bij de omzetting best op zijn
+        // plaats staan
+
         private AdresResponseDTO _conveerAdresNaarDTO(Adres a) {
             try {
                 AdresResponseDTO geconvAdres = BronParser.Parse<AdresResponseDTO>(a);
