@@ -33,12 +33,12 @@
                    FontWeight="Bold" FontSize="18"
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-        <Label Content="Voeg een adres toe" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Visibility="Visible">
+        <Label MouseLeftButtonDown="LMB_VoegAdresToe" Content="Voeg een adres toe" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Visibility="Visible">
             <Label.InputBindings>
                 <MouseBinding Gesture="LeftClick" Command="{Binding FooCommand}"/>
             </Label.InputBindings>
         </Label>
-        <Rectangle Fill="#FFFAFAF9" Grid.Column="1" Grid.ColumnSpan="1"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100" Cursor="Hand">
+        <Rectangle MouseLeftButtonDown="LMB_VoegAdresToe" Fill="#FFFAFAF9" Grid.Column="1" Grid.ColumnSpan="1"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100" Cursor="Hand">
             <Rectangle.InputBindings>
                 <MouseBinding Gesture="LeftClick" Command="{Binding FooCommand}"/>
             </Rectangle.InputBindings>
@@ -51,7 +51,7 @@
 
         <ComboBox Grid.ColumnSpan="1" Grid.Column="3" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" VerticalAlignment="Stretch" BorderBrush="#000000" BorderThickness="1" IsDropDownOpen="False" IsReadOnly="True" />
 
-        <TextBox Grid.Column="5" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch"/>
+        <TextBox Name="zoekveld" GotFocus="zoekterm_GetFocus" LostFocus="zoekterm_LostFocus" Grid.Column="5" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch"/>
 
         <Button Content="Zoek" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26"  />
 

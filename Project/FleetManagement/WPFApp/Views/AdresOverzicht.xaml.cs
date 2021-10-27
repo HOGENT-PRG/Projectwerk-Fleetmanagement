@@ -21,5 +21,21 @@ namespace WPFApp.Views {
         public AdresOverzicht() {
             InitializeComponent();
         }
+
+        private void LMB_VoegAdresToe(object sender, MouseButtonEventArgs e) {
+
+        }
+        
+        private void zoekterm_GetFocus(object sender, RoutedEventArgs e) {
+            if (zoekveld.Text == "Zoekterm...") {
+                zoekveld.Text = string.Empty;
+            }
+        }
+
+        private void zoekterm_LostFocus(object sender, RoutedEventArgs e) {
+            if (zoekveld.Text == string.Empty) {
+                zoekveld.Text = "Zoekterm...";
+            }
+        }
     }
 }

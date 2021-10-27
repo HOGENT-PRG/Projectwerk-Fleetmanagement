@@ -35,5 +35,7 @@ namespace WPFApp.Interfaces {
         List<string> geefBestuurderProperties();
         List<string> geefTankkaartProperties();
         List<string> geefVoertuigProperties();
+
+        DatabankStatusResponseDTO geefDatabankStatus();
     }
 }

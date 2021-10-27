@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WPFApp.Interfaces;
 using WPFApp.Views.MVVM;
 
 namespace WPFApp.Views {
@@ -13,15 +14,16 @@ namespace WPFApp.Views {
         private IPaginaViewModel _huidigePaginaViewModel;
         private List<IPaginaViewModel> _paginaViewModels;
 
+        private ICommuniceer _communicatieKanaal = new CommunicatieRelay().CommunicatieKanaal;
+
         public ApplicatieOverzichtViewModel() {
 
-            PaginaViewModels.Add(new AdresOverzichtViewModel());
-            PaginaViewModels.Add(new BestuurderOverzichtViewModel());
-            PaginaViewModels.Add(new TankkaartOverzichtViewModel());
-            PaginaViewModels.Add(new VoertuigOverzichtViewModel());
-            PaginaViewModels.Add(new DatabankOverzichtViewModel());
+            PaginaViewModels.Add(new AdresOverzichtViewModel(_communicatieKanaal));
+            PaginaViewModels.Add(new BestuurderOverzichtViewModel(_communicatieKanaal));
+            PaginaViewModels.Add(new TankkaartOverzichtViewModel(_communicatieKanaal));
+            PaginaViewModels.Add(new VoertuigOverzichtViewModel(_communicatieKanaal));
+            PaginaViewModels.Add(new DatabankOverzichtViewModel(_communicatieKanaal));
 
-            // Set starting page
             HuidigePaginaViewModel = PaginaViewModels[0];
         }
 

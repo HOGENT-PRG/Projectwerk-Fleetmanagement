@@ -21,5 +21,21 @@ namespace WPFApp.Views {
         public TankkaartOverzicht() {
             InitializeComponent();
         }
+
+        private void LMB_VoegTankkaartToe(object sender, MouseButtonEventArgs e) {
+
+        }
+
+        private void zoekterm_GetFocus(object sender, RoutedEventArgs e) {
+            if (zoekveld.Text == "Zoekterm...") {
+                zoekveld.Text = string.Empty;
+            }
+        }
+
+        private void zoekterm_LostFocus(object sender, RoutedEventArgs e) {
+            if (zoekveld.Text == string.Empty) {
+                zoekveld.Text = "Zoekterm...";
+            }
+        }
     }
 }

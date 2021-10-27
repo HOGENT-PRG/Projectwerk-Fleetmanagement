@@ -25,6 +25,13 @@ namespace WPFApp.Model.Communiceerders {
 
         #region Private methodes
 
+        // TODO: extra behandeling van velden waar geen directe mapping voor is (bv BestuurderNaam)
+        // deze zijn extra's om de weergave/zoekfunctie beter te maken, aangezien deze geen encapsulated
+        // objecten kunnen weergeven, maar een identificerende property er van is mogelijk en 
+        // aangemaakt in de response dto's.
+        // Manueel te mappen, zullen door bronparser waarschijnlijk (hopelijk) terugkeren als null
+        // casten naar type en instellen alvorens te returnen
+
         private AdresResponseDTO _conveerAdresNaarDTO(Adres a) {
             try {
                 AdresResponseDTO geconvAdres = BronParser.Parse<AdresResponseDTO>(a);
@@ -194,6 +201,10 @@ namespace WPFApp.Model.Communiceerders {
         }
 
         public List<VoertuigResponseDTO> zoekVoertuig() {
+            throw new NotImplementedException();
+        }
+
+        public DatabankStatusResponseDTO geefDatabankStatus() {
             throw new NotImplementedException();
         }
     }
