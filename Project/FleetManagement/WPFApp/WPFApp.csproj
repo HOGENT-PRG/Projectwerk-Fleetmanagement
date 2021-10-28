@@ -7,11 +7,43 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="1034362_payment_bank_card_credit_finance_icon.png" />
+    <None Remove="1988878_front_lorry_truck_vehicle_icon.png" />
+    <None Remove="2714747_truck_automobile_car_cargo_delivery_icon.png" />
+    <None Remove="44797_car_icon.png" />
+    <None Remove="4715001_avatar_man_people_person_profile_icon.png" />
+    <None Remove="4715011_avatar_driver_people_person_profile_icon.png" />
+    <None Remove="5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
+    <None Remove="8815efcb12459a0eb1ffc60ad8098281.jpg" />
+    <None Remove="cloud_product2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="2.0.3" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BusinessLaag\BusinessLaag.csproj" />
+    <ProjectReference Include="..\DataLaag\DataLaag.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="_images\4715001_avatar_man_people_person_profile_icon.png" />
+    <Resource Include="_images\5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
+    <Resource Include="_images\44797_car_icon.png" />
+    <Resource Include="_images\2714747_truck_automobile_car_cargo_delivery_icon.png" />
+    <Resource Include="_images\1034362_payment_bank_card_credit_finance_icon.png" />
+    <Resource Include="_images\4715011_avatar_driver_people_person_profile_icon.png" />
+    <Resource Include="_images\1988878_front_lorry_truck_vehicle_icon.png" />
+    <Resource Include="_images\8815efcb12459a0eb1ffc60ad8098281.jpg" />
+    <Resource Include="_images\cloud_product2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
   </ItemGroup>
 
 </Project>

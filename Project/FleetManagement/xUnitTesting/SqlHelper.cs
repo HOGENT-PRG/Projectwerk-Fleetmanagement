@@ -56,7 +56,7 @@ namespace xUnitTesting {
                 return typeMap[giveType];
             }
 
-            throw new ArgumentException($"{giveType.FullName} is not a supported .NET class");
+            throw new ArgumentException($"Geen dbtype gevonden voor {giveType.FullName}");
         }
 
         public static DbType GetDbType<T>() {
