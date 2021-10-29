@@ -6,7 +6,6 @@ namespace BusinessLaag.Interfaces
     public interface IBestuurderManager
     {
         Bestuurder geefBestuurderDetail(int id);
-        IEnumerable<string> geefBestuurderProperties();
         IEnumerable<Bestuurder> geefBestuurders();
         bool updateBestuurder(Bestuurder bestuurder);
         bool verwijderBestuurder(Bestuurder bestuurder);

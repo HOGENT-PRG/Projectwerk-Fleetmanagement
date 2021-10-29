@@ -7,7 +7,6 @@ namespace BusinessLaag.Interfaces
     {
         Voertuig geefVoertuigDetail(int id);
         IEnumerable<Voertuig> geefVoertuigen();
-        IEnumerable<string> geefVoertuigProperties();
         bool updateVoertuig(Voertuig voertuig);
         bool verwijderVoertuig(Voertuig voertuig);
         bool voegVoertuigToe(Voertuig voertuig);

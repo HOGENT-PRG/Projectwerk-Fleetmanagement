@@ -210,5 +210,9 @@ namespace WPFApp.Model.Communiceerders {
         public DatabankStatusResponseDTO geefDatabankStatus() {
             throw new NotImplementedException();
         }
+
+        public List<AdresResponseDTO> geefAdressen() {
+            throw new NotImplementedException();
+        }
     }
 }

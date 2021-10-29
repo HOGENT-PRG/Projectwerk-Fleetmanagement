@@ -16,7 +16,6 @@ namespace WPFApp.Model.Response {
         public string? Kleur { get; set; }
         public int? AantalDeuren { get; set; }
         public BestuurderResponseDTO? Bestuurder { get; set; }
-        public string? BestuurderNaam { get; set; }
         public string? Chassisnummer { get; set; }
     }
 }

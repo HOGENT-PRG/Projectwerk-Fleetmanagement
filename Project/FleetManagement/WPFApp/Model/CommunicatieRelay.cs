@@ -1,10 +1,12 @@
 ﻿using WPFApp.Interfaces;
+using WPFApp.Model;
 using WPFApp.Model.Communiceerders;
 
 namespace WPFApp {
 
     internal class CommunicatieRelay {
         public ICommuniceer CommunicatieKanaal;
+        public Zoekmachine Zoekmachine;
 
         public readonly bool GEBRUIK_API;
         public readonly string API_BASIS_PAD;
@@ -18,6 +20,8 @@ namespace WPFApp {
             } else {
                 CommunicatieKanaal = new BusinessCommuniceerder();
             }
+
+            Zoekmachine = new Zoekmachine(CommunicatieKanaal);
         }
 
     }

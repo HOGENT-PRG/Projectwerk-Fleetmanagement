@@ -8,6 +8,8 @@ using WPFApp.Model.Response;
 
 namespace WPFApp.Interfaces {
     public interface ICommuniceer {
+        List<AdresResponseDTO> geefAdressen();
+
         BestuurderResponseDTO geefBestuurderDetail(int tankkaartId);
         List<BestuurderResponseDTO> geefBestuurders(bool inclusiefRelaties);
         bool updateBestuurder(BestuurderRequestDTO bestuurder);

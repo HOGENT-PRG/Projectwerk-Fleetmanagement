@@ -35,12 +35,6 @@ namespace BusinessLaag.Managers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> geefTankkaartProperties()
-        {
-            // GetProperties
-            throw new NotImplementedException();
-        }
-
         public bool updateTankkaart(Tankkaart tankkaart)
         {
             // vraagt huidige versie op

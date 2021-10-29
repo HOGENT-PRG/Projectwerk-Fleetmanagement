@@ -64,8 +64,5 @@ namespace BusinessLaag.Managers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> geefBestuurderProperties() {
-            throw new NotImplementedException(); //GetProperties
-        }
     }
 }

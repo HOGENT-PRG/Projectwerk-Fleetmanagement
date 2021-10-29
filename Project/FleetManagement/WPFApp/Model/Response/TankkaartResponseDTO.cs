@@ -13,6 +13,5 @@ namespace WPFApp.Model.Response {
         public string? Pincode { get; set; }
         public List<string>? GeldigVoorBrandstoffen { get; set; }
         public BestuurderResponseDTO? Bestuurder { get; set; }
-        public string? BestuurderNaam { get; set; }
     }
 }

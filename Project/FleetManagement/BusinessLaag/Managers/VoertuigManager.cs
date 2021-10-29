@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLaag.Interfaces;
@@ -35,11 +36,6 @@ namespace BusinessLaag.Managers
             // ga na of dit voertuig een bestuurder heeft
             // indien ja, vraag deze op en zetbestuurder van voertuig
             // return
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<string> geefVoertuigProperties()
-        {
             throw new NotImplementedException();
         }
 

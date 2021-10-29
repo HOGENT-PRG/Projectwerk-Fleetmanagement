@@ -11,7 +11,6 @@ namespace WPFApp.Model.Response {
         public string? Naam { get; set; }
         public string? Voornaam { get; set; }
         public AdresResponseDTO? Adres { get; set; }
-        public string? AdresWeergave { get; set; }
         public DateTime? GeboorteDatum { get; set; }
 
         public string? Rijksregisternummer { get; set; }
@@ -19,8 +18,6 @@ namespace WPFApp.Model.Response {
         public string? Rijbewijssoort { get; set; }
 
         public VoertuigResponseDTO? Voertuig { get; set; }
-        public string? VoertuigWeergave { get; set; }
         public TankkaartResponseDTO? Tankkaart { get; set; }
-        public string? TankkaartWeergave { get; set; }
     }
 }
