@@ -33,30 +33,31 @@ namespace WPFApp.Model {
             List<string> velden = new();
             List<string> diepeVelden = new();
 
-            if (!_relationeleTypes.Contains(DTOType)) 
-                { throw new ArgumentException("Er kunnen geen zoekfilter velden voor dit type opgevraagd worden."); }
-
-            PropertyInfo[] properties = DTOType.GetProperties(BindingFlags.Public | BindingFlags.Static);
-            foreach(PropertyInfo p in properties) {
-                if (_relationeleTypes.Contains(p.PropertyType)) {
-                    string veldPrefix = p.Name.Replace(gemeenschappelijkeIdentificator, "") + diepteSeparator;
-                    PropertyInfo[] diepeProperties = p.PropertyType.GetProperties(BindingFlags.Public | BindingFlags.Static);
-                    foreach(PropertyInfo dp in diepeProperties) {
-                        if (!_relationeleTypes.Contains(dp.PropertyType)) {
-                            diepeVelden.Add(veldPrefix + dp.Name);
+            if (_relationeleTypes.Contains(DTOType)) {
+                PropertyInfo[] properties = DTOType.GetProperties(BindingFlags.Public | BindingFlags.Static);
+                foreach (PropertyInfo p in properties) {
+                    if (_relationeleTypes.Contains(p.PropertyType)) {
+                        string veldPrefix = p.Name.Replace(gemeenschappelijkeIdentificator, "") + diepteSeparator;
+                        PropertyInfo[] diepeProperties = p.PropertyType.GetProperties(BindingFlags.Public | BindingFlags.Static);
+                        foreach (PropertyInfo dp in diepeProperties) {
+                            if (!_relationeleTypes.Contains(dp.PropertyType)) {
+                                diepeVelden.Add(veldPrefix + dp.Name);
+                            }
                         }
+                    } else {
+                        velden.Add(p.Name);
                     }
-                } else {
-                    velden.Add(p.Name);
                 }
-            }
+            } else { throw new ArgumentException("Er kunnen geen zoekfilter velden voor dit type opgevraagd worden."); }
+
+            
 
             velden.AddRange(diepeVelden);
             return velden;
         }
 
-        // Diepte 0 = DTO cycle -> DTO cycle
-        // Diepte 1 = DTO cycle -> DTO cycle -> DTO cycle
+        // Diepte 0 = DTO -> DTO
+        // Diepte 1 = DTO -> DTO -> DTO
         private object _geefWaardeVanKlasseProperty(string propertyNaam, object instantie, int diepte=0) {
             int diepteMax = 0;
             var instantieType = instantie.GetType();
@@ -99,7 +100,7 @@ namespace WPFApp.Model {
             else { throw new ArgumentException("Dit type kan niet gebruikt worden bij het zoeken"); }
 
             // Aangezien DTO's DTO's kunnen bevatten en we hun property names ook aanbieden als zoekfilter,
-            // recursief waarde proberen te vergaren met reflectie (max depth = 1)
+            // recursief waarde proberen te vergaren met reflectie (max depth = 0)
             // (Mogelijk niet performant bij grote hoeveelheden in databank)
             foreach (IResponseDTO b in data) {
                 if ((string)_geefWaardeVanKlasseProperty(genesteProperty, b) == zoekterm) {
