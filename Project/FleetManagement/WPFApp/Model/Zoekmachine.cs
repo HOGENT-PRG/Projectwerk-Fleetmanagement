@@ -58,7 +58,7 @@ namespace WPFApp.Model {
 
         // Diepte 0 = DTO -> DTO
         // Diepte 1 = DTO -> DTO -> DTO
-        private object _geefWaardeVanKlasseProperty(string propertyNaam, object instantie, int diepte=0) {
+        private object _geefWaardeVanPropertyRecursief(string propertyNaam, object instantie, int diepte=0) {
             int diepteMax = 0;
             var instantieType = instantie.GetType();
             foreach (var property in instantieType.GetProperties()) {
@@ -66,7 +66,7 @@ namespace WPFApp.Model {
                 if (property.PropertyType.FullName != "System.String" 
                     && !property.PropertyType.IsPrimitive 
                     && diepte <= diepteMax ) {
-                    return _geefWaardeVanKlasseProperty(propertyNaam, waarde, diepte++);
+                    return _geefWaardeVanPropertyRecursief(propertyNaam, waarde, diepte++);
                 } else if (property.Name == propertyNaam) {
                     return waarde;
                 }
@@ -103,9 +103,13 @@ namespace WPFApp.Model {
             // recursief waarde proberen te vergaren met reflectie (max depth = 0)
             // (Mogelijk niet performant bij grote hoeveelheden in databank)
             foreach (IResponseDTO b in data) {
-                if ((string)_geefWaardeVanKlasseProperty(genesteProperty, b) == zoekterm) {
-                    resultaat.Add(b);
+                var res = _geefWaardeVanPropertyRecursief(genesteProperty, b);
+                if(res is not null) {
+                    if ((string)res == zoekterm) {
+                        resultaat.Add(b);
+                    }
                 }
+                
             }
 
             return resultaat;
