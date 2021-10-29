@@ -19,6 +19,7 @@ using WPFApp.Model.Response;
 namespace WPFApp.Model.Communiceerders {
     internal class BusinessCommuniceerder : ICommuniceer {
         private FleetManager _fleetManager;
+
         public BusinessCommuniceerder() {
             _fleetManager = new(new VoertuigOpslag(), new BestuurderOpslag(), new TankkaartOpslag(), new DatabankConfigureerder(null));
         }
@@ -120,10 +121,6 @@ namespace WPFApp.Model.Communiceerders {
             return _converteerBestuurderNaarDTO(resultaat, true);
         }
 
-        public List<string> geefBestuurderProperties() {
-            return _fleetManager.BestuurderManager.geefBestuurderProperties().ToList();
-        }
-
         public List<BestuurderResponseDTO> geefBestuurders(bool inclusiefRelaties=true) {
             var resultaten = _fleetManager.BestuurderManager.geefBestuurders();
             List<BestuurderResponseDTO> geconverteerdeResultaten = new();
@@ -143,19 +140,11 @@ namespace WPFApp.Model.Communiceerders {
             throw new NotImplementedException();
         }
 
-        public List<string> geefTankkaartProperties() {
-            throw new NotImplementedException();
-        }
-
         public VoertuigResponseDTO geefVoertuigDetail(int voertuigId) {
             throw new NotImplementedException();
         }
 
         public List<VoertuigResponseDTO> geefVoertuigen() {
-            throw new NotImplementedException();
-        }
-
-        public List<string> geefVoertuigProperties() {
             throw new NotImplementedException();
         }
 

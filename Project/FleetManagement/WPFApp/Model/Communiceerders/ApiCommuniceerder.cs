@@ -42,10 +42,6 @@ namespace WPFApp.Model.Communiceerders {
             throw new NotImplementedException();
         }
 
-        public List<string> geefBestuurderProperties() {
-            throw new NotImplementedException();
-        }
-
         public List<BestuurderResponseDTO> geefBestuurders(bool inclusiefRelaties) {
             throw new NotImplementedException();
         }
@@ -58,19 +54,11 @@ namespace WPFApp.Model.Communiceerders {
             throw new NotImplementedException();
         }
 
-        public List<string> geefTankkaartProperties() {
-            throw new NotImplementedException();
-        }
-
         public VoertuigResponseDTO geefVoertuigDetail(int voertuigId) {
             throw new NotImplementedException();
         }
 
         public List<VoertuigResponseDTO> geefVoertuigen() {
-            throw new NotImplementedException();
-        }
-
-        public List<string> geefVoertuigProperties() {
             throw new NotImplementedException();
         }
 

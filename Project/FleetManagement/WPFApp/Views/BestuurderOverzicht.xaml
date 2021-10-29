@@ -40,7 +40,7 @@
 
         <Rectangle Fill="#FFFAFAF9" Grid.Column="3" Grid.ColumnSpan="6"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100"/>
 
-        <ComboBox Grid.ColumnSpan="1" Grid.Column="3" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" VerticalAlignment="Stretch" BorderBrush="#000000" BorderThickness="1" IsDropDownOpen="False" IsReadOnly="True" />
+        <ComboBox Grid.ColumnSpan="1" Grid.Column="3" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" VerticalAlignment="Stretch" BorderBrush="#000000" BorderThickness="1" IsDropDownOpen="False" IsReadOnly="True" ItemsSource="{Binding Zoekfilters}" />
 
         <TextBox Name="zoekveld" GotFocus="zoekterm_GetFocus" LostFocus="zoekterm_LostFocus"  Grid.Column="5" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch"/>
 

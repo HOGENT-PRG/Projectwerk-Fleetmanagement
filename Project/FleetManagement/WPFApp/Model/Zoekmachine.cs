@@ -11,13 +11,14 @@ using WPFApp.Model.Response;
 // Nog niet getest! <<<<<<<<<<---------------------------------------------------------------------------------
 // Probeersel, indien dit niet performant is of niet werkt, wellicht aangewezen iets anders te bedenken
 // TODO : Zoekmachine testen en performantie bepalen
+// datetime afhandelen / parsen ? 
 
 namespace WPFApp.Model {
     public class Zoekmachine {
         private static ICommuniceer _communicatieKanaal;
 
         private static string gemeenschappelijkeIdentificator = "ResponseDTO";
-        private static string diepteSeparator = "_>";
+        private static string diepteSeparator = " >> ";
 
         private static readonly HashSet<Type> _relationeleTypes = 
             new HashSet<Type> {
@@ -29,17 +30,22 @@ namespace WPFApp.Model {
             _communicatieKanaal = communicatieKanaal;
         }
         
-        public List<string> geefZoekfilterVelden(Type DTOType) {
+        public List<string> GeefZoekfilterVelden(Type DTOType) {
             List<string> velden = new();
             List<string> diepeVelden = new();
 
             if (_relationeleTypes.Contains(DTOType)) {
-                PropertyInfo[] properties = DTOType.GetProperties(BindingFlags.Public | BindingFlags.Static);
+                PropertyInfo[] properties = DTOType.GetProperties();
+
                 foreach (PropertyInfo p in properties) {
+                    if (p.PropertyType == typeof(DateTime?)) { continue; }
+
                     if (_relationeleTypes.Contains(p.PropertyType)) {
                         string veldPrefix = p.Name.Replace(gemeenschappelijkeIdentificator, "") + diepteSeparator;
-                        PropertyInfo[] diepeProperties = p.PropertyType.GetProperties(BindingFlags.Public | BindingFlags.Static);
+                        PropertyInfo[] diepeProperties = p.PropertyType.GetProperties();
+
                         foreach (PropertyInfo dp in diepeProperties) {
+                            if (dp.PropertyType == typeof(DateTime?)) { continue; }
                             if (!_relationeleTypes.Contains(dp.PropertyType)) {
                                 diepeVelden.Add(veldPrefix + dp.Name);
                             }
@@ -61,12 +67,15 @@ namespace WPFApp.Model {
         private object _geefWaardeVanPropertyRecursief(string propertyNaam, object instantie, int diepte=0) {
             int diepteMax = 0;
             var instantieType = instantie.GetType();
+
             foreach (var property in instantieType.GetProperties()) {
                 var waarde = property.GetValue(instantie, null);
+
                 if (property.PropertyType.FullName != "System.String" 
                     && !property.PropertyType.IsPrimitive 
                     && diepte <= diepteMax ) {
                     return _geefWaardeVanPropertyRecursief(propertyNaam, waarde, diepte++);
+
                 } else if (property.Name == propertyNaam) {
                     return waarde;
                 }
@@ -87,13 +96,13 @@ namespace WPFApp.Model {
             if (zoekfilter.Contains(diepteSeparator)) {
                 string[] zoekfilterArgs = zoekfilter.Split(diepteSeparator);
                 string klassenaam = zoekfilterArgs[0] + gemeenschappelijkeIdentificator;
-                Type zoekfiltertype = Type.GetType(klassenaam) ?? throw new ArgumentException("Kan geen klassenaam bepalen.");
+                _ = Type.GetType(klassenaam) ?? throw new ArgumentException("Kan geen klassenaam bepalen.");
 
                 genesteProperty = zoekfilterArgs[1];
             }
 
             // We krijgen DTO's terug welke we kunnen behandelen
-            if (DTOType == typeof(BestuurderResponseDTO)) { data = _communicatieKanaal.geefBestuurders(true); }
+            if (DTOType == typeof(BestuurderResponseDTO)) { data = _communicatieKanaal.geefBestuurders(inclusiefRelaties:true); }
             else if (DTOType == typeof(TankkaartResponseDTO)) { data = _communicatieKanaal.geefTankkaarten();}
             else if (DTOType == typeof(VoertuigResponseDTO)) { data = _communicatieKanaal.geefVoertuigen(); }
             else if (DTOType == typeof(AdresResponseDTO)) { data = _communicatieKanaal.geefAdressen(); } 

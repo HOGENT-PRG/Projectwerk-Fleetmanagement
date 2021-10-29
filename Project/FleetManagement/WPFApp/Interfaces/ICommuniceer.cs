@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFApp.Model;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
 
 namespace WPFApp.Interfaces {
     public interface ICommuniceer {
+
         List<AdresResponseDTO> geefAdressen();
 
         BestuurderResponseDTO geefBestuurderDetail(int tankkaartId);
@@ -32,11 +35,6 @@ namespace WPFApp.Interfaces {
         bool verwijderVoertuig(int voertuigId);
         bool voegVoertuigToe(VoertuigRequestDTO voertuig);
         List<VoertuigResponseDTO> zoekVoertuig();
-
-
-        List<string> geefBestuurderProperties();
-        List<string> geefTankkaartProperties();
-        List<string> geefVoertuigProperties();
 
         DatabankStatusResponseDTO geefDatabankStatus();
     }
