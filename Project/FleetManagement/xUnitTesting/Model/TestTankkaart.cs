@@ -21,13 +21,13 @@ namespace xUnitTesting.Model
         private static DateTime validVervaldatum = DateTime.Now.AddDays(30);
         private static string validPincode = "1111";
         private static Adres validAdres = new Adres(1, "Leliestraat", "1B", "9000", "Gent", "Oost-vlaanderen", "Belgium");
-        private static Voertuig validVoertuig = new Voertuig(1, Merk.AlfaRomeo, "1XYZ", "1BCD111", Brandstof.diesel, Voertuigsoort.berline, "rood", null, null, "11111111111111111");
+        private static Voertuig validVoertuig = new Voertuig(1, Merk.AlfaRomeo, "1XYZ", "1BCD111", VoertuigBrandstof.Diesel, Voertuigsoort.berline, "rood", null, null, "11111111111111111");
         private static Bestuurder validBestuurder = new Bestuurder(validId, validNaam, validVoornaam, validAdres, validGeboortedatum, validRRN, RijbewijsSoort.B, validVoertuig, null);
 
-        private static Brandstof validBrandstof = Brandstof.cng;
-        private static List<Brandstof> validBrandstoffen = new List<Brandstof>() { validBrandstof};
+        private static TankkaartBrandstof validBrandstof = TankkaartBrandstof.CNG;
+        private static List<TankkaartBrandstof> validBrandstoffen = new List<TankkaartBrandstof>() { validBrandstof};
 
-        private static Tankkaart validTankkaart = new Tankkaart(validId, validKaartnummer, validVervaldatum, validPincode, new List<Brandstof>() { Brandstof.cng }, validBestuurder);
+        private static Tankkaart validTankkaart = new Tankkaart(validId, validKaartnummer, validVervaldatum, validPincode, new List<TankkaartBrandstof>() { TankkaartBrandstof.CNG }, validBestuurder);
 
         [Theory]
         [InlineData(null)]  
@@ -153,19 +153,19 @@ namespace xUnitTesting.Model
         }
 
         [Theory]
-        [InlineData(Brandstof.benzine)]
-        [InlineData(Brandstof.hybrideBenzine)]
-        public void Test_Setter_Brandstoffen_valid(Brandstof b)
+        [InlineData(TankkaartBrandstof.Benzine)]
+        [InlineData(TankkaartBrandstof.Diesel)]
+        public void Test_Setter_Brandstoffen_valid(TankkaartBrandstof b)
         {
-            List<Brandstof> bs = new List<Brandstof>(validTankkaart.GeldigVoorBrandstoffen);
+            List<TankkaartBrandstof> bs = new List<TankkaartBrandstof>(validTankkaart.GeldigVoorBrandstoffen);
             bs.ForEach(b => validTankkaart.VerwijderBrandstof(b));
 
             Assert.DoesNotContain(b, validTankkaart.GeldigVoorBrandstoffen);
             Assert.Empty(validTankkaart.GeldigVoorBrandstoffen);
             validTankkaart.VoegBrandstofToe(b);
             Assert.Contains(b, validTankkaart.GeldigVoorBrandstoffen);
-            validTankkaart.VoegBrandstofToe(Brandstof.cng);
-            Assert.Contains(Brandstof.cng, validTankkaart.GeldigVoorBrandstoffen);
+            validTankkaart.VoegBrandstofToe(TankkaartBrandstof.CNG);
+            Assert.Contains(TankkaartBrandstof.CNG, validTankkaart.GeldigVoorBrandstoffen);
             Assert.Equal(2, validTankkaart.GeldigVoorBrandstoffen.Count);
         }
 
@@ -192,7 +192,7 @@ namespace xUnitTesting.Model
         [Fact]
         public void Test_Setter_Brandstoffen_DeleteBestaatNiet_invalid()
         {
-            Brandstof e = Brandstof.elektrisch;
+            TankkaartBrandstof e = TankkaartBrandstof.Elektrisch;
             Assert.DoesNotContain(e, validTankkaart.GeldigVoorBrandstoffen);
             Assert.Throws<TankkaartException>(() => validTankkaart.VerwijderBrandstof(e));
             Assert.DoesNotContain(e, validTankkaart.GeldigVoorBrandstoffen);

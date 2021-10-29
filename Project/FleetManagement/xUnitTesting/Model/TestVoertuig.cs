@@ -23,7 +23,7 @@ namespace xUnitTesting.Model
 
         private static string validModel = "1 XY Z";
         private static string validNummerplaat = "1-AAA-SS";
-        private static Brandstof BrandstofInstance = Brandstof.diesel;
+        private static VoertuigBrandstof BrandstofInstance = VoertuigBrandstof.Diesel;
         private static Voertuigsoort VoertuigsoortInstance = Voertuigsoort.sedan;
         private static string validKleur = "rood";
         private static int validAantalDeuren = 4;
@@ -34,10 +34,10 @@ namespace xUnitTesting.Model
         
         private static Bestuurder validBestuurder = new Bestuurder(validId, validNaam, validVoornaam, validAdres, validGeboortedatum, validRRN, RijbewijsSoort.B, validVoertuig, null);
 
-        private static Brandstof validBrandstof = Brandstof.cng;
-        private static List<Brandstof> validBrandstoffen = new List<Brandstof>() { validBrandstof };
+        private static TankkaartBrandstof validBrandstof = TankkaartBrandstof.CNG;
+        private static List<TankkaartBrandstof> validBrandstoffen = new List<TankkaartBrandstof>() { validBrandstof };
 
-        private static Tankkaart validTankkaart = new Tankkaart(validId, validKaartnummer, validVervaldatum, validPincode, new List<Brandstof>() { Brandstof.cng }, validBestuurder);
+        private static Tankkaart validTankkaart = new Tankkaart(validId, validKaartnummer, validVervaldatum, validPincode, validBrandstoffen, validBestuurder);
 
         private static Voertuig validVoertuig = new Voertuig(validId, MerkInstance, validModel, validNummerplaat, BrandstofInstance, VoertuigsoortInstance, validKleur, validAantalDeuren, validBestuurder, validChassisnummer);
 
@@ -221,9 +221,9 @@ namespace xUnitTesting.Model
         [Fact]
         public void Test_Setter_ZetBrandstof_valid()
         {
-            Assert.NotEqual(Brandstof.hybrideDiesel, validVoertuig.Brandstof);
-            validVoertuig.zetBrandstof(Brandstof.hybrideDiesel);
-            Assert.Equal(Brandstof.hybrideDiesel, validVoertuig.Brandstof);
+            Assert.NotEqual(VoertuigBrandstof.HybrideDiesel, validVoertuig.Brandstof);
+            validVoertuig.zetBrandstof(VoertuigBrandstof.HybrideDiesel);
+            Assert.Equal(VoertuigBrandstof.HybrideDiesel, validVoertuig.Brandstof);
         }
 
         [Fact]

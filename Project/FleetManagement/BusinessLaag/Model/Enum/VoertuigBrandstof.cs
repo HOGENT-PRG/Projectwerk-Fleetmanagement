@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BusinessLaag.Model.Enum
 {
-    public enum Brandstof
+    public enum VoertuigBrandstof
     {
-        diesel,
-        benzine,
-        cng,
-        elektrisch,
-        hybrideDiesel,
-        hybrideBenzine
+        Diesel,
+        Benzine,
+        CNG,
+        Elektrisch,
+        HybrideDiesel,
+        HybrideBenzine
     }
 }

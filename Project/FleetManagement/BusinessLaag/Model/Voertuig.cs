@@ -15,14 +15,14 @@ namespace BusinessLaag.Model
         public Merk Merk { get; private set; }
         public string Model { get; private set; }
         public string Nummerplaat { get; private set; }
-        public Brandstof Brandstof { get; private set; }
+        public VoertuigBrandstof Brandstof { get; private set; }
         public Voertuigsoort Voertuigsoort { get; private set; }
         public string? Kleur { get; private set; }
         public int? AantalDeuren { get; private set; }
         public Bestuurder? Bestuurder { get; private set; }
         public string Chassisnummer { get; private set; }
 
-        public Voertuig(int? id, Merk merk, string model, string nummerplaat, Brandstof brandstof , 
+        public Voertuig(int? id, Merk merk, string model, string nummerplaat, VoertuigBrandstof brandstof , 
             Voertuigsoort soort, string? kleur, int? aantalDeuren, Bestuurder? bestuurder , string chassisnummer)
         {
             zetId(id);
@@ -56,7 +56,7 @@ namespace BusinessLaag.Model
             //https://nl.wikipedia.org/wiki/Framenummer
             Chassisnummer = (!string.IsNullOrEmpty(chasisnummer) && !string.IsNullOrWhiteSpace(chasisnummer) && chasisnummer.Length == 17) ? chasisnummer : throw new VoertuigException("Een chassisnummer moet bestaan uit 17 karakters"); 
         }
-        public void zetBrandstof(Brandstof brandstof) { Brandstof = brandstof; }
+        public void zetBrandstof(VoertuigBrandstof brandstof) { Brandstof = brandstof; }
         public void zetVoertuigSoort(Voertuigsoort voertuigsoort) { Voertuigsoort = voertuigsoort; }
         public void zetKleur(string? kleur) {
             if(kleur is not null)

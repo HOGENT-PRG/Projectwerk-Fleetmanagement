@@ -15,11 +15,11 @@ namespace BusinessLaag.Model
         public string Kaartnummer { get; private set; }
         public DateTime Vervaldatum { get; private set; }
         public string? Pincode { get; private set; } // nullable toegelaten
-        public List<Brandstof> GeldigVoorBrandstoffen { get; private set; }
+        public List<TankkaartBrandstof> GeldigVoorBrandstoffen { get; private set; }
         public Bestuurder? Bestuurder { get; private set; }
 
         public Tankkaart(int? id, string kaartnummer, DateTime vervaldatum, 
-            string pincode, List<Brandstof>? geldigvoorbrandstoffen, Bestuurder? bestuurder)
+            string pincode, List<TankkaartBrandstof>? geldigvoorbrandstoffen, Bestuurder? bestuurder)
         {
             zetId(id);
             zetKaartnummer(kaartnummer);
@@ -59,14 +59,14 @@ namespace BusinessLaag.Model
             }
             Pincode = pincode;
         }
-        public void VoegBrandstofToe(Brandstof brandstof) 
+        public void VoegBrandstofToe(TankkaartBrandstof brandstof) 
         {
             if (GeldigVoorBrandstoffen.Contains(brandstof))
                 throw new TankkaartException("Brandstof zit al in het lijstje met de brandstoffen");
 
             GeldigVoorBrandstoffen.Add(brandstof);
         }
-        public void VerwijderBrandstof(Brandstof brandstof)
+        public void VerwijderBrandstof(TankkaartBrandstof brandstof)
         {
             if (!GeldigVoorBrandstoffen.Contains(brandstof))
                 throw new TankkaartException("Deze brandstof bestaat niet in het lijstje vooraleer je hem kunt verwijderen moet je het eerst hebben toegevoegd");

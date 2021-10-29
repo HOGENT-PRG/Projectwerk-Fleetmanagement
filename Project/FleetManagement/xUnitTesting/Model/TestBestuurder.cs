@@ -19,8 +19,8 @@ namespace xUnitTesting.Model
         private static DateTime validGeboortedatum = new DateTime(1980, 1, 1);
         private static string validRRN = "90020199902";
         private static Adres validAdres = new Adres(1, "Leliestraat", "1B", "9000", "Gent", "Oost-vlaanderen", "Belgium");
-        private static Voertuig validVoertuig = new Voertuig(1, Merk.AlfaRomeo, "1XYZ", "1BCD111", Brandstof.diesel, Voertuigsoort.berline, "rood", null, null, "11111111111111111");
-        private static Tankkaart validTankkaart = new Tankkaart(1, "12345678908765432", new DateTime(2024, 1,1), "1111", new List<Brandstof>() { Brandstof.cng }, null);
+        private static Voertuig validVoertuig = new Voertuig(1, Merk.AlfaRomeo, "1XYZ", "1BCD111", VoertuigBrandstof.Diesel, Voertuigsoort.berline, "rood", null, null, "11111111111111111");
+        private static Tankkaart validTankkaart = new Tankkaart(1, "12345678908765432", new DateTime(2024, 1,1), "1111", new List<TankkaartBrandstof>() { TankkaartBrandstof.CNG }, null);
 
         private Bestuurder validBestuurder = new Bestuurder(1, validNaam, validVoornaam, validAdres, validGeboortedatum, validRRN, RijbewijsSoort.B, validVoertuig, validTankkaart);
 
