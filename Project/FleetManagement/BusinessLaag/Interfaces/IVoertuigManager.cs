@@ -5,11 +5,13 @@ namespace BusinessLaag.Interfaces
 {
     public interface IVoertuigManager
     {
-        Voertuig geefVoertuigDetail(int id);
-        IEnumerable<Voertuig> geefVoertuigen();
-        bool updateVoertuig(Voertuig voertuig);
-        bool verwijderVoertuig(Voertuig voertuig);
-        bool voegVoertuigToe(Voertuig voertuig);
-        IEnumerable<Voertuig> zoekVoertuig();
+        Voertuig GeefVoertuigDetail(int id);
+        List<Voertuig> GeefVoertuigen();
+        Voertuig GeefVoertuigZonderRelaties(int id);
+        void UpdateVoertuig(Voertuig NieuweVoertuigVersie, bool negeerBestuurder = false);
+        void VerwijderVoertuig(Voertuig voertuig);
+        void VoegVoertuigToe(Voertuig voertuig);
+        Voertuig ZoekVoertuigMetChassisnummer(string chassisnummer);
+        Voertuig ZoekVoertuigMetNummerplaat(string nummerplaat);
     }
 }

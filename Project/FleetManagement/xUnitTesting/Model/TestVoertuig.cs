@@ -194,7 +194,7 @@ namespace xUnitTesting.Model
         [InlineData("01234567890123456")]
         public void Test_Setter_ZetChassisnr_valid(string c)
         {
-            validVoertuig.zetChasisnummer(c);
+            validVoertuig.zetChassisnummer(c);
             Assert.Equal(c, validVoertuig.Chassisnummer);
         }
 
@@ -205,7 +205,7 @@ namespace xUnitTesting.Model
         [InlineData("0123456789012345")]
         public void Test_Setter_ZetChassisnr_invalid(string c)
         {
-            Assert.Throws<VoertuigException>(() => validVoertuig.zetChasisnummer(c));
+            Assert.Throws<VoertuigException>(() => validVoertuig.zetChassisnummer(c));
         }
 
         // Merk, Brandstof en Voertuigsoort worden beschermd dmv enum (geen invalid mogelijk)

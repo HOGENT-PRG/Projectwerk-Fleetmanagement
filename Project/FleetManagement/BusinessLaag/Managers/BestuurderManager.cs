@@ -18,7 +18,7 @@ namespace BusinessLaag.Managers
             _opslag = repository;
         }
 
-        public Bestuurder geefBestuurderDetail(int id) {
+        public Bestuurder GeefBestuurderDetail(int id) {
             // indien een adres hem refereert
             // indien een voertuig hem refereert
             // indien een tankkaart hem refereert
@@ -40,10 +40,14 @@ namespace BusinessLaag.Managers
             throw new NotImplementedException();
         }
 
-        public bool updateBestuurder(Bestuurder bestuurder) {
+        public bool UpdateBestuurder(Bestuurder bestuurder) {
             // indien adres wijzigt: verwijder oud adres, insert new adres if geen adres.id
             // indien voertuig/tankkaart wijzigt: referenties wijzigen
             // 
+            throw new NotImplementedException();
+        }
+
+        public Bestuurder GeefBestuurderZonderRelaties(int key) {
             throw new NotImplementedException();
         }
 

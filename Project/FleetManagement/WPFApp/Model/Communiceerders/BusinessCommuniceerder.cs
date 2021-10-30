@@ -117,7 +117,7 @@ namespace WPFApp.Model.Communiceerders {
         /*------------------------------->> Einde private methodes <<-------------------------------*/
 
         public BestuurderResponseDTO geefBestuurderDetail(int bestuurder_id) {
-            var resultaat = _fleetManager.BestuurderManager.geefBestuurderDetail(bestuurder_id);
+            var resultaat = _fleetManager.BestuurderManager.GeefBestuurderDetail(bestuurder_id);
             return _converteerBestuurderNaarDTO(resultaat, true);
         }
 

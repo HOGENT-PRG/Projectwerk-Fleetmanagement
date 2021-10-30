@@ -17,50 +17,37 @@ namespace DataLaag.Repositories
     {
         private SqlConnection _connector { get; set; }
 
-        public void ZetConnectionString(string connString)
-        {
+        public void ZetConnectionString(string connString) {
             _connector = connString.Length > 5 ? new SqlConnection(connString) : throw new VoertuigOpslagException("Connectiestring moet langer zijn dan 5 karakters.");
         }
 
-        public Voertuig geefVoertuigDetail(int id)
-        {
-
+        // -- create
+        public Voertuig VoegVoertuigToe(Voertuig voertuig) {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Voertuig> geefVoertuigen()
-        {
-            
+        // -- read
+        public KeyValuePair<int?, Voertuig> GeefVoertuigDetail(int id) {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> geefVoertuigProperties()
-        {
-            // GetProperties klasse
+        public Dictionary<int?, Voertuig> GeefVoertuigen() {
             throw new NotImplementedException();
         }
 
-        public void updateVoertuig(Voertuig voertuig)
-        {
-            
+        public Voertuig ZoekVoertuig(string kolomNaam, string chassisnummer) {
             throw new NotImplementedException();
         }
 
-        public void verwijderVoertuig(Voertuig voertuig)
-        {
-            
+        // -- update
+        public void UpdateVoertuig(Voertuig voertuig) {
             throw new NotImplementedException();
         }
 
-        public void voegVoertuigToe(Voertuig voertuig)
-        {
-            
+        // -- delete
+        public void VerwijderVoertuig(Voertuig voertuig) {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Voertuig> zoekVoertuig()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

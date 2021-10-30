@@ -34,7 +34,7 @@ namespace BusinessLaag.Model
             zetKleur(kleur);
             zetAantalDeuren(aantalDeuren);
             zetBestuurder(bestuurder);
-            zetChasisnummer(chassisnummer);
+            zetChassisnummer(chassisnummer);
         }
 
         public void zetId(int? id)
@@ -52,7 +52,7 @@ namespace BusinessLaag.Model
         public void zetNummerplaat(string nummerplaat) { 
             Nummerplaat = (!string.IsNullOrEmpty(nummerplaat) && !string.IsNullOrWhiteSpace(nummerplaat) && nummerplaat.Length < 20) ? nummerplaat : throw new VoertuigException("Gelieve een geldige nummerplaat op te geven (niet leeg, max 20 char)"); 
         }
-        public void zetChasisnummer(string chasisnummer) {
+        public void zetChassisnummer(string chasisnummer) {
             //https://nl.wikipedia.org/wiki/Framenummer
             Chassisnummer = (!string.IsNullOrEmpty(chasisnummer) && !string.IsNullOrWhiteSpace(chasisnummer) && chasisnummer.Length == 17) ? chasisnummer : throw new VoertuigException("Een chassisnummer moet bestaan uit 17 karakters"); 
         }
