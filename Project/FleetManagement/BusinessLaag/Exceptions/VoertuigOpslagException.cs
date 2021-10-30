@@ -9,5 +9,8 @@ namespace BusinessLaag.Exceptions
     public class VoertuigOpslagException : Exception
     {
         public VoertuigOpslagException(string msg) : base(msg) { }
+
+        public VoertuigOpslagException(string message, Exception innerException) : base(message, innerException) {
+        }
     }
 }

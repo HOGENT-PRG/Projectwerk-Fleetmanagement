@@ -6,11 +6,11 @@ namespace BusinessLaag.Interfaces
     public interface IVoertuigOpslag
     {
         void ZetConnectionString(string connectionString);
-        Voertuig VoegVoertuigToe(Voertuig voertuig);
+        int VoegVoertuigToe(Voertuig voertuig);
         void UpdateVoertuig(Voertuig voertuig);
         void VerwijderVoertuig(Voertuig voertuig);
-        Dictionary<int?, Voertuig> GeefVoertuigen();
+        List<KeyValuePair<int?, Voertuig>> GeefVoertuigen();
         KeyValuePair<int?, Voertuig> GeefVoertuigDetail(int id);
-        Voertuig ZoekVoertuig(string kolomNaam, string chassisnummer);
+        Voertuig ZoekVoertuig(string kolomNaamHoofdletterGevoelig, string waarde);
     }
 }
