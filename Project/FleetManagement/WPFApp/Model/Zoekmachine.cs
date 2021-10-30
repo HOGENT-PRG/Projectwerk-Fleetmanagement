@@ -64,41 +64,62 @@ namespace WPFApp.Model {
 
         // Diepte 0 = DTO -> DTO
         // Diepte 1 = DTO -> DTO -> DTO
-        private object _geefWaardeVanPropertyRecursief(string propertyNaam, object instantie, int diepte=0) {
+        private object _geefWaardeVanPropertyRecursief(Type targetType, string propertyNaam, object instantie, int diepte=0) {
             int diepteMax = 0;
             var instantieType = instantie.GetType();
 
+            // We overlopen alle properties van de master
+            // We overlopen alle properties van een geneste instantie (recursief zichzelf opgeroepen)
             foreach (var property in instantieType.GetProperties()) {
-                var waarde = property.GetValue(instantie, null);
 
-                if (property.PropertyType.FullName != "System.String" 
-                    && !property.PropertyType.IsPrimitive 
-                    && diepte <= diepteMax ) {
-                    return _geefWaardeVanPropertyRecursief(propertyNaam, waarde, diepte++);
+                // Indien de property met het correcte type gevonden is (targetType = property type) - of
+                // Indien de property zich in de master bevind en discrimineren niet nodig is (targetType = instantie type)
+                // Indien er sprake is van recursie en de nieuwe instantie van het targetType is (targetType = instantie type)
+                if((targetType == property.PropertyType || targetType == instantie.GetType()) && targetType is not null) {
+                    var waarde = property.GetValue(instantie, null);
 
-                } else if (property.Name == propertyNaam) {
-                    return waarde;
-                }
+                    // Indien het gaat om een custom type
+                    // (kan evt vervangen worden door controle met _relationeleTypes)
+                    if (property.PropertyType.FullName != "System.String"
+                        && !property.PropertyType.IsPrimitive
+                        && diepte <= diepteMax) {
+
+                        // Het gaat om een DTO in een DTO (of een ander complex type, zoals een dict)
+                        // We geven deze DTO recursief mee, om er de property value uit te halen (bij diepte=0)
+                        return _geefWaardeVanPropertyRecursief(targetType, propertyNaam, waarde, diepte++);
+
+                    } else if (property.Name == propertyNaam) {
+                        return waarde;
+                    }
+                } // -> else:  We slaan de property over omdat het het correcte targettype niet is
+                  // en omdat we niet foutief de property van de master willen aanzien als dat van het
+                  // genest type (bv: Bestuurder.Id aanzien wanneer we op zoek zijn naar Bestuurder.Tankkaart.Id)
+
+
             }
 
+            // We hebben de waarde niet kunnen bepalen
             return null;
         }
 
         // Werkt met reflectie, is mogelijk helemaal niet performant met grote datasets
-        public List<IResponseDTO> zoekMetFilter(Type DTOType, string zoekfilter, string zoekterm) {
+        public List<IResponseDTO> ZoekMetFilter(Type DTOType, string zoekfilter, string zoekterm) {
             if (!_relationeleTypes.Contains(DTOType)) { throw new ArgumentException("Dit type kan niet gebruikt worden bij het zoeken."); }
 
 
             List<IResponseDTO> resultaat = new();
             IList data = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(DTOType));
             string genesteProperty = "_invalid";
+            Type targetType = null;
 
             if (zoekfilter.Contains(diepteSeparator)) {
                 string[] zoekfilterArgs = zoekfilter.Split(diepteSeparator);
                 string klassenaam = zoekfilterArgs[0] + gemeenschappelijkeIdentificator;
-                _ = Type.GetType(klassenaam) ?? throw new ArgumentException("Kan geen klassenaam bepalen.");
 
+                targetType = Type.GetType(klassenaam) ?? throw new ArgumentException("Kan geen klassenaam bepalen.");
                 genesteProperty = zoekfilterArgs[1];
+            } else {
+                targetType = DTOType;
             }
 
             // We krijgen DTO's terug welke we kunnen behandelen
@@ -112,7 +133,7 @@ namespace WPFApp.Model {
             // recursief waarde proberen te vergaren met reflectie (max depth = 0)
             // (Mogelijk niet performant bij grote hoeveelheden in databank)
             foreach (IResponseDTO b in data) {
-                var res = _geefWaardeVanPropertyRecursief(genesteProperty, b);
+                var res = _geefWaardeVanPropertyRecursief(targetType, genesteProperty, b);
                 if(res is not null) {
                     if ((string)res == zoekterm) {
                         resultaat.Add(b);
