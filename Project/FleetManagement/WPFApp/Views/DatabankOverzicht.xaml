@@ -1,15 +1,86 @@
-﻿<UserControl x:Class="WPFApp.Views.DatabankOverzicht"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFApp.Views"
+             xmlns:WPFApp="clr-namespace:WPFApp" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="WPFApp.Views.DatabankOverzicht"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900"
-             d:DataContext="{d:DesignInstance local:DatabankOverzichtViewModel}">
+             d:DataContext="{d:DesignInstance {x:Type local:DatabankOverzichtViewModel}}"
+             >
+    <UserControl.Resources>
+        <local:StatusConverter x:Key="StatusConverter" />
+    </UserControl.Resources>
+
     <Grid>
-        <TextBlock Text="This is the databank page" 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*" />
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="40*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+
+
+
+        <TextBlock Visibility="Hidden" Text="This is the databank page" 
                    FontWeight="Bold" FontSize="18"
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+        <Button Content="🔄 Refresh status"
+                Command="{Binding VernieuwStatus}"
+                IsDefault="True"
+                Margin="0,0,10,0" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right"  VerticalAlignment="Center"
+                Foreground="Black"
+                BorderBrush="Black"
+                Background="White"
+                Click="Refresh_Click"
+                />
+
+        <Image Grid.Column="3" Grid.Row="4" Grid.RowSpan="1" Height="40" Stretch="Uniform" Margin="0,0,0,0" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding ConnectieSuccesvol, Converter={StaticResource StatusConverter}}" DataContext="{Binding Mode=OneWay}" />
+
+        <Image Grid.Column="3" Grid.Row="5" Grid.RowSpan="1" Height="40" Stretch="Fill" Margin="0,0,0,0" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center"
+               Source="{Binding DatabaseBestaat, Converter={StaticResource StatusConverter}}" DataContext="{Binding Mode=OneWay}" />
+
+        <Image Grid.Column="3" Grid.Row="6" Grid.RowSpan="1" Height="40" Stretch="Fill" Margin="0,0,0,0" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center"
+               Source="{Binding AlleTabellenBestaan, Converter={StaticResource StatusConverter}}" DataContext="{Binding Mode=OneWay}" />
+        
+        <Image Grid.Column="3" Grid.Row="7" Grid.RowSpan="1" Height="40" Stretch="Fill" Margin="0,0,0,0" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center"
+               Source="{Binding SequentieDoorlopen, Converter={StaticResource StatusConverter}}" DataContext="{Binding Mode=OneWay}" />
+
+        <Label Content="{Binding AantalTabellen}" Grid.Column="3" HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,0" Grid.Row="8" VerticalAlignment="Center"  Foreground="Black"/>
+
+        <Label Content="{Binding LaatsteUpdate}" Grid.Column="3" HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,0" Grid.Row="9" VerticalAlignment="Center"  Foreground="Black"/>
+
+
+        <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="6" HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Stretch" Opacity="0.7" Panel.ZIndex="-99" Background="Transparent" BorderBrush="Black" BorderThickness="1" CornerRadius="20"/>
+
+        <Rectangle x:Name="RefreshShock" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="10" Fill="Transparent" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Panel.ZIndex="-99"  Opacity="0.3"/>
+
+        <materialDesign:Card VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="10" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Opacity="0.7" Panel.ZIndex="-100"/>
+        <Label Content="Databank status" Grid.Column="2" HorizontalAlignment="Left" FontSize="21" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+        <Label Content="Connectie succesvol" Grid.Column="2" HorizontalAlignment="Left" FontSize="15" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center"  Foreground="Black"/>
+        <Label Content="Databank bestaat" Grid.Column="2" HorizontalAlignment="Left" FontSize="15" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center"  Foreground="Black"/>
+        <Label Content="Alle tabellen bestaan" Grid.Column="2" HorizontalAlignment="Left" FontSize="15" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center"  Foreground="Black"/>
+        <Label Content="Sequentie doorlopen" Grid.Column="2" HorizontalAlignment="Left" FontSize="15" Margin="10,0,0,0" Grid.Row="7" VerticalAlignment="Center"  Foreground="Black"/>
+        <Label Content="Aantal tabellen" Grid.Column="2" HorizontalAlignment="Left" FontSize="15" Margin="10,0,0,0" Grid.Row="8" VerticalAlignment="Center"  Foreground="Black"/>
+        <Label Content="Status timestamp" Grid.Column="2" HorizontalAlignment="Left" FontSize="15" Margin="10,0,0,0" Grid.Row="9" VerticalAlignment="Center" Foreground="Black"/>
     </Grid>
 </UserControl>

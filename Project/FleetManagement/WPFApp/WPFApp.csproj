@@ -16,6 +16,8 @@
     <None Remove="5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
     <None Remove="8815efcb12459a0eb1ffc60ad8098281.jpg" />
     <None Remove="cloud_product2.png" />
+    <None Remove="_images\checkmark.png" />
+    <None Remove="_images\cross.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,10 +42,9 @@
     <Resource Include="_images\4715011_avatar_driver_people_person_profile_icon.png" />
     <Resource Include="_images\1988878_front_lorry_truck_vehicle_icon.png" />
     <Resource Include="_images\8815efcb12459a0eb1ffc60ad8098281.jpg" />
+    <Resource Include="_images\checkmark.png" />
     <Resource Include="_images\cloud_product2.png" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Resource Include="_images\cross.png" />
   </ItemGroup>
 
 </Project>

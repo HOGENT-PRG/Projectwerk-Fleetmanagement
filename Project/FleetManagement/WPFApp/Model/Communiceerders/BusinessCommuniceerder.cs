@@ -1,4 +1,5 @@
 ﻿using BusinessLaag;
+using BusinessLaag.Interfaces;
 using BusinessLaag.Model;
 using DataLaag;
 using DataLaag.Repositories;
@@ -197,7 +198,8 @@ namespace WPFApp.Model.Communiceerders {
         }
 
         public DatabankStatusResponseDTO geefDatabankStatus() {
-            throw new NotImplementedException();
+            IDatabankConfigureerder db = _fleetManager.DatabankConfigureerder;
+            return new DatabankStatusResponseDTO(db.ConnectieSuccesvol, db.DatabaseBestaat, db.AlleTabellenBestaan, db.AantalTabellen, db.SequentieDoorlopen);
         }
 
         public List<AdresResponseDTO> geefAdressen() {

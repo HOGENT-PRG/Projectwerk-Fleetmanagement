@@ -25,11 +25,13 @@ namespace BusinessLaag.Managers {
 				opgeslagenVoertuig = this.GeefVoertuigZonderRelaties(_opslag.VoegVoertuigToe(voertuig));
 
 				if (voertuig.Bestuurder is not null) {
-					if (voertuig.Bestuurder.Id is null) { throw new VoertuigManagerException("Voertuig werd toegevoegd aan de databank, echter kon de relatie met de bestuurder niet gelegd worden aangezien de bestuurder id niet meegegeven werd."); }
-
-					Bestuurder b = _fleetManager.BestuurderManager.GeefBestuurderDetail((int)voertuig.Bestuurder.Id);
-					b.zetVoertuig(opgeslagenVoertuig); // indien al een voertuig ingesteld staat zal het overschreven worden
-					_fleetManager.BestuurderManager.UpdateBestuurder(b);
+					if (voertuig.Bestuurder.Id is null) {
+						throw new VoertuigManagerException("Voertuig werd toegevoegd aan de databank, echter kon de relatie met de bestuurder niet gelegd worden aangezien de bestuurder zijn id niet meegegeven werd.");
+					} else {
+						Bestuurder b = _fleetManager.BestuurderManager.GeefBestuurderDetail((int)voertuig.Bestuurder.Id);
+						b.zetVoertuig(opgeslagenVoertuig); // indien al een voertuig ingesteld staat zal het overschreven worden
+						_fleetManager.BestuurderManager.UpdateBestuurder(b);
+					}
 				}
 
 			} catch (VoertuigOpslagException e) {
@@ -98,7 +100,7 @@ namespace BusinessLaag.Managers {
 
 		// ------ update
 		public void UpdateVoertuig(Voertuig NieuweVoertuigVersie, bool negeerBestuurder = false) {
-			if (NieuweVoertuigVersie.Id is null) { throw new VoertuigManagerException("Kan voertuig niet updaten zonder id. Er werden geen wijzigingen aangebracht."); }
+			if (NieuweVoertuigVersie?.Id is null) { throw new VoertuigManagerException("Kan voertuig niet updaten zonder voertuig of id. Er werden geen wijzigingen aangebracht."); }
 			Voertuig GemuteerdBestaandVoertuig = this.GeefVoertuigDetail((int)NieuweVoertuigVersie.Id);
 
 			// Het BestaandVoertuig wordt na elke controle aangepast en op het einde gebruikt om de update functie van
@@ -184,8 +186,7 @@ namespace BusinessLaag.Managers {
 
 		// ------ delete
 		public void VerwijderVoertuig(Voertuig voertuig) {
-			if (voertuig is null) { throw new VoertuigManagerException("Het opgegeven voertuig is null."); }
-			if (voertuig.Id is null) { throw new VoertuigManagerException("Het opgegeven voertuig bevat geen id."); }
+			if (voertuig?.Id is null) { throw new VoertuigManagerException("Het opgegeven voertuig of zijn id is null."); }
 			Voertuig volledigVoertuig = this.GeefVoertuigDetail((int)voertuig.Id);
 
 			try {

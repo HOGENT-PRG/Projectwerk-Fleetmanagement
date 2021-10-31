@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using BusinessLaag.Model;
-using BusinessLaag;
 using BusinessLaag.Interfaces;
 using BusinessLaag.Exceptions;
 using BusinessLaag.Model.Enum;
 using System.Text.RegularExpressions;
 
-namespace DataLaag.Repositories
-{
+namespace DataLaag.Repositories {
     public class VoertuigOpslag : IVoertuigOpslag
     {
         private SqlConnection _conn { get; set; }
@@ -47,10 +42,8 @@ namespace DataLaag.Repositories
                 cmd.Parameters["@aantaldeuren"].Value = (object)voertuig.AantalDeuren ?? DBNull.Value;
 
                 return Convert.ToInt32(cmd.ExecuteScalar());
-            } catch (SqlException e) {
-                if (e.Number == 2627) {
+            } catch (SqlException e) when (e.Number == 2627) {
                     throw new VoertuigOpslagException("Dit voertuig bestaat reeds in de databank.");
-                } else { throw; }
             } catch (Exception e) {
                 throw new VoertuigOpslagException("Onverwachte fout.", e);
             } finally {
@@ -139,10 +132,8 @@ namespace DataLaag.Repositories
 
                 return null;
 
-            } catch (SqlException e) {
-                if (e.Number == 207) {
+            } catch (SqlException e) when (e.Number == 207) {
                     throw new VoertuigOpslagException("Er werd een ongeldige kolomnaam opgegeven.");
-                } else { throw; } // TODO: geeft dit de exception door aan onderstaande catch?
             } catch (Exception e) {
                 throw new VoertuigOpslagException("Er trad een onverwachte fout op.", e);
             } finally {
