@@ -20,19 +20,19 @@ namespace WPFApp.Views {
 
         private ICommand _veranderPaginaCommand;
         private IPaginaViewModel _huidigePaginaViewModel;
-        private List<IPaginaViewModel> _paginaViewModels;
+        private Dictionary<string, IPaginaViewModel> _paginaViewModels;
 
         private ICommuniceer _communicatieKanaal = new CommunicatieRelay().CommunicatieKanaal;
 
         public ApplicatieOverzichtViewModel() {
 
-            PaginaViewModels.Add(new AdresOverzichtViewModel(_communicatieKanaal));
-            PaginaViewModels.Add(new BestuurderOverzichtViewModel(_communicatieKanaal));
-            PaginaViewModels.Add(new TankkaartOverzichtViewModel(_communicatieKanaal));
-            PaginaViewModels.Add(new VoertuigOverzichtViewModel(_communicatieKanaal));
-            PaginaViewModels.Add(new DatabankOverzichtViewModel(_communicatieKanaal));
+            PaginaViewModels.Add(typeof(AdresOverzicht).Name, new AdresOverzichtViewModel(_communicatieKanaal));
+            PaginaViewModels.Add(typeof(BestuurderOverzicht).Name, new BestuurderOverzichtViewModel(_communicatieKanaal));
+            PaginaViewModels.Add(typeof(TankkaartOverzicht).Name, new TankkaartOverzichtViewModel(_communicatieKanaal));
+            PaginaViewModels.Add(typeof(VoertuigOverzicht).Name, new VoertuigOverzichtViewModel(_communicatieKanaal));
+            PaginaViewModels.Add(typeof(DatabankOverzicht).Name, new DatabankOverzichtViewModel(_communicatieKanaal));
 
-            HuidigePaginaViewModel = PaginaViewModels[0];
+            HuidigePaginaViewModel = PaginaViewModels[typeof(AdresOverzicht).Name];
         }
 
 
@@ -48,10 +48,10 @@ namespace WPFApp.Views {
             }
         }
 
-        public List<IPaginaViewModel> PaginaViewModels {
+        public Dictionary<string, IPaginaViewModel> PaginaViewModels {
             get {
                 if (_paginaViewModels == null)
-                    _paginaViewModels = new List<IPaginaViewModel>();
+                    _paginaViewModels = new Dictionary<string, IPaginaViewModel>();
 
                 return _paginaViewModels;
             }
@@ -67,12 +67,12 @@ namespace WPFApp.Views {
         }
 
         private void VeranderViewModel(IPaginaViewModel viewModel) {
-            if (!PaginaViewModels.Contains(viewModel)) {
-                PaginaViewModels.Add(viewModel);
+            if (!PaginaViewModels.Values.Contains(viewModel)) {
+                PaginaViewModels.Add(viewModel.GetType().Name.Replace("ViewModel", ""), viewModel);
             }
 
             HuidigePaginaViewModel = PaginaViewModels
-                .FirstOrDefault(vm => vm == viewModel);
+                .FirstOrDefault(vm => vm.Value == viewModel).Value;
         }
     }
 }
