@@ -18,6 +18,11 @@
     <None Remove="cloud_product2.png" />
     <None Remove="_images\checkmark.png" />
     <None Remove="_images\cross.png" />
+    <None Remove="_images\icons8-credit-control-48.png" />
+    <None Remove="_images\icons8-place-marker-48.png" />
+    <None Remove="_images\icons8-secure-cloud-48.png" />
+    <None Remove="_images\icons8-traffic-jam-48.png" />
+    <None Remove="_images\icons8-user-male-48.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +50,11 @@
     <Resource Include="_images\checkmark.png" />
     <Resource Include="_images\cloud_product2.png" />
     <Resource Include="_images\cross.png" />
+    <Resource Include="_images\icons8-credit-control-48.png" />
+    <Resource Include="_images\icons8-place-marker-48.png" />
+    <Resource Include="_images\icons8-secure-cloud-48.png" />
+    <Resource Include="_images\icons8-traffic-jam-48.png" />
+    <Resource Include="_images\icons8-user-male-48.png" />
   </ItemGroup>
 
 </Project>

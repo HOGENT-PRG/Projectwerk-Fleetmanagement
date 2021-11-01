@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:WPFApp.Views"
         x:Class="WPFApp.ApplicatieOverzicht"
         mc:Ignorable="d"
-        Title="Fleet Manager" Height="684" Width="922" ResizeMode="NoResize">
+        Title="Fleet Manager" Height="684" Width="922" ResizeMode="NoResize"
+        d:DataContext="{d:DesignInstance {x:Type local:ApplicatieOverzichtViewModel}}">
 
 
     <Window.Resources>
@@ -54,42 +55,72 @@
         <materialDesign:Card Grid.Row="2"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#FF191818" Grid.Column="1" Opacity="0.4" Grid.ColumnSpan="5" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="5">
         </materialDesign:Card>
 
-        <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Height="3" IsEnabled="False" Background="#FF179100" BorderBrush="#FF179100" Panel.ZIndex="1000000000" Margin="0,0,0,0" Opacity="0.8"/>
+        <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Height="3" IsEnabled="False" Background="{Binding TabbladOnderlijningKleur}" BorderBrush="{Binding TabbladOnderlijningKleur}" Panel.ZIndex="1000000000" Margin="0,0,0,0" Opacity="0.8"/>
 
         <!-- Adres -->
-        <Button  Name="AdresTab"  Grid.Row="1" Grid.Column="1" Content="{Binding PaginaViewModels[0].Naam}"
+        <Button  Name="AdresTab"  Grid.Row="1" Grid.Column="1"
                 Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                 Click="ActiveerTab_click"
                 CommandParameter="{Binding PaginaViewModels[0]}"
-                Margin="1,0,1,2" VerticalAlignment="Bottom" Foreground="#FFE8E8E8" Background="#FF729D3F" />
+                Margin="1,0,1,2" VerticalAlignment="Bottom" Foreground="{Binding TabbladTekstKleur}" Background="{Binding InactiefTabbladKleur}" BorderBrush="{Binding InactiefTabbladKleur}">
+
+            <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
+                <Image Source="/_images/icons8-place-marker-48.png" Stretch="Uniform" DockPanel.Dock="Left" Margin="0,0,10,0"/>
+                <TextBlock Text="{Binding PaginaViewModels[0].Naam}"  VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,0,10,0" Foreground="{Binding TabbladTekstKleur}"/>
+            </DockPanel>
+        </Button>
 
         <!-- Bestuurder -->
-        <Button x:Name="Bestuurder" Grid.Row="1" Grid.Column="2" Content="{Binding PaginaViewModels[1].Naam}"
+        <Button x:Name="Bestuurder" Grid.Row="1" Grid.Column="2"
                 Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                 Click="ActiveerTab_click"
                 CommandParameter="{Binding PaginaViewModels[1]}"
-                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="#FFE8E8E8" Background="#FF729D3F"/>
+                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="{Binding TabbladTekstKleur}" Background="{Binding InactiefTabbladKleur}" BorderBrush="{Binding InactiefTabbladKleur}">
+
+            <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
+                <Image Source="/_images/icons8-user-male-48.png" Stretch="Uniform" DockPanel.Dock="Left" Margin="0,0,10,0"/>
+                <TextBlock Text="{Binding PaginaViewModels[1].Naam}"  VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,0,10,0" Foreground="{Binding TabbladTekstKleur}"/>
+            </DockPanel>
+        </Button>
 
         <!-- Tankkaart -->
-        <Button x:Name="Tankkaart" Grid.Row="1" Grid.Column="3" Content="{Binding PaginaViewModels[2].Naam}"
+        <Button x:Name="Tankkaart" Grid.Row="1" Grid.Column="3"
                 Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                 Click="ActiveerTab_click"
                 CommandParameter="{Binding PaginaViewModels[2]}"
-                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="#FFE8E8E8" Background="#FF729D3F"/>
+                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="{Binding TabbladTekstKleur}" Background="{Binding InactiefTabbladKleur}" BorderBrush="{Binding InactiefTabbladKleur}">
+
+            <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
+                <Image Source="/_images/icons8-credit-control-48.png" Stretch="Uniform" DockPanel.Dock="Left" Margin="0,0,10,0"/>
+                <TextBlock Text="{Binding PaginaViewModels[2].Naam}"  VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,0,10,0" Foreground="{Binding TabbladTekstKleur}"/>
+            </DockPanel>
+        </Button>
 
         <!-- Voertuig -->
-        <Button x:Name="Voertuig" Grid.Row="1" Grid.Column="4" Content="{Binding PaginaViewModels[3].Naam}"
+        <Button x:Name="Voertuig" Grid.Row="1" Grid.Column="4"
                 Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                 Click="ActiveerTab_click"
                 CommandParameter="{Binding PaginaViewModels[3]}"
-                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="#FFE8E8E8" Background="#FF729D3F"/>
+                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="{Binding TabbladTekstKleur}" Background="{Binding InactiefTabbladKleur}" BorderBrush="{Binding InactiefTabbladKleur}">
+
+            <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
+                <Image Source="/_images/icons8-traffic-jam-48.png" Stretch="Uniform" DockPanel.Dock="Left" Margin="0,0,10,0"/>
+                <TextBlock Text="{Binding PaginaViewModels[3].Naam}"  VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,0,10,0" Foreground="{Binding TabbladTekstKleur}"/>
+            </DockPanel>
+        </Button>
 
         <!-- Databank info -->
-        <Button x:Name="Databank"  Grid.Row="1" Grid.Column="5" Content="{Binding PaginaViewModels[4].Naam}"
+        <Button x:Name="Databank"  Grid.Row="1" Grid.Column="5"
                 Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                 Click="ActiveerTab_click"
                 CommandParameter="{Binding PaginaViewModels[4]}"
-                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="#FFE8E8E8" Background="#FF729D3F"/>
+                Margin="0,0,1,2" VerticalAlignment="Bottom" Foreground="{Binding TabbladTekstKleur}" Background="{Binding InactiefTabbladKleur}" BorderBrush="{Binding InactiefTabbladKleur}">
+
+            <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
+                <Image Source="/_images/icons8-secure-cloud-48.png" Stretch="Uniform" DockPanel.Dock="Left" Margin="0,0,10,0"/>
+                <TextBlock Text="{Binding PaginaViewModels[4].Naam}"  VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,0,10,0" Foreground="{Binding TabbladTekstKleur}"/>
+            </DockPanel>
+        </Button>
 
         <!-- content -->
         <ContentControl Grid.Row="2" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding HuidigePaginaViewModel}"></ContentControl>

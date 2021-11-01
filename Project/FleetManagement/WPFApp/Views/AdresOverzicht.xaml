@@ -45,8 +45,6 @@
         </Rectangle>
 
 
-        <!--<Button Content="Voeg een adres toe" Grid.Row="1" Grid.Column="1" Background="#FFFAFAF9" BorderBrush="Black" Grid.ColumnSpan="1" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1"/>-->
-
         <Rectangle Fill="#FFFAFAF9" Grid.Column="3" Grid.ColumnSpan="6"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100"/>
 
         <ComboBox Grid.ColumnSpan="1" Grid.Column="3" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" VerticalAlignment="Stretch" BorderBrush="#000000" BorderThickness="1" IsDropDownOpen="False" IsReadOnly="True" />
@@ -55,7 +53,7 @@
 
         <Button Content="Zoek" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26"  />
 
-        <DataGrid Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Adressen}" AutoGenerateColumns="False" >
+        <DataGrid Opacity="0.7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Adressen}" AutoGenerateColumns="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Straatnaam" Binding="{Binding Straatnaam}" />
                 <DataGridTextColumn Header="Huisnummer" Binding="{Binding Huisnummer}" />

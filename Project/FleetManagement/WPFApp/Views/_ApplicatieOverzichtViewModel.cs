@@ -4,11 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 using WPFApp.Interfaces;
 using WPFApp.Views.MVVM;
 
 namespace WPFApp.Views {
     internal sealed class ApplicatieOverzichtViewModel : Presenteerder, IPaginaViewModel {
+
+        public string Naam => "Applicatie Overzicht";
+
+        public SolidColorBrush TabbladTekstKleur => (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF312F2F"));
+        public SolidColorBrush ActiefTabbladKleur => (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFFFF"));
+        public SolidColorBrush InactiefTabbladKleur => (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE1E1E1"));
+        public SolidColorBrush TabbladOnderlijningKleur => (SolidColorBrush)(new BrushConverter().ConvertFrom("#00000000"));
 
         private ICommand _veranderPaginaCommand;
         private IPaginaViewModel _huidigePaginaViewModel;
@@ -26,8 +34,6 @@ namespace WPFApp.Views {
 
             HuidigePaginaViewModel = PaginaViewModels[0];
         }
-
-        public string Naam { get { return "Applicatie Overzicht"; } }
 
 
         public ICommand VeranderPaginaCommand {
@@ -57,11 +63,6 @@ namespace WPFApp.Views {
             }
             set {
                 Update(ref _huidigePaginaViewModel, value);
-
-                //if (_currentPageViewModel != value) {
-                //    _currentPageViewModel = value;
-                //    OnPropertyChanged("CurrentPageViewModel");
-                //}
             }
         }
 

@@ -12,6 +12,8 @@ using WPFApp.Views.MVVM;
 namespace WPFApp.Views {
         internal sealed class BestuurderOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
+        public string Naam => "Bestuurders";
+
         private ICommuniceer _communicatieKanaal;
         public ObservableCollection<string> Zoekfilters { get; private set; }
 
@@ -21,11 +23,5 @@ namespace WPFApp.Views {
                 new CommunicatieRelay().Zoekmachine.GeefZoekfilterVelden(typeof(BestuurderResponseDTO)));
         }
 
-
-        public string Naam {
-                get {
-                    return "Bestuurders";
-                }
-            }
-        }
     }
+}

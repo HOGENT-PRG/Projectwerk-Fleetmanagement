@@ -54,7 +54,7 @@
 
         <Button Content="Zoek" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26"  />
 
-        <DataGrid Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Adressen}" AutoGenerateColumns="False" >
+        <DataGrid Opacity="0.7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Adressen}" AutoGenerateColumns="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Kaartnummer" Binding="{Binding Kaartnummer}" />
                 <DataGridTextColumn Header="Vervaldatum" Binding="{Binding Vervaldatum}" />

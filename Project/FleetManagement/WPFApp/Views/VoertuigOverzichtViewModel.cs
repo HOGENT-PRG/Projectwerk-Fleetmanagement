@@ -9,17 +9,13 @@ using WPFApp.Views.MVVM;
 namespace WPFApp.Views {
         internal sealed class VoertuigOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
+        public string Naam => "Voertuigen";
+
         private ICommuniceer _communicatieKanaal;
 
         public VoertuigOverzichtViewModel(ICommuniceer comm) {
             _communicatieKanaal = comm;
         }
 
-
-        public string Naam {
-                get {
-                    return "Voertuigen";
-                }
-            }
-        }
     }
+}

@@ -9,6 +9,8 @@ using WPFApp.Views.MVVM;
 namespace WPFApp.Views {
     internal sealed class TankkaartOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
+        public string Naam => "Tankkaarten";
+
         private ICommuniceer _communicatieKanaal;
 
         public TankkaartOverzichtViewModel(ICommuniceer comm) {
@@ -16,10 +18,5 @@ namespace WPFApp.Views {
         }
 
 
-        public string Naam {
-                get {
-                    return "Tankkaarten";
-                }
-            }
-        }
     }
+}

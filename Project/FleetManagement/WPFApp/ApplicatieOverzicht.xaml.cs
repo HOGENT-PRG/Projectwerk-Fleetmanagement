@@ -12,12 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFApp.Views;
 
 namespace WPFApp
 {
     public partial class ApplicatieOverzicht : Window
     {
         private List<Button> HistoriekTabs = new();
+        private ApplicatieOverzichtViewModel referentieleViewModel = new ApplicatieOverzichtViewModel();
 
         private void ZetWindowGrootte(double deductiePercentage) {
             double width = SystemParameters.PrimaryScreenWidth;
@@ -36,18 +38,18 @@ namespace WPFApp
         }
 
         private void ActiveerTab_click(object sender, RoutedEventArgs e) {
-            SolidColorBrush active = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF4AC355"));
-            SolidColorBrush inactive = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF729D3F"));//FF8BC34A
+            SolidColorBrush actief = referentieleViewModel.ActiefTabbladKleur;
+            SolidColorBrush inactief = referentieleViewModel.InactiefTabbladKleur;
 
             foreach (Button historicalBtn in HistoriekTabs.ToList()) {
-                historicalBtn.Background = inactive;
-                historicalBtn.BorderBrush = inactive;
+                historicalBtn.Background = inactief;
+                historicalBtn.BorderBrush = inactief;
                 HistoriekTabs.Remove(historicalBtn);
             }
 
             Button btn = sender as Button;
-            btn.Background = active;
-            btn.BorderBrush = active;
+            btn.Background = actief;
+            btn.BorderBrush = actief;
 
             HistoriekTabs.Add(btn);
         }

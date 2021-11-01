@@ -9,16 +9,13 @@ using WPFApp.Views.MVVM;
 namespace WPFApp.Views {
     internal sealed class AdresOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
+        public string Naam => "Adressen";
+
         private ICommuniceer _communicatieKanaal;
 
         public AdresOverzichtViewModel(ICommuniceer comm) {
             _communicatieKanaal = comm;
         }
 
-        public string Naam {
-            get {
-                return "Adressen";
-            }
-        }
     }
 }
