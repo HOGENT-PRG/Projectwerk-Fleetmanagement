@@ -21,13 +21,6 @@ namespace WPFApp.Model {
         }
 
         #region Private helper methodes
-
-        private protected void _update<T>(ref T veld, T waarde) {
-            if (EqualityComparer<T>.Default.Equals(veld, waarde)) return;
-
-            veld = waarde;
-        }
-
         private KeyValuePair<Type, string> _parseZoekfilter(Type gekozenType, string zoekfilter) {
             if (zoekfilter.Contains(_diepteSeparator)) {
                 if (zoekfilter.EndsWith(_diepteSeparator) || zoekfilter.StartsWith(_diepteSeparator)) { throw new ArgumentException("Er ontbreekt een veld."); }
@@ -89,36 +82,22 @@ namespace WPFApp.Model {
         public List<T> ZoekMetFilter<T>(List<Func<List<T>>> dataCollectieActies, string zoekfilter, object zoekterm) {
 
             List<T> dataCollectieResultaat = new();
-            List<List<T>> dataCollectieResultaten = new();
-            List<KeyValuePair<Type, ICommand>> dataCommandos = new();
-
             List<T> filterDataResultaat = new();
 
             foreach (Func<List<T>> dataCollectieActie in dataCollectieActies) {
-                dataCommandos.Add(
-                    new KeyValuePair<Type, ICommand>(typeof(T), new RelayCommand(p => _update(ref dataCollectieResultaat, dataCollectieActie.Invoke()), p => p is T))
-                    ); ;
+                dataCollectieActie.Invoke().ForEach(x => dataCollectieResultaat.Add(x));
             }
 
             KeyValuePair<Type, string> zoekfilterParseResultaat = _parseZoekfilter(typeof(T), zoekfilter);
 
-            foreach (KeyValuePair<Type, ICommand> commando in dataCommandos) {
-                commando.Value.Execute(typeof(T));
-                if (dataCollectieResultaat is null) { throw new InvalidOperationException("De opgegeven data collectie functie kon niet opgeroepen worden of retourneerde null."); }
-                dataCollectieResultaten.Add(dataCollectieResultaat.ToList());
-                dataCollectieResultaat.Clear();
-            }
-
-            foreach (List<T> dataCollectieRes in dataCollectieResultaten) {
-                foreach (T b in dataCollectieRes) {
-                    var res = _geefWaardeVanPropertyRecursief(zoekfilterParseResultaat.Key, zoekfilterParseResultaat.Value, b);
-                    if (res is not null) {
-                        if (JsonConvert.SerializeObject((object)res) == JsonConvert.SerializeObject((object)zoekterm)) {
-                            filterDataResultaat.Add(b);
-                        }
+            foreach (T b in dataCollectieResultaat) {
+                var res = _geefWaardeVanPropertyRecursief(zoekfilterParseResultaat.Key, zoekfilterParseResultaat.Value, b);
+                if (res is not null) {
+                    if (JsonConvert.SerializeObject((object)res) == JsonConvert.SerializeObject((object)zoekterm)) {
+                        filterDataResultaat.Add(b);
                     }
-
                 }
+
             }
 
             return filterDataResultaat;
@@ -162,10 +141,8 @@ namespace WPFApp.Model {
                 bool res = false;
 
                 foreach (string s in ls) {
-                    if (res) { break; }
-                    res = blacklistVelden.Any(l => s.Contains(l));
-                    if (res) { break; }
-                    res = ls.Any(l => s.Contains(l) && s != l);
+                    if (res) { break; } res = blacklistVelden.Any(l => s.Contains(l));
+                    if (res) { break; } res = ls.Any(l => s.Contains(l) && s != l);
                 }
 
                 if (!res) {
