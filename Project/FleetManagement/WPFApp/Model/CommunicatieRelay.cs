@@ -14,7 +14,7 @@ namespace WPFApp {
         public CommunicatieRelay(bool GebruikApi = false, string ApiBasisPad = "http://localhost:5000") {
             API_BASIS_PAD = ApiBasisPad;
             GEBRUIK_API = GebruikApi;
-            Zoekmachine = new Zoekmachine(CommunicatieKanaal);
+            Zoekmachine = new Zoekmachine();
 
             if (GEBRUIK_API) {
                 CommunicatieKanaal = new ApiCommuniceerder(API_BASIS_PAD);

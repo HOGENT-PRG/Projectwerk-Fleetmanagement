@@ -1,166 +1,184 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WPFApp.Interfaces;
 using WPFApp.Model.Response;
-
-// Nog niet getest! <<<<<<<<<<---------------------------------------------------------------------------------
-// Probeersel, indien dit niet performant is of niet werkt, wellicht aangewezen iets anders te bedenken
-// TODO : Zoekmachine testen en performantie bepalen
-// datetime afhandelen / parsen ? 
+using WPFApp.Views.MVVM;
 
 namespace WPFApp.Model {
     public class Zoekmachine {
-        private static ICommuniceer _communicatieKanaal;
+        private static string _diepteSeparator;
 
-        private static string gemeenschappelijkeIdentificator = "ResponseDTO";
-        private static string diepteSeparator = " >> ";
-
-        private static readonly HashSet<Type> _relationeleTypes = 
-            new HashSet<Type> {
-                typeof(AdresResponseDTO), typeof(BestuurderResponseDTO),
-                typeof(TankkaartResponseDTO), typeof(VoertuigResponseDTO)
-            };
-
-        public Zoekmachine(ICommuniceer communicatieKanaal) {
-            _communicatieKanaal = communicatieKanaal;
+        public Zoekmachine(string diepteSeparator = " >> ") {
+            _diepteSeparator = diepteSeparator.StartsWith(" ") && diepteSeparator.EndsWith(" ") ? diepteSeparator : throw new ArgumentException("DiepteSeparator dient minstens 1 spatie aan voor en achterkant te bevatten");
         }
-        
-        public List<string> GeefZoekfilterVelden(Type DTOType) {
-            List<string> velden = new();
-            List<string> diepeVelden = new();
 
-            if (_relationeleTypes.Contains(DTOType)) {
-                PropertyInfo[] properties = DTOType.GetProperties();
+        #region Private helper methodes
 
-                foreach (PropertyInfo p in properties) {
-                    if (p.PropertyType == typeof(DateTime?)) { continue; }
+        private protected void _update<T>(ref T veld, T waarde) {
+            if (EqualityComparer<T>.Default.Equals(veld, waarde)) return;
 
-                    if (_relationeleTypes.Contains(p.PropertyType)) {
-                        string veldPrefix = p.Name.Replace(gemeenschappelijkeIdentificator, "") + diepteSeparator;
-                        PropertyInfo[] diepeProperties = p.PropertyType.GetProperties();
+            veld = waarde;
+        }
 
-                        foreach (PropertyInfo dp in diepeProperties) {
-                            if (dp.PropertyType == typeof(DateTime?)) { continue; }
-                            if (!_relationeleTypes.Contains(dp.PropertyType)) {
-                                diepeVelden.Add(veldPrefix + dp.Name);
-                            }
+        private KeyValuePair<Type, string> _parseZoekfilter(Type gekozenType, string zoekfilter) {
+            if (zoekfilter.Contains(_diepteSeparator)) {
+                if (zoekfilter.EndsWith(_diepteSeparator) || zoekfilter.StartsWith(_diepteSeparator)) { throw new ArgumentException("Er ontbreekt een veld."); }
+
+                string[] zoekfilterArgs = zoekfilter.Split(_diepteSeparator);
+
+                Type vorigeType = gekozenType;
+                Type huidigType = gekozenType;
+                foreach (string naam in zoekfilterArgs) {
+                    Type nieuwType = null;
+                    foreach (var prop in huidigType.GetProperties()) {
+                        if (prop.Name == naam) {
+                            vorigeType = huidigType;
+                            nieuwType = prop.PropertyType;
+                            break;
                         }
-                    } else {
-                        velden.Add(p.Name);
                     }
+                    if (nieuwType is null) { throw new ArgumentException("Er kon geen type bepaald worden met property naam: " + naam); }
+                    huidigType = nieuwType;
                 }
-            } else { throw new ArgumentException("Er kunnen geen zoekfilter velden voor dit type opgevraagd worden."); }
 
-            
-
-            velden.AddRange(diepeVelden);
-            return velden;
+                return new KeyValuePair<Type, string>(vorigeType, zoekfilterArgs[zoekfilterArgs.Length - 1]);
+            } else {
+                return new KeyValuePair<Type, string>(gekozenType, zoekfilter.Trim());
+            }
         }
 
-        // Diepte 0 = DTO -> DTO
-        // Diepte 1 = DTO -> DTO -> DTO
-        private object _geefWaardeVanPropertyRecursief(Type targetType, string propertyNaam, object instantie, int diepte=0) {
-            int diepteMax = 0;
+        private object _geefWaardeVanPropertyRecursief(Type targetType, string propertyNaam, object instantie, int maxNiveau = 2, int huidigNiveau = 1) {
+            if (huidigNiveau < 1 || maxNiveau < 1) { throw new ArgumentException("Huidig niveau en max niveau zijn minimum 1. (1,1 = geen recursie)"); }
+
             var instantieType = instantie.GetType();
 
-            // We overlopen alle properties van de master
-            // We overlopen alle properties van een geneste instantie (recursief zichzelf opgeroepen)
             foreach (var property in instantieType.GetProperties()) {
 
-                // Indien de property met het correcte type gevonden is (targetType = property type) - of
-                // Indien de property zich in de master bevind en discrimineren niet nodig is (targetType = instantie type)
-                // Indien er sprake is van recursie en de nieuwe instantie van het targetType is (targetType = instantie type)
-                if((targetType == property.PropertyType || targetType == instantie.GetType()) && targetType is not null) {
+                if ((targetType == property.PropertyType || targetType == instantie.GetType())
+                    && targetType is not null) {
                     var waarde = property.GetValue(instantie, null);
 
-                    // Indien het gaat om een custom type
-                    // (kan evt vervangen worden door controle met _relationeleTypes)
                     if (property.PropertyType.FullName != "System.String"
                         && !property.PropertyType.IsPrimitive
-                        && diepte <= diepteMax) {
+                        && huidigNiveau < maxNiveau) {
 
-                        // Het gaat om een DTO in een DTO (of een ander complex type, zoals een dict)
-                        // We geven deze DTO recursief mee, om er de property value uit te halen (bij diepte=0)
-                        return _geefWaardeVanPropertyRecursief(targetType, propertyNaam, waarde, diepte++);
+                        int nieuwNiveau = huidigNiveau + 1;
+                        var recursieveOperatie = _geefWaardeVanPropertyRecursief(targetType, propertyNaam, waarde, maxNiveau, nieuwNiveau);
+                        if (recursieveOperatie is not null) { return recursieveOperatie; }
 
                     } else if (property.Name == propertyNaam) {
                         return waarde;
                     }
-                } // -> else:  We slaan de property over omdat het het correcte targettype niet is
-                  // en omdat we niet foutief de property van de master willen aanzien als dat van het
-                  // genest type (bv: Bestuurder.Id aanzien wanneer we op zoek zijn naar Bestuurder.Tankkaart.Id)
-
-
+                }
             }
 
-            // We hebben de waarde niet kunnen bepalen
             return null;
         }
 
-        // Werkt met reflectie, is mogelijk helemaal niet performant met grote datasets
-        public List<IResponseDTO> ZoekMetFilter(Type DTOType, string zoekfilter, string zoekterm) {
-            if (!_relationeleTypes.Contains(DTOType)) { throw new ArgumentException("Dit type kan niet gebruikt worden bij het zoeken."); }
+        #endregion
+        #region Public methodes
 
+        public List<T> ZoekMetFilter<T>(List<Func<List<T>>> dataCollectieActies, string zoekfilter, object zoekterm) {
 
-            List<IResponseDTO> resultaat = new();
-            IList data = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(DTOType));
-            string genesteProperty = "_invalid";
-            Type targetType = null;
+            List<T> dataCollectieResultaat = new();
+            List<List<T>> dataCollectieResultaten = new();
+            List<KeyValuePair<Type, ICommand>> dataCommandos = new();
 
-            if (zoekfilter.Contains(diepteSeparator)) {
-                string[] zoekfilterArgs = zoekfilter.Split(diepteSeparator);
-                string klassenaam = zoekfilterArgs[0] + gemeenschappelijkeIdentificator;
+            List<T> filterDataResultaat = new();
 
-                targetType = Type.GetType(klassenaam) ?? throw new ArgumentException("Kan geen klassenaam bepalen.");
-                genesteProperty = zoekfilterArgs[1];
-            } else {
-                targetType = DTOType;
+            foreach (Func<List<T>> dataCollectieActie in dataCollectieActies) {
+                dataCommandos.Add(
+                    new KeyValuePair<Type, ICommand>(typeof(T), new RelayCommand(p => _update(ref dataCollectieResultaat, dataCollectieActie.Invoke()), p => p is T))
+                    ); ;
             }
 
-            // We krijgen DTO's terug welke we kunnen behandelen
-            if (DTOType == typeof(BestuurderResponseDTO)) { data = _communicatieKanaal.geefBestuurders(inclusiefRelaties:true); }
-            else if (DTOType == typeof(TankkaartResponseDTO)) { data = _communicatieKanaal.geefTankkaarten();}
-            else if (DTOType == typeof(VoertuigResponseDTO)) { data = _communicatieKanaal.geefVoertuigen(); }
-            else if (DTOType == typeof(AdresResponseDTO)) { data = _communicatieKanaal.geefAdressen(); } 
-            else { throw new ArgumentException("Dit type kan niet gebruikt worden bij het zoeken"); }
+            KeyValuePair<Type, string> zoekfilterParseResultaat = _parseZoekfilter(typeof(T), zoekfilter);
 
-            // Aangezien DTO's DTO's kunnen bevatten en we hun property names ook aanbieden als zoekfilter,
-            // recursief waarde proberen te vergaren met reflectie (max depth = 0)
-            // (Mogelijk niet performant bij grote hoeveelheden in databank)
-            foreach (IResponseDTO b in data) {
-                var res = _geefWaardeVanPropertyRecursief(targetType, genesteProperty, b);
-                if(res is not null) {
-                    if ((string)res == zoekterm) {
-                        resultaat.Add(b);
+            foreach (KeyValuePair<Type, ICommand> commando in dataCommandos) {
+                commando.Value.Execute(typeof(T));
+                if (dataCollectieResultaat is null) { throw new InvalidOperationException("De opgegeven data collectie functie kon niet opgeroepen worden of retourneerde null."); }
+                dataCollectieResultaten.Add(dataCollectieResultaat.ToList());
+                dataCollectieResultaat.Clear();
+            }
+
+            foreach (List<T> dataCollectieRes in dataCollectieResultaten) {
+                foreach (T b in dataCollectieRes) {
+                    var res = _geefWaardeVanPropertyRecursief(zoekfilterParseResultaat.Key, zoekfilterParseResultaat.Value, b);
+                    if (res is not null) {
+                        if (JsonConvert.SerializeObject((object)res) == JsonConvert.SerializeObject((object)zoekterm)) {
+                            filterDataResultaat.Add(b);
+                        }
                     }
+
                 }
-                
             }
 
-            return resultaat;
-
-            //if (DTOType == typeof(BestuurderResponseDTO)) {
-            //    List<BestuurderResponseDTO> data = _communicatieKanaal.geefBestuurders(true).ToList();
-            //    foreach(BestuurderResponseDTO b in data) {
-            //        if((string)_geefWaardeVanKlasseProperty(genesteProperty, b) == zoekterm) {
-            //            resultaat.Add(b);
-            //        }
-            //    }
-            //} else if (DTOType == typeof(TankkaartResponseDTO)) {
-            //    List<TankkaartResponseDTO> data = _communicatieKanaal.geefTankkaarten();
-            //} else if (DTOType == typeof(VoertuigResponseDTO)) {
-            //    List<VoertuigResponseDTO> data = _communicatieKanaal.geefVoertuigen();
-            //} else if (DTOType == typeof(AdresResponseDTO)) {
-            //    List<AdresResponseDTO> data = _communicatieKanaal.geefAdressen();
-            //} else { throw new ArgumentException("Dit type kan niet gebruikt worden bij het zoeken"); }
+            return filterDataResultaat;
         }
 
+        public List<string> GeefZoekfilterVelden(Type huidigType, List<string> blacklistVelden = null, int maxNiveau = 1, int huidigNiveau = 1) {
+            if (huidigNiveau < 1 || maxNiveau < 1) {
+                throw new ArgumentException("Huidig niveau en max niveau zijn minimum 1. (1,1 = geen recursie)");
+            }
 
+            if (blacklistVelden is null) { blacklistVelden = new(); }
 
+            List<string> padenOmgevormd = new();
+            List<List<string>> paden = new();
+
+            foreach (PropertyInfo p in huidigType.GetProperties()) {
+                if (huidigNiveau > maxNiveau) { break; }
+                List<string> nieuwPad = new();
+                nieuwPad.Add(p.Name);
+
+                if (p.PropertyType.FullName != "System.String"
+                    && p.PropertyType.Assembly == Assembly.GetExecutingAssembly()
+                    && !p.PropertyType.IsPrimitive
+                    && !p.PropertyType.FullName.StartsWith("System.")) {
+
+                    foreach (PropertyInfo t in p.PropertyType.GetProperties()) {
+                        nieuwPad.Add(t.Name); paden.Add(nieuwPad.ToList()); nieuwPad.Clear(); nieuwPad.Add(p.Name);
+                        int nieuwNiveau = huidigNiveau + 1;
+                        List<string> deelPad = GeefZoekfilterVelden(t.PropertyType, null, maxNiveau, nieuwNiveau);
+                        foreach (string s in deelPad) {
+                            nieuwPad.Add(t.Name); nieuwPad.Add(s); paden.Add(nieuwPad.ToList()); nieuwPad.Clear(); nieuwPad.Add(p.Name);
+                        }
+                    }
+
+                } else {
+                    paden.Add(nieuwPad);
+                }
+            }
+
+            foreach (List<string> ls in paden) {
+                bool res = false;
+
+                foreach (string s in ls) {
+                    if (res) { break; }
+                    res = blacklistVelden.Any(l => s.Contains(l));
+                    if (res) { break; }
+                    res = ls.Any(l => s.Contains(l) && s != l);
+                }
+
+                if (!res) {
+                    StringBuilder samengesteldPad = new();
+                    ls.ForEach(s => samengesteldPad.Append(s + _diepteSeparator));
+                    samengesteldPad.Length -= _diepteSeparator.Length;
+                    padenOmgevormd.Add(samengesteldPad.ToString());
+                }
+            }
+            return padenOmgevormd;
+        }
+
+        #endregion
     }
+
 }

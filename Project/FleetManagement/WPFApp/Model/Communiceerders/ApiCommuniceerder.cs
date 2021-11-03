@@ -42,6 +42,10 @@ namespace WPFApp.Model.Communiceerders {
             throw new NotImplementedException();
         }
 
+        public List<BestuurderResponseDTO> geefBestuurders() {
+            return geefBestuurders(true);
+        }
+
         public List<BestuurderResponseDTO> geefBestuurders(bool inclusiefRelaties) {
             throw new NotImplementedException();
         }

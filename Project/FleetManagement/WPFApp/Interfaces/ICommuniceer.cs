@@ -14,7 +14,8 @@ namespace WPFApp.Interfaces {
         List<AdresResponseDTO> geefAdressen();
 
         BestuurderResponseDTO geefBestuurderDetail(int tankkaartId);
-        List<BestuurderResponseDTO> geefBestuurders(bool inclusiefRelaties);
+        List<BestuurderResponseDTO> geefBestuurders();
+        List<BestuurderResponseDTO> geefBestuurders(bool inclusiefRelaties=true);
         bool updateBestuurder(BestuurderRequestDTO bestuurder);
         bool verwijderBestuurder(int bestuurderId);
         bool voegBestuurderToe(BestuurderRequestDTO bestuurder);

@@ -122,6 +122,10 @@ namespace WPFApp.Model.Communiceerders {
             return _converteerBestuurderNaarDTO(resultaat, true);
         }
 
+        public List<BestuurderResponseDTO> geefBestuurders() {
+            return geefBestuurders(true);
+		}
+
         public List<BestuurderResponseDTO> geefBestuurders(bool inclusiefRelaties=true) {
             var resultaten = _fleetManager.BestuurderManager.geefBestuurders();
             List<BestuurderResponseDTO> geconverteerdeResultaten = new();
