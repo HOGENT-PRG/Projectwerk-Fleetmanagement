@@ -7,9 +7,9 @@ namespace BusinessLaag.Interfaces
     {
         Tankkaart geefTankkaartDetail(int id);
         IEnumerable<Tankkaart> geefTankkaarten();
-        bool updateTankkaart(Tankkaart tankkaart);
-        bool verwijderTankkaart(Tankkaart tankkaart);
-        bool voegTankkaartToe(Tankkaart tankkaart);
+        void updateTankkaart(Tankkaart tankkaart);
+        void verwijderTankkaart(Tankkaart tankkaart);
+        void voegTankkaartToe(Tankkaart tankkaart);
         IEnumerable<Tankkaart> zoekTankkaarten();
     }
 }

@@ -11,7 +11,7 @@ namespace BusinessLaag.Interfaces
         void verwijderTankkaart(Tankkaart tankkaart);
         IEnumerable<Tankkaart> geefTankkaarten();
         Tankkaart geefTankkaartDetail(int id);
-        IEnumerable<Tankkaart> zoekTankkaarten();
+        IEnumerable<Tankkaart> zoekTankkaarten(string kolom,string waarde);
         IEnumerable<string> geefTankkaartProperties();
     }
 }
