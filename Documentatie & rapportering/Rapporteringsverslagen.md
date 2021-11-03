@@ -166,3 +166,76 @@ mogelijk zijn om op alle zichtbare velden in de lijst te kunnen filteren.") - Hu
 ### Demo
 * PPT: Unit testen, db model. VS: applicatie tabbladen
 
+
+## Week 5 - 28/10-04/11
+
+### Planning
+
+#### Gedurende de week
+
+* ~~VoertuigManager~~
+* ~~VoertuigOpslag~~
+* ~~TankkaartManager~~
+* TankkaartOpslag
+* BestuurderManager
+* BestuurderOpslag
+
+#### Indien taken al klaar zijn
+
+* Testen schrijven voor managers
+
+### Realisaties
+
+* VoertuigManager
+* VoertuigOpslag
+* TankkaartManager
+
+### To-do volgende week
+
+* BestuurderManager
+* BestuurderOpslag
+* Testen schrijven voor managers
+
+### Obstakels
+
+* 
+
+### Demo
+* Geen
+
+
+## Week 6 & 7 - 04/11-18/11
+
+Samengevoegd door vrije dag op 11/11
+
+### Planning
+
+#### Gedurende de week
+
+* TankkaartOpslag
+* BestuurderManager
+* BestuurderOpslag
+* Tests VoertuigManager
+* Tests TankkaartManager
+* Tests BestuurderManager
+
+#### Indien taken al klaar zijn
+
+* Afstemmen validaties Model klasses aan databank (Adres reeds OK) (gaat voornamelijk om veldgroottes)
+* ICommuniceer functies verwijderen / toevoegen / aanpassen adhv Managers
+* Voeg-toe usercontrol user interfaces aanmaken
+
+### Realisaties
+
+* 
+
+### To-do volgende week
+
+* 
+
+### Obstakels
+
+* 
+
+### Demo
+* Geen
