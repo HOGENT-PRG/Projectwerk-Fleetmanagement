@@ -29,7 +29,7 @@ namespace BusinessLaag.Managers
                 Tankkaart tankkaartresultaat = opslagResultaat.Value;
                 if (opslagResultaat.Key is not null)
                 {
-                    Bestuurder bestuurder = _fleetManager.BestuurderManager.GeefBestuurderZonderRelaties((int)opslagResultaat.Key) ?? throw new ("Voertuig bevat een referentie naar een bestuurder, deze opvragen was echter niet succesvol.");
+                    Bestuurder bestuurder = _fleetManager.BestuurderManager.GeefBestuurderZonderRelaties((int)opslagResultaat.Key) ?? throw new ("Tankkaart bevat een referentie naar een bestuurder, deze opvragen was echter niet succesvol.");
                     tankkaartresultaat.zetBestuurder(bestuurder);
                 }
 
@@ -46,7 +46,7 @@ namespace BusinessLaag.Managers
                 Tankkaart geselecteerdTankkaart = tankkaart.Value;
                 if (tankkaart.Key is not null)
                 {
-                    Bestuurder bestuurder = _fleetManager.BestuurderManager.GeefBestuurderZonderRelaties((int)tankkaart.Key) ?? throw new VoertuigManagerException("Tankkaart bevat een referentie naar een bestuurder, deze opvragen was echter niet succesvol.");
+                    Bestuurder bestuurder = _fleetManager.BestuurderManager.GeefBestuurderZonderRelaties((int)tankkaart.Key) ?? throw new TankkaartOpslagException("Tankkaart bevat een referentie naar een bestuurder, deze opvragen was echter niet succesvol.");
                     geselecteerdTankkaart.zetBestuurder(bestuurder);
                 }
                 opslagResultaat.Add(geselecteerdTankkaart);
@@ -54,7 +54,7 @@ namespace BusinessLaag.Managers
 
             return opslagResultaat;
         }
-        private Tankkaart _zoekVoertuigMetKolomnaam(string kolomnaam, string waarde)
+        private Tankkaart _zoekTankkaartMetKolomnaam(string kolomnaam, string waarde)
         {
             Tankkaart t = (Tankkaart)_opslag.zoekTankkaarten(kolomnaam, waarde);
             if (t?.Id is not null)
@@ -67,18 +67,17 @@ namespace BusinessLaag.Managers
         }
         public Tankkaart ZoekTankkaartMetKaartnummer(string kaartnummer)
         {
-            return _zoekVoertuigMetKolomnaam("Chasisnummer", kaartnummer);
+            return _zoekTankkaartMetKolomnaam("Kaartnummer", kaartnummer);
         }
 
         public void updateTankkaart(Tankkaart tankkaart)
         {
-            if (tankkaart?.Id is null) { throw new TankkaartException("Kan tankkaart niet updaten zonder voertuig of id. Er werden geen wijzigingen aangebracht."); }
+            if (tankkaart?.Id is null) { throw new TankkaartException("Kan tankkaart niet updaten zonder id. Er werden geen wijzigingen aangebracht."); }
             Tankkaart GemuteerdBestaandTankkaart = this.geefTankkaartDetail((int)tankkaart.Id);
 
-            // Het BestaandVoertuig wordt na elke controle aangepast en op het einde gebruikt om de update functie van
-            // VoertuigOpslag te callen.
 
-            if (GemuteerdBestaandTankkaart is null) { throw new VoertuigManagerException("Kan geen tankkaart vinden voor opgegeven id. Er werden geen wijzigingen aangebracht."); }
+
+            if (GemuteerdBestaandTankkaart is null) { throw new TankkaartOpslagException("Kan geen tankkaart vinden voor opgegeven id. Er werden geen wijzigingen aangebracht."); }
             if (GemuteerdBestaandTankkaart.Kaartnummer != tankkaart.Kaartnummer)
             {
                 Tankkaart KaartnummerCheck = this.ZoekTankkaartMetKaartnummer(tankkaart.Kaartnummer);
@@ -86,7 +85,7 @@ namespace BusinessLaag.Managers
                 {
                     if (KaartnummerCheck.Id != tankkaart.Id)
                     {
-                        throw new VoertuigManagerException("Er bestaat reeds een tankkaart met dit kaartnummer. Er werden geen wijzigingen aangebracht.");
+                        throw new TankkaartOpslagException("Er bestaat reeds een tankkaart met dit kaartnummer. Er werden geen wijzigingen aangebracht.");
                     }
                 }
 
@@ -97,7 +96,7 @@ namespace BusinessLaag.Managers
 
             public void verwijderTankkaart(Tankkaart tankkaart)
             {
-            if (tankkaart?.Id is null) { throw new VoertuigManagerException("Het opgegeven tankkaart of zijn id is null."); }
+            if (tankkaart?.Id is null) { throw new TankkaartOpslagException("Het opgegeven tankkaart of zijn id is null."); }
             Tankkaart volledigTankkaart = this.geefTankkaartDetail((int)tankkaart.Id);
 
             try
@@ -105,36 +104,36 @@ namespace BusinessLaag.Managers
                 if (volledigTankkaart.Bestuurder is not null)
                 {
                     Bestuurder b = _fleetManager.BestuurderManager.GeefBestuurderDetail((int)volledigTankkaart.Bestuurder.Id);
-                    b.zetVoertuig(null);
+                    b.zetTankkaart(null);
                     _fleetManager.BestuurderManager.UpdateBestuurder(b);
                 }
 
                 _opslag.verwijderTankkaart(tankkaart);
 
             }
-            catch (BestuurderManagerException e)
+            catch (TankkaartOpslagException e)
             {
-                throw new VoertuigManagerException($"De verwijzing naar het tankkaart bij de bestuurder kon niet verwijderd worden. Er is niks gewijzigd. {e.GetType().Name}", e);
+                throw new TankkaartException($"De verwijzing naar het tankkaart bij de bestuurder kon niet verwijderd worden. Er is niks gewijzigd. {e.GetType().Name}", e);
             }
-            catch (VoertuigOpslagException e)
+            catch (TankkaartException e)
             {
-                throw new VoertuigManagerException("De tankkaart kon niet verwijderd worden, een eventuele relatie tussen een bestuurder en het tankkaart werd verwijderd.", e);
+                throw new TankkaartException("De tankkaart kon niet verwijderd worden, een eventuele relatie tussen een bestuurder en het tankkaart werd verwijderd.", e);
             }
             catch (Exception e)
             {
-                throw new VoertuigManagerException($"Er is een onverwachte fout opgetreden: {e.GetType().Name}", e);
+                throw new TankkaartException($"Er is een onverwachte fout opgetreden: {e.GetType().Name}", e);
             }
         }
 
         // nog een functie brandstof toevoegen/verwijderen, dmv tussentabel <-------------
         public Tankkaart GeefTankkaartZonderRelatie(int id)
         {
-            KeyValuePair<int?, Voertuig> opslagResultaat = _opslag.geefTankkaartDetail(id);
+            KeyValuePair<int?, Tankkaart> opslagResultaat = _opslag.geefTankkaartDetail(id);
             return opslagResultaat.Value;
         }
         public void voegTankkaartToe(Tankkaart tankkaart)
             {
-            if (ZoekTankkaartMetKaartnummer(tankkaart.Kaartnummer) is not null) { throw new VoertuigManagerException("kaartnummer is reeds toegewezen aan een tankkaart."); }
+            if (ZoekTankkaartMetKaartnummer(tankkaart.Kaartnummer) is not null) { throw new TankkaartOpslagException("kaartnummer is reeds toegewezen aan een tankkaart."); }
      
 
             Tankkaart opgeslagenTankkaart = null;
@@ -147,28 +146,28 @@ namespace BusinessLaag.Managers
                 {
                     if (tankkaart.Bestuurder.Id is null)
                     {
-                        throw new VoertuigManagerException("Tankkaart werd toegevoegd aan de databank, echter kon de relatie met de bestuurder niet gelegd worden aangezien de bestuurder zijn id niet meegegeven werd.");
+                        throw new TankkaartOpslagException("Tankkaart werd toegevoegd aan de databank, echter kon de relatie met de bestuurder niet gelegd worden aangezien de bestuurder zijn id niet meegegeven werd.");
                     }
                     else
                     {
                         Bestuurder b = _fleetManager.BestuurderManager.GeefBestuurderDetail((int)tankkaart.Bestuurder.Id);
-                        b.zetTankkaart(opgeslagenTankkaart); // indien al een voertuig ingesteld staat zal het overschreven worden
+                        b.zetTankkaart(opgeslagenTankkaart); 
                         _fleetManager.BestuurderManager.UpdateBestuurder(b);
                     }
                 }
 
             }
-            catch (VoertuigOpslagException e)
+            catch (TankkaartOpslagException e)
             {
-                throw new VoertuigManagerException("De tankkaart kon niet opgeslaan worden, er zijn geen wijzigingen aangebracht.", e);
+                throw new TankkaartException("De tankkaart kon niet opgeslaan worden, er zijn geen wijzigingen aangebracht.", e);
             }
             catch (BestuurderManagerException e)
             {
-                throw new VoertuigManagerException($"De tankkaart werd opgeslagen (id={opgeslagenTankkaart?.Id}) maar de relatie met de bestuurder kon niet tot stand gebracht worden.", e);
+                throw new TankkaartException($"De tankkaart werd opgeslagen (id={opgeslagenTankkaart?.Id}) maar de relatie met de bestuurder kon niet tot stand gebracht worden.", e);
             }
             catch (Exception e)
             {
-                throw new VoertuigManagerException("Er is een onverwachte fout opgetreden.", e);
+                throw new TankkaartException("Er is een onverwachte fout opgetreden.", e);
             }
         }
 
