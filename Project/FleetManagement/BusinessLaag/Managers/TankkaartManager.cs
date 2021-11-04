@@ -20,10 +20,10 @@ namespace BusinessLaag.Managers
             _opslag = repository;
         }
 
-        public Tankkaart geefTankkaartDetail(int id)
+        public Tankkaart GeefTankkaartDetail(int id)
         {
 
-            KeyValuePair<int?, Tankkaart> opslagResultaat = _opslag.geefTankkaartDetail(id);
+            KeyValuePair<int?, Tankkaart> opslagResultaat = _opslag.GeefTankkaartDetail(id);
                 if (opslagResultaat.Value is null) { return null; }
 
                 Tankkaart tankkaartresultaat = opslagResultaat.Value;
@@ -39,7 +39,7 @@ namespace BusinessLaag.Managers
         public IEnumerable<Tankkaart> geefTankkaarten()
         {
             List<Tankkaart> tankkaartRes = new();
-            List<KeyValuePair<int?, Tankkaart>> opslagResultaat = _opslag.geefTankkaarten();
+            List<KeyValuePair<int?, Tankkaart>> opslagResultaat = _opslag.GeefTankkaarten();
 
             foreach (KeyValuePair<int?, Tankkaart> tankkaart in opslagResultaat)
             {
@@ -49,10 +49,10 @@ namespace BusinessLaag.Managers
                     Bestuurder bestuurder = _fleetManager.BestuurderManager.GeefBestuurderZonderRelaties((int)tankkaart.Key) ?? throw new TankkaartOpslagException("Tankkaart bevat een referentie naar een bestuurder, deze opvragen was echter niet succesvol.");
                     geselecteerdTankkaart.zetBestuurder(bestuurder);
                 }
-                opslagResultaat.Add(geselecteerdTankkaart);
+                opslagResultaat.Add(tankkaart);
             }
 
-            return opslagResultaat;
+            return (IEnumerable<Tankkaart>)opslagResultaat;
         }
         private Tankkaart _zoekTankkaartMetKolomnaam(string kolomnaam, string waarde)
         {
@@ -73,7 +73,7 @@ namespace BusinessLaag.Managers
         public void updateTankkaart(Tankkaart tankkaart)
         {
             if (tankkaart?.Id is null) { throw new TankkaartException("Kan tankkaart niet updaten zonder id. Er werden geen wijzigingen aangebracht."); }
-            Tankkaart GemuteerdBestaandTankkaart = this.geefTankkaartDetail((int)tankkaart.Id);
+            Tankkaart GemuteerdBestaandTankkaart = this.GeefTankkaartDetail((int)tankkaart.Id);
 
 
 
@@ -97,7 +97,7 @@ namespace BusinessLaag.Managers
             public void verwijderTankkaart(Tankkaart tankkaart)
             {
             if (tankkaart?.Id is null) { throw new TankkaartOpslagException("Het opgegeven tankkaart of zijn id is null."); }
-            Tankkaart volledigTankkaart = this.geefTankkaartDetail((int)tankkaart.Id);
+            Tankkaart volledigTankkaart = this.GeefTankkaartDetail((int)tankkaart.Id);
 
             try
             {
@@ -126,11 +126,7 @@ namespace BusinessLaag.Managers
         }
 
         // nog een functie brandstof toevoegen/verwijderen, dmv tussentabel <-------------
-        public Tankkaart GeefTankkaartZonderRelatie(int id)
-        {
-            KeyValuePair<int?, Tankkaart> opslagResultaat = _opslag.geefTankkaartDetail(id);
-            return opslagResultaat.Value;
-        }
+   
         public void voegTankkaartToe(Tankkaart tankkaart)
             {
             if (ZoekTankkaartMetKaartnummer(tankkaart.Kaartnummer) is not null) { throw new TankkaartOpslagException("kaartnummer is reeds toegewezen aan een tankkaart."); }
@@ -140,7 +136,7 @@ namespace BusinessLaag.Managers
 
             try
             {
-                opgeslagenTankkaart = this.GeefTankkaartZonderRelatie(_opslag.voegTankkaartToe(tankkaart));
+                opgeslagenTankkaart = this.GeefTankkaartZonderRelatie(_opslag.voegTankkaartToe(tankkaart.Id));
 
                 if (tankkaart.Bestuurder is not null)
                 {
@@ -169,6 +165,12 @@ namespace BusinessLaag.Managers
             {
                 throw new TankkaartException("Er is een onverwachte fout opgetreden.", e);
             }
+        }
+
+        private Tankkaart GeefTankkaartZonderRelatie(int v)
+        {
+            KeyValuePair<int?, Tankkaart> opslagResultaat = _opslag.GeefTankkaartDetail(v);
+            return opslagResultaat.Value;
         }
 
         public IEnumerable<Tankkaart> zoekTankkaarten()

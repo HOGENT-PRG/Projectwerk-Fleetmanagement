@@ -5,7 +5,7 @@ namespace BusinessLaag.Interfaces
 {
     public interface ITankkaartManager
     {
-        Tankkaart geefTankkaartDetail(int id);
+        Tankkaart GeefTankkaartDetail(int id);
         IEnumerable<Tankkaart> geefTankkaarten();
         void updateTankkaart(Tankkaart tankkaart);
         void verwijderTankkaart(Tankkaart tankkaart);
