@@ -36,6 +36,7 @@ namespace BusinessLaag.Managers
                 return tankkaartresultaat;
             }
 
+        // info wat int voorstelt
         public IEnumerable<Tankkaart> geefTankkaarten()
         {
             List<Tankkaart> tankkaartRes = new();

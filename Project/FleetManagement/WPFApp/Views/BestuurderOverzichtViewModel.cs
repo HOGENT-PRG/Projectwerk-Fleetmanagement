@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WPFApp.Interfaces;
 using WPFApp.Model.Response;
 using WPFApp.Model;
 using WPFApp.Views.MVVM;
+using System.Windows.Input;
 
 namespace WPFApp.Views {
         internal sealed class BestuurderOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         private ICommuniceer _communicatieKanaal;
         private List<Func<List<BestuurderResponseDTO>>> _dataCollectieActiesBestuurderDTOs;
+        private List<BestuurderResponseDTO> _zoekResultaten;
+        private Zoekmachine _zoekmachine = new CommunicatieRelay().Zoekmachine;
+
+        private string _geselecteerdeZoekfilter = "";
+        private object _zoekveld = "";
 
         public string Naam => "Bestuurders";
         public ObservableCollection<string> Zoekfilters { get; private set; }
@@ -25,8 +28,14 @@ namespace WPFApp.Views {
             };
 
             Zoekfilters = new ObservableCollection<string>(
-                new CommunicatieRelay().Zoekmachine.GeefZoekfilterVelden(typeof(BestuurderResponseDTO))
+                _zoekmachine.GeefZoekfilterVelden(typeof(BestuurderResponseDTO))
             );
+        }
+
+        public ICommand Zoek {
+            get {
+                return new RelayCommand(_ => Update(ref _zoekResultaten, _zoekmachine.ZoekMetFilter<BestuurderResponseDTO>(_dataCollectieActiesBestuurderDTOs, _geselecteerdeZoekfilter, _zoekveld)), p => p == p);
+            }
         }
 
     }

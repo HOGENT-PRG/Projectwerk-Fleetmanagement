@@ -77,6 +77,7 @@ namespace WPFApp.Model {
         }
 
         #endregion
+        // comments toevoegen
         #region Public methodes
 
         public List<T> ZoekMetFilter<T>(List<Func<List<T>>> dataCollectieActies, string zoekfilter, object zoekterm) {
@@ -85,7 +86,7 @@ namespace WPFApp.Model {
             List<T> filterDataResultaat = new();
 
             foreach (Func<List<T>> dataCollectieActie in dataCollectieActies) {
-                dataCollectieActie.Invoke().ForEach(x => dataCollectieResultaat.Add(x));
+                dataCollectieActie.Invoke()?.ForEach(x => dataCollectieResultaat.Add(x));
             }
 
             KeyValuePair<Type, string> zoekfilterParseResultaat = _parseZoekfilter(typeof(T), zoekfilter);

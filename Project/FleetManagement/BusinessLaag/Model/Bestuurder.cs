@@ -13,18 +13,18 @@ namespace BusinessLaag.Model
     public class Bestuurder
     {
         
-        public int? Id { get; private set; } // nullable toegelaten
+        public int? Id { get; private set; } 
         public string Naam { get; private set; }
         public string Voornaam { get; private set; }
-        public Adres Adres { get; private set; } // nullable toegelaten
+        public Adres Adres { get; private set; } 
         public DateTime GeboorteDatum { get; private set; }
 
         public string RijksRegisterNummer { get; private set; }
 
         public RijbewijsSoort RijbewijsSoort { get; private set; }
 
-        public Voertuig Voertuig { get; private set; } // nullable toegelaten 
-        public Tankkaart Tankkaart { get; private set; } // nullable toegelaten
+        public Voertuig Voertuig { get; private set; }
+        public Tankkaart Tankkaart { get; private set; }
 
         public Bestuurder(int? id, string naam, string voornaam, Adres adres, DateTime geboortedatum, 
             string rijksregisternummer, RijbewijsSoort rijbewijssoort, Voertuig voertuig, Tankkaart tankkaart)
