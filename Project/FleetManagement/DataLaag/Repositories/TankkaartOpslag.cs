@@ -21,15 +21,7 @@ namespace DataLaag.Repositories
             _connector = connString.Length > 5 ? new SqlConnection(connString) : throw new TankkaartOpslagException("Connectiestring moet langer zijn dan 5 karakters.");
         }
 
-        public Tankkaart geefTankkaartDetail(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Tankkaart> geefTankkaarten()
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public IEnumerable<string> geefTankkaartProperties()
         {
@@ -52,6 +44,26 @@ namespace DataLaag.Repositories
         }
 
         public IEnumerable<Tankkaart> zoekTankkaarten()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<KeyValuePair<int?, Tankkaart>> GeefTankkaarten()
+        {
+            throw new NotImplementedException();
+        }
+
+        public KeyValuePair<int?, Tankkaart> GeefTankkaartDetail(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Tankkaart> zoekTankkaarten(string kolom, string waarde)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int voegTankkaartToe(int? id)
         {
             throw new NotImplementedException();
         }
