@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace xUnitTesting {
-    public static class SqlHelper {
+namespace DataLaag.Helpers {
+    public static class TypeConverteerder {
         private static Dictionary<Type, DbType> typeMap;
 
-        static SqlHelper() {
+        static TypeConverteerder() {
             typeMap = new Dictionary<Type, DbType>();
             typeMap[typeof(byte)] = DbType.Byte;
             typeMap[typeof(sbyte)] = DbType.SByte;
@@ -47,20 +47,18 @@ namespace xUnitTesting {
             typeMap[typeof(DateTimeOffset?)] = DbType.DateTimeOffset;
         }
 
-        public static DbType GetDbType(Type giveType) {
-            //giveType = Nullable.GetUnderlyingType(giveType) ?? giveType;
+        public static DbType GeefDbType(Type gegevenType) {
+            gegevenType = Nullable.GetUnderlyingType(gegevenType) ?? gegevenType;
 
-
-
-            if (typeMap.ContainsKey(giveType)) {
-                return typeMap[giveType];
+            if (typeMap.ContainsKey(gegevenType)) {
+                return typeMap[gegevenType];
             }
 
-            throw new ArgumentException($"Geen dbtype gevonden voor {giveType.FullName}");
+            return DbType.Object;
         }
 
-        public static DbType GetDbType<T>() {
-            return GetDbType(typeof(T));
+        public static DbType GeefDbType<T>() {
+            return GeefDbType(typeof(T));
         }
     }
 }

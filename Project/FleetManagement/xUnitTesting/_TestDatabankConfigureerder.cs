@@ -9,6 +9,7 @@ using System.Net;
 using Microsoft.SqlServer.Management.Smo;
 using Microsoft.SqlServer.Management.Common;
 using DataLaag;
+using DataLaag.Helpers;
 
 namespace xUnitTesting
 {
@@ -23,8 +24,6 @@ namespace xUnitTesting
                                           bool integratedSecurity = true) 
                                           :base(tabellen, databanknaam, dataSource, integratedSecurity){}
 
-        // Toe te voegen:
-        // methodes logica
 
         internal bool MaakTabellenAan() {
             _maakOntbrekendeTabellenAan((string)_initialisatieParameters["databanknaam"], TabellenDefault);
@@ -76,7 +75,6 @@ namespace xUnitTesting
 
                     SqlCommand cmd = new SqlCommand(query, TestConnectie);
 
-                    //Dictionary<string, object> item = data[0];
                     foreach(KeyValuePair<string,object?> row in data[0]) {
                         SqlParameter param = new();
                         param.ParameterName = keyFormatted(row.Key);
@@ -86,7 +84,7 @@ namespace xUnitTesting
                         } catch {
                             t = new string(" ").GetType();
                         }
-                        param.DbType = SqlHelper.GetDbType(t);
+                        param.DbType = TypeConverteerder.GeefDbType(t);
                         cmd.Parameters.Add(param);
                     }
 

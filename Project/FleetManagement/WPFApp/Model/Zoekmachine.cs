@@ -20,20 +20,19 @@ namespace WPFApp.Model {
             _diepteSeparator = diepteSeparator.StartsWith(" ") && diepteSeparator.EndsWith(" ") ? diepteSeparator : throw new ArgumentException("DiepteSeparator dient minstens 1 spatie aan voor en achterkant te bevatten");
         }
 
-        #region Private helper methodes
-        private KeyValuePair<Type, string> _parseZoekfilter(Type gekozenType, string zoekfilter) {
+        private KeyValuePair<List<Type>, string> _parseZoekfilter(Type gekozenType, string zoekfilter) {
+            List<Type> pad = new() { };
             if (zoekfilter.Contains(_diepteSeparator)) {
                 if (zoekfilter.EndsWith(_diepteSeparator) || zoekfilter.StartsWith(_diepteSeparator)) { throw new ArgumentException("Er ontbreekt een veld."); }
 
                 string[] zoekfilterArgs = zoekfilter.Split(_diepteSeparator);
 
-                Type vorigeType = gekozenType;
                 Type huidigType = gekozenType;
                 foreach (string naam in zoekfilterArgs) {
                     Type nieuwType = null;
                     foreach (var prop in huidigType.GetProperties()) {
                         if (prop.Name == naam) {
-                            vorigeType = huidigType;
+                            pad.Add(huidigType);
                             nieuwType = prop.PropertyType;
                             break;
                         }
@@ -42,43 +41,41 @@ namespace WPFApp.Model {
                     huidigType = nieuwType;
                 }
 
-                return new KeyValuePair<Type, string>(vorigeType, zoekfilterArgs[zoekfilterArgs.Length - 1]);
+                return new KeyValuePair<List<Type>, string>(pad, zoekfilterArgs[zoekfilterArgs.Length - 1]);
             } else {
-                return new KeyValuePair<Type, string>(gekozenType, zoekfilter.Trim());
+                pad.Add(gekozenType);
+                return new KeyValuePair<List<Type>, string>(pad, zoekfilter.Trim());
             }
         }
 
-        private object _geefWaardeVanPropertyRecursief(Type targetType, string propertyNaam, object instantie, int maxNiveau = 2, int huidigNiveau = 1) {
-            if (huidigNiveau < 1 || maxNiveau < 1) { throw new ArgumentException("Huidig niveau en max niveau zijn minimum 1. (1,1 = geen recursie)"); }
+        private object _geefWaardeVanPropertyRecursief(List<Type> types, string propertyNaam, object instantie) {
+            List<Type> huidigeTypes = types.ToList();
 
             var instantieType = instantie.GetType();
 
             foreach (var property in instantieType.GetProperties()) {
 
-                if ((targetType == property.PropertyType || targetType == instantie.GetType())
-                    && targetType is not null) {
-                    var waarde = property.GetValue(instantie, null);
+                var waarde = property.GetValue(instantie, null);
 
-                    if (property.PropertyType.FullName != "System.String"
-                        && !property.PropertyType.IsPrimitive
-                        && huidigNiveau < maxNiveau) {
+                if (property.Name == propertyNaam && huidigeTypes.Count <= 1) {
+                    return waarde;
+                } else {
 
-                        int nieuwNiveau = huidigNiveau + 1;
-                        var recursieveOperatie = _geefWaardeVanPropertyRecursief(targetType, propertyNaam, waarde, maxNiveau, nieuwNiveau);
-                        if (recursieveOperatie is not null) { return recursieveOperatie; }
-
-                    } else if (property.Name == propertyNaam) {
-                        return waarde;
+                    if (huidigeTypes[huidigeTypes.Count > 1 ? 1 : 0] == property.PropertyType) {
+                        if (property.PropertyType.FullName != "System.String"
+                            && !property.PropertyType.IsPrimitive) {
+                            List<Type> recursieveTypes = types.ToList();
+                            recursieveTypes.Remove(recursieveTypes.First());
+                            var recursieveOperatie = _geefWaardeVanPropertyRecursief(recursieveTypes, propertyNaam, waarde);
+                            if (recursieveOperatie is not null) { return recursieveOperatie; }
+                        }
                     }
+
                 }
             }
 
             return null;
         }
-
-        #endregion
-        // comments toevoegen
-        #region Public methodes
 
         public List<T> ZoekMetFilter<T>(List<Func<List<T>>> dataCollectieActies, string zoekfilter, object zoekterm) {
 
@@ -89,7 +86,8 @@ namespace WPFApp.Model {
                 dataCollectieActie.Invoke()?.ForEach(x => dataCollectieResultaat.Add(x));
             }
 
-            KeyValuePair<Type, string> zoekfilterParseResultaat = _parseZoekfilter(typeof(T), zoekfilter);
+            KeyValuePair<List<Type>, string> zoekfilterParseResultaat = _parseZoekfilter(typeof(T), zoekfilter);
+
 
             foreach (T b in dataCollectieResultaat) {
                 var res = _geefWaardeVanPropertyRecursief(zoekfilterParseResultaat.Key, zoekfilterParseResultaat.Value, b);
@@ -106,7 +104,7 @@ namespace WPFApp.Model {
 
         public List<string> GeefZoekfilterVelden(Type huidigType, List<string> blacklistVelden = null, int maxNiveau = 1, int huidigNiveau = 1) {
             if (huidigNiveau < 1 || maxNiveau < 1) {
-                throw new ArgumentException("Huidig niveau en max niveau zijn minimum 1. (1,1 = geen recursie)");
+                throw new ArgumentException("Huidig niveau en max niveau zijn minimum 1.");
             }
 
             if (blacklistVelden is null) { blacklistVelden = new(); }
@@ -126,8 +124,7 @@ namespace WPFApp.Model {
 
                     foreach (PropertyInfo t in p.PropertyType.GetProperties()) {
                         nieuwPad.Add(t.Name); paden.Add(nieuwPad.ToList()); nieuwPad.Clear(); nieuwPad.Add(p.Name);
-                        int nieuwNiveau = huidigNiveau + 1;
-                        List<string> deelPad = GeefZoekfilterVelden(t.PropertyType, null, maxNiveau, nieuwNiveau);
+                        List<string> deelPad = GeefZoekfilterVelden(t.PropertyType, null, maxNiveau, huidigNiveau + 1);
                         foreach (string s in deelPad) {
                             nieuwPad.Add(t.Name); nieuwPad.Add(s); paden.Add(nieuwPad.ToList()); nieuwPad.Clear(); nieuwPad.Add(p.Name);
                         }
@@ -142,8 +139,10 @@ namespace WPFApp.Model {
                 bool res = false;
 
                 foreach (string s in ls) {
-                    if (res) { break; } res = blacklistVelden.Any(l => s.Contains(l));
-                    if (res) { break; } res = ls.Any(l => s.Contains(l) && s != l);
+                    if (res) { continue; }
+                    res = blacklistVelden.Any(l => s.Contains(l));
+                    if (res) { continue; }
+                    res = ls.Any(l => s.Contains(l) && s != l);
                 }
 
                 if (!res) {
@@ -156,7 +155,5 @@ namespace WPFApp.Model {
             return padenOmgevormd;
         }
 
-        #endregion
     }
-
 }
