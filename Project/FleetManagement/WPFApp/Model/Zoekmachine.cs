@@ -60,17 +60,19 @@ namespace WPFApp.Model {
                 if (property.Name == propertyNaam && huidigeTypes.Count <= 1) {
                     return waarde;
                 } else {
-
-                    if (huidigeTypes[huidigeTypes.Count > 1 ? 1 : 0] == property.PropertyType) {
-                        if (property.PropertyType.FullName != "System.String"
-                            && !property.PropertyType.IsPrimitive) {
-                            List<Type> recursieveTypes = types.ToList();
-                            recursieveTypes.Remove(recursieveTypes.First());
-                            var recursieveOperatie = _geefWaardeVanPropertyRecursief(recursieveTypes, propertyNaam, waarde);
-                            if (recursieveOperatie is not null) { return recursieveOperatie; }
+                    if (huidigeTypes.Count > 0) {
+                        if (huidigeTypes[huidigeTypes.Count > 1 ? 1 : 0] == property.PropertyType) {
+                            if (property.PropertyType.FullName != "System.String"
+                                && !property.PropertyType.IsPrimitive) {
+                                List<Type> recursieveTypes = types.ToList();
+                                recursieveTypes.Remove(recursieveTypes.First());
+                                var recursieveOperatie = _geefWaardeVanPropertyRecursief(recursieveTypes, propertyNaam, waarde);
+                                if (recursieveOperatie is not null) { return recursieveOperatie; }
+                            }
                         }
+                    } else {
+                        return null;
                     }
-
                 }
             }
 
