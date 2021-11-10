@@ -1,4 +1,5 @@
-﻿using WPFApp.Interfaces;
+﻿using WPFApp.Helpers;
+using WPFApp.Interfaces;
 using WPFApp.Model;
 using WPFApp.Model.Communiceerders;
 

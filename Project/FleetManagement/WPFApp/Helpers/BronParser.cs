@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using System.Xml;
 using System.Collections;
 
-namespace WPFApp.Model {
+namespace WPFApp.Helpers {
     public static class BronParser {
 
         /// <summary>

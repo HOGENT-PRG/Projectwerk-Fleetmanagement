@@ -12,7 +12,7 @@ using WPFApp.Interfaces;
 using WPFApp.Model.Response;
 using WPFApp.Views.MVVM;
 
-namespace WPFApp.Model {
+namespace WPFApp.Helpers {
     public class Zoekmachine {
         private static string _diepteSeparator;
 

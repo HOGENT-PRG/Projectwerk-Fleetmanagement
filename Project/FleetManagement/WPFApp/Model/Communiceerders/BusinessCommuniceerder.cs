@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPFApp.Exceptions;
+using WPFApp.Helpers;
 using WPFApp.Interfaces;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
@@ -26,17 +27,6 @@ namespace WPFApp.Model.Communiceerders {
         }
 
         #region Private methodes
-
-        // TODO: extra behandeling van velden waar geen directe mapping voor is (bv BestuurderNaam)
-        // deze zijn extra's om de weergave/zoekfunctie beter te maken, aangezien deze geen encapsulated
-        // objecten kunnen weergeven, maar een identificerende property er van is mogelijk en 
-        // aangemaakt in de response dto's.
-        // Manueel te mappen, zullen door bronparser waarschijnlijk (hopelijk) terugkeren als null
-        // casten naar type en instellen alvorens te returnen
-
-        // eventueel over laten aan de viewmodel, maar dat is nogal cru en zou hier bij de omzetting best op zijn
-        // plaats staan
-
         private AdresResponseDTO _conveerAdresNaarDTO(Adres a) {
             try {
                 AdresResponseDTO geconvAdres = BronParser.ParseCast<AdresResponseDTO>(a);
