@@ -59,7 +59,8 @@ namespace WPFApp.Model {
         /// </summary>
         /// <typeparam name="T">Het gewenste return type van de functie, voor collecties gebruik maken van JObject indien de collectie genest is of als value van een key ingesteld staat.</typeparam>
         /// <param name="data">De bron die omgezet dient te worden in type T</param>
-        /// <param name="ValidatieSchema">Een optioneel validatieschema, </param>
+        /// <param name="ValidatieSchema">Default=null, Een optioneel validatieschema</param>
+        /// <param name="toJsonFilterNulls"/>Default=true, Voor gebruik bij het omzetten naar JSON string, zorgt ervoor dat de key en value van null waarden niet zullen voorkomen in de output indien de waarde null is.</param>
         /// <returns></returns>
         public static T ParseCast<T>(object data, JSchema ValidatieSchema=null, bool toJsonFilterNulls=true) {
 
