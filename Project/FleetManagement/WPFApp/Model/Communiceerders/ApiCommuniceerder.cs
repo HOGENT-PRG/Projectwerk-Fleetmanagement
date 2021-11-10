@@ -23,22 +23,9 @@ namespace WPFApp.Model.Communiceerders {
             throw new NotImplementedException();
         }
 
-        private string _converteerDTOnaarJSON(object DTOConstruct) {
-            List<Type> toegestaneTypes = new() { typeof(AdresRequestDTO), typeof(BestuurderRequestDTO), typeof(TankkaartRequestDTO), typeof(VoertuigRequestDTO) };
-
-            if (toegestaneTypes.Contains(DTOConstruct.GetType())) { // <-- werkt deze assertie?
-
-                return BronParser.Parse<string>(DTOConstruct);
-                throw new NotImplementedException();
-
-            } else { throw new ApiCommuniceerdeerException("_conveertDTOnaarJSON : invalide brontype"); }
-        }
-
         /*------------------------------->> Einde private methodes <<-------------------------------*/
 
         public BestuurderResponseDTO geefBestuurderDetail(int tankkaartId) {
-            // construct api request (url + body met id)
-            //
             throw new NotImplementedException();
         }
 

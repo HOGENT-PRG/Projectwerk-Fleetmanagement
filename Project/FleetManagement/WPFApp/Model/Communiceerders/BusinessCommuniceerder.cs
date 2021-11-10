@@ -39,7 +39,7 @@ namespace WPFApp.Model.Communiceerders {
 
         private AdresResponseDTO _conveerAdresNaarDTO(Adres a) {
             try {
-                AdresResponseDTO geconvAdres = BronParser.Parse<AdresResponseDTO>(a);
+                AdresResponseDTO geconvAdres = BronParser.ParseCast<AdresResponseDTO>(a);
                 return geconvAdres;
             } catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
         }
@@ -68,7 +68,7 @@ namespace WPFApp.Model.Communiceerders {
                 b.zetVoertuig(null);
                 b.zetTankkaart(null);
 
-                BestuurderResponseDTO geconvBestuurder = BronParser.Parse<BestuurderResponseDTO>(b);
+                BestuurderResponseDTO geconvBestuurder = BronParser.ParseCast<BestuurderResponseDTO>(b);
                 geconvBestuurder.Adres = geconvAdres;
                 geconvBestuurder.Voertuig = geconvVoertuig;
                 geconvBestuurder.Tankkaart = geconvTankkaart;
@@ -89,7 +89,7 @@ namespace WPFApp.Model.Communiceerders {
 
                 t.zetBestuurder(null);
 
-                TankkaartResponseDTO geconvTankkaart = BronParser.Parse<TankkaartResponseDTO>(t);
+                TankkaartResponseDTO geconvTankkaart = BronParser.ParseCast<TankkaartResponseDTO>(t);
                 geconvTankkaart.Bestuurder = geconvBestuurder;
 
                 return geconvTankkaart;
@@ -107,7 +107,7 @@ namespace WPFApp.Model.Communiceerders {
 
                 v.zetBestuurder(null);
 
-                VoertuigResponseDTO geconvVoertuig = BronParser.Parse<VoertuigResponseDTO>(v);
+                VoertuigResponseDTO geconvVoertuig = BronParser.ParseCast<VoertuigResponseDTO>(v);
                 geconvVoertuig.Bestuurder = geconvBestuurder;
 
                 return geconvVoertuig;

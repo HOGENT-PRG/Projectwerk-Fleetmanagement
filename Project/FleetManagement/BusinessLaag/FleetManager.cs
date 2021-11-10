@@ -23,7 +23,7 @@ namespace BusinessLaag
 
         public FleetManager(IVoertuigOpslag voertuigRepo, IBestuurderOpslag bestuurderRepo, ITankkaartOpslag tankkaartRepo, IDatabankConfigureerder databankConfig)
         {
-            // Stelt db info (voor app laag) en connection string ter beschikking
+            // Stelt db info (voor weergave door presentatie laag) en connection string ter beschikking
             DatabankConfigureerder = databankConfig;
 
             /** Repositories van DAL
