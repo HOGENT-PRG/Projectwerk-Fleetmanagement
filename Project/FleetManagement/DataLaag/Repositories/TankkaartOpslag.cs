@@ -130,12 +130,66 @@ namespace DataLaag.Repositories
 
         public List<KeyValuePair<int?, Tankkaart>> GeefTankkaarten()
         {
-            throw new NotImplementedException();
+            List<KeyValuePair<int?, Tankkaart>> tankkaarten = new();
+
+            try
+            {
+                _connector.Open();
+
+                SqlCommand cmd = _connector.CreateCommand();
+                cmd.CommandText = "SELECT * from tankkaart ;";
+
+                SqlDataReader r = cmd.ExecuteReader();
+
+                while (r.Read())
+                {
+                    Tankkaart t = _parseReaderItemNaarTankkaart(r);
+                    tankkaarten.Add(new KeyValuePair<int?, Tankkaart>((int?)r["Id"], t));
+                }
+
+                return tankkaarten;
+            }
+            catch (Exception ex)
+            {
+                throw new VoertuigOpslagException("Unexpected error", ex);
+            }
+            finally
+            {
+                _connector.Close();
+            }
         }
 
         public KeyValuePair<int?, Tankkaart> GeefTankkaartDetail(int id)
         {
-            throw new NotImplementedException();
+           
+
+            try
+            {
+                _connector.Open();
+
+                SqlCommand cmd = _connector.CreateCommand();
+                cmd.CommandText = "SELECT * from tankkaart where Id=@id ;";
+
+           
+                cmd.Parameters.Add(new SqlParameter("@id",DbType.Int32));
+                cmd.Parameters["@id"].Value = id;
+                SqlDataReader r = cmd.ExecuteReader();
+                while (r.Read())
+                {
+                    Tankkaart t = _parseReaderItemNaarTankkaart(r);
+                    return new KeyValuePair<int?, Tankkaart>((int?)r["Id"], t);
+                }
+
+                return new KeyValuePair<int?, Tankkaart>(null, null);
+            }
+            catch (Exception ex)
+            {
+                throw new VoertuigOpslagException("Unexpected error", ex);
+            }
+            finally
+            {
+                _connector.Close();
+            }
         }
 
         public IEnumerable<Tankkaart> zoekTankkaarten(string kolom, string waarde)
