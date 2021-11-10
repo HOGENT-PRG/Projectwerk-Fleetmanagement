@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using BusinessLaag.Model;
+using BusinessLaag.Model.Enum;
 using BusinessLaag;
 using BusinessLaag.Interfaces;
 using BusinessLaag.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace DataLaag.Repositories
 {
@@ -87,12 +89,43 @@ namespace DataLaag.Repositories
 
         public void voegTankkaartToe(Tankkaart tankkaart)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                if(tankkaart.Id is null)
+                {
+                    throw new TankkaartException("Kan tankkaart niet toevoegen als id null is");
+                }
+                _connector.Open();
+                SqlCommand command = _connector.CreateCommand();
+                command.CommandText = "insert into FleetManager.dbo.Tankkaart values(@kaartnummer,@vervaldatum,@pincode);";
+                command.Parameters.Add(new SqlParameter("@kaartnummer", DbType.String));
+                command.Parameters.Add(new SqlParameter("@vervaldatum", DbType.DateTime));
+                command.Parameters.Add(new SqlParameter("@pincode", DbType.String));
+                command.Parameters["@kaartnummer"].Value = tankkaart.Kaartnummer;
+                command.Parameters["@vervaldatum"].Value = tankkaart.Vervaldatum;
+                command.Parameters["@pincode"].Value = tankkaart.Pincode;
+                command.ExecuteNonQuery();
 
-        public IEnumerable<Tankkaart> zoekTankkaarten()
+
+            }
+            catch(Exception ex)
+            {
+                throw new TankkaartException("Unexpected error", ex);
+            }
+            finally
+            {
+                _connector.Close();
+            }
+        }
+        private Tankkaart _parseReaderItemNaarTankkaart(SqlDataReader r)
         {
-            throw new NotImplementedException();
+             TankkaartBrandstof brandstof= (TankkaartBrandstof)(Enum.Parse(typeof(TankkaartBrandstof), (string)r["Brandstof"], true));
+            List<TankkaartBrandstof> tkbra = new List<TankkaartBrandstof>();
+            tkbra.Add(brandstof);
+
+
+            return new Tankkaart((int?)r["id"], (string)r["kaartnummer"], (DateTime)r["vervaldatum"], (string)r["pincode"], tkbra, null);
+           
         }
 
         public List<KeyValuePair<int?, Tankkaart>> GeefTankkaarten()
@@ -107,7 +140,33 @@ namespace DataLaag.Repositories
 
         public IEnumerable<Tankkaart> zoekTankkaarten(string kolom, string waarde)
         {
-            throw new NotImplementedException();
+            string parsedKolomNaam = Regex.Replace(kolom, "[^a-zA-Z0-9]", String.Empty);
+            try
+            {
+                _connector.Open();
+                SqlCommand command = _connector.CreateCommand();
+                command.CommandText = $"SELECT * from tankkaart where tankkaart.{kolom}=@waarde ";
+                command.Parameters.Add(new SqlParameter("@waarde", DbType.String));
+                command.Parameters["@waarde"].Value = waarde;
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    _parseReaderItemNaarTankkaart(reader);
+                }
+                return null;
+            }
+            catch (SqlException ex) when (ex.Number == 207)
+            {
+                throw new TankkaartException("Er werd een ongeldige kolomnaam opgegeven.");
+            }
+            catch (Exception ex)
+            {
+                throw new TankkaartException("Unexpected error", ex);
+            }
+            finally
+            {
+                _connector.Close();
+            }
         }
 
         public int voegTankkaartToe(int? id)
