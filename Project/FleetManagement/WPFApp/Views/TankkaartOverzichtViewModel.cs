@@ -10,11 +10,13 @@ namespace WPFApp.Views {
     internal sealed class TankkaartOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Tankkaarten";
+        public Action<object> StuurSnackbar { get; private set; }
 
         private ICommuniceer _communicatieKanaal;
 
-        public TankkaartOverzichtViewModel(ICommuniceer comm) {
+        public TankkaartOverzichtViewModel(ICommuniceer comm, Action<object> stuurSnackbar) {
             _communicatieKanaal = comm;
+            StuurSnackbar = stuurSnackbar;
         }
 
 

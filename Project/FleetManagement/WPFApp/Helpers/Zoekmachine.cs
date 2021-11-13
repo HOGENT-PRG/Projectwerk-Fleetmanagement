@@ -20,7 +20,7 @@ namespace WPFApp.Helpers {
             _diepteSeparator = diepteSeparator.StartsWith(" ") && diepteSeparator.EndsWith(" ") ? diepteSeparator : throw new ArgumentException("DiepteSeparator dient minstens 1 spatie aan voor en achterkant te bevatten");
         }
 
-        private KeyValuePair<List<Type>, string> _parseZoekfilter(Type gekozenType, string zoekfilter) {
+        public KeyValuePair<List<Type>, string> ParseZoekFilter(Type gekozenType, string zoekfilter) {
             List<Type> pad = new() { };
             if (zoekfilter.Contains(_diepteSeparator)) {
                 if (zoekfilter.EndsWith(_diepteSeparator) || zoekfilter.StartsWith(_diepteSeparator)) { throw new ArgumentException("Er ontbreekt een veld."); }
@@ -79,26 +79,52 @@ namespace WPFApp.Helpers {
             return null;
         }
 
-        public List<T> ZoekMetFilter<T>(List<Func<List<T>>> dataCollectieActies, string zoekfilter, object zoekterm) {
+        public List<T> ZoekMetFilter<T>(List<Func<List<T>>> dataCollectieActies, string zoekfilter, object zoekterm, Func<object, object, bool> vergelijker = null) {
 
+            List<List<T>> dataCollectieResultaten = new();
             List<T> dataCollectieResultaat = new();
             List<T> filterDataResultaat = new();
 
             foreach (Func<List<T>> dataCollectieActie in dataCollectieActies) {
-                dataCollectieActie.Invoke()?.ForEach(x => dataCollectieResultaat.Add(x));
+                dataCollectieResultaat = dataCollectieActie.Invoke();
+                dataCollectieResultaten.Add(dataCollectieResultaat);
             }
 
-            KeyValuePair<List<Type>, string> zoekfilterParseResultaat = _parseZoekfilter(typeof(T), zoekfilter);
+            KeyValuePair<List<Type>, string> zoekfilterParseResultaat = ParseZoekFilter(typeof(T), zoekfilter);
+
+            foreach (List<T> resultaat in dataCollectieResultaten) {
+                foreach (T b in dataCollectieResultaat) {
+                    var res = _geefWaardeVanPropertyRecursief(zoekfilterParseResultaat.Key, zoekfilterParseResultaat.Value, b);
+                    if (res is not null) {
+                        var r1 = JsonConvert.SerializeObject(res);
+                        var r2 = JsonConvert.SerializeObject(zoekterm);
+
+                        if (r1 == r2 || res == zoekterm) {
+                            filterDataResultaat.Add(b);
+                            continue;
+                        }
+
+                        if (vergelijker is null) {
+                            try {
+                                object zoekterm_conv = Convert.ChangeType(zoekterm, res.GetType());
+                                r2 = JsonConvert.SerializeObject((object)zoekterm_conv);
+                                if (r1 == r2) {
+                                    filterDataResultaat.Add(b);
+                                    continue;
+                                }
+                            } catch { }
+                        } else {
+                            if (vergelijker(r1, r2) || vergelijker(res, zoekterm)) {
+                                filterDataResultaat.Add(b);
+                            }
+                        }
 
 
-            foreach (T b in dataCollectieResultaat) {
-                var res = _geefWaardeVanPropertyRecursief(zoekfilterParseResultaat.Key, zoekfilterParseResultaat.Value, b);
-                if (res is not null) {
-                    if (JsonConvert.SerializeObject((object)res) == JsonConvert.SerializeObject((object)zoekterm)) {
-                        filterDataResultaat.Add(b);
+
+
                     }
-                }
 
+                }
             }
 
             return filterDataResultaat;
@@ -118,9 +144,10 @@ namespace WPFApp.Helpers {
                 if (huidigNiveau > maxNiveau) { break; }
                 List<string> nieuwPad = new();
                 nieuwPad.Add(p.Name);
+                Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
                 if (p.PropertyType.FullName != "System.String"
-                    && p.PropertyType.Assembly == Assembly.GetExecutingAssembly()
+                    && assemblies.Contains(p.PropertyType.Assembly)
                     && !p.PropertyType.IsPrimitive
                     && !p.PropertyType.FullName.StartsWith("System.")) {
 
@@ -156,6 +183,5 @@ namespace WPFApp.Helpers {
             }
             return padenOmgevormd;
         }
-
     }
 }

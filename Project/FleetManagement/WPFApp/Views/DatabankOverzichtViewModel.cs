@@ -12,6 +12,7 @@ namespace WPFApp.Views {
         internal sealed class DatabankOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Databank info";  // naam van het tabblad
+        public Action<object> StuurSnackbar { get; private set; }
 
         private ICommuniceer _communicatieKanaal;
 
@@ -44,8 +45,9 @@ namespace WPFApp.Views {
             }
         }
 
-        public DatabankOverzichtViewModel(ICommuniceer comm) {
+        public DatabankOverzichtViewModel(ICommuniceer comm, Action<object> stuurSnackbar) {
             _communicatieKanaal = comm;
+            StuurSnackbar = stuurSnackbar;
             VernieuwStatus.Execute(null);
         }
 

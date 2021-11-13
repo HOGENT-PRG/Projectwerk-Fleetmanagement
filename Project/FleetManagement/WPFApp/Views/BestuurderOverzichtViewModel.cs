@@ -20,13 +20,16 @@ namespace WPFApp.Views {
         private object _zoekveld = "";
 
         public string Naam => "Bestuurders";
+        public Action<object> StuurSnackbar { get; private set; }
         public ObservableCollection<string> Zoekfilters { get; private set; }
 
-        public BestuurderOverzichtViewModel(ICommuniceer comm) {
+        public BestuurderOverzichtViewModel(ICommuniceer comm, Action<object> stuurSnackbar) {
             _communicatieKanaal = comm;
+            StuurSnackbar = stuurSnackbar;
             _dataCollectieActiesBestuurderDTOs = new() { 
                 new Func<List<BestuurderResponseDTO>>(_communicatieKanaal.geefBestuurders) 
             };
+
 
             Zoekfilters = new ObservableCollection<string>(
                 _zoekmachine.GeefZoekfilterVelden(typeof(BestuurderResponseDTO))

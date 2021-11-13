@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using WPFApp.Interfaces;
+using WPFApp.Views.Hosts;
 using WPFApp.Views.MVVM;
 
 namespace WPFApp.Views {
-    internal sealed class ApplicatieOverzichtViewModel : Presenteerder, IPaginaViewModel {
+    internal sealed class ApplicatieOverzichtViewModel : NotificatieModule, IPaginaViewModel {
 
         public string Naam => "Applicatie Overzicht";
 
@@ -26,15 +27,60 @@ namespace WPFApp.Views {
 
         public ApplicatieOverzichtViewModel() {
 
-            PaginaViewModels.Add(typeof(AdresOverzicht).Name, new AdresOverzichtViewModel(_communicatieKanaal));
-            PaginaViewModels.Add(typeof(BestuurderOverzicht).Name, new BestuurderOverzichtViewModel(_communicatieKanaal));
-            PaginaViewModels.Add(typeof(TankkaartOverzicht).Name, new TankkaartOverzichtViewModel(_communicatieKanaal));
-            PaginaViewModels.Add(typeof(VoertuigOverzicht).Name, new VoertuigOverzichtViewModel(_communicatieKanaal));
-            PaginaViewModels.Add(typeof(DatabankOverzicht).Name, new DatabankOverzichtViewModel(_communicatieKanaal));
+            PaginaViewModels.Add(typeof(AdresOverzicht).Name, new AdresOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(typeof(BestuurderOverzicht).Name, new BestuurderOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(typeof(TankkaartOverzicht).Name, new TankkaartOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(typeof(VoertuigOverzicht).Name, new VoertuigOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(typeof(DatabankOverzicht).Name, new DatabankOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
 
             HuidigePaginaViewModel = PaginaViewModels[typeof(AdresOverzicht).Name];
         }
 
+
+        private object MaakNieuwViewModel(IPaginaViewModel viewModel) {
+            // in de veronderstelling dat elke view deze 2 argumenten bevat
+            var p = new object[] { _communicatieKanaal, this.StuurSnackbar };
+
+            try {
+                // aanmaken instantie
+                object o = Activator.CreateInstance(viewModel.GetType(), p);
+
+                // indien het aangemaakte viewmodel een startuproutine command bevat wordt deze aangeroepen
+                // (bij first run gebeurt dit door Loaded event)    
+                if (o.GetType().GetProperty("StartupRoutine") != null) {
+                    var x = o.GetType().GetProperty("StartupRoutine").GetGetMethod(true).Invoke(o, Array.Empty<object>());
+                    var y = x.GetType().GetMethod("Execute").Invoke(x, new object[1] { "" });
+                }
+
+                return o;
+            } catch (Exception e) { StuurSnackbar(e); }
+
+            // retourneren om toe te voegen aan PaginaViewModels
+            return null;
+        }
+
+        private void ResetViewModel(IPaginaViewModel viewModel) {
+            PaginaViewModels[viewModel.GetType().Name.Replace("ViewModel", "")] = (IPaginaViewModel)MaakNieuwViewModel(viewModel);
+        }
+
+        private void VeranderViewModel(IPaginaViewModel viewModel) {
+            string naam = viewModel.GetType().Name.Replace("ViewModel", "");
+            if (!PaginaViewModels.Keys.Contains(naam)) {
+                PaginaViewModels.Add(naam, (IPaginaViewModel)MaakNieuwViewModel(viewModel));
+            }
+
+            HuidigePaginaViewModel = PaginaViewModels
+            .FirstOrDefault(vm => vm.Key == naam).Value;
+        }
+
+        public ICommand ResetViewModelCommand {
+            get {
+                return new RelayCommand(
+                    p => ResetViewModel((IPaginaViewModel)p),
+                    p => p is IPaginaViewModel
+                );
+            }
+        }
 
         public ICommand VeranderPaginaCommand {
             get {
@@ -64,15 +110,6 @@ namespace WPFApp.Views {
             set {
                 Update(ref _huidigePaginaViewModel, value);
             }
-        }
-
-        private void VeranderViewModel(IPaginaViewModel viewModel) {
-            if (!PaginaViewModels.Values.Contains(viewModel)) {
-                PaginaViewModels.Add(viewModel.GetType().Name.Replace("ViewModel", ""), viewModel);
-            }
-
-            HuidigePaginaViewModel = PaginaViewModels
-                .FirstOrDefault(vm => vm.Value == viewModel).Value;
         }
     }
 }

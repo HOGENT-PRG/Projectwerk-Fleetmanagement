@@ -17,7 +17,7 @@ namespace WPFApp.Views.MVVM {
             OnPropertyChanged(propertyNaam);
         }
 
-        private void OnPropertyChanged([CallerMemberName] string? propertyNaam = null) {
+        public void OnPropertyChanged([CallerMemberName] string? propertyNaam = null) {
             var handler = PropertyChanged;
             handler?.Invoke(this, new PropertyChangedEventArgs(propertyNaam));
         }
