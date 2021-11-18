@@ -71,7 +71,15 @@ namespace DataLaag.Repositories
                     zoekAppendix = $"WHERE {parsedKolomNaam}=@waarde";
                 }
 
-                cmd.CommandText = $"SELECT * FROM Adres {zoekAppendix} ;";
+                cmd.CommandText = $"SELECT " +
+                                  "a.Id AS BestuurderAdresId, " +
+                                  "a.Straatnaam AS BestuurderAdresStraatnaam, " +
+                                  "a.Huisnummer AS BestuurderAdresHuisnummer, " +
+                                  "a.Postcode AS BestuurderAdresPostcode, " +
+                                  "a.Plaatsnaam AS BestuurderAdresPlaatsnaam, " +
+                                  "a.Provincie AS BestuurderAdresProvincie, " +
+                                  "a.Land AS BestuurderAdresLand " +
+                                  $"FROM Adres AS a { zoekAppendix} ;";
 
                 SqlDataReader r = cmd.ExecuteReader();
                 List<Adres> resultaten = new();
