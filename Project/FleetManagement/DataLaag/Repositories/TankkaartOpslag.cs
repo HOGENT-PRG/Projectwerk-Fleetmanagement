@@ -142,7 +142,7 @@ namespace DataLaag.Repositories
 
 				if (zoekAppendix.Length > 0) {
 					cmd.Parameters.Add(new SqlParameter("@waarde", TypeConverteerder.GeefDbType(waarde.GetType())));
-					cmd.Parameters["@waarde"].Value = waarde;
+					cmd.Parameters["@waarde"].Value = waarde is null ? DBNull.Value : waarde;
 				}
 
 				SqlDataReader r = cmd.ExecuteReader();
@@ -169,7 +169,7 @@ namespace DataLaag.Repositories
 
 						// nadat bestuurder gemaakt is, voertuig maken met
 						// bestuurder en instellen als voertuig van de bestuurder
-						huidigeTankkaart.Bestuurder.zetVoertuig(
+						huidigeTankkaart.Bestuurder.ZetVoertuig(
 							QueryParser.ParseReaderNaarVoertuig(r, huidigeTankkaart.Bestuurder)
 						);
 					}
@@ -195,7 +195,7 @@ namespace DataLaag.Repositories
 		}
 
 		public Tankkaart GeefTankkaartDetail(int id) {
-			return this.GeefTankkaarten("Id", id).First();
+			return this.GeefTankkaarten("Id", id).DefaultIfEmpty(null).First();
 		}
 
 		public List<Tankkaart> ZoekTankkaarten(string kolom, object waarde) {

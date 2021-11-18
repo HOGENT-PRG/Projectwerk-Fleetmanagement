@@ -52,9 +52,9 @@ namespace xUnitTesting.Model
         [InlineData(10000)]
         [InlineData(int.MaxValue)]
         public void Test_Setter_ZetId_valid(int id) {
-            validAdres.zetId(null);
+            validAdres.ZetId(null);
             Assert.Null(validAdres.Id);
-            validAdres.zetId(id);
+            validAdres.ZetId(id);
             Assert.Equal(id, validAdres.Id);
         }
 
@@ -64,7 +64,7 @@ namespace xUnitTesting.Model
         [InlineData(-100)]
         public void Test_Setter_ZetId_invalid(int id)
         {
-            Assert.Throws<AdresException>(() => validAdres.zetId(id));
+            Assert.Throws<AdresException>(() => validAdres.ZetId(id));
         }
 
         [Theory]
@@ -73,7 +73,7 @@ namespace xUnitTesting.Model
         [InlineData("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")] // 150
         public void Test_Setter_ZetStraat_valid(string x) {
             Assert.NotEqual(x, validAdres.Straatnaam);
-            validAdres.zetStraatnaam(x);
+            validAdres.ZetStraatnaam(x);
             Assert.Equal(x, validAdres.Straatnaam);
         }
 
@@ -83,7 +83,7 @@ namespace xUnitTesting.Model
         [InlineData("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB")] // 151
         public void Test_Setter_ZetStraat_invalid(string x)
         {
-            Assert.Throws<AdresException>(() => validAdres.zetStraatnaam(x));
+            Assert.Throws<AdresException>(() => validAdres.ZetStraatnaam(x));
         }
 
         [Theory]
@@ -92,7 +92,7 @@ namespace xUnitTesting.Model
         [InlineData("12345678901234567890123456789012345678901234567890")] // 50
         public void Test_Setter_ZetHuisnummer_valid(string x) {
             Assert.NotEqual(x, validAdres.Huisnummer);
-            validAdres.zetHuisnummer(x);
+            validAdres.ZetHuisnummer(x);
             Assert.Equal(x, validAdres.Huisnummer);
         }
 
@@ -102,7 +102,7 @@ namespace xUnitTesting.Model
         [InlineData("12345678901234567890123456789012345678901234567890B")] // 51
         public void Test_Setter_ZetHuisnummer_invalid(string x)
         {
-            Assert.Throws<AdresException>(() => validAdres.zetHuisnummer(x));
+            Assert.Throws<AdresException>(() => validAdres.ZetHuisnummer(x));
         }
 
         [Theory]
@@ -111,7 +111,7 @@ namespace xUnitTesting.Model
         [InlineData("1250")]
         public void Test_Setter_ZetPostcode_valid(string x) {
             Assert.NotEqual(x, validAdres.Postcode);
-            validAdres.zetPostcode(x);
+            validAdres.ZetPostcode(x);
             Assert.Equal(x, validAdres.Postcode);
         }
 
@@ -122,7 +122,7 @@ namespace xUnitTesting.Model
         [InlineData("")]
         public void Test_Setter_ZetPostcode_invalid(string x)
         {
-            Assert.Throws<AdresException>(() => validAdres.zetPostcode(x));
+            Assert.Throws<AdresException>(() => validAdres.ZetPostcode(x));
         }
 
         [Theory]
@@ -132,7 +132,7 @@ namespace xUnitTesting.Model
         [InlineData("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")] // 150
         public void Test_Setter_ZetPlaats_valid(string x) {
             Assert.NotEqual(x, validAdres.Plaatsnaam);
-            validAdres.zetPlaatsnaam(x);
+            validAdres.ZetPlaatsnaam(x);
             Assert.Equal(x, validAdres.Plaatsnaam);
         }
 
@@ -143,7 +143,7 @@ namespace xUnitTesting.Model
         [InlineData("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB")] // 151
         public void Test_Setter_ZetPlaats_invalid(string x)
         {
-            Assert.Throws<AdresException>(() => validAdres.zetPlaatsnaam(x));
+            Assert.Throws<AdresException>(() => validAdres.ZetPlaatsnaam(x));
         }
 
         [Theory]
@@ -153,7 +153,7 @@ namespace xUnitTesting.Model
         [InlineData("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")] // 150
         public void Test_Setter_ZetProvincie_valid(string x) {
             Assert.NotEqual(x, validAdres.Provincie);
-            validAdres.zetProvincie(x);
+            validAdres.ZetProvincie(x);
             Assert.Equal(x, validAdres.Provincie);
         }
 
@@ -164,7 +164,7 @@ namespace xUnitTesting.Model
         [InlineData("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB")] // 151
         public void Test_Setter_ZetProvincie_invalid(string x)
         {
-            Assert.Throws<AdresException>(() => validAdres.zetProvincie(x));
+            Assert.Throws<AdresException>(() => validAdres.ZetProvincie(x));
         }
 
         [Theory]
@@ -174,7 +174,7 @@ namespace xUnitTesting.Model
         [InlineData("BelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBB")] //100
         public void Test_Setter_ZetLand_valid(string x) {
             Assert.NotEqual(x, validAdres.Land);
-            validAdres.zetLand(x);
+            validAdres.ZetLand(x);
             Assert.Equal(x, validAdres.Land);
         }
 
@@ -185,7 +185,7 @@ namespace xUnitTesting.Model
         [InlineData("BelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBBelgiumBBBZ")] //101
         public void Test_Setter_ZetLand_invalid(string x)
         {
-            Assert.Throws<AdresException>(() => validAdres.zetLand(x));
+            Assert.Throws<AdresException>(() => validAdres.ZetLand(x));
         }
     }
 }

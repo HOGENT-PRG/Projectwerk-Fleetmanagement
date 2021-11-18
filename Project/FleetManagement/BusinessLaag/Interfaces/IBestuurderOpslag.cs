@@ -6,11 +6,15 @@ namespace BusinessLaag.Interfaces
     public interface IBestuurderOpslag
     {
         void ZetConnectionString(string connectionString);
-        int voegBestuurderToe(Bestuurder bestuurder);
-        void updateBestuurder(Bestuurder bestuurder);
-        void verwijderBestuurder(Bestuurder bestuurder);
-        List<Bestuurder> geefBestuurders();
-        Bestuurder geefBestuurderDetail(int id);
-        List<Bestuurder> zoekBestuurders();
+        int VoegBestuurderToe(Bestuurder bestuurder);
+        void UpdateBestuurder(Bestuurder bestuurder);
+        void VerwijderBestuurder(int id);
+        List<Bestuurder> GeefBestuurders(string? kolom=null, object? waarde=null);
+        Bestuurder GeefBestuurderDetail(int id);
+
+        int VoegAdresToe(Adres adres);
+        List<Adres> GeefAdressen(string? kolom = null, object? waarde = null);
+        void UpdateAdres(Adres adres);
+        void VerwijderAdres(int id);
     }
 }

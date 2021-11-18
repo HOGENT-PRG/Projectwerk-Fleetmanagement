@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace BusinessLaag.Exceptions
 {
-    public class BestuurderOpslagException : Exception
-    {
+    public class BestuurderOpslagException : Exception {
         public BestuurderOpslagException(string msg) : base(msg) { }
+        public BestuurderOpslagException(string message, Exception innerException) : base(message, innerException) {
+        }
     }
 }

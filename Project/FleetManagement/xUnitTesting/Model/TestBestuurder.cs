@@ -60,7 +60,7 @@ namespace xUnitTesting.Model
         [InlineData(int.MaxValue)]
         public void Test_Setter_ZetId_valid(int id)
         {
-            validBestuurder.zetId(id);
+            validBestuurder.ZetId(id);
             Assert.Equal(id, validBestuurder.Id);
         }
 
@@ -70,7 +70,7 @@ namespace xUnitTesting.Model
         [InlineData(-100)]
         public void Test_Setter_ZetId_invalid(int id)
         {
-            Assert.Throws<BestuurderException>(() => validBestuurder.zetId(id));
+            Assert.Throws<BestuurderException>(() => validBestuurder.ZetId(id));
         }
 
         [Theory]
@@ -81,7 +81,7 @@ namespace xUnitTesting.Model
         public void Test_Setter_ZetNaam_valid(string n)
         {
             Assert.NotEqual(n, validBestuurder.Naam);
-            validBestuurder.zetNaam(n);
+            validBestuurder.ZetNaam(n);
             Assert.Equal(n, validBestuurder.Naam);
         }
 
@@ -94,7 +94,7 @@ namespace xUnitTesting.Model
         [InlineData("AAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDZ")] // 71
         public void Test_Setter_ZetNaam_invalid(string n)
         {
-            Assert.Throws<BestuurderException>(() => validBestuurder.zetNaam(n));
+            Assert.Throws<BestuurderException>(() => validBestuurder.ZetNaam(n));
         }
 
         [Theory]
@@ -105,7 +105,7 @@ namespace xUnitTesting.Model
         public void Test_Setter_ZetVoornaam_valid(string n)
         {
             Assert.NotEqual(n, validBestuurder.Voornaam);
-            validBestuurder.zetVoornaam(n);
+            validBestuurder.ZetVoornaam(n);
             Assert.Equal(n, validBestuurder.Voornaam);
         }
 
@@ -117,25 +117,25 @@ namespace xUnitTesting.Model
         [InlineData("AAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDAAABBBCCCDZ")] // 71
         public void Test_Setter_ZetVoornaam_invalid(string n)
         {
-            Assert.Throws<BestuurderException>(() => validBestuurder.zetVoornaam(n));
+            Assert.Throws<BestuurderException>(() => validBestuurder.ZetVoornaam(n));
         }
 
         [Fact]
         public void Test_Setter_ZetAdres_valid()
         {
-            try { validBestuurder.zetAdres(validAdres); } catch { }
+            try { validBestuurder.ZetAdres(validAdres); } catch { }
             Assert.NotNull(validBestuurder.Adres);
-            validBestuurder.zetAdres(null);
+            validBestuurder.ZetAdres(null);
             Assert.Null(validBestuurder.Adres); // null toegelaten
-            validBestuurder.zetAdres(validAdres);
+            validBestuurder.ZetAdres(validAdres);
             Assert.Equal(validAdres, validBestuurder.Adres);
         }
 
         [Fact]
         public void Test_Setter_ZetAdres_NieuweWaardeZelfdeAlsHuidige_invalid()
         {
-            try { validBestuurder.zetAdres(validAdres); } catch { }
-            Assert.Throws<BestuurderException>(() => validBestuurder.zetAdres(validAdres));
+            try { validBestuurder.ZetAdres(validAdres); } catch { }
+            Assert.Throws<BestuurderException>(() => validBestuurder.ZetAdres(validAdres));
         }
 
         [Fact]
@@ -145,9 +145,9 @@ namespace xUnitTesting.Model
             DateTime _validGeboorteDatum2 = DateTime.Now.AddMinutes(-1);      //kan niet met inline data
 
             Assert.NotEqual(_validGeboorteDatum1, validBestuurder.GeboorteDatum);
-            validBestuurder.zetGeboortedatum(_validGeboorteDatum1);
+            validBestuurder.ZetGeboortedatum(_validGeboorteDatum1);
             Assert.Equal(_validGeboorteDatum1, validBestuurder.GeboorteDatum);
-            validBestuurder.zetGeboortedatum(_validGeboorteDatum2);
+            validBestuurder.ZetGeboortedatum(_validGeboorteDatum2);
             Assert.Equal(_validGeboorteDatum2, validBestuurder.GeboorteDatum);
         }
 
@@ -157,15 +157,15 @@ namespace xUnitTesting.Model
             DateTime _invalidGeboorteDatum1 = DateTime.Now.AddYears(-120).AddDays(-1);
             DateTime _invalidGeboorteDatum2 = DateTime.Now.AddMinutes(1);      //kan niet met inline data
 
-            Assert.Throws<BestuurderException>(() => validBestuurder.zetGeboortedatum(_invalidGeboorteDatum1));
-            Assert.Throws<BestuurderException>(() => validBestuurder.zetGeboortedatum(_invalidGeboorteDatum2));
+            Assert.Throws<BestuurderException>(() => validBestuurder.ZetGeboortedatum(_invalidGeboorteDatum1));
+            Assert.Throws<BestuurderException>(() => validBestuurder.ZetGeboortedatum(_invalidGeboorteDatum2));
         }
 
         [Theory]
         [InlineData("90020199902")]
         public void Test_Setter_ZetRRN_valid(string n)
         {
-            validBestuurder.zetRijksregisternummer(n);
+            validBestuurder.ZetRijksregisternummer(n);
         }
 
         [Theory]
@@ -176,45 +176,45 @@ namespace xUnitTesting.Model
         [InlineData("1")]
         public void Test_Setter_ZetRRN_invalid(string n)
         {
-            Assert.Throws<BestuurderException>(() => validBestuurder.zetRijksregisternummer(n));
+            Assert.Throws<BestuurderException>(() => validBestuurder.ZetRijksregisternummer(n));
         }
 
         [Fact]
         public void Test_Setter_ZetTankkaart_valid()
         {
-            validBestuurder.zetTankkaart(null);
+            validBestuurder.ZetTankkaart(null);
             Assert.Null(validBestuurder.Tankkaart);
-            validBestuurder.zetTankkaart(validTankkaart);
+            validBestuurder.ZetTankkaart(validTankkaart);
             Assert.Equal(validTankkaart, validBestuurder.Tankkaart);
         }
 
         [Fact]
         public void Test_Setter_ZetTankkaart_NieuweWaardeZelfdeAlsHuidige_invalid()
         {
-            Assert.Throws<BestuurderException>(() => validBestuurder.zetTankkaart(validTankkaart));
+            Assert.Throws<BestuurderException>(() => validBestuurder.ZetTankkaart(validTankkaart));
         }
 
         [Fact]
         public void Test_Setter_ZetVoertuig_valid()
         {
-            validBestuurder.zetVoertuig(null);
+            validBestuurder.ZetVoertuig(null);
             Assert.Null(validBestuurder.Voertuig);
-            validBestuurder.zetVoertuig(validVoertuig);
+            validBestuurder.ZetVoertuig(validVoertuig);
             Assert.Equal(validVoertuig, validBestuurder.Voertuig);
         }
 
         [Fact]
         public void Test_Setter_ZetVoertuig_NieuweWaardeZelfdeAlsHuidige_invalid()
         {
-            Assert.Throws<BestuurderException>(() => validBestuurder.zetVoertuig(validVoertuig));
+            Assert.Throws<BestuurderException>(() => validBestuurder.ZetVoertuig(validVoertuig));
         }
 
         [Fact]
         public void Test_Rijbewijs_valid()
         {
-            validBestuurder.zetRijbewijs(RijbewijsSoort.G);
+            validBestuurder.ZetRijbewijs(RijbewijsSoort.G);
             Assert.Equal(RijbewijsSoort.G, validBestuurder.RijbewijsSoort);
-            validBestuurder.zetRijbewijs(RijbewijsSoort.A);
+            validBestuurder.ZetRijbewijs(RijbewijsSoort.A);
             Assert.Equal(RijbewijsSoort.A, validBestuurder.RijbewijsSoort);
         }
 

@@ -38,13 +38,18 @@ namespace DataLaag.Helpers {
 			nameof(FleetManager)
 		};
 
-		public static void ControleerOproeperGemachtigd() {
+		public static void ControleerOproeperGemachtigd(string extra="") {
 			bool matchGevonden = false;
 
-			string OproeperTeValideren = new StackFrame(2).GetMethod().DeclaringType.Name;
+			string OproeperTeValideren = new StackFrame(2).GetMethod().DeclaringType.Name.Trim();
 
 			foreach (string oproeper in GemachtigdeOproepers) {
-				if (OproeperTeValideren.Trim() == oproeper.Trim()) {
+				if(OproeperTeValideren == extra.Trim()) {
+					matchGevonden = true;
+					break;
+				}
+
+				if (OproeperTeValideren == oproeper.Trim()) {
 					matchGevonden = true;
 				}
 			}

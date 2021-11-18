@@ -133,7 +133,7 @@ namespace DataLaag.Repositories {
 
 				if (zoekAppendix.Length > 0) {
 					cmd.Parameters.Add(new SqlParameter("@waarde", TypeConverteerder.GeefDbType(waarde.GetType())));
-					cmd.Parameters["@waarde"].Value = waarde;
+					cmd.Parameters["@waarde"].Value = waarde is null ? DBNull.Value : waarde;
 				}
 
 				SqlDataReader r = cmd.ExecuteReader();
@@ -160,7 +160,7 @@ namespace DataLaag.Repositories {
 
 						// nadat bestuurder gemaakt is, tankkaart maken met
 						// bestuurder en instellen als tankkaart van de bestuurder
-						huidigVoertuig.Bestuurder.zetTankkaart(
+						huidigVoertuig.Bestuurder.ZetTankkaart(
 							QueryParser.ParseReaderNaarTankkaart(r, null, huidigVoertuig.Bestuurder)
 						);
 					}
@@ -188,13 +188,13 @@ namespace DataLaag.Repositories {
 		}
 
 		public Voertuig GeefVoertuigDetail(int id) {
-			return this.GeefVoertuigen("Id", id).First();
+			return this.GeefVoertuigen("Id", id).DefaultIfEmpty(null).First();
 		}
 
 		public Voertuig ZoekVoertuig(string kolomnaamHoofdletterGevoelig, string waarde) {
 			string parsedKolomNaam = Regex.Replace(kolomnaamHoofdletterGevoelig, "[^a-zA-Z0-9]", String.Empty);
 
-			return this.GeefVoertuigen(parsedKolomNaam, waarde).First();
+			return this.GeefVoertuigen(parsedKolomNaam, waarde).DefaultIfEmpty(null).First();
 		}
 
 		// -- Update

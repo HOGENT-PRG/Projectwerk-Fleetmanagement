@@ -54,9 +54,9 @@ namespace WPFApp.Model.Communiceerders {
                     }
                 }
 
-                b.zetAdres(null);
-                b.zetVoertuig(null);
-                b.zetTankkaart(null);
+                b.ZetAdres(null);
+                b.ZetVoertuig(null);
+                b.ZetTankkaart(null);
 
                 BestuurderResponseDTO geconvBestuurder = BronParser.ParseCast<BestuurderResponseDTO>(b);
                 geconvBestuurder.Adres = geconvAdres;
@@ -117,7 +117,7 @@ namespace WPFApp.Model.Communiceerders {
 		}
 
         public List<BestuurderResponseDTO> geefBestuurders(bool inclusiefRelaties=true) {
-            var resultaten = _fleetManager.BestuurderManager.geefBestuurders();
+            var resultaten = _fleetManager.BestuurderManager.GeefBestuurders();
             List<BestuurderResponseDTO> geconverteerdeResultaten = new();
 
             foreach(Bestuurder b in resultaten) {
