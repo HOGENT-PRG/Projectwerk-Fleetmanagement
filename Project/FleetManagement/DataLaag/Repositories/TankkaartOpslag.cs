@@ -11,221 +11,354 @@ using BusinessLaag;
 using BusinessLaag.Interfaces;
 using BusinessLaag.Exceptions;
 using System.Text.RegularExpressions;
+using DataLaag.Helpers;
 
 namespace DataLaag.Repositories
 {
-    public class TankkaartOpslag : ITankkaartOpslag
-    {
-        private SqlConnection _connector { get; set; }
+	public sealed class TankkaartOpslag : ITankkaartOpslag {
+		private SqlConnection _connector { get; set; }
 
-        public void ZetConnectionString(string connString)
-        {
-            _connector = connString.Length > 5 ? new SqlConnection(connString) : throw new TankkaartOpslagException("Connectiestring moet langer zijn dan 5 karakters.");
-        }
+		public void ZetConnectionString(string connString) {
+			_connector = connString.Length > 5 ? new SqlConnection(connString) : throw new TankkaartOpslagException("Connectiestring moet langer zijn dan 5 karakters.");
+		}
 
-     
+		// -- Create
+		public int VoegTankkaartToe(Tankkaart tankkaart) {
+			OproepControleur.ControleerOproeperGemachtigd();
 
-        public IEnumerable<string> geefTankkaartProperties()
-        {
-            throw new NotImplementedException();
-        }
+			_connector.Open();
+			SqlTransaction tx = _connector.BeginTransaction();
 
-        public void updateTankkaart(Tankkaart tankkaart)
-        {
-            try
-            {
-                if(tankkaart.Id is null)
-                {
-                    throw new TankkaartException("Tankkaart id kan niet null zijn daardoor kan de tankkaart niet worden geupdate");
-                }
-                _connector.Open();
-                SqlCommand cmd = _connector.CreateCommand();
-                cmd.CommandText = "Update dbo.tankkaart set Id=@id, Kaartnummer=@kaartnummer,Vervaldatum=@vervaldatum,Pincode=@Pincode";
-                cmd.Parameters.Add(new SqlParameter("@id", DbType.Int32));
-                cmd.Parameters.Add(new SqlParameter("@kaartnummer", DbType.String));
-                cmd.Parameters.Add(new SqlParameter("@vervaldatum", DbType.DateTime));
-                cmd.Parameters.Add(new SqlParameter("@Pincode", DbType.String));
-                cmd.Parameters["@id"].Value =(object)tankkaart.Id ?? DBNull.Value;
-                cmd.Parameters["@kaartnummer"].Value =tankkaart.Kaartnummer;
-                cmd.Parameters["@vervaldatum"].Value =tankkaart.Vervaldatum;
-                cmd.Parameters["@Pincode"].Value =(object)tankkaart.Pincode ?? DBNull.Value;
-                cmd.ExecuteNonQuery();
-            }catch(Exception ex)
-            {
-                throw new TankkaartException("Unexpected error", ex);
-            }
-            finally
-            {
-                _connector.Close();
-            }
-        }
+			try {
+				SqlCommand command = _connector.CreateCommand();
+				command.Transaction = tx;
 
-        public void verwijderTankkaart(Tankkaart tankkaart)
-        {
-            try
-            {
+				command.CommandText = "INSERT INTO Tankkaart (Kaartnummer, Vervaldatum, Pincode) " +
+									  "OUTPUT INSERTED.Id " +
+									  "VALUES(@kaartnummer, @vervaldatum, @pincode ) ;";
+				command.Parameters.Add(new SqlParameter("@kaartnummer", DbType.String));
+				command.Parameters.Add(new SqlParameter("@vervaldatum", DbType.DateTime));
+				command.Parameters.Add(new SqlParameter("@pincode", DbType.String));
+				command.Parameters["@kaartnummer"].Value = tankkaart.Kaartnummer;
+				command.Parameters["@vervaldatum"].Value = tankkaart.Vervaldatum;
+				command.Parameters["@pincode"].Value = tankkaart.Pincode;
+
+				tankkaart.ZetId(Convert.ToInt32(command.ExecuteScalar()));
+
+				foreach (TankkaartBrandstof t in tankkaart.GeldigVoorBrandstoffen) {
+					SqlCommand c = _connector.CreateCommand();
+					c.Transaction = tx;
+					c.CommandText = "INSERT INTO TankkaartBrandstof (TankkaartId, Brandstof) " +
+									  "VALUES(@id, @brandstof) ;";
+					c.Parameters.Add(new SqlParameter("@id", DbType.Int32));
+					c.Parameters.Add(new SqlParameter("@brandstof", DbType.String));
+					c.Parameters["@id"].Value = tankkaart.Id;
+					c.Parameters["@brandstof"].Value = t.ToString();
+					c.ExecuteNonQuery();
+				}
 
 
-                if (tankkaart.Id is null)
-                {
-                    throw new TankkaartException("Tankkaart kan niet verwijderd worden als id null is");
-                }
-                _connector.Open();
-                SqlCommand command = _connector.CreateCommand();
-                command.CommandText = "Delete From dbo.tankkaart where Id=@id";
-                command.Parameters.Add(new SqlParameter("@id", DbType.Int32));
-                command.Parameters["@id"].Value = tankkaart.Id;
-                command.ExecuteNonQuery();
-            }
-            catch(Exception ex)
-            {
-                throw new TankkaartException("Unexpected error", ex);
-            }
-            finally
-            {
-                _connector.Close();
-            }
-        }
+				if (tankkaart.Bestuurder?.Id is not null) {
+					SqlCommand c = _connector.CreateCommand();
+					c.Transaction = tx;
+					c.CommandText = "UPDATE Bestuurder SET TankkaartId=@tankid WHERE Id=@bestuurderid ;";
 
-        public void voegTankkaartToe(Tankkaart tankkaart)
-        {
-            try
-            {
-                if(tankkaart.Id is null)
-                {
-                    throw new TankkaartException("Kan tankkaart niet toevoegen als id null is");
-                }
-                _connector.Open();
-                SqlCommand command = _connector.CreateCommand();
-                command.CommandText = "insert into FleetManager.dbo.Tankkaart values(@kaartnummer,@vervaldatum,@pincode);";
-                command.Parameters.Add(new SqlParameter("@kaartnummer", DbType.String));
-                command.Parameters.Add(new SqlParameter("@vervaldatum", DbType.DateTime));
-                command.Parameters.Add(new SqlParameter("@pincode", DbType.String));
-                command.Parameters["@kaartnummer"].Value = tankkaart.Kaartnummer;
-                command.Parameters["@vervaldatum"].Value = tankkaart.Vervaldatum;
-                command.Parameters["@pincode"].Value = tankkaart.Pincode;
-                command.ExecuteNonQuery();
+					c.Parameters.Add(new SqlParameter("@tankid", DbType.Int32));
+					c.Parameters.Add(new SqlParameter("@bestuurderid", DbType.Int32));
+					c.Parameters["@tankid"].Value = tankkaart.Id;
+					c.Parameters["@bestuurderid"].Value = tankkaart.Bestuurder.Id;
+
+					c.ExecuteNonQuery();
+				}
+
+				tx.Commit();
+
+				return (int)tankkaart.Id;
+			} catch (Exception ex) {
+				try {
+					tx.Rollback();
+				} catch (InvalidOperationException) { /* Error vond plaats voor de commit, exception negeren */
+				} catch (Exception e) {
+					throw new TankkaartOpslagException("Rollback gaf een onverwachte foutmelding.", e);
+				}
+
+				throw new TankkaartOpslagException("Er is een onverwachte fout opgetreden.", ex);
+			} finally {
+				_connector.Close();
+			}
+		}
+
+		// -- Read
+		public List<Tankkaart> GeefTankkaarten(string? kolomnaam = null, object? waarde = null) {
+			try {
+				_connector.Open();
+
+				string zoekAppendix = "";
+
+				if (kolomnaam != null && waarde != null) {
+					string parsedKolomNaam = Regex.Replace(kolomnaam, "[^a-zA-Z0-9]", String.Empty);
+					zoekAppendix = $"WHERE t.{parsedKolomNaam}=@waarde";
+				}
+
+				SqlCommand cmd = _connector.CreateCommand();
+				cmd.CommandText = "SELECT t.Id AS TankkaartId," +
+								  "t.Kaartnummer AS TankkaartKaartnummer," +
+								  "t.Pincode AS TankkaartPincode," +
+								  "t.Vervaldatum AS TankkaartVervalDatum," +
+								  "tb.Brandstof AS TankkaartBrandstof, " +
+								  "b.Id AS BestuurderId, " +
+								  "b.Naam AS BestuurderNaam, " +
+								  "b.Voornaam AS BestuurderVoornaam, " +
+								  "b.Geboortedatum AS BestuurderGeboortedatum, " +
+								  "b.AdresId AS BestuurderAdresId, " +
+								  "b.Rijksregisternummer AS BestuurderRijksregisternummer, " +
+								  "b.Rijbewijssoort AS BestuurderRijbewijssoort, " +
+								  "b.VoertuigId AS BestuurderVoertuigId, " +
+								  "a.Straatnaam AS BestuurderAdresStraatnaam, " +
+								  "a.Huisnummer AS BestuurderAdresHuisnummer, " +
+								  "a.Postcode AS BestuurderAdresPostcode, " +
+								  "a.Plaatsnaam AS BestuurderAdresPlaatsnaam, " +
+								  "a.Provincie AS BestuurderAdresProvincie, " +
+								  "a.Land AS BestuurderAdresLand, " +
+								  "v.Merk AS VoertuigMerk, " +
+								  "v.Model AS VoertuigModel, " +
+								  "v.Nummerplaat AS VoertuigNummerplaat, " +
+								  "v.Chasisnummer AS VoertuigChasisnummer, " +
+								  "v.Brandstof AS VoertuigBrandstof, " +
+								  "v.Type AS VoertuigType, " +
+								  "v.Kleur AS VoertuigKleur, " +
+								  "v.AantalDeuren AS VoertuigAantalDeuren, " +
+								  "v.Type AS VoertuigSoort" +
+								  "FROM Tankkaart AS t " +
+								  "LEFT JOIN TankkaartBrandstof AS tb " +
+								  "ON(tb.TankkaartId = t.Id) " +
+								  "LEFT JOIN Bestuurder AS b " +
+								  "ON(b.TankkaartId = t.Id) " +
+								  "LEFT JOIN Adres AS a " +
+								  "ON(b.AdresId = a.Id) " +
+								  "LEFT JOIN Voertuig AS v " +
+								  "ON(b.VoertuigId = v.Id) " +
+								  $"ON(b.TankkaartId = t.Id) {zoekAppendix} ;";
+
+				if (zoekAppendix.Length > 0) {
+					cmd.Parameters.Add(new SqlParameter("@waarde", TypeConverteerder.GeefDbType(waarde.GetType())));
+					cmd.Parameters["@waarde"].Value = waarde;
+				}
+
+				SqlDataReader r = cmd.ExecuteReader();
+				List<Tankkaart> resultaten = new();
+
+				while (r.Read()) {
+					// deze parsen we zonder meegeven brandstoflijst en bestuurder, die stellen we later in
+					Tankkaart huidigeTankkaart = QueryParser.ParseReaderNaarTankkaart(r);
+
+					if (resultaten.Any(t => t.Id == huidigeTankkaart.Id)) {
+						huidigeTankkaart = resultaten.First(t => t.Id == huidigeTankkaart.Id);
+					} else {
+						resultaten.Add(huidigeTankkaart);
+					}
+
+					if (!r.IsDBNull(r.GetOrdinal("BestuurderId")) && huidigeTankkaart.Bestuurder is null) {
+						// tankaart bestuurder instellen
+						huidigeTankkaart.ZetBestuurder(
+							// bestuurder maken zonder voertuig want voertuig parser ontvangt een bestuurder
+							QueryParser.ParseReaderNaarBestuurder(
+								r, huidigeTankkaart, null, QueryParser.ParseReaderNaarAdres(r)
+							)
+						);
+
+						// nadat bestuurder gemaakt is, voertuig maken met
+						// bestuurder en instellen als voertuig van de bestuurder
+						huidigeTankkaart.Bestuurder.zetVoertuig(
+							QueryParser.ParseReaderNaarVoertuig(r, huidigeTankkaart.Bestuurder)
+						);
+					}
+
+					// tankkaart brandstoffen instellen
+					if (!r.IsDBNull(r.GetOrdinal("Brandstof"))) {
+						TankkaartBrandstof b = QueryParser.ParseReaderNaarTankkaartBrandstof(r);
+						if (!huidigeTankkaart.GeldigVoorBrandstoffen.Contains(b)) {
+							huidigeTankkaart.VoegBrandstofToe(b);
+						}
+					}
+
+				}
+
+				return resultaten;
+			} catch (SqlException ex) when (ex.Number == 207) {
+				throw new TankkaartOpslagException("Er werd een ongeldige kolomnaam opgegeven.", ex);
+			} catch (Exception ex) {
+				throw new TankkaartOpslagException("Er is een onverwachte fout opgetreden.", ex);
+			} finally {
+				_connector.Close();
+			}
+		}
+
+		public Tankkaart GeefTankkaartDetail(int id) {
+			return this.GeefTankkaarten("Id", id).First();
+		}
+
+		public List<Tankkaart> ZoekTankkaarten(string kolom, object waarde) {
+			return GeefTankkaarten(kolom, waarde);
+		}
 
 
-            }
-            catch(Exception ex)
-            {
-                throw new TankkaartException("Unexpected error", ex);
-            }
-            finally
-            {
-                _connector.Close();
-            }
-        }
-        private Tankkaart _parseReaderItemNaarTankkaart(SqlDataReader r)
-        {
-             TankkaartBrandstof brandstof= (TankkaartBrandstof)(Enum.Parse(typeof(TankkaartBrandstof), (string)r["Brandstof"], true));
-            List<TankkaartBrandstof> tkbra = new List<TankkaartBrandstof>();
-            tkbra.Add(brandstof);
+		// -- Update
+		public void UpdateTankkaart(Tankkaart tankkaart) {
+			OproepControleur.ControleerOproeperGemachtigd();
 
+			_connector.Open();
+			SqlTransaction transactie = _connector.BeginTransaction();
+			try {
+				SqlCommand cmd = _connector.CreateCommand();
+				cmd.Transaction = transactie;
+				cmd.CommandText = "UPDATE Tankkaart SET Kaartnummer=@kaartnummer, Vervaldatum=@vervaldatum, Pincode=@pincode WHERE Id=@id ;";
 
-            return new Tankkaart((int?)r["id"], (string)r["kaartnummer"], (DateTime)r["vervaldatum"], (string)r["pincode"], tkbra, null);
-           
-        }
+				cmd.Parameters.Add(new SqlParameter("@id", DbType.Int32));
+				cmd.Parameters.Add(new SqlParameter("@kaartnummer", DbType.String));
+				cmd.Parameters.Add(new SqlParameter("@vervaldatum", DbType.DateTime));
+				cmd.Parameters.Add(new SqlParameter("@pincode", DbType.String));
+				cmd.Parameters["@id"].Value = tankkaart.Id;
+				cmd.Parameters["@kaartnummer"].Value = tankkaart.Kaartnummer;
+				cmd.Parameters["@vervaldatum"].Value = tankkaart.Vervaldatum;
+				cmd.Parameters["@pincode"].Value = (object)tankkaart.Pincode ?? DBNull.Value;
 
-        public List<KeyValuePair<int?, Tankkaart>> GeefTankkaarten()
-        {
-            List<KeyValuePair<int?, Tankkaart>> tankkaarten = new();
+				cmd.ExecuteNonQuery();
 
-            try
-            {
-                _connector.Open();
+				Tankkaart BestaandeTankkaart = this.GeefTankkaartDetail((int)tankkaart.Id);
 
-                SqlCommand cmd = _connector.CreateCommand();
-                cmd.CommandText = "SELECT * from tankkaart ;";
+				// Controle overeenkomst
+				if (BestaandeTankkaart.Bestuurder?.Id != tankkaart.Bestuurder?.Id) {
 
-                SqlDataReader r = cmd.ExecuteReader();
+					// Verwijder eventuele huidige relatie
+					if (BestaandeTankkaart.Bestuurder?.Id is not null) {
+						SqlCommand cmd_del = _connector.CreateCommand();
+						cmd_del.Transaction = transactie;
 
-                while (r.Read())
-                {
-                    Tankkaart t = _parseReaderItemNaarTankkaart(r);
-                    tankkaarten.Add(new KeyValuePair<int?, Tankkaart>((int?)r["Id"], t));
-                }
+						cmd_del.CommandText = "UPDATE Bestuurder SET TankkaartId=@tid WHERE Id=@bid ;";
+						cmd_del.Parameters.Add(new SqlParameter("@tid", DbType.Int32));
+						cmd_del.Parameters.Add(new SqlParameter("@bid", DbType.Int32));
+						cmd_del.Parameters["@tid"].Value = DBNull.Value;
+						cmd_del.Parameters["@bid"].Value = BestaandeTankkaart.Bestuurder.Id;
+						cmd_del.ExecuteNonQuery();
+					}
 
-                return tankkaarten;
-            }
-            catch (Exception ex)
-            {
-                throw new VoertuigOpslagException("Unexpected error", ex);
-            }
-            finally
-            {
-                _connector.Close();
-            }
-        }
+					// Stel eventuele nieuwe relatie in
+					if (tankkaart.Bestuurder?.Id is not null) {
+						SqlCommand cmd_add = _connector.CreateCommand();
+						cmd_add.Transaction = transactie;
 
-        public KeyValuePair<int?, Tankkaart> GeefTankkaartDetail(int id)
-        {
-           
+						cmd_add.CommandText = "UPDATE Bestuurder SET TankkaartId=@tid WHERE Id=@bid ;";
+						cmd_add.Parameters.Add(new SqlParameter("@tid", DbType.Int32));
+						cmd_add.Parameters.Add(new SqlParameter("@bid", DbType.Int32));
+						cmd_add.Parameters["@tid"].Value = tankkaart.Id;
+						cmd_add.Parameters["@bid"].Value = tankkaart.Bestuurder.Id;
+						cmd_add.ExecuteNonQuery();
+					}
+				}
 
-            try
-            {
-                _connector.Open();
+				// We bepalen vervolgens of er wijzigingen zijn op het vlak van brandstoffen,
+				// daarvoor gebruiken we de bestaande entries en vergelijken we om te weten te komen
+				// welke verwijdert / toegevoegt dienen te worden.
+				// Bestaande entries worden uiteraard genegeerd.
+				List<TankkaartBrandstof> bestaandeBrandstoffen = this.GeefTankkaartDetail((int)tankkaart.Id).GeldigVoorBrandstoffen;
 
-                SqlCommand cmd = _connector.CreateCommand();
-                cmd.CommandText = "SELECT * from tankkaart where Id=@id ;";
+				List<TankkaartBrandstof> teVerwijderen = new();
+				List<TankkaartBrandstof> toeTeVoegen = new();
 
-           
-                cmd.Parameters.Add(new SqlParameter("@id",DbType.Int32));
-                cmd.Parameters["@id"].Value = id;
-                SqlDataReader r = cmd.ExecuteReader();
-                while (r.Read())
-                {
-                    Tankkaart t = _parseReaderItemNaarTankkaart(r);
-                    return new KeyValuePair<int?, Tankkaart>((int?)r["Id"], t);
-                }
+				foreach (TankkaartBrandstof bestaandeBrandstof in bestaandeBrandstoffen) {
+					if (!tankkaart.GeldigVoorBrandstoffen.Contains(bestaandeBrandstof)) {
+						teVerwijderen.Add(bestaandeBrandstof);
+					}
+				}
 
-                return new KeyValuePair<int?, Tankkaart>(null, null);
-            }
-            catch (Exception ex)
-            {
-                throw new VoertuigOpslagException("Unexpected error", ex);
-            }
-            finally
-            {
-                _connector.Close();
-            }
-        }
+				foreach (TankkaartBrandstof potentieelNieuweBrandstof in tankkaart.GeldigVoorBrandstoffen) {
+					if (!bestaandeBrandstoffen.Contains(potentieelNieuweBrandstof)) {
+						toeTeVoegen.Add(potentieelNieuweBrandstof);
+					}
+				}
 
-        public IEnumerable<Tankkaart> zoekTankkaarten(string kolom, string waarde)
-        {
-            string parsedKolomNaam = Regex.Replace(kolom, "[^a-zA-Z0-9]", String.Empty);
-            try
-            {
-                _connector.Open();
-                SqlCommand command = _connector.CreateCommand();
-                command.CommandText = $"SELECT * from tankkaart where tankkaart.{kolom}=@waarde ";
-                command.Parameters.Add(new SqlParameter("@waarde", DbType.String));
-                command.Parameters["@waarde"].Value = waarde;
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    _parseReaderItemNaarTankkaart(reader);
-                }
-                return null;
-            }
-            catch (SqlException ex) when (ex.Number == 207)
-            {
-                throw new TankkaartException("Er werd een ongeldige kolomnaam opgegeven.");
-            }
-            catch (Exception ex)
-            {
-                throw new TankkaartException("Unexpected error", ex);
-            }
-            finally
-            {
-                _connector.Close();
-            }
-        }
+				foreach (TankkaartBrandstof t in teVerwijderen) {
+					SqlCommand c = _connector.CreateCommand();
+					c.Transaction = transactie;
+					c.CommandText = "DELETE FROM TankkaartBrandstof WHERE TankkaartId=@id ;";
+					c.Parameters.Add(new SqlParameter("@id", DbType.Int32));
+					c.Parameters["@id"].Value = tankkaart.Id;
+					c.ExecuteNonQuery();
+				}
 
-        public int voegTankkaartToe(int? id)
-        {
-            throw new NotImplementedException();
-        }
-    }
+				foreach (TankkaartBrandstof t in toeTeVoegen) {
+					SqlCommand c = _connector.CreateCommand();
+					c.Transaction = transactie;
+					c.CommandText = "INSERT INTO TankkaartBrandstof (TankkaartId, Brandstof) " +
+									  "VALUES(@id, @brandstof) ;";
+					c.Parameters.Add(new SqlParameter("@id", DbType.Int32));
+					c.Parameters.Add(new SqlParameter("@brandstof", DbType.String));
+					c.Parameters["@id"].Value = tankkaart.Id;
+					c.Parameters["@brandstof"].Value = t.ToString();
+					c.ExecuteNonQuery();
+				}
+
+				transactie.Commit();
+			} catch (Exception ex) {
+				try {
+					transactie.Rollback();
+				} catch (InvalidOperationException e) { /* Error vond plaats voor de commit, exception negeren */
+				} catch (Exception e) {
+					throw new TankkaartOpslagException("Rollback gaf een onverwachte foutmelding.", e);
+				}
+
+				throw new TankkaartOpslagException("Er is een onverwachte fout opgetreden.", ex);
+			} finally {
+				_connector.Close();
+			}
+		}
+
+		// -- Delete
+		public void VerwijderTankkaart(int id) {
+			OproepControleur.ControleerOproeperGemachtigd();
+
+			_connector.Open();
+			SqlTransaction transactie = _connector.BeginTransaction();
+			try {
+				SqlCommand cmd_brandstoffen = _connector.CreateCommand();
+				cmd_brandstoffen.Transaction = transactie;
+				cmd_brandstoffen.CommandText = "DELETE FROM TankkaartBrandstof WHERE TankkaartId=@id ;";
+				cmd_brandstoffen.Parameters.Add(new SqlParameter("@id", DbType.Int32));
+				cmd_brandstoffen.Parameters["@id"].Value = id;
+				cmd_brandstoffen.ExecuteNonQuery();
+
+				SqlCommand cmd_relatie = _connector.CreateCommand();
+				cmd_relatie.Transaction = transactie;
+				cmd_relatie.CommandText = "UPDATE Bestuurder SET TankkaartId=@nieuw WHERE TankkaartId=@id ;";
+				cmd_relatie.Parameters.Add(new SqlParameter("@id", DbType.Int32));
+				cmd_relatie.Parameters.Add(new SqlParameter("@nieuw", DbType.Int32));
+				cmd_relatie.Parameters["@id"].Value = id;
+				cmd_relatie.Parameters["@nieuw"].Value = DBNull.Value;
+				cmd_relatie.ExecuteNonQuery();
+
+				SqlCommand command = _connector.CreateCommand();
+				command.Transaction = transactie;
+
+				command.CommandText = "DELETE FROM Tankkaart WHERE Id=@id ;";
+				command.Parameters.Add(new SqlParameter("@id", DbType.Int32));
+				command.Parameters["@id"].Value = id;
+				command.ExecuteNonQuery();
+
+				transactie.Commit();
+			} catch (Exception ex) {
+				try {
+					transactie.Rollback();
+				} catch (InvalidOperationException e) { /* Error vond plaats voor de commit, exception negeren */
+				} catch (Exception e) {
+					throw new TankkaartOpslagException("Rollback gaf een onverwachte foutmelding.", e);
+				}
+
+				throw new TankkaartOpslagException("Er is een onverwachte fout opgetreden.", ex);
+			} finally {
+				_connector.Close();
+			}
+		}
+
+	}
 }

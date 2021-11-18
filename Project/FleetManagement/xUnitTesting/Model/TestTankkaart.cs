@@ -63,7 +63,7 @@ namespace xUnitTesting.Model
         [InlineData(int.MaxValue)]
         public void Test_Setter_ZetId_valid(int? id)
         {
-            validTankkaart.zetId(id);
+            validTankkaart.ZetId(id);
             Assert.Equal(id, validTankkaart.Id);
         }
 
@@ -73,7 +73,7 @@ namespace xUnitTesting.Model
         [InlineData(-100)]
         public void Test_Setter_ZetId_invalid(int id)
         {
-            Assert.Throws<TankkaartException>(() => validTankkaart.zetId(id));
+            Assert.Throws<TankkaartException>(() => validTankkaart.ZetId(id));
         }
 
         [Theory]
@@ -82,9 +82,9 @@ namespace xUnitTesting.Model
         [InlineData("B1234567890123456789012345678901234567890123456789")] // 51
         public void Test_Setter_ZetKaartnummer_valid(string k)
         {
-            validTankkaart.zetKaartnummer("00001");
+            validTankkaart.ZetKaartnummer("00001");
             Assert.NotEqual(k, validTankkaart.Kaartnummer);
-            validTankkaart.zetKaartnummer(k);
+            validTankkaart.ZetKaartnummer(k);
             Assert.Equal(k, validTankkaart.Kaartnummer);
         }
 
@@ -94,7 +94,7 @@ namespace xUnitTesting.Model
         [InlineData("123456789012345678901234567890123456789012345678901")] // 51
         public void Test_Setter_ZetKaartnummer_invalid(string k)
         {
-            Assert.Throws<TankkaartException>(() => validTankkaart.zetKaartnummer(k));
+            Assert.Throws<TankkaartException>(() => validTankkaart.ZetKaartnummer(k));
         }
 
         [Fact]
@@ -105,15 +105,15 @@ namespace xUnitTesting.Model
             DateTime valid3 = DateTime.Today.AddYears(10);
             DateTime valid4 = DateTime.MaxValue;
 
-            validTankkaart.zetVervaldatum(DateTime.MaxValue.AddHours(-1));
+            validTankkaart.ZetVervaldatum(DateTime.MaxValue.AddHours(-1));
             Assert.NotEqual(valid1, validTankkaart.Vervaldatum);
-            validTankkaart.zetVervaldatum(valid1);
+            validTankkaart.ZetVervaldatum(valid1);
             Assert.Equal(valid1, validTankkaart.Vervaldatum);
-            validTankkaart.zetVervaldatum(valid2);
+            validTankkaart.ZetVervaldatum(valid2);
             Assert.Equal(valid2, validTankkaart.Vervaldatum);
-            validTankkaart.zetVervaldatum(valid3);
+            validTankkaart.ZetVervaldatum(valid3);
             Assert.Equal(valid3, validTankkaart.Vervaldatum);
-            validTankkaart.zetVervaldatum(valid4);
+            validTankkaart.ZetVervaldatum(valid4);
             Assert.Equal(valid4, validTankkaart.Vervaldatum);
         }
 
@@ -126,11 +126,11 @@ namespace xUnitTesting.Model
             DateTime invalid4 = DateTime.UnixEpoch;
             DateTime invalid5 = DateTime.MinValue;
 
-            Assert.Throws<TankkaartException>(() => validTankkaart.zetVervaldatum(invalid1));
-            Assert.Throws<TankkaartException>(() => validTankkaart.zetVervaldatum(invalid2));
-            Assert.Throws<TankkaartException>(() => validTankkaart.zetVervaldatum(invalid3));
-            Assert.Throws<TankkaartException>(() => validTankkaart.zetVervaldatum(invalid4));
-            Assert.Throws<TankkaartException>(() => validTankkaart.zetVervaldatum(invalid5));
+            Assert.Throws<TankkaartException>(() => validTankkaart.ZetVervaldatum(invalid1));
+            Assert.Throws<TankkaartException>(() => validTankkaart.ZetVervaldatum(invalid2));
+            Assert.Throws<TankkaartException>(() => validTankkaart.ZetVervaldatum(invalid3));
+            Assert.Throws<TankkaartException>(() => validTankkaart.ZetVervaldatum(invalid4));
+            Assert.Throws<TankkaartException>(() => validTankkaart.ZetVervaldatum(invalid5));
         }
 
         [Theory]
@@ -138,7 +138,7 @@ namespace xUnitTesting.Model
         public void Test_Setter_ZetPincode_valid(string p)
         {
             Assert.NotEqual(p, validTankkaart.Pincode);
-            validTankkaart.zetPincode(p);
+            validTankkaart.ZetPincode(p);
             Assert.Equal(p, validTankkaart.Pincode);
         }
 
@@ -149,7 +149,7 @@ namespace xUnitTesting.Model
         [InlineData("")]
         public void Test_Setter_ZetPincode_invalid(string p)
         {
-            Assert.Throws<TankkaartException>(() => validTankkaart.zetPincode(p));
+            Assert.Throws<TankkaartException>(() => validTankkaart.ZetPincode(p));
         }
 
         [Theory]
@@ -201,9 +201,9 @@ namespace xUnitTesting.Model
         [Fact]
         public void Test_Setter_Bestuurder_valid()
         {
-            validTankkaart.zetBestuurder(null);
+            validTankkaart.ZetBestuurder(null);
             Assert.NotEqual(validBestuurder, validTankkaart.Bestuurder);
-            validTankkaart.zetBestuurder(validBestuurder);
+            validTankkaart.ZetBestuurder(validBestuurder);
             Assert.Equal(validBestuurder, validTankkaart.Bestuurder);
         }
 
@@ -211,7 +211,7 @@ namespace xUnitTesting.Model
         public void Test_Setter_Bestuurder_AlIngesteld_invalid()
         {
             Assert.Equal(validBestuurder, validTankkaart.Bestuurder);
-            Assert.Throws<TankkaartException>(() => validTankkaart.zetBestuurder(validBestuurder));
+            Assert.Throws<TankkaartException>(() => validTankkaart.ZetBestuurder(validBestuurder));
             Assert.Equal(validBestuurder, validTankkaart.Bestuurder);
         }
 
@@ -219,7 +219,7 @@ namespace xUnitTesting.Model
         public void Test_Setter_Brandstoffen_Null_valid()
         {
             Assert.NotNull(validTankkaart.Bestuurder);
-            validTankkaart.zetBestuurder(null);
+            validTankkaart.ZetBestuurder(null);
             Assert.Null(validTankkaart.Bestuurder);
         }
 

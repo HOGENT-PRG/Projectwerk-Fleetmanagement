@@ -21,64 +21,68 @@ namespace BusinessLaag.Model
         public Tankkaart(int? id, string kaartnummer, DateTime vervaldatum, 
             string pincode, List<TankkaartBrandstof>? geldigvoorbrandstoffen, Bestuurder? bestuurder)
         {
-            zetId(id);
-            zetKaartnummer(kaartnummer);
-            zetVervaldatum(vervaldatum);
-            zetPincode(pincode);
-            zetBestuurder(bestuurder);
+            ZetId(id);
+            ZetKaartnummer(kaartnummer);
+            ZetVervaldatum(vervaldatum);
+            ZetPincode(pincode);
+            ZetBestuurder(bestuurder);
             GeldigVoorBrandstoffen = geldigvoorbrandstoffen ?? new();
        }
-        public void zetId(int? id) {
-            if (id is not null)
-                if (id <= 0)
-                    throw new TankkaartException("Uw bestuurder id mag niet gelijk of kleiner dan nul zijn ");
 
+        public void ZetId(int? id) {
+            if (id is not null) {
+                if (id <= 0) {
+                    throw new TankkaartException("Indien een Id opgegeven wordt mag deze niet kleiner zijn dan 0.");
+                }
+            }
             Id = id; // nullable toelaten
         }
-        public void zetKaartnummer(string kaartnummer)
+        public void ZetKaartnummer(string kaartnummer)
         {
-            if (kaartnummer.Length < 5 || kaartnummer.Length > 50)
-            {
-                throw new TankkaartException("Het nummer van de kaart moet minstens 5 karakters lang zijn, en maximum 50 karakters lang.");
+            if (kaartnummer.Length < 5 || kaartnummer.Length > 50) {
+                throw new TankkaartException("Het nummer van de kaart moet minstens 5, maximum 50 karakters lang zijn.");
             }
             Kaartnummer = kaartnummer;
         }
-        public void zetVervaldatum(DateTime vervaldatum)
+        public void ZetVervaldatum(DateTime vervaldatum)
         {
             DateTime minimumdate = DateTime.Now.AddHours(24 - DateTime.Now.Hour + 1);
 
-            if (DateTime.Compare(minimumdate, vervaldatum) < 0)
+            if (DateTime.Compare(minimumdate, vervaldatum) < 0) {
                 Vervaldatum = vervaldatum;
-            else throw new TankkaartException("De vervaldatum van de kaart moet zich in de toekomst bevinden en minimum 1 dag geldig zijn.");            
+            } else throw new TankkaartException("De vervaldatum van de kaart moet zich in de toekomst bevinden en minimum 1 dag geldig zijn.");            
         }
-        public void zetPincode(string pincode)
+        public void ZetPincode(string pincode)
         {
-            if (pincode.Length is not 4 || pincode.ToCharArray().Any(c => !Char.IsDigit(c)))
-            {
-                throw new TankkaartException("Pincode moet 4 karakters bevatten, welke enkel cijfers mogen zijn.");
+            if (pincode.Length is not 4 || pincode.ToCharArray().Any(c => !Char.IsDigit(c))) {
+                throw new TankkaartException("Pincode moet exact 4 karakters lang zijn en enkel bestaan uit cijfers.");
             }
+
             Pincode = pincode;
         }
         public void VoegBrandstofToe(TankkaartBrandstof brandstof) 
         {
-            if (GeldigVoorBrandstoffen.Contains(brandstof))
-                throw new TankkaartException("Brandstof zit al in het lijstje met de brandstoffen");
+            if (GeldigVoorBrandstoffen.Contains(brandstof)) {
+                throw new TankkaartException("Brandstof zit reeds in de lijst met brandstoffen.");
+            }
 
             GeldigVoorBrandstoffen.Add(brandstof);
         }
         public void VerwijderBrandstof(TankkaartBrandstof brandstof)
         {
-            if (!GeldigVoorBrandstoffen.Contains(brandstof))
-                throw new TankkaartException("Deze brandstof bestaat niet in het lijstje vooraleer je hem kunt verwijderen moet je het eerst hebben toegevoegd");
+            if (!GeldigVoorBrandstoffen.Contains(brandstof)) {
+                throw new TankkaartException("Deze brandstof bestaat niet in de lijst en kan dus niet verwijdert worden.");
+            }
 
             GeldigVoorBrandstoffen.Remove(brandstof);
         }
-        public void zetBestuurder(Bestuurder bestuurder)
+        public void ZetBestuurder(Bestuurder bestuurder)
         {
-            if (Bestuurder == bestuurder && bestuurder is not null)
+            if (Bestuurder == bestuurder && bestuurder is not null) {
                 throw new TankkaartException("Bestuurder hoort al bij deze tankkaart");
-            else
+            } else {
                 Bestuurder = bestuurder;
+            }
         }
     }
 #nullable disable

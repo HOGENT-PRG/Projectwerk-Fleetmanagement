@@ -9,5 +9,8 @@ namespace BusinessLaag.Exceptions
     public class TankkaartOpslagException : Exception
     {
         public TankkaartOpslagException(string msg) : base(msg) { }
-    }
+
+		public TankkaartOpslagException(string message, Exception innerException) : base(message, innerException) {
+		}
+	}
 }

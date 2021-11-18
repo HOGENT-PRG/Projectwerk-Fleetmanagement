@@ -45,11 +45,11 @@ namespace WPFApp.Model.Communiceerders {
                         geconvAdres = _conveerAdresNaarDTO(b.Adres);
                     }
                     if (b.Voertuig != null) {
-                        b.Voertuig.zetBestuurder(null);
+                        b.Voertuig.ZetBestuurder(null);
                         geconvVoertuig = _converteerVoertuigNaarDTO(b.Voertuig, false);
                     }
                     if (b.Tankkaart != null) {
-                        b.Tankkaart.zetBestuurder(null);
+                        b.Tankkaart.ZetBestuurder(null);
                         geconvTankkaart = _converteerTankkaartNaarDTO(b.Tankkaart, false);
                     }
                 }
@@ -77,7 +77,7 @@ namespace WPFApp.Model.Communiceerders {
                     } 
                 }
 
-                t.zetBestuurder(null);
+                t.ZetBestuurder(null);
 
                 TankkaartResponseDTO geconvTankkaart = BronParser.ParseCast<TankkaartResponseDTO>(t);
                 geconvTankkaart.Bestuurder = geconvBestuurder;
@@ -95,7 +95,7 @@ namespace WPFApp.Model.Communiceerders {
                     }
                 }
 
-                v.zetBestuurder(null);
+                v.ZetBestuurder(null);
 
                 VoertuigResponseDTO geconvVoertuig = BronParser.ParseCast<VoertuigResponseDTO>(v);
                 geconvVoertuig.Bestuurder = geconvBestuurder;

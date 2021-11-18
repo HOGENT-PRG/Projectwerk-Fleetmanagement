@@ -5,12 +5,12 @@ namespace BusinessLaag.Interfaces
 {
     public interface IVoertuigOpslag
     {
-        void ZetConnectionString(string connectionString);
-        int VoegVoertuigToe(Voertuig voertuig);
-        void UpdateVoertuig(Voertuig voertuig);
-        void VerwijderVoertuig(Voertuig voertuig);
-        List<KeyValuePair<int?, Voertuig>> GeefVoertuigen();
-        KeyValuePair<int?, Voertuig> GeefVoertuigDetail(int id);
-        Voertuig ZoekVoertuig(string kolomNaamHoofdletterGevoelig, string waarde);
-    }
+		Voertuig GeefVoertuigDetail(int id);
+		List<Voertuig> GeefVoertuigen(string kolomnaam = null, object waarde = null);
+		void UpdateVoertuig(Voertuig voertuig);
+		void VerwijderVoertuig(int id);
+		int VoegVoertuigToe(Voertuig voertuig);
+		void ZetConnectionString(string connString);
+		Voertuig ZoekVoertuig(string kolomnaamHoofdletterGevoelig, string waarde);
+	}
 }

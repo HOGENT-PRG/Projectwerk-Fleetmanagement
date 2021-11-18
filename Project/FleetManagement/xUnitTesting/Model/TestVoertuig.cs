@@ -82,7 +82,7 @@ namespace xUnitTesting.Model
         [InlineData(int.MaxValue)]
         public void Test_Setter_ZetId_valid(int id)
         {
-            validVoertuig.zetId(id);
+            validVoertuig.ZetId(id);
             Assert.Equal(id, validVoertuig.Id);
         }
 
@@ -92,7 +92,7 @@ namespace xUnitTesting.Model
         [InlineData(-100)]
         public void Test_Setter_ZetId_invalid(int id)
         {
-            Assert.Throws<VoertuigException>(() => validVoertuig.zetId(id));
+            Assert.Throws<VoertuigException>(() => validVoertuig.ZetId(id));
         }
 
         [Theory]
@@ -100,7 +100,7 @@ namespace xUnitTesting.Model
         [InlineData("0123456789012345678")]
         public void Test_Setter_ZetModel_valid(string m)
         {
-            validVoertuig.zetModel(m);
+            validVoertuig.ZetModel(m);
             Assert.Equal(m, validVoertuig.Model);
         }
 
@@ -110,7 +110,7 @@ namespace xUnitTesting.Model
         [InlineData("01234567890123456789")]
         public void Test_Setter_ZetModel_invalid(string m)
         {
-            Assert.Throws<VoertuigException>(() => validVoertuig.zetModel(m));
+            Assert.Throws<VoertuigException>(() => validVoertuig.ZetModel(m));
         }
 
         [Theory]
@@ -119,7 +119,7 @@ namespace xUnitTesting.Model
         [InlineData("0123456789012345678")]
         public void Test_Setter_ZetNummerplaat_valid(string n)
         {
-            validVoertuig.zetNummerplaat(n);
+            validVoertuig.ZetNummerplaat(n);
             Assert.Equal(n, validVoertuig.Nummerplaat);
         }
 
@@ -129,7 +129,7 @@ namespace xUnitTesting.Model
         [InlineData("012345678901234567890")]
         public void Test_Setter_ZetNummerplaat_invalid(string n)
         {
-            Assert.Throws<VoertuigException>(() => validVoertuig.zetNummerplaat(n));
+            Assert.Throws<VoertuigException>(() => validVoertuig.ZetNummerplaat(n));
         }
 
         [Theory]
@@ -138,7 +138,7 @@ namespace xUnitTesting.Model
         [InlineData("012345678901234567890123456789012345678")]
         public void Test_Setter_ZetKleur_valid(string k)
         {
-            validVoertuig.zetKleur(k);
+            validVoertuig.ZetKleur(k);
             Assert.Equal(k, validVoertuig.Kleur);
         }
 
@@ -148,7 +148,7 @@ namespace xUnitTesting.Model
         [InlineData("01234567890123456789001234567890123456789")]
         public void Test_Setter_ZetKleur_invalid(string k)
         {
-            Assert.Throws<VoertuigException>(() => validVoertuig.zetKleur(k));
+            Assert.Throws<VoertuigException>(() => validVoertuig.ZetKleur(k));
         }
 
         [Theory]
@@ -157,7 +157,7 @@ namespace xUnitTesting.Model
         [InlineData(20)]
         public void Test_Setter_ZetAantalDeuren_valid(int a)
         {
-            validVoertuig.zetAantalDeuren(a);
+            validVoertuig.ZetAantalDeuren(a);
             Assert.Equal(a, validVoertuig.AantalDeuren);
         }
 
@@ -169,32 +169,32 @@ namespace xUnitTesting.Model
         [InlineData(int.MaxValue)]
         public void Test_Setter_ZetAantalDeuren_invalid(int a)
         {
-            Assert.Throws<VoertuigException>(() => validVoertuig.zetAantalDeuren(a));
+            Assert.Throws<VoertuigException>(() => validVoertuig.ZetAantalDeuren(a));
         }
 
         [Fact]
         public void Test_Setter_ZetBestuurder_valid()
         {
-            validVoertuig.zetBestuurder(null);
+            validVoertuig.ZetBestuurder(null);
             Assert.Null(validVoertuig.Bestuurder);
 
-            validVoertuig.zetBestuurder(validBestuurder);
+            validVoertuig.ZetBestuurder(validBestuurder);
             Assert.Equal(validBestuurder, validVoertuig.Bestuurder);
         }
 
         [Fact]
         public void Test_Setter_ZetBestuurderReedsIngesteld_invalid()
         {
-            try { validVoertuig.zetBestuurder(validBestuurder); } catch { }
+            try { validVoertuig.ZetBestuurder(validBestuurder); } catch { }
             Assert.Equal(validBestuurder, validVoertuig.Bestuurder);
-            Assert.Throws<VoertuigException>(() => validVoertuig.zetBestuurder(validBestuurder));
+            Assert.Throws<VoertuigException>(() => validVoertuig.ZetBestuurder(validBestuurder));
         }
 
         [Theory]
         [InlineData("01234567890123456")]
         public void Test_Setter_ZetChassisnr_valid(string c)
         {
-            validVoertuig.zetChassisnummer(c);
+            validVoertuig.ZetChassisnummer(c);
             Assert.Equal(c, validVoertuig.Chassisnummer);
         }
 
@@ -205,7 +205,7 @@ namespace xUnitTesting.Model
         [InlineData("0123456789012345")]
         public void Test_Setter_ZetChassisnr_invalid(string c)
         {
-            Assert.Throws<VoertuigException>(() => validVoertuig.zetChassisnummer(c));
+            Assert.Throws<VoertuigException>(() => validVoertuig.ZetChassisnummer(c));
         }
 
         // Merk, Brandstof en Voertuigsoort worden beschermd dmv enum (geen invalid mogelijk)
@@ -214,7 +214,7 @@ namespace xUnitTesting.Model
         public void Test_Setter_ZetMerk_valid()
         {
             Assert.NotEqual(Merk.Dacia, validVoertuig.Merk);
-            validVoertuig.zetMerk(Merk.Dacia);
+            validVoertuig.ZetMerk(Merk.Dacia);
             Assert.Equal(Merk.Dacia, validVoertuig.Merk);
         }
 
@@ -222,7 +222,7 @@ namespace xUnitTesting.Model
         public void Test_Setter_ZetBrandstof_valid()
         {
             Assert.NotEqual(VoertuigBrandstof.HybrideDiesel, validVoertuig.Brandstof);
-            validVoertuig.zetBrandstof(VoertuigBrandstof.HybrideDiesel);
+            validVoertuig.ZetBrandstof(VoertuigBrandstof.HybrideDiesel);
             Assert.Equal(VoertuigBrandstof.HybrideDiesel, validVoertuig.Brandstof);
         }
 
@@ -230,7 +230,7 @@ namespace xUnitTesting.Model
         public void Test_Setter_ZetVoertuigsoort_valid()
         {
             Assert.NotEqual(Voertuigsoort.terreinwagen, validVoertuig.Voertuigsoort);
-            validVoertuig.zetVoertuigSoort(Voertuigsoort.terreinwagen);
+            validVoertuig.ZetVoertuigSoort(Voertuigsoort.terreinwagen);
             Assert.Equal(Voertuigsoort.terreinwagen, validVoertuig.Voertuigsoort);
         }
     }
