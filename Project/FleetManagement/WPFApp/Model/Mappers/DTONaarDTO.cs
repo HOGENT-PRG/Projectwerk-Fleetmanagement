@@ -12,13 +12,31 @@ namespace WPFApp.Model.Mappers {
 	// De wpf behandelt bijvoorbeeld de response dto's voor weergave en het viewmodel vormt
 	// deze om naar een request dto om te gebruiken bij aanroepen van ICommuniceer functies
 	internal class DTONaarDTO {
+
+		// Indien t de verwachteInterface implementeert is dit true, anders false.
+		private static bool ImplementeertTypeInterface(Type t, Type verwachteInterface) {
+			return t.GetType().GetInterfaces()
+							  .Any(i => i.IsGenericType 
+								   && i.GetGenericTypeDefinition() == verwachteInterface.GetType());
+		}
+
 		internal static T ResponseNaarRequest<T>(IResponseDTO responseDTO) {
+
+			if (!ImplementeertTypeInterface(typeof(T), typeof(IRequestDTO))) {
+				throw new MapperException($"Er dient een klasse opgegeven te worden die {nameof(IRequestDTO)} implementeert om deze om te kunnen zetten naar een {nameof(IResponseDTO)}.");
+			}
+
 			try {
 				return BronParser.ParseCast<T>(responseDTO);
 			} catch(Exception e) { throw new MapperException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e);}
 		}
 
 		internal static T RequestNaarResponse<T>(IRequestDTO requestDTO) {
+
+			if (!ImplementeertTypeInterface(typeof(T), typeof(IResponseDTO))) {
+				throw new MapperException($"Er dient een klasse opgegeven te worden die {nameof(IResponseDTO)} implementeert om deze om te kunnen zetten naar een {nameof(IRequestDTO)}.");
+			}
+
 			try {
 				return BronParser.ParseCast<T>(requestDTO);
 			} catch (Exception e) { throw new MapperException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
