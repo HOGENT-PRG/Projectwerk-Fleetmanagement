@@ -10,13 +10,13 @@ using WPFApp.Views.MVVM;
 namespace WPFApp.Views.Hosts {
 
     // Deze module wordt gebruikt in het ApplicatieOverzicht
-    // De viewmodel geeft de StuurSnackbar property mee in hun constructors
-    // dit laat alle viewmodels toe om snackbars inclusief dialoog te versturen
-    // naar de frontend
-    // De snackbar bevat een knop 'MEER INFO', die het dialoog opent om alle details / te lange content 
-    // te kunnen zien
+    // De ApplicatieOverzichtViewModel geeft de StuurSnackbar property mee in hun constructors
+    // Dit laat alle viewmodels toe om snackbars inclusief dialoog te versturen
+    // De snackbar bevat een knop 'VERBERG', die het dialoog verbergt, daarnaast kan er gedubbelklikt worden op
+    // de snackbar om alle details / te lange content te kunnen zien
 
-    // Het opnemen ervan in de main viewmodel voorkomt het herhalen van de bijbehorende xaml code in elke view model
+    // Het opnemen van de snackbar en dialoghost xaml in het ApplicatieOverzichtViewModel
+    // voorkomt het herhalen van de xaml in elke view model
         internal abstract class NotificatieModule : Presenteerder {
             // Snackbar & bijhorend dialog box
             // https://material.io/components/snackbars

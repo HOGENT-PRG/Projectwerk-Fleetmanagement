@@ -109,8 +109,6 @@ namespace xUnitTesting
                         }
                     }
 
-                } else {
-                    return insertRowIds;
                 }
 
                 return insertRowIds;
