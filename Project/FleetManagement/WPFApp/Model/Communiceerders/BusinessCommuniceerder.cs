@@ -5,14 +5,11 @@ using DataLaag;
 using DataLaag.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WPFApp.Exceptions;
-using WPFApp.Helpers;
 using WPFApp.Interfaces;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
+using WPFApp.Model.Mappers.Business;
+using WPFApp.Exceptions;
 
 // De Businesscommuniceerder heeft als enigste klasse dependency op de business laag.
 // In het geval dat er een API gebruikt wordt zal deze de verantwoordelijkheid voor het
@@ -26,86 +23,6 @@ namespace WPFApp.Model.Communiceerders {
             _fleetManager = new(new VoertuigOpslag(), new BestuurderOpslag(), new TankkaartOpslag(), new DatabankConfigureerder(null));
         }
 
-        #region conversies
-        private AdresResponseDTO _conveerAdresNaarDTO(Adres a) {
-            try {
-                AdresResponseDTO geconvAdres = BronParser.ParseCast<AdresResponseDTO>(a);
-                return geconvAdres;
-            } catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
-        }
-
-        private BestuurderResponseDTO _converteerBestuurderNaarDTO(Bestuurder b, bool inclusiefRelaties) {
-            try {
-                AdresResponseDTO geconvAdres = null;
-                VoertuigResponseDTO geconvVoertuig = null;
-                TankkaartResponseDTO geconvTankkaart = null;
-
-                if (inclusiefRelaties) {
-                    if (b.Adres != null) {
-                        geconvAdres = _conveerAdresNaarDTO(b.Adres);
-                    }
-                    if (b.Voertuig != null) {
-                        b.Voertuig.ZetBestuurder(null);
-                        geconvVoertuig = _converteerVoertuigNaarDTO(b.Voertuig, false);
-                    }
-                    if (b.Tankkaart != null) {
-                        b.Tankkaart.ZetBestuurder(null);
-                        geconvTankkaart = _converteerTankkaartNaarDTO(b.Tankkaart, false);
-                    }
-                }
-
-                b.ZetAdres(null);
-                b.ZetVoertuig(null);
-                b.ZetTankkaart(null);
-
-                BestuurderResponseDTO geconvBestuurder = BronParser.ParseCast<BestuurderResponseDTO>(b);
-                geconvBestuurder.Adres = geconvAdres;
-                geconvBestuurder.Voertuig = geconvVoertuig;
-                geconvBestuurder.Tankkaart = geconvTankkaart;
-
-                return geconvBestuurder;
-            } catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
-        }
-
-        private TankkaartResponseDTO _converteerTankkaartNaarDTO(Tankkaart t, bool inclusiefRelaties) {
-                
-            try {
-                BestuurderResponseDTO geconvBestuurder = null;
-                if (inclusiefRelaties) {
-                    if(t.Bestuurder != null) {
-                        geconvBestuurder = _converteerBestuurderNaarDTO(t.Bestuurder, false);
-                    } 
-                }
-
-                t.ZetBestuurder(null);
-
-                TankkaartResponseDTO geconvTankkaart = BronParser.ParseCast<TankkaartResponseDTO>(t);
-                geconvTankkaart.Bestuurder = geconvBestuurder;
-
-                return geconvTankkaart;
-            } catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
-        }
-
-        private VoertuigResponseDTO _converteerVoertuigNaarDTO(Voertuig v, bool inclusiefRelaties) {
-            try {
-                BestuurderResponseDTO geconvBestuurder = null;
-                if (inclusiefRelaties) {
-                    if (v.Bestuurder != null) {
-                        geconvBestuurder = _converteerBestuurderNaarDTO(v.Bestuurder, false);
-                    }
-                }
-
-                v.ZetBestuurder(null);
-
-                VoertuigResponseDTO geconvVoertuig = BronParser.ParseCast<VoertuigResponseDTO>(v);
-                geconvVoertuig.Bestuurder = geconvBestuurder;
-
-                return geconvVoertuig;
-            } catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
-        }
-
-		#endregion
-
 		#region databank info
 		public DatabankStatusResponseDTO GeefDatabankStatus() {
             IDatabankConfigureerder db = _fleetManager.DatabankConfigureerder;
@@ -115,19 +32,42 @@ namespace WPFApp.Model.Communiceerders {
 
 		#region Adres
 		public int VoegAdresToe(AdresRequestDTO adres) {
-			throw new NotImplementedException();
+			try {
+				return _fleetManager.BestuurderManager.VoegAdresToe(
+					RequestDTONaarDomein.ConverteerNaarAdres(adres)
+				);
+			} catch(Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
 		}
 
 		public List<AdresResponseDTO> GeefAdressen(string kolom = null, object waarde = null) {
-			throw new NotImplementedException();
+			List<AdresResponseDTO> geconvAdressen = new();
+
+			try {
+				_fleetManager.BestuurderManager
+							 .GeefAdressen()
+							 .ForEach(a => geconvAdressen.Add(
+												DomeinNaarResponseDTO.ConverteerAdres(a)
+										   )
+									 );
+
+				return geconvAdressen;
+			} catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
 		}
 
 		public void UpdateAdres(AdresRequestDTO adres) {
-			throw new NotImplementedException();
+			try {
+				_fleetManager.BestuurderManager.UpdateAdres(
+					RequestDTONaarDomein.ConverteerNaarAdres(adres)
+				);
+			} catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
 		}
 
 		public void VerwijderAdres(int id) {
-			throw new NotImplementedException();
+			try {
+				_fleetManager.BestuurderManager.VerwijderAdres(
+					id
+				);
+			} catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
 		}
 		#endregion
 
@@ -141,7 +81,7 @@ namespace WPFApp.Model.Communiceerders {
             List<BestuurderResponseDTO> geconverteerdeResultaten = new();
 
             foreach (Bestuurder b in resultaten) {
-                geconverteerdeResultaten.Add(_converteerBestuurderNaarDTO(b, true));
+                geconverteerdeResultaten.Add(DomeinNaarResponseDTO.ConverteerBestuurder(b, true));
             }
 
             return geconverteerdeResultaten;
@@ -149,7 +89,7 @@ namespace WPFApp.Model.Communiceerders {
 
 		public BestuurderResponseDTO GeefBestuurderDetail(int id) {
             var resultaat = _fleetManager.BestuurderManager.GeefBestuurderDetail(id);
-            return _converteerBestuurderNaarDTO(resultaat, true);
+            return DomeinNaarResponseDTO.ConverteerBestuurder(resultaat, true);
         }
 
 		public BestuurderResponseDTO GeefBestuurderZonderRelaties(int id) {

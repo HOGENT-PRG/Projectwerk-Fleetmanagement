@@ -71,23 +71,34 @@ namespace WPFApp.Helpers {
             catch(JsonReaderException) { }
 
             try { parsed_as_obj = JObject.FromObject(data); } 
-            catch (ArgumentException e) when (e.Message.Contains("JObject instantie verwacht")) { }
+            catch (ArgumentException e) when (e.Message.Contains("JObject instance expected")) { }
             
-            JObject parseResultaat = parsed_as_json is not null ? parsed_as_json 
-                                   : parsed_as_obj is not null ? parsed_as_obj 
-                                   : throw new BronParserException("Kon de data niet parsen. Indien je een JSON string wenst te parsen, controleer of je JSON valid is.");
+            JObject parseResultaat = parsed_as_json is not null 
+                                     ? parsed_as_json 
+                                     : parsed_as_obj is not null 
+                                         ? parsed_as_obj 
+                                         : throw new BronParserException(
+                                            "Kon de data niet parsen. " +
+                                            "Indien je een JSON string wenst te parsen, " +
+                                            "controleer of je JSON valid is."
+                                           );
 
             if (ValidatieSchema is not null) {
                 if (!parseResultaat.IsValid(ValidatieSchema)) {
-                    throw new BronParserException("Het JSON object voldoet niet aan de voorwaarden opgelegd in het meegegeven schema.");
+                    throw new BronParserException(
+                        "Het JSON object voldoet niet aan de voorwaarden " +
+                        "opgelegd in het meegegeven schema."
+                    );
                 }
             }
 
-            if (typeof(T) == typeof(string)) {
+            /**Optie 1**/
+            if (typeof(T) == typeof(string)) {                                          
                 string filteredResultaat;
 
                 if (toJsonFilterNulls) {
-                    // omweggetje (from+to) vereist aangezien anders nulls niet genegeerd worden (door JTokenType.Null)
+                    // Omweg (from+to) vereist aangezien anders nulls niet genegeerd worden
+                    // (komt door JTokenType.Null)
                     // https://stackoverflow.com/questions/33027409/json-net-serialize-jobject-while-ignoring-null-properties
                     filteredResultaat = JObject.FromObject(
                                             parseResultaat.ToObject(typeof(object)),
@@ -101,9 +112,14 @@ namespace WPFApp.Helpers {
                 }
 
                 return (T)Convert.ChangeType(filteredResultaat, typeof(T));
-            } else if (typeof(T) == typeof(JObject) || typeof(T).GetType().IsClass) {
+
+            /**Optie 2**/
+            } else if ((typeof(T) == typeof(JObject) || typeof(T).GetType().IsClass) 
+                        && typeof(T) != typeof(object)) {            // https://dotnetfiddle.net/puxB1a
                 return (T)parseResultaat.ToObject(typeof(T));
-            } else { 
+
+            /**Optie 3**/
+            } else {                                                                    
                 return (T)parseResultaat.ToObject(typeof(object)); 
             }
 
