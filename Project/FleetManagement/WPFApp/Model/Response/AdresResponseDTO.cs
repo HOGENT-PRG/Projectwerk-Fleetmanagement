@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFApp.Interfaces;
 
 namespace WPFApp.Model.Response {
-    public class AdresResponseDTO {
+    public class AdresResponseDTO : IResponseDTO {
         public int? Id { get; set; }
         public string? Straatnaam { get; set; }
         public string? Huisnummer { get; set; }

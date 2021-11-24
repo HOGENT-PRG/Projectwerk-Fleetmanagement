@@ -10,10 +10,15 @@ using WPFApp.Model.Request;
 using WPFApp.Model.Response;
 using WPFApp.Model.Mappers.Business;
 using WPFApp.Exceptions;
+using System.Reflection;
+using System.Linq;
 
 // De Businesscommuniceerder heeft als enigste klasse dependency op de business laag.
 // In het geval dat er een API gebruikt wordt zal deze de verantwoordelijkheid voor het
 // beheren van de dependency en het aanmaken van de FleetManager op zich moeten nemen.
+
+// Functie return types zijn ResponseDTO(s) of POD types (string, int, ..)
+// Functie argumenten zijn RequestDTO(s) of POD types (string, int, ..)
 
 namespace WPFApp.Model.Communiceerders {
     internal class BusinessCommuniceerder : ICommuniceer {
@@ -36,22 +41,22 @@ namespace WPFApp.Model.Communiceerders {
 				return _fleetManager.BestuurderManager.VoegAdresToe(
 					RequestDTONaarDomein.ConverteerNaarAdres(adres)
 				);
-			} catch(Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
+			} catch(Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public List<AdresResponseDTO> GeefAdressen(string kolom = null, object waarde = null) {
-			List<AdresResponseDTO> geconvAdressen = new();
+			List<AdresResponseDTO> adressen = new();
 
 			try {
 				_fleetManager.BestuurderManager
 							 .GeefAdressen()
-							 .ForEach(a => geconvAdressen.Add(
+							 .ForEach(a => adressen.Add(
 												DomeinNaarResponseDTO.ConverteerAdres(a)
 										   )
 									 );
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 
-				return geconvAdressen;
-			} catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
+			return adressen;
 		}
 
 		public void UpdateAdres(AdresRequestDTO adres) {
@@ -59,7 +64,7 @@ namespace WPFApp.Model.Communiceerders {
 				_fleetManager.BestuurderManager.UpdateAdres(
 					RequestDTONaarDomein.ConverteerNaarAdres(adres)
 				);
-			} catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public void VerwijderAdres(int id) {
@@ -67,110 +72,222 @@ namespace WPFApp.Model.Communiceerders {
 				_fleetManager.BestuurderManager.VerwijderAdres(
 					id
 				);
-			} catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 		#endregion
 
 		#region bestuurder
 		public int VoegBestuurderToe(BestuurderRequestDTO bestuurder) {
-			throw new NotImplementedException();
+			try {
+				return _fleetManager.BestuurderManager.VoegBestuurderToe(
+					RequestDTONaarDomein.ConverteerNaarBestuurder(bestuurder, true)
+				);
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public List<BestuurderResponseDTO> GeefBestuurders(string kolom = null, object waarde = null) {
-            var resultaten = _fleetManager.BestuurderManager.GeefBestuurders();
-            List<BestuurderResponseDTO> geconverteerdeResultaten = new();
+			List<BestuurderResponseDTO> res = new();
 
-            foreach (Bestuurder b in resultaten) {
-                geconverteerdeResultaten.Add(DomeinNaarResponseDTO.ConverteerBestuurder(b, true));
-            }
+			try {
+				_fleetManager.BestuurderManager.GeefBestuurders(
+					kolom, waarde
+				).ForEach(b => res.Add(
+								DomeinNaarResponseDTO.ConverteerBestuurder(b, true)
+						 ));
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 
-            return geconverteerdeResultaten;
+			return res;
         }
 
 		public BestuurderResponseDTO GeefBestuurderDetail(int id) {
-            var resultaat = _fleetManager.BestuurderManager.GeefBestuurderDetail(id);
-            return DomeinNaarResponseDTO.ConverteerBestuurder(resultaat, true);
-        }
+			try {
+				Bestuurder b = _fleetManager.BestuurderManager.GeefBestuurderDetail(id);
+				if(b is null) { return null; }
+				return DomeinNaarResponseDTO.ConverteerBestuurder(b, true);
+
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
+		}
 
 		public BestuurderResponseDTO GeefBestuurderZonderRelaties(int id) {
-			throw new NotImplementedException();
+			try {
+				Bestuurder b = _fleetManager.BestuurderManager.GeefBestuurderZonderRelaties(id);
+				if (b is null) { return null; }
+				return DomeinNaarResponseDTO.ConverteerBestuurder(b, true);
+
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public List<BestuurderResponseDTO> ZoekBestuurders(string kolom, object waarde) {
-			throw new NotImplementedException();
+			List<BestuurderResponseDTO> res = new();
+
+			try {
+				_fleetManager.BestuurderManager.ZoekBestuurders(
+					kolom, waarde
+				).ForEach(b => res.Add(
+								DomeinNaarResponseDTO.ConverteerBestuurder(b, true)
+						 ));
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
+
+			return res;
 		}
 
 		public void UpdateBestuurder(BestuurderRequestDTO bestuurder) {
-			throw new NotImplementedException();
+			try {
+				_fleetManager.BestuurderManager.UpdateBestuurder(
+					RequestDTONaarDomein.ConverteerNaarBestuurder(bestuurder, true)
+				);
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public void VerwijderBestuurder(int id) {
-			throw new NotImplementedException();
+			try {
+				_fleetManager.BestuurderManager.VerwijderBestuurder(
+					id
+				);
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		#endregion
 
 		#region tankkaart
 		public int VoegTankkaartToe(TankkaartRequestDTO tankkaart) {
-			throw new NotImplementedException();
+			try {
+				return _fleetManager.TankkaartManager.VoegTankkaartToe(
+					RequestDTONaarDomein.ConverteerNaarTankkaart(tankkaart, true)
+				);
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public TankkaartResponseDTO GeefTankkaartDetail(int id) {
-			throw new NotImplementedException();
+			try {
+				Tankkaart t = _fleetManager.TankkaartManager.GeefTankkaartDetail(id);
+				if(t is null) { return null; }
+				return DomeinNaarResponseDTO.ConverteerTankkaart(t, true);
+
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public List<TankkaartResponseDTO> GeefTankkaarten() {
-			throw new NotImplementedException();
+			List<TankkaartResponseDTO> res = new();
+
+			try {
+				_fleetManager.TankkaartManager.GeefTankkaarten()
+					.ToList()
+					.ForEach(t => res.Add(DomeinNaarResponseDTO.ConverteerTankkaart(t, true)));
+
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
+
+			return res;
 		}
 
 		public TankkaartResponseDTO GeefTankkaartZonderRelaties(int id) {
-			throw new NotImplementedException();
+			try {
+				Tankkaart t = _fleetManager.TankkaartManager.GeefTankkaartZonderRelaties(id);
+				if(t is null) { return null; }
+				return DomeinNaarResponseDTO.ConverteerTankkaart(t, true);
+
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public TankkaartResponseDTO ZoekTankkaartMetKaartnummer(string kaartnummer) {
-			throw new NotImplementedException();
+			try {
+				Tankkaart t = _fleetManager.TankkaartManager.ZoekTankkaartMetKaartnummer(
+					kaartnummer
+				);
+				if(t is null) { return null; }
+				return DomeinNaarResponseDTO.ConverteerTankkaart(t, true);
+
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public void UpdateTankkaart(TankkaartRequestDTO tankkaart) {
-			throw new NotImplementedException();
+			try {
+				_fleetManager.TankkaartManager.UpdateTankkaart(
+					RequestDTONaarDomein.ConverteerNaarTankkaart(tankkaart, true)
+				);
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public void VerwijderTankkaart(int id) {
-			throw new NotImplementedException();
+			try {
+				_fleetManager.TankkaartManager.VerwijderTankkaart(
+					id
+				);
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 		#endregion
 
 		#region voertuig
 		public int VoegVoertuigToe(VoertuigRequestDTO voertuig) {
-			throw new NotImplementedException();
+			try {
+				return _fleetManager.VoertuigManager.VoegVoertuigToe(
+					RequestDTONaarDomein.ConverteerNaarVoertuig(voertuig, true)
+				);
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public VoertuigResponseDTO GeefVoertuigZonderRelaties(int id) {
-			throw new NotImplementedException();
+			try {
+				Voertuig v = _fleetManager.VoertuigManager.GeefVoertuigZonderRelaties(id);
+				if(v is null) { return null; }
+				return DomeinNaarResponseDTO.ConverteerVoertuig(v, true);
+
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public VoertuigResponseDTO GeefVoertuigDetail(int id) {
-			throw new NotImplementedException();
+			try {
+				Voertuig v = _fleetManager.VoertuigManager.GeefVoertuigDetail(id);
+				if (v is null) { return null; }
+				return DomeinNaarResponseDTO.ConverteerVoertuig(v, true);
+
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public List<VoertuigResponseDTO> GeefVoertuigen() {
-			throw new NotImplementedException();
+			List<VoertuigResponseDTO> res = new();
+
+			try {
+				_fleetManager.VoertuigManager.GeefVoertuigen()
+					.ForEach(v => res.Add(DomeinNaarResponseDTO.ConverteerVoertuig(v, true)));
+
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
+
+			return res;
 		}
 
 		public VoertuigResponseDTO ZoekVoertuigMetChassisnummer(string chassisnummer) {
-			throw new NotImplementedException();
+			try {
+				Voertuig v = _fleetManager.VoertuigManager.ZoekVoertuigMetChassisnummer(chassisnummer);
+				if(v is null) { return null; }
+				return DomeinNaarResponseDTO.ConverteerVoertuig(v, true);
+
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public VoertuigResponseDTO ZoekVoertuigMetNummerplaat(string nummerplaat) {
-			throw new NotImplementedException();
+			try {
+				Voertuig v = _fleetManager.VoertuigManager.ZoekVoertuigMetNummerplaat(nummerplaat);
+				if (v is null) { return null; }
+				return DomeinNaarResponseDTO.ConverteerVoertuig(v, true);
+
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public void UpdateVoertuig(VoertuigRequestDTO Voertuig) {
-			throw new NotImplementedException();
+			try {
+				_fleetManager.VoertuigManager.UpdateVoertuig(
+					RequestDTONaarDomein.ConverteerNaarVoertuig(Voertuig, true)
+				);
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
 		public void VerwijderVoertuig(int id) {
-			throw new NotImplementedException();
+			try {
+				_fleetManager.VoertuigManager.VerwijderVoertuig(
+					id
+				);
+			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 		#endregion
 	}

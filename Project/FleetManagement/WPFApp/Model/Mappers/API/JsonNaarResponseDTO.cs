@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WPFApp.Model.Mappers.API {
-	public static class JsonNaarResponseDTO {
+	internal static class JsonNaarResponseDTO {
 	}
 }

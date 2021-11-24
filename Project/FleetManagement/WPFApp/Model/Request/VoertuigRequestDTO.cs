@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using WPFApp.Interfaces;
 
 namespace WPFApp.Model.Request {
-    public class VoertuigRequestDTO {
+    public class VoertuigRequestDTO : IRequestDTO {
         public int? Id { get; set; }
         public string? Merk { get; set; }
         public string? Model { get; set; }

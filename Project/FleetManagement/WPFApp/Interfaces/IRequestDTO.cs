@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WPFApp.Interfaces {
-    internal interface IResponseDTO {
-    }
+	internal interface IRequestDTO {
+	}
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using WPFApp.Interfaces;
 
 namespace WPFApp.Model.Request {
-    public class TankkaartRequestDTO {
+    public class TankkaartRequestDTO : IRequestDTO {
         public int? Id { get; set; }
         public string? Kaartnummer { get; set; }
         public DateTime? Vervaldatum { get; set; }

@@ -5,14 +5,22 @@ using WPFApp.Helpers;
 using WPFApp.Model.Request;
 
 namespace WPFApp.Model.Mappers.Business {
-	public static class RequestDTONaarDomein {
+	internal static class RequestDTONaarDomein {
         public static Adres ConverteerNaarAdres(AdresRequestDTO adres) {
+            if (adres is null) {
+                throw new MapperException($"Mapper verwachtte een instantie van {nameof(AdresRequestDTO)} maar ontving null.");
+            }
+
             try {
                 return BronParser.ParseCast<Adres>(adres);
             } catch (Exception e) { throw new MapperException(e.Message, e); }
         }
 
         public static Bestuurder ConverteerNaarBestuurder(BestuurderRequestDTO b, bool inclusiefRelaties) {
+            if (b is null) {
+                throw new MapperException($"Mapper verwachtte een instantie van {nameof(BestuurderRequestDTO)} maar ontving null.");
+            }
+
             try {
                 Adres adres = null;
                 Voertuig voertuig = null;
@@ -55,6 +63,10 @@ namespace WPFApp.Model.Mappers.Business {
         }
 
         public static Tankkaart ConverteerNaarTankkaart(TankkaartRequestDTO t, bool inclusiefRelaties) {
+            if (t is null) {
+                throw new MapperException($"Mapper verwachtte een instantie van {nameof(TankkaartRequestDTO)} maar ontving null.");
+            }
+
             try {
                 Bestuurder bestuurder = null;
 
@@ -81,6 +93,10 @@ namespace WPFApp.Model.Mappers.Business {
         }
 
         public static Voertuig ConverteerNaarVoertuig(VoertuigRequestDTO v, bool inclusiefRelaties) {
+            if (v is null) {
+                throw new MapperException($"Mapper verwachtte een instantie van {nameof(VoertuigRequestDTO)} maar ontving null.");
+            }
+
             try {
                 Bestuurder bestuurder = null;
 

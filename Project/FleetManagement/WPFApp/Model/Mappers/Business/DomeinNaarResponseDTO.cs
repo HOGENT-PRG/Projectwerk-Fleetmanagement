@@ -9,14 +9,22 @@ using WPFApp.Helpers;
 using WPFApp.Model.Response;
 
 namespace WPFApp.Model.Mappers.Business {
-	public static class DomeinNaarResponseDTO {
+	internal static class DomeinNaarResponseDTO {
         public static AdresResponseDTO ConverteerAdres(Adres a) {
+            if (a is null) {
+                throw new MapperException($"Mapper verwachtte een instantie van {nameof(Adres)} maar ontving null.");
+            }
+
             try {
                 return BronParser.ParseCast<AdresResponseDTO>(a);
             } catch (Exception e) { throw new MapperException(e.Message, e); }
         }
 
         public static BestuurderResponseDTO ConverteerBestuurder(Bestuurder b, bool inclusiefRelaties) {
+            if (b is null) { 
+                throw new MapperException($"Mapper verwachtte een instantie van {nameof(Bestuurder)} maar ontving null."); 
+            }
+
             try {
                 AdresResponseDTO geconvAdres = null;
                 VoertuigResponseDTO geconvVoertuig = null;
@@ -59,6 +67,9 @@ namespace WPFApp.Model.Mappers.Business {
         }
 
         public static TankkaartResponseDTO ConverteerTankkaart(Tankkaart t, bool inclusiefRelaties) {
+            if (t is null) {
+                throw new MapperException($"Mapper verwachtte een instantie van {nameof(Tankkaart)} maar ontving null.");
+            }
 
             try {
                 BestuurderResponseDTO geconvBestuurder = null;
@@ -85,6 +96,10 @@ namespace WPFApp.Model.Mappers.Business {
         }
 
         public static VoertuigResponseDTO ConverteerVoertuig(Voertuig v, bool inclusiefRelaties) {
+            if (v is null) {
+                throw new MapperException($"Mapper verwachtte een instantie van {nameof(Voertuig)} maar ontving null.");
+            }
+
             try {
                 BestuurderResponseDTO geconvBestuurder = null;
                 if (inclusiefRelaties) {
