@@ -12,15 +12,15 @@ namespace WPFApp.Model.Mappers {
 	// De wpf behandelt bijvoorbeeld de response dto's voor weergave en het viewmodel vormt
 	// deze om naar een request dto om te gebruiken bij aanroepen van ICommuniceer functies
 	internal class DTONaarDTO {
-		internal static IRequestDTO ResponseNaarRequest(IResponseDTO responseDTO) {
+		internal static T ResponseNaarRequest<T>(IResponseDTO responseDTO) {
 			try {
-				return BronParser.ParseCast<IRequestDTO>(responseDTO);
+				return BronParser.ParseCast<T>(responseDTO);
 			} catch(Exception e) { throw new MapperException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e);}
 		}
 
-		internal static IResponseDTO RequestNaarResponse(IRequestDTO requestDTO) {
+		internal static T RequestNaarResponse<T>(IRequestDTO requestDTO) {
 			try {
-				return BronParser.ParseCast<IResponseDTO>(requestDTO);
+				return BronParser.ParseCast<T>(requestDTO);
 			} catch (Exception e) { throw new MapperException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 	}
