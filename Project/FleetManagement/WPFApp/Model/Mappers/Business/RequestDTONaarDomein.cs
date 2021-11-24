@@ -111,7 +111,7 @@ namespace WPFApp.Model.Mappers.Business {
 
                 Voertuig voertuig = BronParser.ParseCast<Voertuig>(v);
 
-                // wordt hier terug ingesteld en circulate is vermeden
+                // wordt hier terug ingesteld en circulatie is vermeden
                 if(bestuurder.Voertuig is null) {
                     bestuurder.ZetVoertuig(voertuig);
 				}

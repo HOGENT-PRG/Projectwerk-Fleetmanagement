@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WPFApp.Model.Mappers.API {
+	// TODO bij uitwerken van API laag
 	internal static class RequestDTONaarJson {
 	}
 }

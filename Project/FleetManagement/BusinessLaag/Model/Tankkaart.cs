@@ -16,10 +16,10 @@ namespace BusinessLaag.Model
         public DateTime Vervaldatum { get; private set; }
         public string? Pincode { get; private set; } // nullable toegelaten
         public List<TankkaartBrandstof> GeldigVoorBrandstoffen { get; private set; }
-        public Bestuurder? Bestuurder { get; private set; }
+        public Bestuurder Bestuurder { get; private set; }
 
         public Tankkaart(int? id, string kaartnummer, DateTime vervaldatum, 
-            string pincode, List<TankkaartBrandstof>? geldigvoorbrandstoffen, Bestuurder? bestuurder)
+            string pincode, List<TankkaartBrandstof>? geldigvoorbrandstoffen, Bestuurder bestuurder)
         {
             ZetId(id);
             ZetKaartnummer(kaartnummer);

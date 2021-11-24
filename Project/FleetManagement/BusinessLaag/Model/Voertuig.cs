@@ -19,11 +19,11 @@ namespace BusinessLaag.Model
         public Voertuigsoort Voertuigsoort { get; private set; }
         public string? Kleur { get; private set; }
         public int? AantalDeuren { get; private set; }
-        public Bestuurder? Bestuurder { get; private set; }
+        public Bestuurder Bestuurder { get; private set; }
         public string Chassisnummer { get; private set; }
 
         public Voertuig(int? id, Merk merk, string model, string nummerplaat, VoertuigBrandstof brandstof , 
-            Voertuigsoort soort, string? kleur, int? aantalDeuren, Bestuurder? bestuurder , string chassisnummer)
+            Voertuigsoort soort, Bestuurder bestuurder, string chassisnummer, string? kleur, int? aantalDeuren)
         {
             ZetId(id);
             ZetMerk(merk);

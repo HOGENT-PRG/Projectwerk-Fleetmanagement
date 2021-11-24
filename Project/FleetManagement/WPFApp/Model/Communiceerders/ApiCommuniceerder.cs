@@ -8,7 +8,7 @@ using WPFApp.Interfaces;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
 
-// Pas ontwikkelen indien api implementatie vereist is (na al de rest dus)
+// TODO bij uitwerken van API laag
 
 namespace WPFApp.Model.Communiceerders {
     internal class ApiCommuniceerder : ICommuniceer {
