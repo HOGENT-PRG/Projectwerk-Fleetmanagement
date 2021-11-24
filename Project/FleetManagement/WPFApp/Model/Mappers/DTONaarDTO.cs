@@ -23,7 +23,7 @@ namespace WPFApp.Model.Mappers {
 		internal static T ResponseNaarRequest<T>(IResponseDTO responseDTO) {
 
 			if (!ImplementeertTypeInterface(typeof(T), typeof(IRequestDTO))) {
-				throw new MapperException($"Er dient een klasse opgegeven te worden die {nameof(IRequestDTO)} implementeert om deze om te kunnen zetten naar een {nameof(IResponseDTO)}.");
+				throw new MapperException($"Er dient een klasse opgegeven te worden die {nameof(IRequestDTO)} implementeert.");
 			}
 
 			try {
@@ -34,7 +34,7 @@ namespace WPFApp.Model.Mappers {
 		internal static T RequestNaarResponse<T>(IRequestDTO requestDTO) {
 
 			if (!ImplementeertTypeInterface(typeof(T), typeof(IResponseDTO))) {
-				throw new MapperException($"Er dient een klasse opgegeven te worden die {nameof(IResponseDTO)} implementeert om deze om te kunnen zetten naar een {nameof(IRequestDTO)}.");
+				throw new MapperException($"Er dient een klasse opgegeven te worden die {nameof(IResponseDTO)} implementeert.");
 			}
 
 			try {
