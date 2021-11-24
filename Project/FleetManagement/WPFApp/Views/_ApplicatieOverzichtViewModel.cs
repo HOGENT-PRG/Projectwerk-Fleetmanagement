@@ -9,6 +9,7 @@ using WPFApp.Interfaces;
 using WPFApp.Views.Hosts;
 using WPFApp.Views.MVVM;
 
+/* Deze klasse dient opgekuist te worden ivm props & de brushes die hier in staan */
 namespace WPFApp.Views {
     internal sealed class ApplicatieOverzichtViewModel : NotificatieModule, IPaginaViewModel {
 
@@ -27,13 +28,13 @@ namespace WPFApp.Views {
 
         public ApplicatieOverzichtViewModel() {
 
-            PaginaViewModels.Add(typeof(AdresOverzicht).Name, new AdresOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
-            PaginaViewModels.Add(typeof(BestuurderOverzicht).Name, new BestuurderOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
-            PaginaViewModels.Add(typeof(TankkaartOverzicht).Name, new TankkaartOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
-            PaginaViewModels.Add(typeof(VoertuigOverzicht).Name, new VoertuigOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
-            PaginaViewModels.Add(typeof(DatabankOverzicht).Name, new DatabankOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(AdresOverzicht), new AdresOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(BestuurderOverzicht), new BestuurderOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(TankkaartOverzicht), new TankkaartOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(VoertuigOverzicht), new VoertuigOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(DatabankOverzicht), new DatabankOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
 
-            HuidigePaginaViewModel = PaginaViewModels[typeof(AdresOverzicht).Name];
+            HuidigePaginaViewModel = PaginaViewModels[nameof(AdresOverzicht)];
         }
 
 
@@ -69,8 +70,7 @@ namespace WPFApp.Views {
                 PaginaViewModels.Add(naam, (IPaginaViewModel)MaakNieuwViewModel(viewModel));
             }
 
-            HuidigePaginaViewModel = PaginaViewModels
-            .FirstOrDefault(vm => vm.Key == naam).Value;
+            HuidigePaginaViewModel = PaginaViewModels.FirstOrDefault(vm => vm.Key == naam).Value;
         }
 
         public ICommand ResetViewModelCommand {
@@ -111,5 +111,7 @@ namespace WPFApp.Views {
                 Update(ref _huidigePaginaViewModel, value);
             }
         }
+
+
     }
 }

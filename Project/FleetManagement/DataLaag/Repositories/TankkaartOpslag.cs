@@ -24,8 +24,6 @@ namespace DataLaag.Repositories
 
 		// -- Create
 		public int VoegTankkaartToe(Tankkaart tankkaart) {
-			OproepControleur.ControleerOproeperGemachtigd();
-
 			_connector.Open();
 			SqlTransaction tx = _connector.BeginTransaction();
 
@@ -205,8 +203,6 @@ namespace DataLaag.Repositories
 
 		// -- Update
 		public void UpdateTankkaart(Tankkaart tankkaart) {
-			OproepControleur.ControleerOproeperGemachtigd();
-
 			_connector.Open();
 			SqlTransaction transactie = _connector.BeginTransaction();
 			try {
@@ -316,8 +312,6 @@ namespace DataLaag.Repositories
 
 		// -- Delete
 		public void VerwijderTankkaart(int id) {
-			OproepControleur.ControleerOproeperGemachtigd();
-
 			_connector.Open();
 			SqlTransaction transactie = _connector.BeginTransaction();
 			try {

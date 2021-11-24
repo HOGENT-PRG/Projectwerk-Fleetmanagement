@@ -8,15 +8,12 @@ using WPFApp.Interfaces;
 namespace WPFApp.Model.Request {
     public class BestuurderRequestDTO {
         public int? Id { get; set; }
-        public string Naam { get; set; }
-        public string Voornaam { get; set; }
+        public string? Naam { get; set; }
+        public string? Voornaam { get; set; }
         public AdresRequestDTO? Adres { get; set; }
-        public DateTime GeboorteDatum { get; set; }
-
-        public string RijksRegisterNummer { get; set; }
-
-        public string RijbewijsSoort { get; set; }
-
+        public DateTime? GeboorteDatum { get; set; }
+        public string? RijksRegisterNummer { get; set; }
+        public string? RijbewijsSoort { get; set; }
         public VoertuigRequestDTO? Voertuig { get; set; }
         public TankkaartRequestDTO? Tankkaart { get; set; }
     }

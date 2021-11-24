@@ -71,7 +71,7 @@ namespace WPFApp.Helpers {
             catch(JsonReaderException) { }
 
             try { parsed_as_obj = JObject.FromObject(data); } 
-            catch (ArgumentException e) when (e.Message.Contains("JObject instance expected")) { }
+            catch (ArgumentException e) when (e.Message.Contains("JObject instantie verwacht")) { }
             
             JObject parseResultaat = parsed_as_json is not null ? parsed_as_json 
                                    : parsed_as_obj is not null ? parsed_as_obj 
@@ -91,7 +91,10 @@ namespace WPFApp.Helpers {
                     // https://stackoverflow.com/questions/33027409/json-net-serialize-jobject-while-ignoring-null-properties
                     filteredResultaat = JObject.FromObject(
                                             parseResultaat.ToObject(typeof(object)),
-                                            new JsonSerializer { NullValueHandling = NullValueHandling.Ignore }
+                                            new JsonSerializer { 
+                                                NullValueHandling = NullValueHandling.Ignore,
+                                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                                            }
                                         ).ToString();
                 } else {
                     filteredResultaat = parseResultaat.ToString();

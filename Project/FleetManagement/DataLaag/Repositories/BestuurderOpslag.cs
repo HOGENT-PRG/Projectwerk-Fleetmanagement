@@ -28,7 +28,6 @@ namespace DataLaag.Repositories
         // Adres
         // Valt onder bewind van Bestuurder
         public int VoegAdresToe(Adres adres) {
-            OproepControleur.ControleerOproeperGemachtigd(nameof(BestuurderOpslag));
 
             try {
                 _conn.Open();
@@ -97,8 +96,6 @@ namespace DataLaag.Repositories
         }
 
         public void UpdateAdres(Adres adres) {
-            OproepControleur.ControleerOproeperGemachtigd(nameof(BestuurderOpslag));
-
             try {
                 _conn.Open();
                 SqlCommand cmd = _conn.CreateCommand();
@@ -131,8 +128,6 @@ namespace DataLaag.Repositories
         }
 
         public void VerwijderAdres(int id) {
-            OproepControleur.ControleerOproeperGemachtigd(nameof(BestuurderOpslag));
-
 			try {
                 _conn.Open();
                 SqlCommand cmd = _conn.CreateCommand();
@@ -168,8 +163,6 @@ namespace DataLaag.Repositories
 
         // -- Create
         public int VoegBestuurderToe(Bestuurder bestuurder) {
-            OproepControleur.ControleerOproeperGemachtigd();
-
             try {
                 // Aangezien adres mogelijk in bestuurder toevoegen window komt zijn we wel geinteresseerd in 
                 // eventueel bestaan, content verschillen, ..
@@ -327,8 +320,6 @@ namespace DataLaag.Repositories
 
         // -- Update
         public void UpdateBestuurder(Bestuurder bestuurder) {
-            OproepControleur.ControleerOproeperGemachtigd();
-
             // Zelfde principe als VoegToe, we behandelen louter adres eigenschapsgewijs, de rest wordt behandelt
             // op basis van het id (fk)
             try {
@@ -376,8 +367,6 @@ namespace DataLaag.Repositories
 
         // -- Delete
         public void VerwijderBestuurder(int id) {
-            OproepControleur.ControleerOproeperGemachtigd();
-
             try {
                 _conn.Open();
                 SqlCommand cmd = _conn.CreateCommand();

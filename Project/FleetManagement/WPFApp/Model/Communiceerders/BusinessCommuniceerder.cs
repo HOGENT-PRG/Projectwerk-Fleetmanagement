@@ -26,7 +26,7 @@ namespace WPFApp.Model.Communiceerders {
             _fleetManager = new(new VoertuigOpslag(), new BestuurderOpslag(), new TankkaartOpslag(), new DatabankConfigureerder(null));
         }
 
-        #region Private methodes
+        #region conversies
         private AdresResponseDTO _conveerAdresNaarDTO(Adres a) {
             try {
                 AdresResponseDTO geconvAdres = BronParser.ParseCast<AdresResponseDTO>(a);
@@ -104,100 +104,134 @@ namespace WPFApp.Model.Communiceerders {
             } catch (Exception e) { throw new BusinessCommuniceerderException(e.Message, e); }
         }
 
-        #endregion
-        /*------------------------------->> Einde private methodes <<-------------------------------*/
+		#endregion
 
-        public BestuurderResponseDTO geefBestuurderDetail(int bestuurder_id) {
-            var resultaat = _fleetManager.BestuurderManager.GeefBestuurderDetail(bestuurder_id);
-            return _converteerBestuurderNaarDTO(resultaat, true);
+		#region databank info
+		public DatabankStatusResponseDTO GeefDatabankStatus() {
+            IDatabankConfigureerder db = _fleetManager.DatabankConfigureerder;
+            return new DatabankStatusResponseDTO(db.ConnectieSuccesvol, db.DatabaseBestaat, db.AlleTabellenBestaan, db.AantalTabellen, db.SequentieDoorlopen);
         }
+		#endregion
 
-        public List<BestuurderResponseDTO> geefBestuurders() {
-            return geefBestuurders(true);
+		#region Adres
+		public int VoegAdresToe(AdresRequestDTO adres) {
+			throw new NotImplementedException();
 		}
 
-        public List<BestuurderResponseDTO> geefBestuurders(bool inclusiefRelaties=true) {
+		public List<AdresResponseDTO> GeefAdressen(string kolom = null, object waarde = null) {
+			throw new NotImplementedException();
+		}
+
+		public void UpdateAdres(AdresRequestDTO adres) {
+			throw new NotImplementedException();
+		}
+
+		public void VerwijderAdres(int id) {
+			throw new NotImplementedException();
+		}
+		#endregion
+
+		#region bestuurder
+		public int VoegBestuurderToe(BestuurderRequestDTO bestuurder) {
+			throw new NotImplementedException();
+		}
+
+		public List<BestuurderResponseDTO> GeefBestuurders(string kolom = null, object waarde = null) {
             var resultaten = _fleetManager.BestuurderManager.GeefBestuurders();
             List<BestuurderResponseDTO> geconverteerdeResultaten = new();
 
-            foreach(Bestuurder b in resultaten) {
-                geconverteerdeResultaten.Add(_converteerBestuurderNaarDTO(b, inclusiefRelaties));
+            foreach (Bestuurder b in resultaten) {
+                geconverteerdeResultaten.Add(_converteerBestuurderNaarDTO(b, true));
             }
 
             return geconverteerdeResultaten;
         }
 
-        public TankkaartResponseDTO geefTankkaartDetail(int tankkaartId) {
-            throw new NotImplementedException();
+		public BestuurderResponseDTO GeefBestuurderDetail(int id) {
+            var resultaat = _fleetManager.BestuurderManager.GeefBestuurderDetail(id);
+            return _converteerBestuurderNaarDTO(resultaat, true);
         }
 
-        public List<TankkaartResponseDTO> geefTankkaarten() {
-            throw new NotImplementedException();
-        }
+		public BestuurderResponseDTO GeefBestuurderZonderRelaties(int id) {
+			throw new NotImplementedException();
+		}
 
-        public VoertuigResponseDTO geefVoertuigDetail(int voertuigId) {
-            throw new NotImplementedException();
-        }
+		public List<BestuurderResponseDTO> ZoekBestuurders(string kolom, object waarde) {
+			throw new NotImplementedException();
+		}
 
-        public List<VoertuigResponseDTO> geefVoertuigen() {
-            throw new NotImplementedException();
-        }
+		public void UpdateBestuurder(BestuurderRequestDTO bestuurder) {
+			throw new NotImplementedException();
+		}
 
-        public bool updateBestuurder(BestuurderRequestDTO bestuurder) {
-            throw new NotImplementedException();
-        }
+		public void VerwijderBestuurder(int id) {
+			throw new NotImplementedException();
+		}
 
-        public bool updateTankkaart(TankkaartRequestDTO tankkaart) {
-            throw new NotImplementedException();
-        }
+		#endregion
 
-        public bool updateVoertuig(VoertuigRequestDTO voertuig) {
-            throw new NotImplementedException();
-        }
+		#region tankkaart
+		public int VoegTankkaartToe(TankkaartRequestDTO tankkaart) {
+			throw new NotImplementedException();
+		}
 
-        public bool verwijderBestuurder(int bestuurderId) {
-            throw new NotImplementedException();
-        }
+		public TankkaartResponseDTO GeefTankkaartDetail(int id) {
+			throw new NotImplementedException();
+		}
 
-        public bool verwijderTankkaart(int tankkaartId) {
-            throw new NotImplementedException();
-        }
+		public List<TankkaartResponseDTO> GeefTankkaarten() {
+			throw new NotImplementedException();
+		}
 
-        public bool verwijderVoertuig(int voertuigId) {
-            throw new NotImplementedException();
-        }
+		public TankkaartResponseDTO GeefTankkaartZonderRelaties(int id) {
+			throw new NotImplementedException();
+		}
 
-        public bool voegBestuurderToe(BestuurderRequestDTO bestuurder) {
-            throw new NotImplementedException();
-        }
+		public TankkaartResponseDTO ZoekTankkaartMetKaartnummer(string kaartnummer) {
+			throw new NotImplementedException();
+		}
 
-        public bool voegTankkaartToe(TankkaartRequestDTO tankkaart) {
-            throw new NotImplementedException();
-        }
+		public void UpdateTankkaart(TankkaartRequestDTO tankkaart) {
+			throw new NotImplementedException();
+		}
 
-        public bool voegVoertuigToe(VoertuigRequestDTO voertuig) {
-            throw new NotImplementedException();
-        }
+		public void VerwijderTankkaart(int id) {
+			throw new NotImplementedException();
+		}
+		#endregion
 
-        public List<BestuurderResponseDTO> zoekBestuurders() {
-            throw new NotImplementedException();
-        }
+		#region voertuig
+		public int VoegVoertuigToe(VoertuigRequestDTO voertuig) {
+			throw new NotImplementedException();
+		}
 
-        public List<TankkaartResponseDTO> zoekTankkaarten() {
-            throw new NotImplementedException();
-        }
+		public VoertuigResponseDTO GeefVoertuigZonderRelaties(int id) {
+			throw new NotImplementedException();
+		}
 
-        public List<VoertuigResponseDTO> zoekVoertuig() {
-            throw new NotImplementedException();
-        }
+		public VoertuigResponseDTO GeefVoertuigDetail(int id) {
+			throw new NotImplementedException();
+		}
 
-        public DatabankStatusResponseDTO geefDatabankStatus() {
-            IDatabankConfigureerder db = _fleetManager.DatabankConfigureerder;
-            return new DatabankStatusResponseDTO(db.ConnectieSuccesvol, db.DatabaseBestaat, db.AlleTabellenBestaan, db.AantalTabellen, db.SequentieDoorlopen);
-        }
+		public List<VoertuigResponseDTO> GeefVoertuigen() {
+			throw new NotImplementedException();
+		}
 
-        public List<AdresResponseDTO> geefAdressen() {
-            throw new NotImplementedException();
-        }
-    }
+		public VoertuigResponseDTO ZoekVoertuigMetChassisnummer(string chassisnummer) {
+			throw new NotImplementedException();
+		}
+
+		public VoertuigResponseDTO ZoekVoertuigMetNummerplaat(string nummerplaat) {
+			throw new NotImplementedException();
+		}
+
+		public void UpdateVoertuig(VoertuigRequestDTO Voertuig) {
+			throw new NotImplementedException();
+		}
+
+		public void VerwijderVoertuig(int id) {
+			throw new NotImplementedException();
+		}
+		#endregion
+	}
 }

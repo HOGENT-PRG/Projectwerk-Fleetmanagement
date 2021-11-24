@@ -20,8 +20,6 @@ namespace DataLaag.Repositories {
 
 		// -- Create
 		public int VoegVoertuigToe(Voertuig voertuig) {
-			OproepControleur.ControleerOproeperGemachtigd();
-
 			_conn.Open();
 			SqlTransaction tx = _conn.BeginTransaction();
 
@@ -199,8 +197,6 @@ namespace DataLaag.Repositories {
 
 		// -- Update
 		public void UpdateVoertuig(Voertuig voertuig) {
-			OproepControleur.ControleerOproeperGemachtigd();
-
 			_conn.Open();
 			SqlTransaction tx = _conn.BeginTransaction();
 
@@ -283,8 +279,6 @@ namespace DataLaag.Repositories {
 
 		// Delete
 		public void VerwijderVoertuig(int id) {
-			OproepControleur.ControleerOproeperGemachtigd();
-
 			_conn.Open();
 			SqlTransaction tx = _conn.BeginTransaction();
 

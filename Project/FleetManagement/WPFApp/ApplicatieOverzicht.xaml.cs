@@ -32,11 +32,6 @@ namespace WPFApp
             this.Width = adjusted_width;
             this.Height = (adjusted_width > suggestive_adjusted_height) && adjusted_width < height ? adjusted_width : suggestive_adjusted_height;
         }
-        public ApplicatieOverzicht() {
-            InitializeComponent();
-            ZetWindowGrootte(25, 10);
-            ActiveerTab_click(AdresTab, null);
-		}
 
         private void ActiveerTab_click(object sender, RoutedEventArgs e) {
             SolidColorBrush actief = referentieleViewModel.ActiefTabbladKleur;
@@ -55,15 +50,25 @@ namespace WPFApp
             HistoriekTabs.Add(btn);
         }
 
+        public ApplicatieOverzicht() {
+            InitializeComponent();
+            ZetWindowGrootte(25, 10);
+            ActiveerTab_click(AdresTab, null);
+		}
+
         // NotificatieModule
         private void OpenDialog(object sender, DependencyPropertyChangedEventArgs e) {
             if (BerichtTextBox.Text.Length > 0) {
-                PopupDialogHost.ShowDialog(PopupDialogHost.DialogContent);
+                PopupDialogHost.ShowDialog(PopupDialogHost.Content);
             }
         }
 
         private void PopupDialogHost_DialogClosing(object sender, DialogClosingEventArgs eventArgs) {
             ((dynamic)this.DataContext).PopupDialoogContent = "";
+        }
+
+        private void Snackbar_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            PopupDialogHost.ShowDialog(PopupDialogHost.Content);
         }
         // fin
     }
