@@ -53,7 +53,7 @@ namespace WPFApp.Views {
 
 		}
 
-        private void _resetZoekfilter() {
+        private void _resetZoekFilter() {
 
 		}
 
