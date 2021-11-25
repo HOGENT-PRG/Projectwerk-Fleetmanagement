@@ -12,17 +12,16 @@
              d:DataContext="{d:DesignInstance local:BestuurderOverzichtViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="173*" />
             <ColumnDefinition Width="23*" />
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="23*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="40*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="173*" />
             <ColumnDefinition Width="15*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="300*" />
+            <ColumnDefinition Width="15*" />
+            <ColumnDefinition Width="113*" />
+            <ColumnDefinition Width="8*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -53,16 +52,12 @@
             </Rectangle.InputBindings>
         </Rectangle>
 
-
-        <!--<Button Content="Voeg een adres toe" Grid.Row="1" Grid.Column="1" Background="#FFFAFAF9" BorderBrush="Black" Grid.ColumnSpan="1" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1"/>-->
-
         <Rectangle Fill="#FFFAFAF9" Grid.Column="3" Grid.ColumnSpan="6"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100"/>
 
         <Button Content="Reset" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" Background="#FF121212" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Foreground="White" Command="{Binding ResetZoekfilter}" CommandParameter="0" />
 
         <ComboBox x:Name="zoekfilterbox" Grid.ColumnSpan="1" Grid.Column="3" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" VerticalAlignment="Stretch" BorderBrush="#000000" BorderThickness="1" IsDropDownOpen="False" IsReadOnly="True" ItemsSource="{Binding BestuurderZoekfilters}" SelectedItem="{Binding GeselecteerdeZoekfilter}" SelectionChanged="zoekfilterbox_SelectionChanged" />
 
-        <!--<TextBox Name="zoekveld"  Grid.Column="5" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch"/>-->
         <DatePicker x:Name="zoekdate" Grid.Column="6" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch" Visibility="Hidden" SelectedDate="{Binding ZoekveldDate}"></DatePicker>
         <TextBox x:Name="zoekveld" Grid.Column="6" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="{Binding ZoekveldRegular}"  VerticalAlignment="Stretch" />
 
@@ -146,10 +141,6 @@
                                 <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding Tankkaart.GeldigVoorBrandstoffen.Count}"/>
                                 <TextBlock Grid.Row="6" Grid.Column="0" Text="Vervaldatum:"/>
                                 <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding Tankkaart.Vervaldatum}"/>
-                                <TextBlock Grid.Row="7" Grid.Column="0" Text="Vervaldatum:"/>
-                                <TextBlock Grid.Row="7" Grid.Column="2" Text="{Binding Tankkaart.Vervaldatum}"/>
-                                <TextBlock Grid.Row="8" Grid.Column="0" Text="Vervaldatum:"/>
-                                <TextBlock Grid.Row="8" Grid.Column="2" Text="{Binding Tankkaart.Vervaldatum}"/>
                             </Grid>
                         </Border>
                         <Border Grid.Column="1" Name="voertuig" BorderBrush="Black" BorderThickness="1" Padding="5" Margin="5">

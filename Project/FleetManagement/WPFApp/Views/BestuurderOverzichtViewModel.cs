@@ -18,7 +18,7 @@ namespace WPFApp.Views {
         public string Naam => "Bestuurders";
         private readonly ICommuniceer CommunicatieKanaal;
         private readonly Zoekmachine Zoekmachine = new();
-        public Action<object> StuurSnackbar { get; private set; }
+        public Action<object> StuurSnackbar { get; init; }
         private List<string> ZoekfiltersMetAppendix { get; init; } = new() {
             "Adres", "Bestuurder", "Tankkaart", "Voertuig"
         };
@@ -47,6 +47,7 @@ namespace WPFApp.Views {
 			PropertyChanged += ViewModel_PropertyChanged;
         }
 
+        // Indien je wilt abonneren op property changes
 		private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e) {
 			switch (e.PropertyName) {
                 default:
