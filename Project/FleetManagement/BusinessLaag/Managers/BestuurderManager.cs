@@ -14,7 +14,7 @@ namespace BusinessLaag.Managers
     public class BestuurderManager : IBestuurderManager {
         private static FleetManager _fleetManager;
         private IBestuurderOpslag _opslag;
-
+        
         public BestuurderManager(FleetManager fleetmanager, IBestuurderOpslag repository) {
             _fleetManager = fleetmanager;
             _opslag = repository;
@@ -46,7 +46,7 @@ namespace BusinessLaag.Managers
         }
 
         public void UpdateAdres(Adres adres) {
-            if(adres.Id is not null && adres.Id > 0 && this.GeefAdressen("Id", adres.Id).Count < 1) {
+            if(adres?.Id is not null && adres.Id > 0 && this.GeefAdressen("Id", adres.Id).Count < 1) {
                 throw new BestuurderManagerException("Adres met opgegeven id kon niet gevonden worden.");
 			}
 
@@ -58,6 +58,10 @@ namespace BusinessLaag.Managers
         }
 
         public void VerwijderAdres(int id) {
+            if(id < 1) {
+                throw new BestuurderManagerException("Opgegeven id moet minimum 1 zijn.");
+			}
+
             if (id > 0 && this.GeefAdressen("Id", id).Count < 1) {
                 throw new BestuurderManagerException("Adres met opgegeven id kon niet gevonden worden.");
             }

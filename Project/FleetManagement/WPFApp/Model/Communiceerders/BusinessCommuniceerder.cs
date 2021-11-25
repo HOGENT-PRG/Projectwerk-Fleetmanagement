@@ -20,7 +20,7 @@ using System.Linq;
 // Functie return types zijn ResponseDTO(s) of POD types (string, int, ..)
 // Functie argumenten zijn RequestDTO(s) of POD types (string, int, ..)
 
-namespace WPFApp.Model.Communiceerders {
+namespace WPFApp.Model.Communiceerders { // TODO: regions toevoegen voor duidelijkheid
     internal class BusinessCommuniceerder : ICommuniceer {
         private FleetManager _fleetManager;
 

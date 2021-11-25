@@ -22,9 +22,8 @@ namespace WPFApp.Views {
             InitializeComponent();
         }
 
-
-        private void LMB_VoegBestuurderToe(object sender, MouseButtonEventArgs e) {
-
+        private void UserControl_Loaded(object sender, RoutedEventArgs e) {
+            VoerStartupRoutineUit.Command.Execute("Loaded");
         }
 
         private void _verbergAlleZoekfilters() {
@@ -55,9 +54,6 @@ namespace WPFApp.Views {
             }
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e) {
-            VoerStartupRoutineUit.Command.Execute("Loaded");
-        }
 	}
 
     

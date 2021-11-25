@@ -22,20 +22,25 @@ namespace WPFApp.Views {
             InitializeComponent();
         }
 
-        private void LMB_VoegVoertuigToe(object sender, MouseButtonEventArgs e) {
-
+		private void UserControl_Loaded(object sender, RoutedEventArgs e) {
+            VoerStartupRoutineUit.Command.Execute("Loaded");
         }
 
-        private void zoekterm_GetFocus(object sender, RoutedEventArgs e) {
-            if (zoekveld.Text == "Zoekterm...") {
-                zoekveld.Text = string.Empty;
+        private void _verbergAlleZoekfilters() {
+            zoekveld.Visibility = Visibility.Hidden;
+            // ..
+        }
+
+        private void zoekfilterbox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+           // ..
+           // Indien nodig hier switchen naar ander zoekveld (momenteel nvt)
+        }
+
+        private void VerwijderVoertuig_Click(object sender, RoutedEventArgs e) {
+            if (MessageBox.Show("Bent u zeker dat u dit voertuig wilt verwijderen?", "Waarschuwing", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
+                VerwijderenBevestigd.Command.Execute("");
             }
         }
 
-        private void zoekterm_LostFocus(object sender, RoutedEventArgs e) {
-            if (zoekveld.Text == string.Empty) {
-                zoekveld.Text = "Zoekterm...";
-            }
-        }
     }
 }

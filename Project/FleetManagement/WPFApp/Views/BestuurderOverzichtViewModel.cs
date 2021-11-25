@@ -19,9 +19,6 @@ namespace WPFApp.Views {
         private readonly ICommuniceer CommunicatieKanaal;
         private readonly Zoekmachine Zoekmachine = new();
         public Action<object> StuurSnackbar { get; init; }
-        private List<string> ZoekfiltersMetAppendix { get; init; } = new() {
-            "Adres", "Bestuurder", "Tankkaart", "Voertuig"
-        };
 
         private List<string> BlacklistZoekfilters { get; init; } = new() {
             "Chars", "Length"
@@ -65,12 +62,7 @@ namespace WPFApp.Views {
 		}
 
         private void _initialiseerZoekfilters() {
-            List<string> filters = Zoekmachine.GeefZoekfilterVelden(typeof(BestuurderResponseDTO));
-            List<string> cleaned = new();
-            foreach (string f in filters) {
-                cleaned.Add(f.Replace("ResponseDTO", ""));
-            }
-            BestuurderZoekfilters = new(cleaned);
+            BestuurderZoekfilters = new(Zoekmachine.GeefZoekfilterVelden(typeof(BestuurderResponseDTO), BlacklistZoekfilters));
         }
 
         private void _resetZoekFilter() {
@@ -95,10 +87,6 @@ namespace WPFApp.Views {
                 default:
                     zoekterm = ZoekveldRegular;
                     break;
-			}
-
-            foreach(string f in ZoekfiltersMetAppendix) {
-                zoekfilter = zoekfilter.Replace(f, f + "ResponseDTO");
 			}
 
 			if (zoekfilter.Contains("GeldigVoorBrandstoffen")) {
@@ -141,8 +129,6 @@ namespace WPFApp.Views {
                 StuurSnackbar("Bestuurder kon niet bepaald worden. Probeer deze eerst te selecteren alvorens te verwijderen.");
             }
 		}
-
-        //new Func<List<BestuurderResponseDTO>>(CommunicatieKanaal.GeefBestuurders)
 
         public ICommand ZoekMetFilter {
             get {

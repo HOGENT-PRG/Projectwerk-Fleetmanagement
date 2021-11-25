@@ -69,10 +69,10 @@ namespace DataLaag.Helpers {
 					Merk merk = (Merk)(Enum.Parse(typeof(Merk), (string)r["VoertuigMerk"], true));
 					VoertuigBrandstof brandstof = (VoertuigBrandstof)(Enum.Parse(typeof(VoertuigBrandstof), (string)r["VoertuigBrandstof"], true));
 					Voertuigsoort soort = (Voertuigsoort)(Enum.Parse(typeof(Voertuigsoort), (string)r["VoertuigSoort"], true));
-					string? kleur = r.IsDBNull(r.GetOrdinal("VoertuigKleur")) ? null : (string)r["VoertuigKleur"];
-					int? aantalDeuren = r.IsDBNull(r.GetOrdinal("VoertuigAantalDeuren")) ? null : Convert.ToInt32(r["VoertuigAantalDeuren"]);
+					string kleur = r.IsDBNull(r.GetOrdinal("VoertuigKleur")) ? "" : (string)r["VoertuigKleur"];
+					int aantalDeuren = r.IsDBNull(r.GetOrdinal("VoertuigAantalDeuren")) ? 0 : Convert.ToInt32(r["VoertuigAantalDeuren"]);
 
-					return new Voertuig((int)r["BestuurderVoertuigId"], merk, (string)r["VoertuigModel"], (string)r["VoertuigNummerplaat"], brandstof, soort, b, (string)r["VoertuigChasisnummer"], (string)kleur, (int)aantalDeuren);
+					return new Voertuig((int)r["VoertuigId"], merk, (string)r["VoertuigModel"], (string)r["VoertuigNummerplaat"], brandstof, soort, b, (string)r["VoertuigChasisnummer"], (string)kleur, (int)aantalDeuren);
 
 				}
 				return null;
