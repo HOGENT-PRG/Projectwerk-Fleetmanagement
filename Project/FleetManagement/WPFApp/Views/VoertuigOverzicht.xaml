@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFApp.Views"
-             xmlns:Presentatielaag="clr-namespace:WPFApp"
+             xmlns:Presentatielaag="clr-namespace:WPFApp" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              Loaded="UserControl_Loaded"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900"
@@ -62,12 +62,21 @@
 
         <Button Content="Zoek" Grid.Row="1" Grid.Column="8" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Command="{Binding ZoekMetFilter}" />
 
-        <DataGrid Opacity="0.7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Voertuigen, Mode=OneWay}" IsSynchronizedWithCurrentItem="False" AutoGenerateColumns="False" SelectedItem="{Binding HighlightedVoertuig}" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True" >
+        <DataGrid Opacity="0.7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Voertuigen, Mode=OneWay}" IsSynchronizedWithCurrentItem="False" AutoGenerateColumns="False" SelectedItem="{Binding HighlightedVoertuig}" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True" 
+                  >
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Foreground="White" BorderThickness="0" Background="{DynamicResource MaterialDesignValidationErrorBrush}" Click="VerwijderVoertuig_Click">🗑️ Verwijder</Button>
+                            <Button
+                              Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                              ToolTip="{DynamicResource MaterialDesignValidationErrorBrush}"
+                              IsEnabled="True"
+                                BorderBrush="AliceBlue"
+                                Foreground="White" BorderThickness="0" Background="{DynamicResource MaterialDesignValidationErrorBrush}" Click="VerwijderVoertuig_Click">
+                                <materialDesign:PackIcon Kind="Delete" />
+                            </Button>
+                            <!--<Button Foreground="White" BorderThickness="0" Background="{DynamicResource MaterialDesignValidationErrorBrush}" Click="VerwijderVoertuig_Click">🗑️ Verwijder</Button>-->
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -75,7 +84,20 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <!-- TODO apart scherm of werken met dialog, liever laatste, bekijken  -->
-                            <Button BorderThickness="0" Foreground="White" Content="✏️ Bewerk"
+                            <Button
+                              Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                              ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                              IsEnabled="True"
+                                BorderThickness="0" Foreground="White" BorderBrush="AliceBlue" Background="ForestGreen"
+                                    Command="{Binding DataContext.WijzigVoertuigCommand, 
+                                                  RelativeSource={RelativeSource FindAncestor, 
+                                                    AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
+                                                  }
+                                             }"
+                                    CommandParameter="{Binding}">
+                                <materialDesign:PackIcon Kind="Pencil" />
+                            </Button>
+                            <!--<Button BorderThickness="0" Foreground="White" Content="✏️ Bewerk"
                                     Command="{Binding DataContext.WijzigVoertuigCommand, 
                                                   RelativeSource={RelativeSource FindAncestor, 
                                                     AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
@@ -83,7 +105,7 @@
                                              }"
                                     CommandParameter="{Binding}"
                             >
-                            </Button>
+                            </Button>-->
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -94,7 +116,7 @@
                 <DataGridTextColumn Header="Brandstof"  Binding="{Binding Brandstof, Mode=OneWay}" />
                 <DataGridTextColumn Header="Nummerplaat" Binding="{Binding Nummerplaat, Mode=OneWay}" />
                 <DataGridTextColumn Header="Chassisnummer"  Binding="{Binding Chassisnummer, Mode=OneWay}" />
-                <DataGridTextColumn Header="Voertuigsoort"  Binding="{Binding Voertuigsoort, Mode=OneWay}" />
+                <DataGridTextColumn Header="Soort"  Binding="{Binding Voertuigsoort, Mode=OneWay}" />
                 <DataGridTextColumn Header="Kleur"  Binding="{Binding Kleur, Mode=OneWay}" />
                 <DataGridTextColumn Header="Aantal deuren"  Binding="{Binding AantalDeuren, Mode=OneWay}" />
             </DataGrid.Columns>

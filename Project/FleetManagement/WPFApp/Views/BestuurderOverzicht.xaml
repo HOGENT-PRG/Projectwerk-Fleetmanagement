@@ -68,15 +68,36 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Foreground="White" BorderThickness="0" Background="{DynamicResource MaterialDesignValidationErrorBrush}" Click="VerwijderBestuurder_Click">🗑️ Verwijder</Button>
+                            <Button
+                              Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                              ToolTip="{DynamicResource MaterialDesignValidationErrorBrush}"
+                              IsEnabled="True"
+                                BorderBrush="AliceBlue"
+                                Foreground="White" BorderThickness="0" Background="{DynamicResource MaterialDesignValidationErrorBrush}" Click="VerwijderBestuurder_Click">
+                                <materialDesign:PackIcon Kind="Delete" />
+                            </Button>
+                            <!--<Button Foreground="White" BorderThickness="0" Background="{DynamicResource MaterialDesignValidationErrorBrush}" Click="VerwijderBestuurder_Click">🗑️ Verwijder</Button>-->
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
+                            <Button
+                              Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                              ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                              IsEnabled="True"
+                                BorderThickness="0" Foreground="White" BorderBrush="AliceBlue" Background="ForestGreen"
+                                    Command="{Binding DataContext.WijzigBestuurderCommand, 
+                                                  RelativeSource={RelativeSource FindAncestor, 
+                                                    AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
+                                                  }
+                                             }"
+                                    CommandParameter="{Binding}">
+                                <materialDesign:PackIcon Kind="Pencil" />
+                            </Button>
                             <!-- TODO toe te voegen aan applicatieoverzicht -->
-                            <Button BorderThickness="0" Foreground="White" Content="✏️ Bewerk"
+                            <!--<Button BorderThickness="0" Foreground="White" Content="✏️ Bewerk"
                                     Command="{Binding DataContext.WijzigBestuurderCommand, 
                                                   RelativeSource={RelativeSource FindAncestor, 
                                                     AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
@@ -84,7 +105,7 @@
                                              }"
                                     CommandParameter="{Binding}"
                             >
-                            </Button>
+                            </Button>-->
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
