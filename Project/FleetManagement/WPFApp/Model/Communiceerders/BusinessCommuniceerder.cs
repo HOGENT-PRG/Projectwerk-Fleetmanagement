@@ -85,16 +85,22 @@ namespace WPFApp.Model.Communiceerders {
 			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
+		public List<BestuurderResponseDTO> GeefBestuurders() {
+			return this.GeefBestuurders(null, null);
+		}
+
 		public List<BestuurderResponseDTO> GeefBestuurders(string kolom = null, object waarde = null) {
 			List<BestuurderResponseDTO> res = new();
 
 			try {
-				_fleetManager.BestuurderManager.GeefBestuurders(
-					kolom, waarde
-				).ForEach(b => res.Add(
-								DomeinNaarResponseDTO.ConverteerBestuurder(b, true)
-						 ));
-			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
+				List<Bestuurder> temp = _fleetManager.BestuurderManager.GeefBestuurders(kolom, waarde);
+				
+				foreach(Bestuurder b in temp) {
+					res.Add(DomeinNaarResponseDTO.ConverteerBestuurder(b, true));
+				}
+			} catch (Exception e) 
+			{ throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); 
+			}
 
 			return res;
         }
@@ -121,11 +127,11 @@ namespace WPFApp.Model.Communiceerders {
 			List<BestuurderResponseDTO> res = new();
 
 			try {
-				_fleetManager.BestuurderManager.ZoekBestuurders(
-					kolom, waarde
-				).ForEach(b => res.Add(
-								DomeinNaarResponseDTO.ConverteerBestuurder(b, true)
-						 ));
+				List<Bestuurder> temp = _fleetManager.BestuurderManager.ZoekBestuurders(kolom, waarde);
+
+				foreach (Bestuurder b in temp) {
+					res.Add(DomeinNaarResponseDTO.ConverteerBestuurder(b, true));
+				}
 			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 
 			return res;
@@ -171,10 +177,11 @@ namespace WPFApp.Model.Communiceerders {
 			List<TankkaartResponseDTO> res = new();
 
 			try {
-				_fleetManager.TankkaartManager.GeefTankkaarten()
-					.ToList()
-					.ForEach(t => res.Add(DomeinNaarResponseDTO.ConverteerTankkaart(t, true)));
+				List<Tankkaart> temp = _fleetManager.TankkaartManager.GeefTankkaarten().ToList();
 
+				foreach (Tankkaart t in temp) {
+					res.Add(DomeinNaarResponseDTO.ConverteerTankkaart(t, true));
+				}
 			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 
 			return res;
@@ -248,8 +255,11 @@ namespace WPFApp.Model.Communiceerders {
 			List<VoertuigResponseDTO> res = new();
 
 			try {
-				_fleetManager.VoertuigManager.GeefVoertuigen()
-					.ForEach(v => res.Add(DomeinNaarResponseDTO.ConverteerVoertuig(v, true)));
+				List<Voertuig> temp = _fleetManager.VoertuigManager.GeefVoertuigen();
+
+				foreach (Voertuig v in temp) {
+					res.Add(DomeinNaarResponseDTO.ConverteerVoertuig(v, true));
+				}
 
 			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 

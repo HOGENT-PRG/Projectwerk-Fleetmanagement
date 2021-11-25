@@ -32,6 +32,10 @@ namespace WPFApp.Model.Communiceerders {
 			throw new NotImplementedException();
 		}
 
+		public List<BestuurderResponseDTO> GeefBestuurders() {
+			throw new NotImplementedException();
+		}
+
 		public List<BestuurderResponseDTO> GeefBestuurders(string kolom = null, object waarde = null) {
 			throw new NotImplementedException();
 		}

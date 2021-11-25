@@ -10,6 +10,8 @@ DBCC CHECKIDENT ('FleetManager.dbo.TankkaartBrandstof',RESEED, 0)
 DELETE FROM Voertuig;
 DBCC CHECKIDENT ('FleetManager.dbo.Voertuig',RESEED, 0)
 
+-- op het einde een update van rijksregisternummers, merk
+
 insert into FleetManager.dbo.Adres (Straatnaam, Huisnummer, Postcode, Plaatsnaam, Provincie, Land) values ('Birchwood', 44, '1170', 'Bruxelles', 'BRU', 'Belgium');
 insert into FleetManager.dbo.Adres (Straatnaam, Huisnummer, Postcode, Plaatsnaam, Provincie, Land) values ('Anzinger', 17, '1170', 'Bruxelles', 'BRU', 'Belgium');
 insert into FleetManager.dbo.Adres (Straatnaam, Huisnummer, Postcode, Plaatsnaam, Provincie, Land) values ('Heath', 65, '1050', 'Bruxelles', 'BRU', 'Belgium');
@@ -5014,3 +5016,14 @@ insert into FleetManager.dbo.Voertuig (Merk, Model, Nummerplaat, Chasisnummer, B
 insert into FleetManager.dbo.Voertuig (Merk, Model, Nummerplaat, Chasisnummer, Brandstof, Type, Kleur, AantalDeuren) values ('Daewoo', 'Leganza', 'JN8AZ2KR2ET603821', 'LJw5bCvwyG', 'Benzine', 'berline', 'Aquamarine', 5);
 insert into FleetManager.dbo.Voertuig (Merk, Model, Nummerplaat, Chasisnummer, Brandstof, Type, Kleur, AantalDeuren) values ('Porsche', '944', '1G6DN57P790453101', 'jelfN7XR', 'CNG', 'sedan', 'Orange', 5);
 insert into FleetManager.dbo.Voertuig (Merk, Model, Nummerplaat, Chasisnummer, Brandstof, Type, Kleur, AantalDeuren) values ('Porsche', 'Boxster', '1FTWX3B54AE438506', 'yVlED3F6C', 'Elektrisch', 'berline', 'Red', 3);
+
+
+UPDATE Bestuurder SET Rijksregisternummer='90020199902';
+UPDATE Voertuig SET Merk='AstonMartin' WHERE Merk='Aston Martin';
+UPDATE Voertuig SET Merk='LandRover' WHERE Merk='Land Rover';
+UPDATE Voertuig SET Merk='Peugeot'  WHERE Merk NOT IN ('Abarth','Aiways','AlfaRomeo','Alpine','Artega','AstonMartin','Audi','Bentley','BMW','BmwAlpina','Cadillac','Caterham','Chevrolet','Chrysler','Citroën','Cupr','Dacia','Daihatsu','Dodge','
+Donkervoort','DS','Ferrari','Fiat','Ford','Genesis','Honda','Hummer','Hyundai','Infiniti','Isuzu','Jaguar','Jeep','KIA','KTM','Lada','Lamborghini','Lancia','LandRover','Lexus','Lotus','LynkCo','Maserati','Mazda','McLaren','Mercedes','
+MG','MiaElectric','MINI','Mitsubishi','Nissan','Opel','Peugeot','Polestar','Porsche','Renault','RollsRoyce','Saab','Seat','Seres','Skoda','Smart','Ssangyong','Subaru','Suzuki','Tesla','Toyota','Volkswagen','Volvo');
+UPDATE Voertuig SET Chasisnummer=SUBSTRING(CONVERT(varchar(255), NEWID()), 0, 18) WHERE LEN(Voertuig.Chasisnummer) != 17;
+UPDATE Adres SET Straatnaam='Boomvallei' WHERE Straatnaam LIKE '%[0-9]%';
+DELETE FROM Bestuurder WHERE Id=0;

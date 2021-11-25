@@ -118,6 +118,7 @@ namespace DataLaag.Repositories
 								  "a.Plaatsnaam AS BestuurderAdresPlaatsnaam, " +
 								  "a.Provincie AS BestuurderAdresProvincie, " +
 								  "a.Land AS BestuurderAdresLand, " +
+								  "v.Id AS VoertuigId, " +
 								  "v.Merk AS VoertuigMerk, " +
 								  "v.Model AS VoertuigModel, " +
 								  "v.Nummerplaat AS VoertuigNummerplaat, " +
@@ -173,7 +174,7 @@ namespace DataLaag.Repositories
 					}
 
 					// tankkaart brandstoffen instellen
-					if (!r.IsDBNull(r.GetOrdinal("Brandstof"))) {
+					if (!r.IsDBNull(r.GetOrdinal("TankkaartBrandstof"))) {
 						TankkaartBrandstof b = QueryParser.ParseReaderNaarTankkaartBrandstof(r);
 						if (!huidigeTankkaart.GeldigVoorBrandstoffen.Contains(b)) {
 							huidigeTankkaart.VoegBrandstofToe(b);

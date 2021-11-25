@@ -18,6 +18,7 @@ namespace WPFApp.Interfaces {
         void VerwijderAdres(int id);
 
         int VoegBestuurderToe(BestuurderRequestDTO bestuurder);
+        List<BestuurderResponseDTO> GeefBestuurders();
         List<BestuurderResponseDTO> GeefBestuurders(string? kolom = null, object? waarde = null);
         BestuurderResponseDTO GeefBestuurderDetail(int id);
         BestuurderResponseDTO GeefBestuurderZonderRelaties(int id);

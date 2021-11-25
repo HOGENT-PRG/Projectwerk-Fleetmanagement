@@ -85,9 +85,11 @@ namespace WPFApp.Model.Mappers.Business {
                 TankkaartResponseDTO geconvTankkaart = BronParser.ParseCast<TankkaartResponseDTO>(t);
 
                 // wordt hier terug ingesteld en circulatie is vermeden
-                if (geconvBestuurder.Tankkaart is null) {
-                    geconvBestuurder.Tankkaart = geconvTankkaart;
-				}
+                if (geconvBestuurder is not null) {
+                    if (geconvBestuurder.Tankkaart is null) {
+                        geconvBestuurder.Tankkaart = geconvTankkaart;
+                    }
+                }
 
                 geconvTankkaart.Bestuurder = geconvBestuurder;
 

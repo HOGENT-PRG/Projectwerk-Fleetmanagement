@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="_TESTDATA_SQL\**" />
+    <EmbeddedResource Remove="_TESTDATA_SQL\**" />
+    <None Remove="_TESTDATA_SQL\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -23,10 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BusinessLaag\BusinessLaag.csproj" />
     <ProjectReference Include="..\DataLaag\DataLaag.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="_TESTDATA_SQL\" />
   </ItemGroup>
 
 </Project>

@@ -39,7 +39,7 @@ namespace xUnitTesting.Model
 
         private static Tankkaart validTankkaart = new Tankkaart(validId, validKaartnummer, validVervaldatum, validPincode, validBrandstoffen, validBestuurder);
 
-        private static Voertuig validVoertuig = new Voertuig(validId, MerkInstance, validModel, validNummerplaat, BrandstofInstance, VoertuigsoortInstance, validKleur, validAantalDeuren, validBestuurder, validChassisnummer);
+        private static Voertuig validVoertuig = new Voertuig(validId, MerkInstance, validModel, validNummerplaat, BrandstofInstance, VoertuigsoortInstance, validBestuurder, validChassisnummer, validKleur, validAantalDeuren);
 
         [Theory]
         [InlineData(null)]  // dit omvat tevens de valid Zet methodes (ctor gebruikt deze)
@@ -47,8 +47,8 @@ namespace xUnitTesting.Model
         public void Test_Ctor_valid(int? id)
         {
             Voertuig v = new Voertuig(id, MerkInstance, validModel, validNummerplaat, 
-                                      BrandstofInstance, VoertuigsoortInstance, validKleur, validAantalDeuren, 
-                                      validBestuurder, validChassisnummer);
+                                      BrandstofInstance, VoertuigsoortInstance, 
+                                      validBestuurder, validChassisnummer, validKleur, validAantalDeuren);
 
             if (id is null) Assert.Null(v.Id);
             else Assert.Equal(id, v.Id);
@@ -72,8 +72,8 @@ namespace xUnitTesting.Model
         public void Test_Ctor_InvalidId(int id)
         {
             Assert.Throws<VoertuigException>(() => new Voertuig(id, MerkInstance, validModel, validNummerplaat,
-                                      BrandstofInstance, VoertuigsoortInstance, validKleur, validAantalDeuren,
-                                      validBestuurder, validChassisnummer));
+                                      BrandstofInstance, VoertuigsoortInstance,
+                                      validBestuurder, validChassisnummer, validKleur, validAantalDeuren));
         }
 
         [Theory]

@@ -21,7 +21,7 @@ namespace xUnitTesting.Model
         private static DateTime validVervaldatum = DateTime.Now.AddDays(30);
         private static string validPincode = "1111";
         private static Adres validAdres = new Adres(1, "Leliestraat", "1B", "9000", "Gent", "Oost-vlaanderen", "Belgium");
-        private static Voertuig validVoertuig = new Voertuig(1, Merk.AlfaRomeo, "1XYZ", "1BCD111", VoertuigBrandstof.Diesel, Voertuigsoort.berline, "rood", null, null, "11111111111111111");
+        private static Voertuig validVoertuig = new Voertuig(1, Merk.AlfaRomeo, "1XYZ", "1BCD111", VoertuigBrandstof.Diesel, Voertuigsoort.berline, null, "11111111111111111", "rood", null);
         private static Bestuurder validBestuurder = new Bestuurder(validId, validNaam, validVoornaam, validAdres, validGeboortedatum, validRRN, RijbewijsSoort.B, validVoertuig, null);
 
         private static TankkaartBrandstof validBrandstof = TankkaartBrandstof.CNG;

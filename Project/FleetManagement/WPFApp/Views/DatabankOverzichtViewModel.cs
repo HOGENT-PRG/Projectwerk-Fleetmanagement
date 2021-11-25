@@ -41,7 +41,7 @@ namespace WPFApp.Views {
 
         public ICommand VernieuwStatus {
             get {
-                return new Command(_ => UpdateStaat(_communicatieKanaal.geefDatabankStatus()));
+                return new Command(_ => UpdateStaat(_communicatieKanaal.GeefDatabankStatus()));
             }
         }
 

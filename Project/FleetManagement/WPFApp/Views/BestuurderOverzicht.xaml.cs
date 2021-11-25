@@ -27,19 +27,38 @@ namespace WPFApp.Views {
 
         }
 
-        private void zoekterm_GetFocus(object sender, RoutedEventArgs e) {
-            if (zoekveld.Text == "Zoekterm...") {
-                zoekveld.Text = string.Empty;
+        private void _verbergAlleZoekfilters() {
+            zoekveld.Visibility = Visibility.Hidden;
+            zoekdate.Visibility = Visibility.Hidden;
+        }
+
+        private void zoekfilterbox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            try {
+                _verbergAlleZoekfilters();
+
+                if (zoekfilterbox?.SelectedItem is not null) {
+                    if (zoekfilterbox.SelectedItem.ToString().Contains("GeboorteDatum")
+                        || zoekfilterbox.SelectedItem.ToString().Contains("Vervaldatum")) {
+                        zoekdate.Visibility = Visibility.Visible;
+                    } else {
+                        zoekveld.Visibility = Visibility.Visible;
+                    }
+                } else {
+                    zoekveld.Visibility = Visibility.Visible;
+                }
+            } catch { /* Durft al eens klagen bij switchen van tabs */ }
+        }
+
+        private void VerwijderBestuurder_Click(object sender, RoutedEventArgs e) {
+            if (MessageBox.Show("Bent u zeker dat u deze bestuurder wilt verwijderen?", "Waarschuwing", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
+                VerwijderenBevestigd.Command.Execute("");
             }
         }
 
-        private void zoekterm_LostFocus(object sender, RoutedEventArgs e) {
-            if (zoekveld.Text == string.Empty) {
-                zoekveld.Text = "Zoekterm...";
-            }
+        private void UserControl_Loaded(object sender, RoutedEventArgs e) {
+            VoerStartupRoutineUit.Command.Execute("Loaded");
         }
-
-    }
+	}
 
     
 }

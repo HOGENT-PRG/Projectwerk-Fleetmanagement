@@ -95,7 +95,7 @@ namespace DataLaag.Repositories {
 					"t.Kaartnummer AS TankkaartKaartnummer, " +
 					"t.Pincode AS TankkaartPincode, " +
 					"t.Vervaldatum AS TankkaartVervalDatum, " +
-					"tb.Brandstof AS Brandstof, " +
+					"tb.Brandstof AS TankkaartBrandstof, " +
 					"b.Id AS BestuurderId, " +
 					"b.Naam AS BestuurderNaam, " +
 					"b.Voornaam AS BestuurderVoornaam, " +
@@ -110,6 +110,7 @@ namespace DataLaag.Repositories {
 					"a.Plaatsnaam AS BestuurderAdresPlaatsnaam, " +
 					"a.Provincie AS BestuurderAdresProvincie, " +
 					"a.Land AS BestuurderAdresLand, " +
+					"v.Id AS VoertuigId, " +
 					"v.Merk AS VoertuigMerk, " +
 					"v.Model AS VoertuigModel, " +
 					"v.Nummerplaat AS VoertuigNummerplaat, " +
@@ -165,7 +166,7 @@ namespace DataLaag.Repositories {
 
 					// tankkaart brandstof instellen als deze bestaat,
 					// en natuurlijk enkel indien de bestuurder een tankkaart ingesteld heeft
-					if (!r.IsDBNull(r.GetOrdinal("Brandstof")) && huidigVoertuig.Bestuurder.Tankkaart is not null) {
+					if (!r.IsDBNull(r.GetOrdinal("TankkaartBrandstof")) && huidigVoertuig.Bestuurder.Tankkaart is not null) {
 						TankkaartBrandstof b = QueryParser.ParseReaderNaarTankkaartBrandstof(r);
 						if (!huidigVoertuig.Bestuurder.Tankkaart.GeldigVoorBrandstoffen.Contains(b)) {
 							huidigVoertuig.Bestuurder.Tankkaart.VoegBrandstofToe(b);

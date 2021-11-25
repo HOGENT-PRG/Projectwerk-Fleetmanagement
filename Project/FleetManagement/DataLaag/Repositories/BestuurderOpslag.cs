@@ -226,7 +226,7 @@ namespace DataLaag.Repositories
                                   "t.Kaartnummer AS TankkaartKaartnummer, " +
                                   "t.Pincode AS TankkaartPincode, " +
                                   "t.Vervaldatum AS TankkaartVervalDatum, " +
-                                  "tb.Brandstof AS Brandstof, " +
+                                  "tb.Brandstof AS TankkaartBrandstof, " +
                                   "b.Id AS BestuurderId, " +
                                   "b.Naam AS BestuurderNaam, " +
                                   "b.Voornaam AS BestuurderVoornaam, " +
@@ -237,10 +237,11 @@ namespace DataLaag.Repositories
                                   "b.VoertuigId AS BestuurderVoertuigId, " +
                                   "a.Straatnaam AS BestuurderAdresStraatnaam, " +
                                   "a.Huisnummer AS BestuurderAdresHuisnummer, " +
-                                  "a.Postcode AS BestuurderAdresPostcode " +
+                                  "a.Postcode AS BestuurderAdresPostcode, " +
                                   "a.Plaatsnaam AS BestuurderAdresPlaatsnaam, " +
                                   "a.Provincie AS BestuurderAdresProvincie, " +
                                   "a.Land AS BestuurderAdresLand, " +
+                                  "v.Id AS VoertuigId, " +
                                   "v.Merk AS VoertuigMerk, " +
                                   "v.Model AS VoertuigModel, " +
                                   "v.Nummerplaat AS VoertuigNummerplaat, " +
@@ -295,7 +296,7 @@ namespace DataLaag.Repositories
                         );
 					}
 
-                    if (!r.IsDBNull(r.GetOrdinal("Brandstof")) && huidigeBestuurder.Tankkaart is not null) {
+                    if (!r.IsDBNull(r.GetOrdinal("TankkaartBrandstof")) && huidigeBestuurder.Tankkaart is not null) {
                         TankkaartBrandstof b = QueryParser.ParseReaderNaarTankkaartBrandstof(r);
                         if (!huidigeBestuurder.Tankkaart.GeldigVoorBrandstoffen.Contains(b)) {
                             huidigeBestuurder.Tankkaart.VoegBrandstofToe(b);

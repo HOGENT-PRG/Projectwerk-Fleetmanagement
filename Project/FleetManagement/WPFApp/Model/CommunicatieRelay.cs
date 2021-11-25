@@ -6,8 +6,7 @@ using WPFApp.Model.Communiceerders;
 namespace WPFApp {
 
     internal class CommunicatieRelay {
-        public ICommuniceer CommunicatieKanaal;
-        public Zoekmachine Zoekmachine;
+        public readonly ICommuniceer CommunicatieKanaal;
 
         public readonly bool GEBRUIK_API;
         public readonly string API_BASIS_PAD;
@@ -15,7 +14,6 @@ namespace WPFApp {
         public CommunicatieRelay(bool GebruikApi = false, string ApiBasisPad = "http://localhost:5000") {
             API_BASIS_PAD = ApiBasisPad;
             GEBRUIK_API = GebruikApi;
-            Zoekmachine = new Zoekmachine();
 
             if (GEBRUIK_API) {
                 CommunicatieKanaal = new ApiCommuniceerder(API_BASIS_PAD);
