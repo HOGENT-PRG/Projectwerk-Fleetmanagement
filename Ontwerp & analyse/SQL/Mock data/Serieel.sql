@@ -5030,3 +5030,4 @@ DELETE FROM Bestuurder WHERE Id=0;
 DELETE FROM Tankkaart WHERE Id=0;
 DELETE FROM Voertuig WHERE Id=0;
 DELETE FROM Adres WHERE Id=0;
+UPDATE Voertuig SET Model='Grand Cherokee' WHERE LEN(Voertuig.Model) > 19 OR LEN(Voertuig.Model) < 2;
