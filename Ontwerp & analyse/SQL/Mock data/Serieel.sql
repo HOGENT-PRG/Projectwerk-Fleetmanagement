@@ -5027,3 +5027,6 @@ MG','MiaElectric','MINI','Mitsubishi','Nissan','Opel','Peugeot','Polestar','Pors
 UPDATE Voertuig SET Chasisnummer=SUBSTRING(CONVERT(varchar(255), NEWID()), 0, 18) WHERE LEN(Voertuig.Chasisnummer) != 17;
 UPDATE Adres SET Straatnaam='Boomvallei' WHERE Straatnaam LIKE '%[0-9]%';
 DELETE FROM Bestuurder WHERE Id=0;
+DELETE FROM Tankkaart WHERE Id=0;
+DELETE FROM Voertuig WHERE Id=0;
+DELETE FROM Adres WHERE Id=0;
