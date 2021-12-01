@@ -37,5 +37,28 @@ namespace WPFApp.Views {
                 zoekveld.Text = "Zoekterm...";
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            VoerStartupRoutineUit.Command.Execute("Loaded");
+        }
+
+        private void VerwijderAdres_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Bent u zeker dat u deze adres wilt verwijderen?", "Waarschuwing", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                VerwijderenBevestigd.Command.Execute("");
+            }
+        }
+
+        private void zoekfilterbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

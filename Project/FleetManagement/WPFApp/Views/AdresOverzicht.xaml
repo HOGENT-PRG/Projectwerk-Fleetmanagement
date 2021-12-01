@@ -3,9 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:WPFApp.Views"
+             xmlns:Presentatielaag="clr-namespace:WPFApp"
              mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
              d:DesignHeight="600" d:DesignWidth="900"
              d:DataContext="{d:DesignInstance local:AdresOverzichtViewModel}">
     <Grid>
@@ -30,43 +32,98 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="" 
-                   FontWeight="Bold" FontSize="18"
+                       FontWeight="Bold" FontSize="18"
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Button x:Name="VoerStartupRoutineUit" Visibility="Hidden"
+                Command="{Binding StartupRoutine}" Grid.Column="1"
+                >
 
-        <Label MouseLeftButtonDown="LMB_VoegAdresToe" Content="Voeg een adres toe" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Visibility="Visible" Cursor="Hand">
+        </Button>
+        <Label Content="Voeg een adres toe" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Visibility="Visible" Cursor="Hand">
             <Label.InputBindings>
-                <MouseBinding Gesture="LeftClick" Command="{Binding FooCommand}"/>
+                <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}"
+                CommandParameter="{Binding DataContext.PaginaViewModels[AdresToevoegen], RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}"/>
             </Label.InputBindings>
         </Label>
-        <Rectangle MouseLeftButtonDown="LMB_VoegAdresToe" Fill="#FFFAFAF9" Grid.Column="1" Grid.ColumnSpan="1"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100" Cursor="Hand">
+        <Rectangle Fill="#FFFAFAF9" Grid.Column="1" Grid.ColumnSpan="1"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100" Cursor="Hand">
             <Rectangle.InputBindings>
-                <MouseBinding Gesture="LeftClick" Command="{Binding FooCommand}"/>
+                <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}"
+                CommandParameter="{Binding DataContext.PaginaViewModels[AdresToevoegen], RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}"/>
             </Rectangle.InputBindings>
         </Rectangle>
 
 
         <Rectangle Fill="#FFFAFAF9" Grid.Column="3" Grid.ColumnSpan="6"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100"/>
 
-        <ComboBox Grid.ColumnSpan="1" Grid.Column="3" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" VerticalAlignment="Stretch" BorderBrush="#000000" BorderThickness="1" IsDropDownOpen="False" IsReadOnly="True" />
+        <Button Content="Reset" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" Background="#FF121212" BorderBrush="#000000" Margin="10,0,321,0" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Foreground="White" Command="{Binding ResetZoekfilter}" CommandParameter="0" Grid.ColumnSpan="2" />
 
-        <TextBox Name="zoekveld" GotFocus="zoekterm_GetFocus" LostFocus="zoekterm_LostFocus" Grid.Column="5" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch"/>
+        <ComboBox Grid.ColumnSpan="1" Grid.Column="3" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" VerticalAlignment="Stretch" BorderBrush="#000000" BorderThickness="1" IsDropDownOpen="False" IsReadOnly="True" ItemsSource="{Binding AdresZoekfilters}" SelectedItem="{Binding GeselecteerdeZoekfilter}" SelectionChanged="zoekfilterbox_SelectionChanged"/>
+        <DatePicker x:Name="zoekdate" Grid.Column="6" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch" Visibility="Hidden" SelectedDate="{Binding ZoekveldDate}"></DatePicker>
 
-        <Button Content="Zoek" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26"  />
+        <TextBox Name="zoekveld" GotFocus="zoekterm_GetFocus" LostFocus="zoekterm_LostFocus" Grid.Column="5" Margin="78,7,7,7" Grid.Row="1" Text="{Binding ZoekveldRegular}"/>
 
-        <DataGrid Opacity="0.7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Adressen}" AutoGenerateColumns="False" >
+        <Button Content="Zoek" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26"  Command="{Binding ZoekMetFilter}" />
+
+        <DataGrid Opacity="0.7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Adressen}" AutoGenerateColumns="False"  SelectedItem="{Binding HighlightedAdres}" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True">
             <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                              Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                              ToolTip="{DynamicResource MaterialDesignValidationErrorBrush}"
+                              IsEnabled="True"
+                                BorderBrush="AliceBlue"
+                                Foreground="White" BorderThickness="0" Background="{DynamicResource MaterialDesignValidationErrorBrush}" Click="VerwijderAdres_Click">
+                                <materialDesign:PackIcon Kind="Delete" />
+                            </Button>
+                            <!--<Button Foreground="White" BorderThickness="0" Background="{DynamicResource MaterialDesignValidationErrorBrush}" Click="VerwijderBestuurder_Click">🗑️ Verwijder</Button>-->
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                              Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                              ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                              IsEnabled="True"
+                                BorderThickness="0" Foreground="White" BorderBrush="AliceBlue" Background="ForestGreen"
+                                    Command="{Binding DataContext.WijzigBestuurderCommand, 
+                                                  RelativeSource={RelativeSource FindAncestor, 
+                                                    AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
+                                                  }
+                                             }"
+                                    CommandParameter="{Binding}">
+                                <materialDesign:PackIcon Kind="Pencil" />
+                            </Button>
+                            <!-- TODO toe te voegen aan applicatieoverzicht -->
+                            <!--<Button BorderThickness="0" Foreground="White" Content="✏️ Bewerk"
+                                    Command="{Binding DataContext.WijzigBestuurderCommand, 
+                                                  RelativeSource={RelativeSource FindAncestor, 
+                                                    AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
+                                                  }
+                                             }"
+                                    CommandParameter="{Binding}"
+                            >
+                            </Button>-->
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            
+          
                 <DataGridTextColumn Header="Straatnaam" Binding="{Binding Straatnaam}" />
                 <DataGridTextColumn Header="Huisnummer" Binding="{Binding Huisnummer}" />
                 <DataGridTextColumn Header="Postcode" Binding="{Binding Postcode}" />
                 <DataGridTextColumn Header="Plaatsnaam"  Binding="{Binding Plaatsnaam}" />
                 <DataGridTextColumn Header="Provincie"  Binding="{Binding Provincie}" />
                 <DataGridTextColumn Header="Land"  Binding="{Binding Land}" />
-                <DataGridTextColumn Header="Bestuurder"  Binding="{Binding BestuurderNaam}" />
+                <DataGridTextColumn Header="Bestuurder"  Binding="{Binding Bestuurder.Id}" />
             </DataGrid.Columns>
         </DataGrid>
-        
+      
 
-
+        <Button x:Name="VerwijderenBevestigd" Command="{Binding VerwijderHighlightedAdres}" Visibility="Hidden"></Button>
 
     </Grid>
 </UserControl>
