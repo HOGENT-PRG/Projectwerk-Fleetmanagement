@@ -33,7 +33,7 @@ namespace WPFApp.Views
         private void _verbergAlleZoekfilters()
         {
             zoekveld.Visibility = Visibility.Hidden;
-
+            zoekdate.Visibility = Visibility.Hidden;
         }
 
         private void VerwijderTankkaart_click(object sender, RoutedEventArgs e)

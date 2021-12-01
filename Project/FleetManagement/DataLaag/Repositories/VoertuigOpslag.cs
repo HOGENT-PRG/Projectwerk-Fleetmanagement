@@ -306,7 +306,7 @@ namespace DataLaag.Repositories {
 					tx.Rollback();
 				} catch (InvalidOperationException e) { /* Error vond plaats voor de commit, exception negeren */
 				} catch (Exception e) {
-					throw new TankkaartOpslagException("Rollback gaf een onverwachte foutmelding.", e);
+					throw new VoertuigOpslagException("Rollback gaf een onverwachte foutmelding.", e);
 				}
 
 				throw new VoertuigOpslagException("Er trad een onverwachte fout op.", ex);

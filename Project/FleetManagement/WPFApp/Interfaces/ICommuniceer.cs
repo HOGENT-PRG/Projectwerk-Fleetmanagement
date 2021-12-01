@@ -13,6 +13,7 @@ namespace WPFApp.Interfaces {
 
         /* Adres & Bestuurder */
         int VoegAdresToe(AdresRequestDTO adres);
+        List<AdresResponseDTO> GeefAdressen();
         List<AdresResponseDTO> GeefAdressen(string? kolom = null, object? waarde = null);
         void UpdateAdres(AdresRequestDTO adres);
         void VerwijderAdres(int id);

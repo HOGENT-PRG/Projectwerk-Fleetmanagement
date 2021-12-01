@@ -22,27 +22,6 @@ namespace WPFApp.Views {
             InitializeComponent();
         }
 
-        private void LMB_VoegAdresToe(object sender, MouseButtonEventArgs e) {
-
-        }
-        
-        private void zoekterm_GetFocus(object sender, RoutedEventArgs e) {
-            if (zoekveld.Text == "Zoekterm...") {
-                zoekveld.Text = string.Empty;
-            }
-        }
-
-        private void zoekterm_LostFocus(object sender, RoutedEventArgs e) {
-            if (zoekveld.Text == string.Empty) {
-                zoekveld.Text = "Zoekterm...";
-            }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             VoerStartupRoutineUit.Command.Execute("Loaded");
@@ -50,15 +29,12 @@ namespace WPFApp.Views {
 
         private void VerwijderAdres_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Bent u zeker dat u deze adres wilt verwijderen?", "Waarschuwing", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Bent u zeker dat u dit adres wilt verwijderen?", "Waarschuwing", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 VerwijderenBevestigd.Command.Execute("");
             }
         }
 
-        private void zoekfilterbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

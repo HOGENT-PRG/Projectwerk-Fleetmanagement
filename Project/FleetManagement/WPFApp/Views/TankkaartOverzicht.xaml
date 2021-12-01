@@ -7,22 +7,22 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:WPFApp.Views"
              xmlns:Presentatielaag="clr-namespace:WPFApp"
-       
+             Loaded="UserControl_Loaded"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900"
              d:DataContext="{d:DesignInstance local:TankkaartOverzichtViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="173*" />
             <ColumnDefinition Width="23*" />
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="23*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="40*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="173*" />
             <ColumnDefinition Width="15*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="300*" />
+            <ColumnDefinition Width="15*" />
+            <ColumnDefinition Width="113*" />
+            <ColumnDefinition Width="8*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -58,13 +58,13 @@
 
         <Rectangle Fill="#FFFAFAF9" Grid.Column="3" Grid.ColumnSpan="6"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100"/>
 
-        <Button Content="Reset" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" Background="#FF121212" BorderBrush="#000000" Margin="0,0,315,0" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Foreground="White" Command="{Binding ResetZoekfilter}" CommandParameter="0" />
+        <Button Content="Reset" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" Background="#FF121212" BorderBrush="#000000" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Foreground="White" Command="{Binding ResetZoekfilter}" CommandParameter="0" />
 
         <ComboBox x:Name="zoekfilterbox" Grid.ColumnSpan="1" Grid.Column="3" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" VerticalAlignment="Stretch" BorderBrush="#000000" BorderThickness="1" IsDropDownOpen="False" IsReadOnly="True" ItemsSource="{Binding TankkaartZoekfilters}" SelectedItem="{Binding GeselecteerdeZoekfilter}" SelectionChanged="zoekfilterbox_SelectionChanged" />
 
         <DatePicker x:Name="zoekdate" Grid.Column="6" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch" Visibility="Hidden" SelectedDate="{Binding ZoekveldDate}"></DatePicker>
-        <TextBox x:Name="zoekveld" Grid.Column="5" Margin="104,7,0,7" Grid.Row="1" Text="{Binding ZoekveldRegular}" Grid.ColumnSpan="2" />
-        <Button Content="Zoek" Grid.Row="1" Grid.Column="7" VerticalAlignment="Top" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="2" Margin="24,11,2,0" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Command="{Binding ZoekMetFilter}" />
+        <TextBox x:Name="zoekveld" Grid.Column="6" Margin="7,7,7,7" Grid.Row="1" Text="{Binding ZoekveldRegular}" Grid.ColumnSpan="1" />
+        <Button Content="Zoek" Grid.Row="1" Grid.Column="8" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Command="{Binding ZoekMetFilter}" />
 
         <!--<Button Content="Zoek" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Command="{Binding ZoekMetFilter}" />-->
 
@@ -91,7 +91,7 @@
                               ToolTip="MaterialDesignFloatingActionMiniLightButton"
                               IsEnabled="True"
                                 BorderThickness="0" Foreground="White" BorderBrush="AliceBlue" Background="ForestGreen"
-                                    Command="{Binding DataContext.WijzigBestuurderCommand, 
+                                    Command="{Binding DataContext.WijzigTankkaartCommand, 
                                                   RelativeSource={RelativeSource FindAncestor, 
                                                     AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
                                                   }
@@ -106,10 +106,73 @@
                 <DataGridTextColumn Header="Kaartnummer" Binding="{Binding Kaartnummer}" />
                 <DataGridTextColumn Header="Vervaldatum" Binding="{Binding Vervaldatum}" />
                 <DataGridTextColumn Header="Pincode" Binding="{Binding Pincode}" />
-                <DataGridTextColumn Header="Brandstoffen"  Binding="{Binding GeldigVoorBrandstoffen}" />
-                <DataGridTextColumn Header="Bestuurder"  Binding="{Binding BestuurderNaam}" />
+                <DataGridTextColumn Header="Klik om open te klappen" Width="1*" />
             </DataGrid.Columns>
-
+            <!---->
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="444"/>
+                            <ColumnDefinition Width="444"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Name="bestuurder" BorderBrush="Black" BorderThickness="1" Padding="5" Margin="5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="15" Text="Bestuurder"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" FontSize="5" Text=""/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Id: " />
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Bestuurder.Id}" />
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Voornaam:"/>
+                                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Bestuurder.Voornaam}"/>
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Naam:"/>
+                                <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Bestuurder.Naam}"/>
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Geboortedatum:"/>
+                                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Bestuurder.GeboorteDatum}"/>
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="Rijksregisternummer:"/>
+                                <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding Bestuurder.Rijksregisternummer}"/>
+                            </Grid>
+                        </Border>
+                        <!-- TankkaartBrandstof heeft 4 opties + 1 voor header = 5 rows, niet de beste manier maar kan niet met datagrid -->
+                        <!-- TODO - CRIT, dto dient aangepast te worden om de enum string weer te geven ipv het cijfer -->
+                        <Border Grid.Column="1" Name="brandstoffen" BorderBrush="Black" BorderThickness="1" Padding="5" Margin="5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="15" Text="Brandstoffen"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding GeldigVoorBrandstoffen[0]}" />
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding GeldigVoorBrandstoffen[1]}"/>
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding GeldigVoorBrandstoffen[2]}"/>
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding GeldigVoorBrandstoffen[3]}"/>
+                            </Grid>
+                        </Border>
+                        
+                    </Grid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            <!---->
         </DataGrid>
         <Button x:Name="VerwijderBevestigd" Command="{Binding VerwijderHighlightedTankkaart}" Visibility="Hidden"></Button>
     </Grid>

@@ -67,8 +67,7 @@ namespace WPFApp.Views {
         }
 
         private void _resetZoekFilter() {
-            List<TankkaartResponseDTO> res = CommunicatieKanaal.GeefTankkaarten();
-            Tankkaarten = new(res);
+            Tankkaarten = new(CommunicatieKanaal.GeefTankkaarten());
         }
 
         // switch en gebruik datumvergelijker

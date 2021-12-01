@@ -44,6 +44,10 @@ namespace WPFApp.Model.Communiceerders { // TODO: regions toevoegen voor duideli
 			} catch(Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 		}
 
+		public List<AdresResponseDTO> GeefAdressen() {
+			return this.GeefAdressen(null, null);
+		}
+
 		public List<AdresResponseDTO> GeefAdressen(string kolom = null, object waarde = null) {
 			List<AdresResponseDTO> adressen = new();
 

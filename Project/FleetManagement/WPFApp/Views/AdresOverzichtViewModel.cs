@@ -52,7 +52,7 @@ namespace WPFApp.Views {
         // Bij het daadwerkelijk renderen gaan we data opvragen en weergeven (dus niet bij initialisatie van de View+VM, aangezien dat op de achtergrond bij opstart voor alle VM's tegelijk plaatsvindt)
         private void _startupRoutine() {
             try {
-
+                _resetZoekFilter();
 			} catch (Exception e) {
                 StuurSnackbar(e);
 			}
@@ -63,34 +63,28 @@ namespace WPFApp.Views {
 		}
 
         private void _resetZoekFilter() {
-            List<AdresResponseDTO> res = CommunicatieKanaal.GeefAdressen();
-            Adressen = new(res);
+            Adressen = new(CommunicatieKanaal.GeefAdressen());
 		}
 
-        // Geen speciale gevallen hier, kan gewoon zonder switch 
-        //private void _zoekMetFilter() {
-        //    object zoekterm;
-        //    string zoekfilter = GeselecteerdeZoekfilter;
+		// Geen speciale gevallen hier, kan gewoon zonder switch 
+		private void _zoekMetFilter() {
+			string zoekfilter = GeselecteerdeZoekfilter;
 
-        //    Func<object, object, bool> vergelijker = null;
-        //    List<Func<List<AdresResponseDTO>>> dataCollectieAdres = new()
-        //    {
-        //        new Func<List<AdresResponseDTO>>(CommunicatieKanaal.GeefAdressen)
-        //    };
+			Func<object, object, bool> vergelijker = null;
+            List<Func<List<AdresResponseDTO>>> dataCollectieActieAdres = new() {
+                new Func<List<AdresResponseDTO>>(CommunicatieKanaal.GeefAdressen)
+            };
 
+            Adressen = new ObservableCollection<AdresResponseDTO>(
+                    Zoekmachine.ZoekMetFilter<AdresResponseDTO>(dataCollectieActieAdres, zoekfilter, GeselecteerdeZoekfilter, vergelijker).ToList()
+            );
 
+		}
 
-
-        //        Adressen = new ObservableCollection<AdresResponseDTO>(
-        //        Zoekmachine.ZoekMetFilter<AdresResponseDTO>(dataCollectieAdres, zoekfilter, vergelijker).ToList();
-              
-
-        //}
-
-        private void _verwijderHighlightedAdres() {
+		private void _verwijderHighlightedAdres() {
             if (HighlightedAdres?.Id is not null)
             {
-                CommunicatieKanaal.VerwijderBestuurder((int)HighlightedAdres.Id);
+                CommunicatieKanaal.VerwijderAdres((int)HighlightedAdres.Id);
                 _resetZoekFilter();
                 StuurSnackbar("Adres succesvol verwijderd.");
             }
@@ -100,16 +94,16 @@ namespace WPFApp.Views {
             }
         }
 
-        //public ICommand ZoekMetFilter {
-        //    get {
-        //        return new RelayCommand(
-        //            p => _zoekMetFilter(),
-        //            p => p is not null
-        //        );
-        //    }
-        //}
+		public ICommand ZoekMetFilter {
+			get {
+				return new RelayCommand(
+					p => _zoekMetFilter(),
+					p => p is not null
+				);
+			}
+		}
 
-        public ICommand StartupRoutine {
+		public ICommand StartupRoutine {
             get {
                 return new RelayCommand(
                     p => _startupRoutine(),

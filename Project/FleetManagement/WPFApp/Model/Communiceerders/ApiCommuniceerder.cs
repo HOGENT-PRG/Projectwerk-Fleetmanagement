@@ -11,18 +11,22 @@ using WPFApp.Model.Response;
 // TODO bij uitwerken van API laag
 
 namespace WPFApp.Model.Communiceerders {
-    internal class ApiCommuniceerder : ICommuniceer {
-        private readonly string API_BASIS_PAD;
+	internal class ApiCommuniceerder : ICommuniceer {
+		private readonly string API_BASIS_PAD;
 
-        public ApiCommuniceerder(string api_basispad) {
-            this.API_BASIS_PAD = api_basispad;
-        }
+		public ApiCommuniceerder(string api_basispad) {
+			this.API_BASIS_PAD = api_basispad;
+		}
 
 		private string _voerAPIRequestUit(string jsonConstruct, string urlPad) {
 			throw new NotImplementedException();
 		}
 
 		/*------------------------------->> Einde private methodes <<-------------------------------*/
+
+		public List<AdresResponseDTO> GeefAdressen() {
+			throw new NotImplementedException();
+		}
 
 		public List<AdresResponseDTO> GeefAdressen(string kolom = null, object waarde = null) {
 			throw new NotImplementedException();

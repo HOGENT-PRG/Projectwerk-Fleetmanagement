@@ -80,6 +80,11 @@ namespace DataLaag.Repositories
                                   "a.Land AS BestuurderAdresLand " +
                                   $"FROM Adres AS a { zoekAppendix} ;";
 
+                if (zoekAppendix.Length > 0) {
+                    cmd.Parameters.Add(new SqlParameter("@waarde", TypeConverteerder.GeefDbType(waarde.GetType())));
+                    cmd.Parameters["@waarde"].Value = waarde is null ? DBNull.Value : waarde;
+                }
+
                 SqlDataReader r = cmd.ExecuteReader();
                 List<Adres> resultaten = new();
 
@@ -128,20 +133,40 @@ namespace DataLaag.Repositories
         }
 
         public void VerwijderAdres(int id) {
-			try {
-                _conn.Open();
+            _conn.Open();
+            SqlTransaction tx = _conn.BeginTransaction();
+
+            try {
+                SqlCommand cmd_best_rel = _conn.CreateCommand();
+                cmd_best_rel.Transaction = tx;
+                cmd_best_rel.CommandText = "UPDATE Bestuurder SET AdresId=@addrnull WHERE AdresId=@addrid ;";
+                cmd_best_rel.Parameters.Add(new SqlParameter("@addrnull", DbType.Int32));
+                cmd_best_rel.Parameters.Add(new SqlParameter("@addrid", DbType.Int32));
+                cmd_best_rel.Parameters["@addrnull"].Value = DBNull.Value;
+                cmd_best_rel.Parameters["@addrid"].Value = id;
+                cmd_best_rel.ExecuteNonQuery();
+
+
                 SqlCommand cmd = _conn.CreateCommand();
+                cmd.Transaction = tx;
                 cmd.CommandText = "DELETE FROM Adres WHERE Id=@id ;";
                 cmd.Parameters.Add(new SqlParameter("@id", DbType.Int32));
                 cmd.Parameters["@id"].Value = id;
                 cmd.ExecuteNonQuery();
-            } catch(Exception e) {
-                throw new BestuurderOpslagException("Kon adres niet verwijderen.", e);
+
+                tx.Commit();
+            } catch(Exception ex) {
+                try {
+                    tx.Rollback();
+                } catch (InvalidOperationException e) { /* Error vond plaats voor de commit, exception negeren */
+                } catch (Exception e) {
+                    throw new BestuurderOpslagException("Rollback gaf een onverwachte foutmelding.", e);
+                }
+
+                throw new BestuurderOpslagException("Kon adres niet verwijderen.", ex);
 			} finally {
                 _conn.Close();
             }
-
-            throw new NotImplementedException();
 		}
 
         // Bestuurder 

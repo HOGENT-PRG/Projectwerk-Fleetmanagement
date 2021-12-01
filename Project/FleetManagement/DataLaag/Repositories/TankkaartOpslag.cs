@@ -127,7 +127,7 @@ namespace DataLaag.Repositories
 								  "v.Type AS VoertuigType, " +
 								  "v.Kleur AS VoertuigKleur, " +
 								  "v.AantalDeuren AS VoertuigAantalDeuren, " +
-								  "v.Type AS VoertuigSoort" +
+								  "v.Type AS VoertuigSoort " +
 								  "FROM Tankkaart AS t " +
 								  "LEFT JOIN TankkaartBrandstof AS tb " +
 								  "ON(tb.TankkaartId = t.Id) " +
@@ -137,7 +137,7 @@ namespace DataLaag.Repositories
 								  "ON(b.AdresId = a.Id) " +
 								  "LEFT JOIN Voertuig AS v " +
 								  "ON(b.VoertuigId = v.Id) " +
-								  $"ON(b.TankkaartId = t.Id) {zoekAppendix} ;";
+								  $" {zoekAppendix} ;";
 
 				if (zoekAppendix.Length > 0) {
 					cmd.Parameters.Add(new SqlParameter("@waarde", TypeConverteerder.GeefDbType(waarde.GetType())));
