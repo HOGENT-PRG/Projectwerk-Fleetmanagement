@@ -13,29 +13,60 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFApp.Views {
+namespace WPFApp.Views
+{
     /// <summary>
     /// Interaction logic for TankkaartOverzicht.xaml
     /// </summary>
-    public partial class TankkaartOverzicht : UserControl {
-        public TankkaartOverzicht() {
+    public partial class TankkaartOverzicht : UserControl
+    {
+        public TankkaartOverzicht()
+        {
             InitializeComponent();
         }
 
-        private void LMB_VoegTankkaartToe(object sender, MouseButtonEventArgs e) {
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            VoerStartupRoutineUit.Command.Execute("Loaded");
+        }
+
+        private void _verbergAlleZoekfilters()
+        {
+            zoekveld.Visibility = Visibility.Hidden;
 
         }
 
-        private void zoekterm_GetFocus(object sender, RoutedEventArgs e) {
-            if (zoekveld.Text == "Zoekterm...") {
-                zoekveld.Text = string.Empty;
+        private void VerwijderTankkaart_click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Bent u zeker dat u deze tankkaart wilt verwijderen?", "Waarschuwing", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                VerwijderBevestigd.Command.Execute("");
             }
         }
 
-        private void zoekterm_LostFocus(object sender, RoutedEventArgs e) {
-            if (zoekveld.Text == string.Empty) {
-                zoekveld.Text = "Zoekterm...";
+        private void zoekfilterbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                _verbergAlleZoekfilters();
+
+                if (zoekfilterbox?.SelectedItem is not null)
+                {
+                    if (zoekfilterbox.SelectedItem.ToString().Contains("Vervaldatum"))
+                    {
+                        zoekdate.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        zoekveld.Visibility = Visibility.Visible;
+                    }
+                }
+                else
+                {
+                    zoekveld.Visibility = Visibility.Visible;
+                }
             }
+            catch { /* Durft al eens klagen bij switchen van tabs */ }
         }
     }
 }

@@ -3,7 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:WPFApp.Views"
+             xmlns:Presentatielaag="clr-namespace:WPFApp"
+       
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900"
              d:DataContext="{d:DesignInstance local:TankkaartOverzichtViewModel}">
@@ -31,15 +35,21 @@
         <TextBlock Text="" 
                    FontWeight="Bold" FontSize="18"
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Button x:Name="VoerStartupRoutineUit" Visibility="Hidden" Command="{Binding StartupRoutine}" Grid.Column="1">
+        </Button>
 
-        <Label MouseLeftButtonDown="LMB_VoegTankkaartToe" Content="Voeg een tankkaart toe" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Visibility="Visible" Cursor="Hand">
+        <Label Content="Voeg een tankkaart toe" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Visibility="Visible" Cursor="Hand">
             <Label.InputBindings>
-                <MouseBinding Gesture="LeftClick" Command="{Binding FooCommand}"/>
+                <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}"
+                CommandParameter="{Binding DataContext.PaginaViewModels[TankkaartToevoegen], RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}"/>
             </Label.InputBindings>
         </Label>
-        <Rectangle MouseLeftButtonDown="LMB_VoegTankkaartToe" Fill="#FFFAFAF9" Grid.Column="1" Grid.ColumnSpan="1"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100" Cursor="Hand">
+        <Rectangle Fill="#FFFAFAF9" Grid.Column="1" Grid.ColumnSpan="1"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100" Cursor="Hand">
             <Rectangle.InputBindings>
-                <MouseBinding Gesture="LeftClick" Command="{Binding FooCommand}"/>
+
+                <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}"
+                CommandParameter="{Binding DataContext.PaginaViewModels[TankkaartToevoegen], RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}"/>
+
             </Rectangle.InputBindings>
         </Rectangle>
 
@@ -48,20 +58,59 @@
 
         <Rectangle Fill="#FFFAFAF9" Grid.Column="3" Grid.ColumnSpan="6"  HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Stroke="Black" StrokeThickness="1" Panel.ZIndex="-100"/>
 
-        <ComboBox Grid.ColumnSpan="1" Grid.Column="3" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" VerticalAlignment="Stretch" BorderBrush="#000000" BorderThickness="1" IsDropDownOpen="False" IsReadOnly="True" />
+        <Button Content="Reset" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" Background="#FF121212" BorderBrush="#000000" Margin="0,0,315,0" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Foreground="White" Command="{Binding ResetZoekfilter}" CommandParameter="0" />
 
-        <TextBox Name="zoekveld" GotFocus="zoekterm_GetFocus" LostFocus="zoekterm_LostFocus"  Grid.Column="5" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch"/>
+        <ComboBox x:Name="zoekfilterbox" Grid.ColumnSpan="1" Grid.Column="3" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" VerticalAlignment="Stretch" BorderBrush="#000000" BorderThickness="1" IsDropDownOpen="False" IsReadOnly="True" ItemsSource="{Binding TankkaartZoekfilters}" SelectedItem="{Binding GeselecteerdeZoekfilter}" SelectionChanged="zoekfilterbox_SelectionChanged" />
 
-        <Button Content="Zoek" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26"  />
+        <DatePicker x:Name="zoekdate" Grid.Column="6" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch" Visibility="Hidden" SelectedDate="{Binding ZoekveldDate}"></DatePicker>
+        <TextBox x:Name="zoekveld" Grid.Column="5" Margin="104,7,0,7" Grid.Row="1" Text="{Binding ZoekveldRegular}" Grid.ColumnSpan="2" />
+        <Button Content="Zoek" Grid.Row="1" Grid.Column="7" VerticalAlignment="Top" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="2" Margin="24,11,2,0" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Command="{Binding ZoekMetFilter}" />
 
-        <DataGrid Opacity="0.7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Adressen}" AutoGenerateColumns="False" >
+        <!--<Button Content="Zoek" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Command="{Binding ZoekMetFilter}" />-->
+
+        <DataGrid Opacity="0.7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Tankkaarten, Mode=OneWay}" IsSynchronizedWithCurrentItem="False" AutoGenerateColumns="False" SelectedItem="{Binding HighlightedTankkaart}" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True" >
             <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button  Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                              ToolTip="{DynamicResource MaterialDesignValidationErrorBrush}"
+                              IsEnabled="True"
+                                BorderBrush="AliceBlue"
+                                Foreground="White" BorderThickness="0" Background="{DynamicResource MaterialDesignValidationErrorBrush}" Click="VerwijderTankkaart_click">
+                                <materialDesign:PackIcon Kind="Delete" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                              ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                              IsEnabled="True"
+                                BorderThickness="0" Foreground="White" BorderBrush="AliceBlue" Background="ForestGreen"
+                                    Command="{Binding DataContext.WijzigBestuurderCommand, 
+                                                  RelativeSource={RelativeSource FindAncestor, 
+                                                    AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
+                                                  }
+                                             }"
+                                    CommandParameter="{Binding}">
+                                <materialDesign:PackIcon Kind="Pencil" />
+
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Kaartnummer" Binding="{Binding Kaartnummer}" />
                 <DataGridTextColumn Header="Vervaldatum" Binding="{Binding Vervaldatum}" />
                 <DataGridTextColumn Header="Pincode" Binding="{Binding Pincode}" />
                 <DataGridTextColumn Header="Brandstoffen"  Binding="{Binding GeldigVoorBrandstoffen}" />
                 <DataGridTextColumn Header="Bestuurder"  Binding="{Binding BestuurderNaam}" />
             </DataGrid.Columns>
+
         </DataGrid>
+        <Button x:Name="VerwijderBevestigd" Command="{Binding VerwijderHighlightedTankkaart}" Visibility="Hidden"></Button>
     </Grid>
 </UserControl>

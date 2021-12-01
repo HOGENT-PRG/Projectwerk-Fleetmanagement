@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using WPFApp.Helpers;
 using WPFApp.Interfaces;
 using WPFApp.Model.Response;
 using WPFApp.Views.MVVM;
+using System.Windows.Input;
+using WPFApp.Helpers;
+using System.ComponentModel;
+using System.Linq;
+
 
 namespace WPFApp.Views {
     internal sealed class TankkaartOverzichtViewModel : Presenteerder, IPaginaViewModel {
@@ -39,35 +39,88 @@ namespace WPFApp.Views {
             StuurSnackbar = stuurSnackbar;
 
             _initialiseerZoekfilters();
+            PropertyChanged += ViewModel_PropertyChanged;
+        }
+        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                default:
+                    break;
+            }
         }
 
         // Bij het daadwerkelijk renderen gaan we data opvragen en weergeven (dus niet bij initialisatie van de View+VM, aangezien dat op de achtergrond bij opstart voor alle VM's tegelijk plaatsvindt)
         private void _startupRoutine() {
-            try {
-
-            } catch (Exception e) {
+            try
+            {
+                _resetZoekFilter();
+            }
+            catch (Exception e)
+            {
                 StuurSnackbar(e);
             }
         }
 
         private void _initialiseerZoekfilters() {
-
+            TankkaartZoekfilters = new(Zoekmachine.GeefZoekfilterVelden(typeof(TankkaartResponseDTO), BlacklistZoekfilters));
         }
 
         private void _resetZoekFilter() {
-
+            List<TankkaartResponseDTO> res = CommunicatieKanaal.GeefTankkaarten();
+            Tankkaarten = new(res);
         }
 
         // switch en gebruik datumvergelijker
         private void _zoekMetFilter() {
             // ...
 
-            ZoekveldRegular = "";
+            object zoekterm;
+            string zoekfilter = GeselecteerdeZoekfilter;
+
+            Func<object, object, bool> vergelijker = null;
+            List<Func<List<TankkaartResponseDTO>>> dataCollectieTankkaarten = new()
+            {
+                new Func<List<TankkaartResponseDTO>>(CommunicatieKanaal.GeefTankkaarten)
+            };
+
+            switch (GeselecteerdeZoekfilter)
+            {
+                case string s when s.Contains("Vervaldatum"):
+                    zoekterm = ZoekveldDate;
+                    vergelijker = this.DatumVergelijker;
+                    break;
+                default:
+                    zoekterm = ZoekveldRegular;
+                    break;
+            }
+
+            if (zoekfilter.Contains("GeldigVoorBrandstoffen"))
+            {
+                // CRIT TODO - implementeren zoek func voor list
+            }
+            else
+            {
+                Tankkaarten = new ObservableCollection<TankkaartResponseDTO>(
+                    Zoekmachine.ZoekMetFilter<TankkaartResponseDTO>(dataCollectieTankkaarten, zoekfilter, zoekterm, vergelijker).ToList()
+                );
+            }
+
             ZoekveldDate = DateTime.Now;
+            ZoekveldRegular = "";
         }
 
         private void _verwijderHighlightedTankkaart() {
-
+            if (HighlightedTankkaart?.Id is not null)
+            {
+                CommunicatieKanaal.VerwijderTankkaart((int)HighlightedTankkaart.Id);
+                _resetZoekFilter();
+                StuurSnackbar("Tankkaart succesvol verwijderd.");
+            }
+            else
+            {
+                StuurSnackbar("Tankkaart kon niet bepaald worden. Probeer deze eerst te selecteren alvorens te verwijderen.");
+            }
         }
 
         // Vergelijkt datums - zonder tijd 
