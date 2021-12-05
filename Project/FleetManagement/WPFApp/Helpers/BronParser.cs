@@ -115,12 +115,12 @@ namespace WPFApp.Helpers {
 
                 return (T)Convert.ChangeType(filteredResultaat, typeof(T));
 
-            /**Optie 2**/
+            /**Optie 2 - specifiek omzetten naar een object met type T **/
             } else if ((typeof(T) == typeof(JObject) || typeof(T).GetType().IsClass) 
                         && typeof(T) != typeof(object)) {            // https://dotnetfiddle.net/puxB1a
                 return (T)parseResultaat.ToObject(typeof(T));
 
-            /**Optie 3**/
+            /**Optie 3 - generiek omzetten naar een "object" **/
             } else {                                                                    
                 return (T)parseResultaat.ToObject(typeof(object)); 
             }
