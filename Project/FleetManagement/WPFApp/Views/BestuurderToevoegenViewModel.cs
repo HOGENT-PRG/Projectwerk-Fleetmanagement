@@ -213,11 +213,18 @@ namespace WPFApp.Views {
 
         private bool _controleerVeldenVoldaanVoorToevoegen() {
             // Adres, Tankkaart, Voertuig mag null zijn
-            bool voldaan = Achternaam.Length > 0
-                           && Voornaam.Length > 0
-                           && GeboorteDatum < DateTime.Now
+            bool voldaan = !(string.IsNullOrEmpty(Achternaam) 
+                             || Achternaam.Length < 2 
+                             || Achternaam.Length > 70 
+                             || Achternaam.Any(c => Char.IsDigit(c)))
+                           && !(string.IsNullOrEmpty(Voornaam) 
+                                || Voornaam.Length < 2 
+                                || Voornaam.Length > 70 
+                                || Voornaam.Any(c => Char.IsDigit(c)))
+                           && (DateTime.Compare(DateTime.Now.AddYears(-120), GeboorteDatum) < 0)
+                                && (DateTime.Compare(DateTime.Now, GeboorteDatum) > 0)
                            && RijksRegisterNummer.Length > 0 // validatie bij Self_ prop event handler
-                           && RijbewijsSoort.Length > 0;
+                           && RijbewijsSoort.Length > 0; // validatie dmv dropdown
 
             if (!voldaan) {
                 StuurSnackbar("Bestuurder voldoet niet aan vereisten.\nGelieve de velden in te vullen.");
