@@ -21,6 +21,7 @@ namespace WPFApp.Views {
 
         private ICommuniceer _communicatieKanaal = new CommunicatieRelay().CommunicatieKanaal;
 
+        // Constructie en instelling als datacontext van ApplicatieOverzicht in App.xaml
         public ApplicatieOverzichtViewModel() {
 
             /* Overzichten */
