@@ -13,6 +13,7 @@
 
 
     <Window.Resources>
+        <!-- overzichten -->
         <DataTemplate DataType="{x:Type local:AdresOverzichtViewModel}">
             <local:AdresOverzicht />
         </DataTemplate>
@@ -28,6 +29,22 @@
         <DataTemplate DataType="{x:Type local:DatabankOverzichtViewModel}">
             <local:DatabankOverzicht />
         </DataTemplate>
+        
+        <!-- toevoegen -->
+        <!--<DataTemplate DataType="{x:Type local:AdresToevoegenViewModel}">
+            <local:AdresToevoegen />
+        </DataTemplate>-->
+        <!--<DataTemplate DataType="{x:Type local:BestuurderToevoegenViewModel}">
+            <local:BestuurderToevoegen />
+        </DataTemplate>-->
+        <!--<DataTemplate DataType="{x:Type local:TankkaartToevoegenViewModel}">
+            <local:TankkaartToevoegen />
+        </DataTemplate>-->
+        <!--<DataTemplate DataType="{x:Type local:VoertuigToevoegenViewModel}">
+            <local:VoertuigToevoegen />
+        </DataTemplate>-->
+
+        <!-- wijzigen -->
     </Window.Resources>
 
     <Grid>
