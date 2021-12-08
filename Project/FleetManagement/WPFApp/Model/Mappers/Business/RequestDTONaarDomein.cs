@@ -82,7 +82,7 @@ namespace WPFApp.Model.Mappers.Business {
                 Tankkaart tankkaart = BronParser.ParseCast<Tankkaart>(t);
 
                 // wordt hier terug ingesteld en circulatie is vermeden
-                if(bestuurder.Tankkaart is null) {
+                if(bestuurder is not null && bestuurder.Tankkaart is null) {
                     bestuurder.ZetTankkaart(tankkaart);
 				}
 
@@ -112,7 +112,7 @@ namespace WPFApp.Model.Mappers.Business {
                 Voertuig voertuig = BronParser.ParseCast<Voertuig>(v);
 
                 // wordt hier terug ingesteld en circulatie is vermeden
-                if(bestuurder.Voertuig is null) {
+                if(bestuurder is not null && bestuurder.Voertuig is not null) {
                     bestuurder.ZetVoertuig(voertuig);
 				}
 

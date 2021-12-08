@@ -11,13 +11,11 @@ using WPFApp.Interfaces;
 namespace WPFApp.Model.Mappers {
 	// De wpf behandelt bijvoorbeeld de response dto's voor weergave en het viewmodel vormt
 	// deze om naar een request dto om te gebruiken bij aanroepen van ICommuniceer functies
-	internal class DTONaarDTO {
+	internal static class DTONaarDTO {
 
 		// Indien t de verwachteInterface implementeert is dit true, anders false.
 		private static bool ImplementeertTypeInterface(Type t, Type verwachteInterface) {
-			return t.GetType().GetInterfaces()
-							  .Any(i => i.IsGenericType 
-								   && i.GetGenericTypeDefinition() == verwachteInterface.GetType());
+			return t.GetInterfaces().Any(i => i.GetType() == verwachteInterface.GetType());
 		}
 
 		internal static T ResponseNaarRequest<T>(IResponseDTO responseDTO) {

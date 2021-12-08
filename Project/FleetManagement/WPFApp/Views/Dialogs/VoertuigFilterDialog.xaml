@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="WPFApp.Views.Dialogs.VoertuigFilterDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:WPFApp.Views.Dialogs"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="300">
+    <Grid Margin="16">
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock>Product filter</TextBlock>
+        <TextBox wpf:HintAssist.Hint="Merk" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"                 
+                 Margin="0 6 0 0"
+                 FontSize="16" Grid.Row="1"
+             Text="{Binding VoertuigFilterMerk}"
+             />
+        <TextBox wpf:HintAssist.Hint="Model" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="2"
+                 Text="{Binding VoertuigFilterModel}"
+                 />
+        <TextBox wpf:HintAssist.Hint="Nummerplaat" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="3"
+                 Text="{Binding VoertuigFilterNummerplaat}"
+                 />
+        <TextBox wpf:HintAssist.Hint="Chassisnummer" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="4"
+                 Text="{Binding VoertuigFilterChasisnummer}"
+                 />
+        <TextBox wpf:HintAssist.Hint="Brandstof" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="5"
+                 Text="{Binding VoertuigFilterBrandstof}"
+                 />
+        <TextBox wpf:HintAssist.Hint="Soort (bv. sedan)" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="6"
+                 Text="{Binding VoertuigFilterType}"
+                 />
+        <TextBox wpf:HintAssist.Hint="Kleur" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="7"
+                 Text="{Binding VoertuigFilterKleur}"
+                 />
+        <TextBox wpf:HintAssist.Hint="Aantal deuren" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="8"
+                 Text="{Binding VoertuigFilterAantalDeuren}"
+                 />
+        <StackPanel Orientation="Horizontal" Grid.Row="9"
+                    HorizontalAlignment="Right">
+            <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
+                    Command="{x:Static wpf:DialogHost.CloseDialogCommand}">
+                OK
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

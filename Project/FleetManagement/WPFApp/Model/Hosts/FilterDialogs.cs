@@ -25,7 +25,7 @@ namespace WPFApp.Model.Hosts {
 
 		// Zou apart in viewmodel filteren mbt tankkaartbrandstof (1:M)
 		public string TankkaartFilterKaartnummer { get; set; } = "";
-		public DateTime TankkaartFilterVervaldatum { get; set; } = DateTime.Now;
+		//public DateTime TankkaartFilterVervaldatum { get; set; } = DateTime.Now;
 		public string TankkaartFilterPincode { get; set; } = "";
 
 		public string VoertuigFilterMerk { get; set; } = "";

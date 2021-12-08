@@ -15,7 +15,6 @@ namespace WPFApp.Model.Response {
         public string Plaatsnaam { get; set; }
         public string Provincie { get; set; }
         public string Land { get; set; }
-        public Bestuurder Bestuurder { get; set; }
  
     }
 }

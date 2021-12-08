@@ -158,8 +158,8 @@ namespace WPFApp.Model.Communiceerders {
 			throw new NotImplementedException();
 		}
 
-		
-
-		
+		public bool ValideerRRN(string rrn) {
+			throw new NotImplementedException();
+		}
 	}
 }

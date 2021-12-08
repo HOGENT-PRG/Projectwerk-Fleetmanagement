@@ -16,6 +16,9 @@
     <None Remove="5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
     <None Remove="8815efcb12459a0eb1ffc60ad8098281.jpg" />
     <None Remove="cloud_product2.png" />
+    <None Remove="_images\add-group.png" />
+    <None Remove="_images\add-user.png" />
+    <None Remove="_images\add.png" />
     <None Remove="_images\checkmark.png" />
     <None Remove="_images\cross.png" />
     <None Remove="_images\icons8-credit-control-48.png" />
@@ -26,10 +29,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fody" Version="6.6.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="MaterialDesignColors" Version="2.0.3" />
     <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
@@ -47,6 +55,15 @@
     <Resource Include="_images\4715011_avatar_driver_people_person_profile_icon.png" />
     <Resource Include="_images\1988878_front_lorry_truck_vehicle_icon.png" />
     <Resource Include="_images\8815efcb12459a0eb1ffc60ad8098281.jpg" />
+    <Resource Include="_images\add-group.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="_images\add-user.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="_images\add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="_images\checkmark.png" />
     <Resource Include="_images\cloud_product2.png" />
     <Resource Include="_images\cross.png" />
@@ -55,6 +72,12 @@
     <Resource Include="_images\icons8-secure-cloud-48.png" />
     <Resource Include="_images\icons8-traffic-jam-48.png" />
     <Resource Include="_images\icons8-user-male-48.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

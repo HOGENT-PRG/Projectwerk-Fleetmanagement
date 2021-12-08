@@ -31,16 +31,16 @@ namespace WPFApp.Views {
             PaginaViewModels.Add(nameof(VoertuigOverzicht), new VoertuigOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
             PaginaViewModels.Add(nameof(DatabankOverzicht), new DatabankOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
 
-            /* Toevoegen */
-            //PaginaViewModels.Add(nameof(AdresToevoegen), new AdresToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
-            //PaginaViewModels.Add(nameof(BestuurderToevoegen), new BestuurderToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
-            //PaginaViewModels.Add(nameof(TankkaartToevoegen), new TankkaartToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
-            //PaginaViewModels.Add(nameof(VoertuigToevoegen), new VoertuigToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+			/* Toevoegen */
+			//PaginaViewModels.Add(nameof(AdresToevoegen), new AdresToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+			PaginaViewModels.Add(nameof(BestuurderToevoegen), new BestuurderToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+			//PaginaViewModels.Add(nameof(TankkaartToevoegen), new TankkaartToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+			//PaginaViewModels.Add(nameof(VoertuigToevoegen), new VoertuigToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
 
-            /* Wijzigen */
+			/* Wijzigen */
 
-            /* ViewModel dat gebruikt wordt bij opstart applicatie: AdresOverzicht */
-            HuidigePaginaViewModel = PaginaViewModels[nameof(AdresOverzicht)];
+			/* ViewModel dat gebruikt wordt bij opstart applicatie: AdresOverzicht */
+			HuidigePaginaViewModel = PaginaViewModels[nameof(AdresOverzicht)];
         }
 
 

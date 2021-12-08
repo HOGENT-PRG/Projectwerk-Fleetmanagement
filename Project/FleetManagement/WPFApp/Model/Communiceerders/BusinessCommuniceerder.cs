@@ -1,6 +1,7 @@
 ﻿using BusinessLaag;
 using BusinessLaag.Interfaces;
 using BusinessLaag.Model;
+using BusinessLaag.Helpers;
 using DataLaag;
 using DataLaag.Repositories;
 using System;
@@ -33,6 +34,16 @@ namespace WPFApp.Model.Communiceerders {
             IDatabankConfigureerder db = _fleetManager.DatabankConfigureerder;
             return new DatabankStatusResponseDTO(db.ConnectieSuccesvol, db.DatabaseBestaat, db.AlleTabellenBestaan, db.AantalTabellen, db.SequentieDoorlopen);
         }
+		#endregion
+
+		#region helpers wpf
+		public bool ValideerRRN(string rrn) {
+			try {
+				return RRNValideerder.Valideer(rrn);
+			} catch(Exception e) {
+				throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e);
+			}
+		}	
 		#endregion
 
 		#region Adres

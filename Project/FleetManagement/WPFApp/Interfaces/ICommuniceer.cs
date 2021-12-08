@@ -10,6 +10,8 @@ using WPFApp.Model.Response;
 
 namespace WPFApp.Interfaces {
     public interface ICommuniceer {
+        /* Helper functies voor WPF */
+        bool ValideerRRN(string rrn);
 
         /* Adres & Bestuurder */
         int VoegAdresToe(AdresRequestDTO adres);
