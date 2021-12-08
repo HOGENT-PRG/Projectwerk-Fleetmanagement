@@ -14,16 +14,15 @@ namespace WPFApp.Interfaces {
         /* Adres & Bestuurder */
         int VoegAdresToe(AdresRequestDTO adres);
         List<AdresResponseDTO> GeefAdressen();
-        List<AdresResponseDTO> GeefAdressen(string? kolom = null, object? waarde = null);
+        List<AdresResponseDTO> ZoekAdressen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false);
         void UpdateAdres(AdresRequestDTO adres);
         void VerwijderAdres(int id);
 
         int VoegBestuurderToe(BestuurderRequestDTO bestuurder);
         List<BestuurderResponseDTO> GeefBestuurders();
-        List<BestuurderResponseDTO> GeefBestuurders(string? kolom = null, object? waarde = null);
+        List<BestuurderResponseDTO> ZoekBestuurders(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false);
         BestuurderResponseDTO GeefBestuurderDetail(int id);
         BestuurderResponseDTO GeefBestuurderZonderRelaties(int id);
-        List<BestuurderResponseDTO> ZoekBestuurders(string kolom, object waarde);
         void UpdateBestuurder(BestuurderRequestDTO bestuurder);
         void VerwijderBestuurder(int id);
 
@@ -32,8 +31,8 @@ namespace WPFApp.Interfaces {
         int VoegTankkaartToe(TankkaartRequestDTO tankkaart);
         TankkaartResponseDTO GeefTankkaartDetail(int id);
         List<TankkaartResponseDTO> GeefTankkaarten();
+        List<TankkaartResponseDTO> ZoekTankkaarten(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false);
         TankkaartResponseDTO GeefTankkaartZonderRelaties(int id);
-        TankkaartResponseDTO ZoekTankkaartMetKaartnummer(string kaartnummer);
         void UpdateTankkaart(TankkaartRequestDTO tankkaart);
         void VerwijderTankkaart(int id);
 
@@ -43,8 +42,7 @@ namespace WPFApp.Interfaces {
         VoertuigResponseDTO GeefVoertuigZonderRelaties(int id);
         VoertuigResponseDTO GeefVoertuigDetail(int id);
         List<VoertuigResponseDTO> GeefVoertuigen();
-        VoertuigResponseDTO ZoekVoertuigMetChassisnummer(string chassisnummer);
-        VoertuigResponseDTO ZoekVoertuigMetNummerplaat(string nummerplaat);
+        List<VoertuigResponseDTO> ZoekVoertuigen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false);
         void UpdateVoertuig(VoertuigRequestDTO Voertuig);
         void VerwijderVoertuig(int id);
 

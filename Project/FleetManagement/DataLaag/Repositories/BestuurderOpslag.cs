@@ -100,6 +100,70 @@ namespace DataLaag.Repositories
             }
         }
 
+        public List<Adres> ZoekAdressen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+            try {
+                if (kolomnamen.Count == 0 || zoektermen.Count == 0
+                   || zoektermen.Count != kolomnamen.Count
+                   || zoektermen.Distinct().Count() != zoektermen.Count) {
+                    throw new BestuurderOpslagException("U heeft geen kolomnamen opgegeven of de hoeveelheid komt niet overeen met de zoektermen. Kolomnamen moeten tevens uniek zijn.");
+                }
+
+                _conn.Open();
+                SqlCommand cmd = _conn.CreateCommand();
+
+                Regex re = new Regex("[^a-zA-Z0-9]");
+                List<string> parsed_kolomnamen = new List<string>();
+                kolomnamen.ForEach(x => parsed_kolomnamen.Add(re.Replace(x, "")));
+
+                // opbouw
+                StringBuilder zoekAppendix = new($" WHERE ");
+                foreach (string k in parsed_kolomnamen) {
+                    if (likeWildcard) {
+                        zoekAppendix.Append($"a.{k} LIKE @{k.ToLower()}");
+                    } else {
+                        zoekAppendix.Append($"a.{k}=@{k.ToLower()}");
+                    }
+                    if (parsed_kolomnamen.IndexOf(k) < parsed_kolomnamen.Count - 1) {
+                        zoekAppendix.Append(" AND ");
+                    }
+                }
+
+                cmd.CommandText = $"SELECT " +
+                                  "a.Id AS BestuurderAdresId, " +
+                                  "a.Straatnaam AS BestuurderAdresStraatnaam, " +
+                                  "a.Huisnummer AS BestuurderAdresHuisnummer, " +
+                                  "a.Postcode AS BestuurderAdresPostcode, " +
+                                  "a.Plaatsnaam AS BestuurderAdresPlaatsnaam, " +
+                                  "a.Provincie AS BestuurderAdresProvincie, " +
+                                  "a.Land AS BestuurderAdresLand " +
+                                  $"FROM Adres AS a { zoekAppendix} ;";
+
+                foreach (object o in zoektermen) {
+                    int i = zoektermen.IndexOf(o);
+                    string corresp_col = parsed_kolomnamen[i].ToLower();
+                    cmd.Parameters.Add(new SqlParameter($"@{corresp_col}", TypeConverteerder.GeefDbType(o.GetType())));
+                    if (likeWildcard) {
+                        cmd.Parameters[$"@{corresp_col}"].Value = "%" + o + "%";
+                    } else {
+                        cmd.Parameters[$"@{corresp_col}"].Value = o is null ? DBNull.Value : o;
+                    }
+                }
+
+                SqlDataReader r = cmd.ExecuteReader();
+                List<Adres> resultaten = new();
+
+                while (r.Read()) {
+                    resultaten.Add(QueryParser.ParseReaderNaarAdres(r));
+                }
+
+                return resultaten;
+            } catch (Exception e) {
+                throw new BestuurderOpslagException("Onverwachte fout tijdens het zoeken van adressen.", e);
+            } finally {
+                _conn.Close();
+            }
+        }
+
         public void UpdateAdres(Adres adres) {
             try {
                 _conn.Open();
@@ -320,6 +384,134 @@ namespace DataLaag.Repositories
                             QueryParser.ParseReaderNaarAdres(r)
                         );
 					}
+
+                    if (!r.IsDBNull(r.GetOrdinal("TankkaartBrandstof")) && huidigeBestuurder.Tankkaart is not null) {
+                        TankkaartBrandstof b = QueryParser.ParseReaderNaarTankkaartBrandstof(r);
+                        if (!huidigeBestuurder.Tankkaart.GeldigVoorBrandstoffen.Contains(b)) {
+                            huidigeBestuurder.Tankkaart.VoegBrandstofToe(b);
+                        }
+                    }
+
+                }
+
+                return resultaten;
+            } catch (SqlException ex) when (ex.Number == 207) {
+                throw new BestuurderOpslagException("Er werd een ongeldige kolomnaam opgegeven.", ex);
+            } catch (Exception ex) {
+                throw new BestuurderOpslagException("Er is een onverwachte fout opgetreden.", ex);
+            } finally {
+                _conn.Close();
+            }
+        }
+
+        public List<Bestuurder> ZoekBestuurders(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+            try {
+                if (kolomnamen.Count == 0 || zoektermen.Count == 0
+                   || zoektermen.Count != kolomnamen.Count
+                   || zoektermen.Distinct().Count() != zoektermen.Count) {
+                    throw new BestuurderOpslagException("U heeft geen kolomnamen opgegeven of de hoeveelheid komt niet overeen met de zoektermen. Kolomnamen moeten tevens uniek zijn.");
+                }
+
+                _conn.Open();
+                SqlCommand cmd = _conn.CreateCommand();
+
+                Regex re = new Regex("[^a-zA-Z0-9]");
+                List<string> parsed_kolomnamen = new List<string>();
+                kolomnamen.ForEach(x => parsed_kolomnamen.Add(re.Replace(x, "")));
+
+                // opbouw
+                StringBuilder zoekAppendix = new($" WHERE ");
+                foreach (string k in parsed_kolomnamen) {
+                    if (likeWildcard) {
+                        zoekAppendix.Append($"b.{k} LIKE @{k.ToLower()}");
+                    } else {
+                        zoekAppendix.Append($"b.{k}=@{k.ToLower()}");
+                    }
+                    if (parsed_kolomnamen.IndexOf(k) < parsed_kolomnamen.Count - 1) {
+                        zoekAppendix.Append(" AND ");
+                    }
+                }
+
+                cmd.CommandText = "SELECT " +
+                                  "t.Id AS TankkaartId, " +
+                                  "t.Kaartnummer AS TankkaartKaartnummer, " +
+                                  "t.Pincode AS TankkaartPincode, " +
+                                  "t.Vervaldatum AS TankkaartVervalDatum, " +
+                                  "tb.Brandstof AS TankkaartBrandstof, " +
+                                  "b.Id AS BestuurderId, " +
+                                  "b.Naam AS BestuurderNaam, " +
+                                  "b.Voornaam AS BestuurderVoornaam, " +
+                                  "b.Geboortedatum AS BestuurderGeboortedatum, " +
+                                  "b.AdresId AS BestuurderAdresId, " +
+                                  "b.Rijksregisternummer AS BestuurderRijksregisternummer, " +
+                                  "b.Rijbewijssoort AS BestuurderRijbewijssoort, " +
+                                  "b.VoertuigId AS BestuurderVoertuigId, " +
+                                  "a.Straatnaam AS BestuurderAdresStraatnaam, " +
+                                  "a.Huisnummer AS BestuurderAdresHuisnummer, " +
+                                  "a.Postcode AS BestuurderAdresPostcode, " +
+                                  "a.Plaatsnaam AS BestuurderAdresPlaatsnaam, " +
+                                  "a.Provincie AS BestuurderAdresProvincie, " +
+                                  "a.Land AS BestuurderAdresLand, " +
+                                  "v.Id AS VoertuigId, " +
+                                  "v.Merk AS VoertuigMerk, " +
+                                  "v.Model AS VoertuigModel, " +
+                                  "v.Nummerplaat AS VoertuigNummerplaat, " +
+                                  "v.Chasisnummer AS VoertuigChasisnummer, " +
+                                  "v.Brandstof AS VoertuigBrandstof, " +
+                                  "v.Type AS VoertuigType, " +
+                                  "v.Kleur AS VoertuigKleur, " +
+                                  "v.AantalDeuren AS VoertuigAantalDeuren, " +
+                                  "v.Type AS VoertuigSoort " +
+                                  "FROM Bestuurder AS b " +
+                                  "LEFT JOIN Voertuig AS v " +
+                                  "ON(b.VoertuigId = v.Id) " +
+                                  "LEFT JOIN Tankkaart AS t " +
+                                  "ON(t.Id = b.TankkaartId) " +
+                                  "LEFT JOIN TankkaartBrandstof AS tb " +
+                                  "ON(tb.TankkaartId = t.Id) " +
+                                  "LEFT JOIN Adres AS a " +
+                                  $"ON(b.AdresId = a.Id) {zoekAppendix} ;";
+
+                foreach (object o in zoektermen) {
+                    int i = zoektermen.IndexOf(o);
+                    string corresp_col = parsed_kolomnamen[i].ToLower();
+                    cmd.Parameters.Add(new SqlParameter($"@{corresp_col}", TypeConverteerder.GeefDbType(o.GetType())));
+                    if (likeWildcard) {
+                        cmd.Parameters[$"@{corresp_col}"].Value = "%" + o + "%";
+                    } else {
+                        cmd.Parameters[$"@{corresp_col}"].Value = o is null ? DBNull.Value : o;
+                    }
+                }
+
+                SqlDataReader r = cmd.ExecuteReader();
+                List<Bestuurder> resultaten = new();
+
+                while (r.Read()) {
+                    Bestuurder huidigeBestuurder = QueryParser.ParseReaderNaarBestuurder(r);
+
+                    if (resultaten.Any(b => b.Id == huidigeBestuurder.Id)) {
+                        huidigeBestuurder = resultaten.First(b => b.Id == huidigeBestuurder.Id);
+                    } else {
+                        resultaten.Add(huidigeBestuurder);
+                    }
+
+                    if (huidigeBestuurder.Voertuig is null) {
+                        huidigeBestuurder.ZetVoertuig(
+                            QueryParser.ParseReaderNaarVoertuig(r, huidigeBestuurder)
+                        );
+                    }
+
+                    if (huidigeBestuurder.Tankkaart is null) {
+                        huidigeBestuurder.ZetTankkaart(
+                            QueryParser.ParseReaderNaarTankkaart(r, null, huidigeBestuurder)
+                        );
+                    }
+
+                    if (huidigeBestuurder.Adres is null) {
+                        huidigeBestuurder.ZetAdres(
+                            QueryParser.ParseReaderNaarAdres(r)
+                        );
+                    }
 
                     if (!r.IsDBNull(r.GetOrdinal("TankkaartBrandstof")) && huidigeBestuurder.Tankkaart is not null) {
                         TankkaartBrandstof b = QueryParser.ParseReaderNaarTankkaartBrandstof(r);

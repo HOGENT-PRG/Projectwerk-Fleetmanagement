@@ -7,6 +7,7 @@ namespace BusinessLaag.Interfaces
     {
 		Tankkaart GeefTankkaartDetail(int id);
 		List<Tankkaart> GeefTankkaarten(string kolomnaam = null, object waarde = null);
+		List<Tankkaart> ZoekTankkaarten(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false);
 		void UpdateTankkaart(Tankkaart tankkaart);
 		void VerwijderTankkaart(int id);
 		int VoegTankkaartToe(Tankkaart tankkaart);

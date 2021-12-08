@@ -20,7 +20,7 @@ using System.Linq;
 // Functie return types zijn ResponseDTO(s) of POD types (string, int, ..)
 // Functie argumenten zijn RequestDTO(s) of POD types (string, int, ..)
 
-namespace WPFApp.Model.Communiceerders { // TODO: regions toevoegen voor duidelijkheid
+namespace WPFApp.Model.Communiceerders {
     internal class BusinessCommuniceerder : ICommuniceer {
         private FleetManager _fleetManager;
 
@@ -45,10 +45,6 @@ namespace WPFApp.Model.Communiceerders { // TODO: regions toevoegen voor duideli
 		}
 
 		public List<AdresResponseDTO> GeefAdressen() {
-			return this.GeefAdressen(null, null);
-		}
-
-		public List<AdresResponseDTO> GeefAdressen(string kolom = null, object waarde = null) {
 			List<AdresResponseDTO> adressen = new();
 
 			try {
@@ -61,6 +57,22 @@ namespace WPFApp.Model.Communiceerders { // TODO: regions toevoegen voor duideli
 			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
 
 			return adressen;
+		}
+
+		public List<AdresResponseDTO> ZoekAdressen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+			List<AdresResponseDTO> res = new();
+
+			try {
+				List<Adres> temp = _fleetManager.BestuurderManager.ZoekAdressen(kolomnamen, zoektermen, likeWildcard);
+
+				foreach (Adres a in temp) {
+					res.Add(DomeinNaarResponseDTO.ConverteerAdres(a));
+				}
+			} catch (Exception e) {
+				throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e);
+			}
+
+			return res;
 		}
 
 		public void UpdateAdres(AdresRequestDTO adres) {
@@ -90,14 +102,10 @@ namespace WPFApp.Model.Communiceerders { // TODO: regions toevoegen voor duideli
 		}
 
 		public List<BestuurderResponseDTO> GeefBestuurders() {
-			return this.GeefBestuurders(null, null);
-		}
-
-		public List<BestuurderResponseDTO> GeefBestuurders(string kolom = null, object waarde = null) {
 			List<BestuurderResponseDTO> res = new();
 
 			try {
-				List<Bestuurder> temp = _fleetManager.BestuurderManager.GeefBestuurders(kolom, waarde);
+				List<Bestuurder> temp = _fleetManager.BestuurderManager.GeefBestuurders();
 				
 				foreach(Bestuurder b in temp) {
 					res.Add(DomeinNaarResponseDTO.ConverteerBestuurder(b, true));
@@ -108,6 +116,22 @@ namespace WPFApp.Model.Communiceerders { // TODO: regions toevoegen voor duideli
 
 			return res;
         }
+
+		public List<BestuurderResponseDTO> ZoekBestuurders(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+			List<BestuurderResponseDTO> res = new();
+
+			try {
+				List<Bestuurder> temp = _fleetManager.BestuurderManager.ZoekBestuurders(kolomnamen, zoektermen, likeWildcard);
+
+				foreach (Bestuurder b in temp) {
+					res.Add(DomeinNaarResponseDTO.ConverteerBestuurder(b, true));
+				}
+			} catch (Exception e) {
+				throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e);
+			}
+
+			return res;
+		}
 
 		public BestuurderResponseDTO GeefBestuurderDetail(int id) {
 			try {
@@ -125,20 +149,6 @@ namespace WPFApp.Model.Communiceerders { // TODO: regions toevoegen voor duideli
 				return DomeinNaarResponseDTO.ConverteerBestuurder(b, true);
 
 			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
-		}
-
-		public List<BestuurderResponseDTO> ZoekBestuurders(string kolom, object waarde) {
-			List<BestuurderResponseDTO> res = new();
-
-			try {
-				List<Bestuurder> temp = _fleetManager.BestuurderManager.ZoekBestuurders(kolom, waarde);
-
-				foreach (Bestuurder b in temp) {
-					res.Add(DomeinNaarResponseDTO.ConverteerBestuurder(b, true));
-				}
-			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
-
-			return res;
 		}
 
 		public void UpdateBestuurder(BestuurderRequestDTO bestuurder) {
@@ -191,20 +201,25 @@ namespace WPFApp.Model.Communiceerders { // TODO: regions toevoegen voor duideli
 			return res;
 		}
 
+		public List<TankkaartResponseDTO> ZoekTankkaarten(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+			List<TankkaartResponseDTO> res = new();
+
+			try {
+				List<Tankkaart> temp = _fleetManager.TankkaartManager.ZoekTankkaarten(kolomnamen, zoektermen, likeWildcard);
+
+				foreach (Tankkaart t in temp) {
+					res.Add(DomeinNaarResponseDTO.ConverteerTankkaart(t, true));
+				}
+			} catch (Exception e) {
+				throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e);
+			}
+
+			return res;
+		}
+
 		public TankkaartResponseDTO GeefTankkaartZonderRelaties(int id) {
 			try {
 				Tankkaart t = _fleetManager.TankkaartManager.GeefTankkaartZonderRelaties(id);
-				if(t is null) { return null; }
-				return DomeinNaarResponseDTO.ConverteerTankkaart(t, true);
-
-			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
-		}
-
-		public TankkaartResponseDTO ZoekTankkaartMetKaartnummer(string kaartnummer) {
-			try {
-				Tankkaart t = _fleetManager.TankkaartManager.ZoekTankkaartMetKaartnummer(
-					kaartnummer
-				);
 				if(t is null) { return null; }
 				return DomeinNaarResponseDTO.ConverteerTankkaart(t, true);
 
@@ -270,22 +285,20 @@ namespace WPFApp.Model.Communiceerders { // TODO: regions toevoegen voor duideli
 			return res;
 		}
 
-		public VoertuigResponseDTO ZoekVoertuigMetChassisnummer(string chassisnummer) {
+		public List<VoertuigResponseDTO> ZoekVoertuigen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+			List<VoertuigResponseDTO> res = new();
+
 			try {
-				Voertuig v = _fleetManager.VoertuigManager.ZoekVoertuigMetChassisnummer(chassisnummer);
-				if(v is null) { return null; }
-				return DomeinNaarResponseDTO.ConverteerVoertuig(v, true);
+				List<Voertuig> temp = _fleetManager.VoertuigManager.ZoekVoertuigen(kolomnamen, zoektermen, likeWildcard);
 
-			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
-		}
+				foreach (Voertuig v in temp) {
+					res.Add(DomeinNaarResponseDTO.ConverteerVoertuig(v, true));
+				}
+			} catch (Exception e) {
+				throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e);
+			}
 
-		public VoertuigResponseDTO ZoekVoertuigMetNummerplaat(string nummerplaat) {
-			try {
-				Voertuig v = _fleetManager.VoertuigManager.ZoekVoertuigMetNummerplaat(nummerplaat);
-				if (v is null) { return null; }
-				return DomeinNaarResponseDTO.ConverteerVoertuig(v, true);
-
-			} catch (Exception e) { throw new BusinessCommuniceerderException($"{MethodBase.GetCurrentMethod().Name} > {e.GetType().Name} :\n{e.Message}", e); }
+			return res;
 		}
 
 		public void UpdateVoertuig(VoertuigRequestDTO Voertuig) {

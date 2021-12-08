@@ -64,6 +64,14 @@ namespace BusinessLaag.Managers {
 			}
 		}
 
+		public List<Voertuig> ZoekVoertuigen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+			try {
+				return _opslag.ZoekVoertuigen(kolomnamen, zoektermen, likeWildcard);
+			} catch (Exception e) {
+				throw new VoertuigManagerException("Fout tijdens het zoeken naar voertuigen.", e);
+			}
+		}
+
 		private Voertuig _zoekVoertuigMetKolomnaam(string kolomnaam, string waarde) {
 			try {
 				return _opslag.ZoekVoertuig(kolomnaam, waarde);

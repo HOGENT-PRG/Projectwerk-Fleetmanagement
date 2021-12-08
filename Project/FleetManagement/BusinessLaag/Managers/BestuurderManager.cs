@@ -45,6 +45,14 @@ namespace BusinessLaag.Managers
             }
         }
 
+        public List<Adres> ZoekAdressen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+            try {
+                return _opslag.ZoekAdressen(kolomnamen, zoektermen, likeWildcard);
+			} catch(Exception e) {
+                throw new BestuurderManagerException("Fout bij zoeken van adressen.", e);
+			}
+		}
+
         public void UpdateAdres(Adres adres) {
             if(adres?.Id is not null && adres.Id > 0 && this.GeefAdressen("Id", adres.Id).Count < 1) {
                 throw new BestuurderManagerException("Adres met opgegeven id kon niet gevonden worden.");
@@ -125,6 +133,14 @@ namespace BusinessLaag.Managers
                 return _opslag.GeefBestuurders(kolom, waarde);
             } catch (Exception e) {
                 throw new BestuurderManagerException("Bestuurders konden niet opgevraagd worden.", e);
+            }
+        }
+
+        public List<Bestuurder> ZoekBestuurders(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+            try {
+                return _opslag.ZoekBestuurders(kolomnamen, zoektermen);
+            } catch (Exception e) {
+                throw new BestuurderManagerException("Bestuurders konden niet gezocht worden.", e);
             }
         }
 

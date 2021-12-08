@@ -60,6 +60,14 @@ namespace BusinessLaag.Managers
 			}
 		}
 
+		public List<Tankkaart> ZoekTankkaarten(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+			try {
+				return _opslag.ZoekTankkaarten(kolomnamen, zoektermen, likeWildcard);
+			} catch (Exception e) {
+				throw new TankkaartManagerException("Tankkaarten zoeken mislukt.", e);
+			}
+		}
+
 		public Tankkaart GeefTankkaartZonderRelaties(int id) {
 			if (id < 1) { throw new TankkaartManagerException("Id mag niet kleiner zijn dan 1."); }
 			try {
@@ -97,6 +105,15 @@ namespace BusinessLaag.Managers
 				Tankkaart BestaandeTankkaart = this.GeefTankkaartDetail((int)tankkaart.Id);
 				if (BestaandeTankkaart is null) {
 					throw new TankkaartManagerException("Kan geen tankkaart vinden voor opgegeven id. Er werden geen wijzigingen aangebracht.");
+				}
+
+				if (tankkaart.Bestuurder is not null) {
+					if (tankkaart.Bestuurder.Id is null) {
+						throw new TankkaartManagerException("Er is een bestuurder meegegeven maar deze bevat geen id.");
+					}
+					if (_fleetManager.BestuurderManager.GeefBestuurderDetail((int)tankkaart.Bestuurder.Id) is null) {
+						throw new TankkaartManagerException($"De opgegeven bestuurder met id {tankkaart.Bestuurder.Id} bestaat niet.");
+					}
 				}
 
 				if (BestaandeTankkaart.Kaartnummer != tankkaart.Kaartnummer) {

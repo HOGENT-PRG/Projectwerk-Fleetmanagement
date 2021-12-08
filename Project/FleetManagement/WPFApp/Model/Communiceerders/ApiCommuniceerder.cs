@@ -9,6 +9,8 @@ using WPFApp.Model.Request;
 using WPFApp.Model.Response;
 
 // TODO bij uitwerken van API laag
+// Indien dit aangevat wordt dienen de funcs verzamelt te worden per groep als region
+// Adres bij adres, etc - nu staan ze alfabetisch door automatisch aanvullen
 
 namespace WPFApp.Model.Communiceerders {
 	internal class ApiCommuniceerder : ICommuniceer {
@@ -124,11 +126,27 @@ namespace WPFApp.Model.Communiceerders {
 			throw new NotImplementedException();
 		}
 
+		public List<AdresResponseDTO> ZoekAdressen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+			throw new NotImplementedException();
+		}
+
+		public List<BestuurderResponseDTO> ZoekBestuurders(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+			throw new NotImplementedException();
+		}
+
 		public List<BestuurderResponseDTO> ZoekBestuurders(string kolom, object waarde) {
 			throw new NotImplementedException();
 		}
 
+		public List<TankkaartResponseDTO> ZoekTankkaarten(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+			throw new NotImplementedException();
+		}
+
 		public TankkaartResponseDTO ZoekTankkaartMetKaartnummer(string kaartnummer) {
+			throw new NotImplementedException();
+		}
+
+		public List<VoertuigResponseDTO> ZoekVoertuigen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
 			throw new NotImplementedException();
 		}
 
@@ -139,7 +157,9 @@ namespace WPFApp.Model.Communiceerders {
 		public VoertuigResponseDTO ZoekVoertuigMetNummerplaat(string nummerplaat) {
 			throw new NotImplementedException();
 		}
-        
 
-    }
+		
+
+		
+	}
 }

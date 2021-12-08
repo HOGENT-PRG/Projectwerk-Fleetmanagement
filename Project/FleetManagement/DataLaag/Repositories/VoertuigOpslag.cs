@@ -9,6 +9,7 @@ using BusinessLaag.Model.Enum;
 using System.Text.RegularExpressions;
 using DataLaag.Helpers;
 using System.Linq;
+using System.Text;
 
 namespace DataLaag.Repositories {
 	public sealed class VoertuigOpslag : IVoertuigOpslag {
@@ -133,6 +134,137 @@ namespace DataLaag.Repositories {
 				if (zoekAppendix.Length > 0) {
 					cmd.Parameters.Add(new SqlParameter("@waarde", TypeConverteerder.GeefDbType(waarde.GetType())));
 					cmd.Parameters["@waarde"].Value = waarde is null ? DBNull.Value : waarde;
+				}
+
+				SqlDataReader r = cmd.ExecuteReader();
+				List<Voertuig> resultaten = new();
+
+				while (r.Read()) {
+					Voertuig huidigVoertuig = QueryParser.ParseReaderNaarVoertuig(r);
+
+					if (resultaten.Any(v => v.Id == huidigVoertuig.Id)) {
+						huidigVoertuig = resultaten.First(v => v.Id == huidigVoertuig.Id);
+					} else {
+						resultaten.Add(huidigVoertuig);
+					}
+
+					// het voertuig heeft een bekende bestuurder en deze is nog niet ingesteld
+					if (!r.IsDBNull(r.GetOrdinal("BestuurderId")) && huidigVoertuig.Bestuurder is null) {
+						// voertuig bestuurder instellen
+						huidigVoertuig.ZetBestuurder(
+							// bestuurder maken zonder tankkaart want tankkaart parser ontvangt een bestuurder
+							QueryParser.ParseReaderNaarBestuurder(
+								r, null, huidigVoertuig, QueryParser.ParseReaderNaarAdres(r)
+							)
+						);
+
+						// nadat bestuurder gemaakt is, tankkaart maken met
+						// bestuurder en instellen als tankkaart van de bestuurder
+						huidigVoertuig.Bestuurder.ZetTankkaart(
+							QueryParser.ParseReaderNaarTankkaart(r, null, huidigVoertuig.Bestuurder)
+						);
+					}
+
+					// tankkaart brandstof instellen als deze bestaat,
+					// en natuurlijk enkel indien de bestuurder een tankkaart ingesteld heeft
+					if (!r.IsDBNull(r.GetOrdinal("TankkaartBrandstof")) && huidigVoertuig.Bestuurder.Tankkaart is not null) {
+						TankkaartBrandstof b = QueryParser.ParseReaderNaarTankkaartBrandstof(r);
+						if (!huidigVoertuig.Bestuurder.Tankkaart.GeldigVoorBrandstoffen.Contains(b)) {
+							huidigVoertuig.Bestuurder.Tankkaart.VoegBrandstofToe(b);
+						}
+					}
+
+
+				}
+
+				return resultaten;
+			} catch (SqlException ex) when (ex.Number == 207) {
+				throw new VoertuigOpslagException("Er werd een ongeldige kolomnaam opgegeven.", ex);
+			} catch (Exception ex) {
+				throw new VoertuigOpslagException("Er is een onverwachte fout opgetreden.", ex);
+			} finally {
+				_conn.Close();
+			}
+		}
+
+		public List<Voertuig> ZoekVoertuigen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
+			try {
+				if (kolomnamen.Count == 0 || zoektermen.Count == 0
+				   || zoektermen.Count != kolomnamen.Count
+				   || zoektermen.Distinct().Count() != zoektermen.Count) {
+					throw new VoertuigOpslagException("U heeft geen kolomnamen opgegeven of de hoeveelheid komt niet overeen met de zoektermen. Kolomnamen moeten tevens uniek zijn.");
+				}
+
+				_conn.Open();
+				SqlCommand cmd = _conn.CreateCommand();
+
+				Regex re = new Regex("[^a-zA-Z0-9]");
+				List<string> parsed_kolomnamen = new List<string>();
+				kolomnamen.ForEach(x => parsed_kolomnamen.Add(re.Replace(x, "")));
+
+				// opbouw
+				StringBuilder zoekAppendix = new($" WHERE ");
+				foreach (string k in parsed_kolomnamen) {
+					if (likeWildcard) {
+						zoekAppendix.Append($"v.{k} LIKE @{k.ToLower()}");
+					} else {
+						zoekAppendix.Append($"v.{k}=@{k.ToLower()}");
+					}
+					if (parsed_kolomnamen.IndexOf(k) < parsed_kolomnamen.Count - 1) {
+						zoekAppendix.Append(" AND ");
+					}
+				}
+
+
+				cmd.CommandText = "SELECT " +
+					"t.Id AS TankkaartId, " +
+					"t.Kaartnummer AS TankkaartKaartnummer, " +
+					"t.Pincode AS TankkaartPincode, " +
+					"t.Vervaldatum AS TankkaartVervalDatum, " +
+					"tb.Brandstof AS TankkaartBrandstof, " +
+					"b.Id AS BestuurderId, " +
+					"b.Naam AS BestuurderNaam, " +
+					"b.Voornaam AS BestuurderVoornaam, " +
+					"b.Geboortedatum AS BestuurderGeboortedatum, " +
+					"b.AdresId AS BestuurderAdresId, " +
+					"b.Rijksregisternummer AS BestuurderRijksregisternummer, " +
+					"b.Rijbewijssoort AS BestuurderRijbewijssoort, " +
+					"b.VoertuigId AS BestuurderVoertuigId, " +
+					"a.Straatnaam AS BestuurderAdresStraatnaam, " +
+					"a.Huisnummer AS BestuurderAdresHuisnummer, " +
+					"a.Postcode AS BestuurderAdresPostcode, " +
+					"a.Plaatsnaam AS BestuurderAdresPlaatsnaam, " +
+					"a.Provincie AS BestuurderAdresProvincie, " +
+					"a.Land AS BestuurderAdresLand, " +
+					"v.Id AS VoertuigId, " +
+					"v.Merk AS VoertuigMerk, " +
+					"v.Model AS VoertuigModel, " +
+					"v.Nummerplaat AS VoertuigNummerplaat, " +
+					"v.Chasisnummer AS VoertuigChasisnummer, " +
+					"v.Brandstof AS VoertuigBrandstof, " +
+					"v.Type AS VoertuigType, " +
+					"v.Kleur AS VoertuigKleur, " +
+					"v.AantalDeuren AS VoertuigAantalDeuren, " +
+					"v.Type AS VoertuigSoort " +
+					"FROM Voertuig AS v " +
+					"LEFT JOIN Bestuurder AS b " +
+					"ON(b.VoertuigId = v.Id) " +
+					"LEFT JOIN Tankkaart AS t " +
+					"ON(t.Id = b.TankkaartId) " +
+					"LEFT JOIN TankkaartBrandstof AS tb " +
+					"ON(tb.TankkaartId = t.Id) " +
+					"LEFT JOIN Adres AS a " +
+					$"ON(b.AdresId = a.Id) {zoekAppendix} ;";
+
+				foreach (object o in zoektermen) {
+					int i = zoektermen.IndexOf(o);
+					string corresp_col = parsed_kolomnamen[i].ToLower();
+					cmd.Parameters.Add(new SqlParameter($"@{corresp_col}", TypeConverteerder.GeefDbType(o.GetType())));
+					if (likeWildcard) {
+						cmd.Parameters[$"@{corresp_col}"].Value = "%" + o + "%";
+					} else {
+						cmd.Parameters[$"@{corresp_col}"].Value = o is null ? DBNull.Value : o;
+					}
 				}
 
 				SqlDataReader r = cmd.ExecuteReader();

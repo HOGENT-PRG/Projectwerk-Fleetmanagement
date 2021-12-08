@@ -7,6 +7,7 @@ namespace BusinessLaag.Interfaces
     {
         Bestuurder GeefBestuurderDetail(int id);
         List<Bestuurder> GeefBestuurders(string? kolom=null, object? waarde=null);
+        List<Bestuurder> ZoekBestuurders(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false);
         void UpdateBestuurder(Bestuurder bestuurder);
         void VerwijderBestuurder(int id);
         int VoegBestuurderToe(Bestuurder bestuurder);
@@ -14,6 +15,7 @@ namespace BusinessLaag.Interfaces
 
         int VoegAdresToe(Adres adres);
         List<Adres> GeefAdressen(string? kolom = null, object? waarde = null);
+        List<Adres> ZoekAdressen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false);
         void UpdateAdres(Adres adres);
         void VerwijderAdres(int id);
     }

@@ -7,6 +7,7 @@ namespace BusinessLaag.Interfaces
     {
 		Voertuig GeefVoertuigDetail(int id);
 		List<Voertuig> GeefVoertuigen(string kolomnaam = null, object waarde = null);
+		List<Voertuig> ZoekVoertuigen(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false);
 		void UpdateVoertuig(Voertuig voertuig);
 		void VerwijderVoertuig(int id);
 		int VoegVoertuigToe(Voertuig voertuig);
