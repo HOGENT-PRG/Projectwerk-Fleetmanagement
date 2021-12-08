@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="WPFApp.Views.Dialogs.BestuurderFilterDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:WPFApp.Views.Dialogs"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="300">
+    <Grid Margin="16">
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="16">Adres filter</TextBlock>
+        <TextBox wpf:HintAssist.Hint="Voornaam" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"                 
+                 Margin="0 6 0 0"
+                 FontSize="16" Grid.Row="1"
+             Text="{Binding BestuurderFilterVoornaam}"
+             />
+        <TextBox wpf:HintAssist.Hint="Naam" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="2"
+                 Text="{Binding BestuurderFilterNaam}"
+                 />
+        <TextBox wpf:HintAssist.Hint="Rijbewijs Type" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="3"
+                 Text="{Binding BestuurderFilterRijbewijsType}"
+                 />
+        <TextBox wpf:HintAssist.Hint="Geboortedatum" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="4"
+                 Text="{Binding BestuurderFilterGeboortedatum}"
+                 />
+        <TextBox wpf:HintAssist.Hint="Rijksregister nummer" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="5"
+                 Text="{Binding BestuurderFilterRijksregisternummer}"
+                 />
+      
+        <StackPanel Orientation="Horizontal" Grid.Row="8"
+                    HorizontalAlignment="Right">
+            <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
+                    Command="{x:Static wpf:DialogHost.CloseDialogCommand}">
+                OK
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
