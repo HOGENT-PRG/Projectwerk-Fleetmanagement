@@ -40,9 +40,9 @@
         <!--<DataTemplate DataType="{x:Type local:TankkaartToevoegenViewModel}">
             <local:TankkaartToevoegen />
         </DataTemplate>-->
-        <!--<DataTemplate DataType="{x:Type local:VoertuigToevoegenViewModel}">
+        <DataTemplate DataType="{x:Type local:VoertuigToevoegenViewModel}">
             <local:VoertuigToevoegen />
-        </DataTemplate>-->
+        </DataTemplate>
 
         <!-- wijzigen -->
     </Window.Resources>

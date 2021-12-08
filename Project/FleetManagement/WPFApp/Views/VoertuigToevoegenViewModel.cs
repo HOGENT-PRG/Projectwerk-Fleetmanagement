@@ -23,9 +23,20 @@ namespace WPFApp.Views
         public string Naam => "Voertuig toevoegen";
         private ICommuniceer _communicatieKanaal;
         public Action<object> StuurSnackbar { get; init; }
+
+        public List<string> VoertuigSoorten { get; init; } = new() {
+            "", "sedan", "berline", "bestelwagen", "terreinwagen"
+        };
+
+        public List<string> VoertuigBrandstoffen { get; init; } = new() {
+            "","Diesel", "Benzine", "CNG", "Elektrisch", "HybrideDiesel", "HybrideBenzine"
+        };
+
+        public List<string> VoertuigMerken { get; init; } = new() {"", "Abarth","Aiways","AlfaRomeo","Alpine","Artega","AstonMartin","Audi","Bentley","BMW","BmwAlpina","Cadillac","Caterham","Chevrolet","Chrysler","Citroën","Cupr","Dacia","Daihatsu","Dodge","Donkervoort","DS","Ferrari","Fiat","Ford","Genesis","Honda","Hummer","Hyundai","Infiniti","Isuzu","Jaguar","Jeep","KIA","KTM","Lada","Lamborghini","Lancia","LandRover","Lexus","Lotus","LynkCo","Maserati","Mazda","McLaren","Mercedes","MG","MiaElectric","MINI","Mitsubishi","Nissan","Opel","Peugeot","Polestar","Porsche","Renault","RollsRoyce","Saab","Seat","Seres","Skoda","Smart","Ssangyong","Subaru","Suzuki","Tesla","Toyota","Volkswagen","Volvo"
+        };
+
         public ObservableCollection<BestuurderResponseDTO> Bestuurders { get; set; } = new();
 
-        public int Id { get; set; }
         public string Merk { get; set; } = "";
         public string Model { get; set; } = "";
         public string Nummerplaat { get; set; } = "";
@@ -35,7 +46,7 @@ namespace WPFApp.Views
         public int AantalDeuren { get; set; }
         public BestuurderRequestDTO GeselecteerdBestuurder { get; set; } = null;
         public string Chassisnummer { get; set; }
-        public BestuurderResponseDTO HighlitedBestuurder { get; set; } = null;
+        public BestuurderResponseDTO HighlightedBestuurder { get; set; } = null;
         public VoertuigToevoegenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar)
         {
             _communicatieKanaal = communicatieKanaal;
@@ -76,8 +87,6 @@ namespace WPFApp.Views
             List<PropertyInfo> p = this.GetType().GetProperties().Where(x => x.Name.StartsWith("BestuurderFilter")).ToList();
             foreach (PropertyInfo prop in p)
             {
-
-               
                 if (prop.GetValue(this).ToString().Length > 0)
                 {
                     zoekfilters.Add(prop.Name.Replace("BestuurderFilter", ""));
@@ -92,13 +101,13 @@ namespace WPFApp.Views
         private bool _controleerVeldenVoldaanVoorToevoegen()
         {
 
-            bool voldaan = Id.ToString().Length > 0
-                           && Merk.Length > 0
+            bool voldaan = Merk.Length > 0
                           && Model.Length > 0
                           && Brandstof.Length > 0
                           && Nummerplaat.Length > 0
                           && Voertuigsoort.Length > 0
                           && Kleur.Length > 0
+                          && Chassisnummer.Length == 17
                           && AantalDeuren.ToString().Length > 0;               
 
             if (!voldaan)
@@ -117,12 +126,12 @@ namespace WPFApp.Views
         {
             try
             {
-                if (HighlitedBestuurder is null)
+                if (HighlightedBestuurder is null)
                 {
                     throw new Exception("Je hebt geen bestuurder geselecteerd.");
                 }
 
-                GeselecteerdBestuurder = DTONaarDTO.ResponseNaarRequest<BestuurderRequestDTO>(HighlitedBestuurder);
+                GeselecteerdBestuurder = DTONaarDTO.ResponseNaarRequest<BestuurderRequestDTO>(HighlightedBestuurder);
             }
             catch (Exception e)
             {
@@ -133,11 +142,11 @@ namespace WPFApp.Views
         {
             if (_controleerVeldenVoldaanVoorToevoegen())
             {
-                try
-                {
-                    VoertuigRequestDTO voertuig = new(null, Merk, Model, Nummerplaat, Brandstof, Voertuigsoort, Kleur, AantalDeuren, GeselecteerdBestuurder, Chassisnummer);
-                    int id = _communicatieKanaal.VoegVoertuigToe(voertuig);
-                    StuurSnackbar($"Succesvol toegevoegd met id {id}");
+                try 
+                {  // TODO
+                   // VoertuigRequestDTO voertuig = new(null, Merk, Model, Nummerplaat, Brandstof, Voertuigsoort, Kleur, AantalDeuren, GeselecteerdBestuurder, Chassisnummer);
+                    //int id = _communicatieKanaal.VoegVoertuigToe(voertuig);
+                    //StuurSnackbar($"Succesvol toegevoegd met id {id}");
 
                     _resetBestuurderFilters();
 
@@ -170,7 +179,7 @@ namespace WPFApp.Views
 
             }
         }
-        public ICommand SelecteerHighlitedBestuurder
+        public ICommand SelecteerHighlightedBestuurder
         {
             get
             {

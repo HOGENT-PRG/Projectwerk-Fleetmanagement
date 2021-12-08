@@ -23,9 +23,7 @@ namespace WPFApp.Model.Hosts {
 		public string AdresFilterProvincie { get; set; } = "";
 		public string AdresFilterLand { get; set; } = "";
 
-		// Zou apart in viewmodel filteren mbt tankkaartbrandstof (1:M)
 		public string TankkaartFilterKaartnummer { get; set; } = "";
-		//public DateTime TankkaartFilterVervaldatum { get; set; } = DateTime.Now;
 		public string TankkaartFilterPincode { get; set; } = "";
 
 		public string VoertuigFilterMerk { get; set; } = "";
@@ -39,12 +37,11 @@ namespace WPFApp.Model.Hosts {
 
 		public string BestuurderFilterNaam { get; set; } = "";
 		public string BestuurderFilterVoornaam { get; set; } = "";
-		public DateTime BestuurderFilterGeboortedatum { get; set; } = DateTime.Now;
 		public string BestuurderFilterRijksregisternummer { get; set; } = "";
 		public string BestuurderFilterRijbewijssoort { get; set; } = "";
-		public int? BestuurderFilterAdresId { get; set; } = null;
-		public int? BestuurderFilterVoertuigId { get; set; } = null;
-		public int? BestuurderFilterTankkaartId { get; set; } = null;
+		public string BestuurderFilterAdresId { get; set; } = "";
+		public string BestuurderFilterVoertuigId { get; set; } = "";
+		public string BestuurderFilterTankkaartId { get; set; } = "";
 
 
 	}

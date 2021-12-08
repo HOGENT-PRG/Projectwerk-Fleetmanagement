@@ -138,7 +138,7 @@ namespace BusinessLaag.Managers
 
         public List<Bestuurder> ZoekBestuurders(List<string> kolomnamen, List<object> zoektermen, bool likeWildcard = false) {
             try {
-                return _opslag.ZoekBestuurders(kolomnamen, zoektermen);
+                return _opslag.ZoekBestuurders(kolomnamen, zoektermen, likeWildcard);
             } catch (Exception e) {
                 throw new BestuurderManagerException("Bestuurders konden niet gezocht worden.", e);
             }

@@ -7,7 +7,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:WPFApp.Views.Dialogs"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="300">
     <Grid Margin="16">
 
         <Grid.RowDefinitions>
@@ -17,37 +17,30 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock FontSize="16">Adres filter</TextBlock>
+        <TextBlock FontSize="16">Bestuurder filter</TextBlock>
         <TextBox wpf:HintAssist.Hint="Voornaam" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"                 
                  Margin="0 6 0 0"
                  FontSize="16" Grid.Row="1"
              Text="{Binding BestuurderFilterVoornaam}"
              />
-        <TextBox wpf:HintAssist.Hint="Naam" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+        <TextBox wpf:HintAssist.Hint="Achternaam" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                  Margin="0 8 0 0"
                  FontSize="16" Grid.Row="2"
                  Text="{Binding BestuurderFilterNaam}"
                  />
-        <TextBox wpf:HintAssist.Hint="Rijbewijs Type" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+        <TextBox wpf:HintAssist.Hint="Rijksregisternummer" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                  Margin="0 8 0 0"
                  FontSize="16" Grid.Row="3"
-                 Text="{Binding BestuurderFilterRijbewijsType}"
-                 />
-        <TextBox wpf:HintAssist.Hint="Geboortedatum" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                 Margin="0 8 0 0"
-                 FontSize="16" Grid.Row="4"
-                 Text="{Binding BestuurderFilterGeboortedatum}"
-                 />
-        <TextBox wpf:HintAssist.Hint="Rijksregister nummer" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                 Margin="0 8 0 0"
-                 FontSize="16" Grid.Row="5"
                  Text="{Binding BestuurderFilterRijksregisternummer}"
                  />
-      
-        <StackPanel Orientation="Horizontal" Grid.Row="8"
+        <TextBox wpf:HintAssist.Hint="Rijbewijssoort" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0 8 0 0"
+                 FontSize="16" Grid.Row="4"
+                 Text="{Binding BestuurderFilterRijbewijssoort}"
+                 />
+
+        <StackPanel Orientation="Horizontal" Grid.Row="5"
                     HorizontalAlignment="Right">
             <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
                     Command="{x:Static wpf:DialogHost.CloseDialogCommand}">

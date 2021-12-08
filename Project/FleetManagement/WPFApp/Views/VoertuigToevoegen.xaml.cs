@@ -42,15 +42,9 @@ namespace WPFApp.Views
 			VoerStartupRoutineUit.Command.Execute("Loaded");
 		}
 
-
-
-
-
-
         protected void BestuurderFilterDialogOpen_Click(object sender, RoutedEventArgs e)
         {
-
-			var view = new VoertuigFilterDialog
+			var view = new BestuurderFilterDialog
 			{
 				DataContext = this.DataContext,
 				Width = 340
