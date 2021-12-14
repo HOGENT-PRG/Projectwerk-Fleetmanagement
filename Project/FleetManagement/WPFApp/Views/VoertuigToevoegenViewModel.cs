@@ -144,9 +144,10 @@ namespace WPFApp.Views
             {
                 try 
                 {  // TODO
-                   // VoertuigRequestDTO voertuig = new(null, Merk, Model, Nummerplaat, Brandstof, Voertuigsoort, Kleur, AantalDeuren, GeselecteerdBestuurder, Chassisnummer);
-                    //int id = _communicatieKanaal.VoegVoertuigToe(voertuig);
-                    //StuurSnackbar($"Succesvol toegevoegd met id {id}");
+                    VoertuigRequestDTO voertuig = new(null, Merk, Model, Nummerplaat, Brandstof, Voertuigsoort, Kleur, AantalDeuren, GeselecteerdBestuurder, Chassisnummer);
+             
+                   int id = _communicatieKanaal.VoegVoertuigToe(voertuig);
+                    StuurSnackbar($"Succesvol toegevoegd met id {id}");
 
                     _resetBestuurderFilters();
 
