@@ -15,5 +15,15 @@ namespace WPFApp.Model.Request {
         public string? Plaatsnaam { get; set; }
         public string? Provincie { get; set; }
         public string? Land { get; set; }
+        public AdresRequestDTO(int? id,string? straatnaam,string? huisnummer,string? postcode,string? plaatsnaam,string? provincie,string? land)
+        {
+            this.Id = id;
+            this.Straatnaam = straatnaam;
+            this.Huisnummer = huisnummer;
+            this.Postcode = postcode;
+            this.Plaatsnaam = plaatsnaam;
+            this.Provincie = provincie;
+            this.Land = land;
+        }
     }
 }

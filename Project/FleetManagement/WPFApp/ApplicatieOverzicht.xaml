@@ -31,9 +31,9 @@
         </DataTemplate>
         
         <!-- toevoegen -->
-        <!--<DataTemplate DataType="{x:Type local:AdresToevoegenViewModel}">
+        <DataTemplate DataType="{x:Type local:AdresToevoegenViewModel}">
             <local:AdresToevoegen />
-        </DataTemplate>-->
+        </DataTemplate>
         <DataTemplate DataType="{x:Type local:BestuurderToevoegenViewModel}">
             <local:BestuurderToevoegen />
         </DataTemplate>
