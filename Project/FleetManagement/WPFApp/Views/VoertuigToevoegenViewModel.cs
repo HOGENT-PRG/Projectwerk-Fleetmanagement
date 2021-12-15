@@ -53,9 +53,8 @@ namespace WPFApp.Views
             StuurSnackbar = stuurSnackbar;
 
             PropertyChanged += FilterDialogs_PropertyChangedHandler;
-
-
         }
+
         private void _startupRoutine()
         {
             try
@@ -142,12 +141,12 @@ namespace WPFApp.Views
         {
             if (_controleerVeldenVoldaanVoorToevoegen())
             {
-                try 
-                {  // TODO
-                    VoertuigRequestDTO voertuig = new(null, Merk, Model, Nummerplaat, Brandstof, Voertuigsoort, Kleur, AantalDeuren, GeselecteerdBestuurder, Chassisnummer);
-             
-                   int id = _communicatieKanaal.VoegVoertuigToe(voertuig);
+                try {
+                    VoertuigRequestDTO voertuig = new(null, Merk, Model, Nummerplaat, Brandstof, Voertuigsoort, Kleur, AantalDeuren, Chassisnummer, GeselecteerdBestuurder);
+
+                    int id = _communicatieKanaal.VoegVoertuigToe(voertuig);
                     StuurSnackbar($"Succesvol toegevoegd met id {id}");
+
 
                     _resetBestuurderFilters();
 
@@ -160,11 +159,8 @@ namespace WPFApp.Views
                     Chassisnummer = "";
                     AantalDeuren = 0;
                     GeselecteerdBestuurder = null;
-                    
 
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     StuurSnackbar(e);
                 }
             }

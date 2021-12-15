@@ -37,9 +37,9 @@
         <DataTemplate DataType="{x:Type local:BestuurderToevoegenViewModel}">
             <local:BestuurderToevoegen />
         </DataTemplate>
-        <!--<DataTemplate DataType="{x:Type local:TankkaartToevoegenViewModel}">
+        <DataTemplate DataType="{x:Type local:TankkaartToevoegenViewModel}">
             <local:TankkaartToevoegen />
-        </DataTemplate>-->
+        </DataTemplate>
         <DataTemplate DataType="{x:Type local:VoertuigToevoegenViewModel}">
             <local:VoertuigToevoegen />
         </DataTemplate>

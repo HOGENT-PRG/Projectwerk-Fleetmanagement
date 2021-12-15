@@ -7,7 +7,8 @@ using WPFApp.Interfaces;
 
 namespace WPFApp.Model.Request {
     public class VoertuigRequestDTO : IRequestDTO {
-        public int? Id { get; set; }
+
+		public int? Id { get; set; }
         public string? Merk { get; set; }
         public string? Model { get; set; }
         public string? Nummerplaat { get; set; }
@@ -17,7 +18,10 @@ namespace WPFApp.Model.Request {
         public int? AantalDeuren { get; set; }
         public BestuurderRequestDTO? Bestuurder { get; set; }
         public string? Chassisnummer { get; set; }
-        public VoertuigRequestDTO(int? id,string? merk,string? model,string nummerplaat,string? brandstof,string? voertuigsoort,string? kleur, int? aantalDeuren, BestuurderRequestDTO? bestuurder,string? chasisnummer)
+
+        public VoertuigRequestDTO() { }
+
+        public VoertuigRequestDTO(int? id,string? merk,string? model,string nummerplaat,string? brandstof,string? voertuigsoort,string? kleur, int? aantalDeuren, string? chasisnummer, BestuurderRequestDTO? bestuurder)
         {
             this.Id = id;
             this.Merk = merk;
@@ -31,4 +35,5 @@ namespace WPFApp.Model.Request {
             this.Chassisnummer = chasisnummer;
         }
     }
+		
 }
