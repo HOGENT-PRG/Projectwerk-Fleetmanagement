@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessLaag.Interfaces;
+﻿using BusinessLaag.Interfaces;
 using BusinessLaag.Managers;
 
 namespace BusinessLaag
@@ -15,7 +10,7 @@ namespace BusinessLaag
         public IDatabankConfigureerder DatabankConfigureerder { get; private set; }
 
         /* Managers uit domeinlaag */
-        /** Deze roepen functies aan van de ...Repository klassen en van andere Managers en handhaven de domeinregels */
+        /* Deze roepen functies aan van de ...Repository klassen en van andere Managers en handhaven de domeinregels */
         public VoertuigManager VoertuigManager { get; private set; }
         public BestuurderManager BestuurderManager { get; private set; }
         public TankkaartManager TankkaartManager { get; private set; }
@@ -33,7 +28,7 @@ namespace BusinessLaag
                     per ongeluk de taken van een andere Manager overnemen.
                                                                             **/
 
-            // De SqlConnection voor gebruik in productie wordt ingesteld
+            // De SqlConnection voor gebruik in productie wordt aangemaakt door de repos dmv connstring
             voertuigRepo.ZetConnectionString(DatabankConfigureerder.ProductieConnectieString);
             bestuurderRepo.ZetConnectionString(DatabankConfigureerder.ProductieConnectieString);
             tankkaartRepo.ZetConnectionString(DatabankConfigureerder.ProductieConnectieString);

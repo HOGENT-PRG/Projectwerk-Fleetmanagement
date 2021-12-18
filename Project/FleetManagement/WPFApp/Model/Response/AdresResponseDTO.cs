@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessLaag.Model;
-using WPFApp.Interfaces;
+﻿using WPFApp.Interfaces;
 
 namespace WPFApp.Model.Response {
     public class AdresResponseDTO : IResponseDTO {

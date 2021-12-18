@@ -16,7 +16,7 @@ namespace DataLaag.Helpers {
 	// een gewenst object. Door dit toe te passen wordt de parsing niet per opslagklasse herhaalt en is het makkelijker
 	// te onderhouden en aan te passen.
 	// Een vereiste is echter wel dat elke opslag klasse dezelfde standaard volgt met betrekking tot
-	// naamgeving van de kolomnamen zodat de parser geen probleem ondervindt bij het zoeken naar de kolom.
+	// naamgeving van de kolomnamen zodat de parser geen probleem ondervindt bij het gebruiken van de kolom.
 	internal static class QueryParser {
 		// Indien het gewenst is om exceptions te throwen indien een parse null retourneert, deze aanzetten.
 		// Met nullable parameters wordt geen rekening gehouden aangezien deze toegelaten zijn voor de opbouw

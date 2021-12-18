@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WPFApp.Views.MVVM {
+    // "Marker" interface, vergemakkelijkt omgang in ApplicatieOverzichtViewModel
     public interface IPaginaViewModel {
         string Naam { get; }
     }

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
+// Aangezien Fody als dependency geintroduceerd is zal het gebruik van Update() minder van toepassing zijn, er vindt namelijk bij die package automatisch emitten van property changed events plaats
+// Enkele functies gebruik nog Update
+
+// Kan van overgeerft worden, houdt de INotifyPropertyChanged interface in waardoor Fody die klasse zal behandelen en stelt een functie ter beschikking
 namespace WPFApp.Views.MVVM {
     internal abstract class Presenteerder : INotifyPropertyChanged {
         public event PropertyChangedEventHandler? PropertyChanged;

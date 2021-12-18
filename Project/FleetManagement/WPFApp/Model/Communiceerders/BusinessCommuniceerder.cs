@@ -15,7 +15,10 @@ using System.Reflection;
 using System.Linq;
 
 // De Businesscommuniceerder heeft als enigste klasse dependency op de business laag.
-// In het geval dat er een API gebruikt wordt zal deze de verantwoordelijkheid voor het
+// Roept functies aan van de businesslaag en converteert van/naar dto's.
+// De wpf app begrijpt/behandelt louter response dto's, en de viewmodels gering request dto's.
+//
+// In het geval dat er een API gebruikt wordt zal deze, nieuwe, laag de verantwoordelijkheid voor het
 // beheren van de dependency en het aanmaken van de FleetManager op zich moeten nemen.
 
 // Functie return types zijn ResponseDTO(s) of POD types (string, int, ..)

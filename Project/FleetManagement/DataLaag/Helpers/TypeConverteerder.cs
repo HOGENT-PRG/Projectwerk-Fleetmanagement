@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Indien er met generieke objecten gewerkt wordt om bijv een where clause te vormen bij een zoekfunctie in een repository kan dmv deze klasse het correcte DbType afgeleid worden, welke verder door SqlParameter omgevormd wordt tot het geschikte SqlDbType
 namespace DataLaag.Helpers {
     public static class TypeConverteerder {
         private static Dictionary<Type, DbType> typeMap;

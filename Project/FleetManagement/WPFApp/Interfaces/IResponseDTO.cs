@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WPFApp.Interfaces {
+    // Marker interface
     internal interface IResponseDTO {
     }
 }

@@ -11,6 +11,7 @@ using System.Collections;
 namespace WPFApp.Helpers {
     public static class BronParser {
 
+        // Denk dat deze functie nooit nodig geweest is, kan weg.
         /// <summary>
         /// Indien een geneste dictionary van een JObject gewenst is kan deze functie die voorzien.
         /// Op te merken is dat een JObject reeds beschikt over gelijkaardige functionaliteiten van een dictionary
@@ -33,6 +34,10 @@ namespace WPFApp.Helpers {
                     throw new BronParserException($"Dit type kan niet geparsed worden: {reqObj.GetType()}");
             }
 		}
+
+        // TLDR
+        // Wordt gebruikt bij de omzettingen van/naar DTO's
+        // Bewijst voornamelijk zijn nut bij ApiCommuniceerder, waar het gebruikt wordt om json schema te valideren en daarnaast om nulls weg te laten uit de resulterende json string.
 
         /// <summary>
         /// Deze functie bewijst zijn nut indien er gebruik gemaakt wordt van de ApiCommuniceerder.

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
-using System.Windows.Resources;
 
+// Zet een boolean om naar een image, voor gebruik in xaml van databank info (checkmark of red cross)
 namespace WPFApp.Views {
     public class StatusConverter : IValueConverter {
 

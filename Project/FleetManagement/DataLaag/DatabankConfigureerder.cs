@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
-using BusinessLaag.Exceptions;
 using System.Linq;
 using System.Data;
-
 using BusinessLaag.Interfaces;
 using System.Net;
 using Microsoft.SqlServer.Management.Smo;
@@ -67,6 +65,8 @@ namespace DataLaag
             // Doorloopt de configuratiesequentie, stelt overige properties in
             _doorloopSequentie(databanknaam, tabellen);  
         }
+
+        // Gebruik van protected om overerven door TestDatabankConfigureerder mogelijk te maken
 
         protected void _doorloopSequentie(string databanknaam, SortedDictionary<string, string> gewensteTabellen)
         {

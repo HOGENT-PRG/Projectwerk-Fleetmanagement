@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
+// TODO weg indien niet gebruikt wordt
 namespace WPFApp.Views.Converters {
     public class EnumConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {

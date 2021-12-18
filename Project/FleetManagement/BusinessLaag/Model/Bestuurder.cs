@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using BusinessLaag.Exceptions;
 using BusinessLaag.Helpers;
-using System.Threading.Tasks;
-using BusinessLaag.Model;
 using BusinessLaag.Model.Enum;
 
 namespace BusinessLaag.Model

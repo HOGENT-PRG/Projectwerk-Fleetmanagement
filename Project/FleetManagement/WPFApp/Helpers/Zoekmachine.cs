@@ -1,16 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using WPFApp.Interfaces;
-using WPFApp.Model.Response;
-using WPFApp.Views.MVVM;
 
 namespace WPFApp.Helpers {
     public class Zoekmachine {
