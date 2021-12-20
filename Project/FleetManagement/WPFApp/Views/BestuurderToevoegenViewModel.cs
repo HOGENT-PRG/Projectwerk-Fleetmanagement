@@ -22,7 +22,7 @@ namespace WPFApp.Views {
     internal class BestuurderToevoegenViewModel : FilterDialogs, IPaginaViewModel {
         public string Naam => "Bestuurder toevoegen";
 
-        private ICommuniceer _communicatieKanaal;
+        protected ICommuniceer _communicatieKanaal;
         public Action<object> StuurSnackbar { get; init; }
 
         public List<string> RijbewijsOpties { get; init; } = new() {
@@ -54,7 +54,7 @@ namespace WPFApp.Views {
 			PropertyChanged += Self_PropertyChanged;
         }
 
-		private void _startupRoutine() {
+		protected void _startupRoutine() {
             try {
                 _resetAdresFilters();
                 _resetTankkaartFilters();
@@ -64,7 +64,7 @@ namespace WPFApp.Views {
             }
         }
 
-        private void Self_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+        protected void Self_PropertyChanged(object sender, PropertyChangedEventArgs e) {
 			switch (e.PropertyName) {
                 case "RijksRegisterNummer":
                     if (RijksRegisterNummer.Length > 0) {
@@ -80,20 +80,13 @@ namespace WPFApp.Views {
 
         // Hier wordt er in de gaten gehouden of er een filter property die we overerven van
         // FilterDialogs wijzigt, indien dat het geval is gaan we zoeken met de filter
-        private void FilterDialogs_PropertyChangedHandler(object sender, PropertyChangedEventArgs e) {
+        protected void FilterDialogs_PropertyChangedHandler(object sender, PropertyChangedEventArgs e) {
             switch (e.PropertyName) {
                 case string s when s.StartsWith("AdresFilter"):
                     _zoekAdresMetFilters();
                     break;
                 case string s when s.StartsWith("TankkaartFilter"):
-                    //if(s == "TankkaartFilterVervaldatum") {
-                    //    if (TankkaartFilterVervaldatum != TankkaartFilterVervaldatum.Date) {
-                    //        TankkaartFilterVervaldatum = TankkaartFilterVervaldatum.Date;
-                    //        _zoekTankkaartMetFilters();
-                    //    }
-                    //} else {
                     _zoekTankkaartMetFilters();
-                    //}
                     break;
 				case string s when s.StartsWith("VoertuigFilter"):
 					_zoekVoertuigMetFilters();
@@ -103,9 +96,9 @@ namespace WPFApp.Views {
 			}
         }
 
-		#region Zoek met filters, reset filters, selecteer highlighted
+        #region Zoek met filters, reset filters, selecteer highlighted
 
-		private void _zoekAdresMetFilters() {
+        protected void _zoekAdresMetFilters() {
             List<string> zoekfilters = new();
             List<object> zoektermen = new();
             List<PropertyInfo> p = this.GetType().GetProperties().Where(x => x.Name.StartsWith("AdresFilter")).ToList();
@@ -123,11 +116,11 @@ namespace WPFApp.Views {
             }
         }
 
-        private void _resetAdresFilters() {
+        protected void _resetAdresFilters() {
             Adressen = new ObservableCollection<AdresResponseDTO>(_communicatieKanaal.GeefAdressen());
         }
 
-        private void _selecteerHighlightedAdres() {
+        protected void _selecteerHighlightedAdres() {
             try {
                 if (HighlightedAdres is null) {
                     throw new Exception("Je hebt geen adres geselecteerd.");
@@ -140,14 +133,11 @@ namespace WPFApp.Views {
         }
 
 
-        private void _zoekTankkaartMetFilters() {
+        protected void _zoekTankkaartMetFilters() {
             List<string> zoekfilters = new();
             List<object> zoektermen = new();
             List<PropertyInfo> p = this.GetType().GetProperties().Where(x => x.Name.StartsWith("TankkaartFilter")).ToList();
             foreach (PropertyInfo prop in p) {
-
-                /*TODO: opnemen of weg, liefst geen Staat opnemen daarin, werd gebruikt bij Voetbaltrui maar zorgt voor verwarring indien wijzigdialog niet apart is:
-                                                              && !prop.Name.Contains("Staat")*/
                 if (prop.GetValue(this).ToString().Length > 0) {
                     zoekfilters.Add(prop.Name.Replace("TankkaartFilter", ""));
                     zoektermen.Add(prop.GetValue(this));
@@ -158,11 +148,11 @@ namespace WPFApp.Views {
             }
         }
 
-        private void _resetTankkaartFilters() {
+        protected void _resetTankkaartFilters() {
             Tankkaarten = new ObservableCollection<TankkaartResponseDTO>(_communicatieKanaal.GeefTankkaarten());
         }
 
-        private void _selecteerHighlightedTankkaart() {
+        protected void _selecteerHighlightedTankkaart() {
             try {
                 if (HighlightedTankkaart is null) {
                     throw new Exception("Je hebt geen tankkaart geselecteerd.");
@@ -173,16 +163,13 @@ namespace WPFApp.Views {
                 StuurSnackbar(e.Message);
             }
         }
-        
-        
-        private void _zoekVoertuigMetFilters() {
+
+
+        protected void _zoekVoertuigMetFilters() {
             List<string> zoekfilters = new();
             List<object> zoektermen = new();
             List<PropertyInfo> p = this.GetType().GetProperties().Where(x => x.Name.StartsWith("VoertuigFilter")).ToList();
             foreach (PropertyInfo prop in p) {
-
-                /*TODO: opnemen of weg, liefst geen Staat opnemen daarin, werd gebruikt bij Voetbaltrui maar zorgt voor verwarring indien wijzigdialog niet apart is:
-                                                              && !prop.Name.Contains("Staat")*/
                 if (prop.GetValue(this).ToString().Length > 0) {
                     zoekfilters.Add(prop.Name.Replace("VoertuigFilter", ""));
                     zoektermen.Add(prop.GetValue(this));
@@ -193,11 +180,11 @@ namespace WPFApp.Views {
             }
         }
 
-        private void _resetVoertuigFilters() {
+        protected void _resetVoertuigFilters() {
             Voertuigen = new ObservableCollection<VoertuigResponseDTO>(_communicatieKanaal.GeefVoertuigen());
         }
 
-        private void _selecteerHighlightedVoertuig() {
+        protected void _selecteerHighlightedVoertuig() {
             try {
                 if (HighlightedVoertuig is null) {
                     throw new Exception("Je hebt geen voertuig geselecteerd.");
@@ -227,7 +214,7 @@ namespace WPFApp.Views {
                            && RijbewijsSoort.Length > 0; // validatie dmv dropdown
 
             if (!voldaan) {
-                StuurSnackbar("Bestuurder voldoet niet aan vereisten.\nGelieve de velden in te vullen.");
+                StuurSnackbar("Bestuurder voldoet niet aan de vereisten.\nGelieve de velden in te vullen.");
             }
 
             return voldaan;

@@ -45,6 +45,9 @@
         </DataTemplate>
 
         <!-- wijzigen -->
+        <DataTemplate DataType="{x:Type local:BestuurderWijzigenViewModel}">
+            <local:BestuurderWijzigen />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>

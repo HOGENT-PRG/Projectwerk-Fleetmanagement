@@ -5,17 +5,10 @@ using System.Windows.Controls;
 using WPFApp.Views.Dialogs;
 
 namespace WPFApp.Views {
-	/// <summary>
-	/// Interaction logic for BestuurderToevoegen.xaml
-	/// </summary>
-	public partial class BestuurderToevoegen : UserControl {
-		public BestuurderToevoegen() {
+	// Praktisch hetzelfde als toevoegen code behind, maar zonder reset_click handler
+	public partial class BestuurderWijzigen : UserControl {
+		public BestuurderWijzigen() {
 			InitializeComponent();
-		}
-
-		private void Reset_Click(object sender, RoutedEventArgs e) {
-			VerwijderViewModel.Command.Execute(VerwijderViewModel.CommandParameter);
-			GaNaarNieuwViewModel.Command.Execute(GaNaarNieuwViewModel.CommandParameter);
 		}
 
 		private void GaNaarOverzicht_Click(object sender, RoutedEventArgs e) {
@@ -53,6 +46,5 @@ namespace WPFApp.Views {
 
 			FiltersDialogHost.ShowDialog(view);
 		}
-
 	}
 }
