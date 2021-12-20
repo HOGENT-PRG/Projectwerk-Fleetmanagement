@@ -25,17 +25,6 @@ namespace WPFApp.Views {
 
 		public BestuurderWijzigenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar) : base(communicatieKanaal, stuurSnackbar) { }
 
-        // Wordt gebruikt om te vergelijken of er wijzigingen aangebracht werden
-        private static (Formatting, JsonSerializerSettings) FJSS {
-            get {
-                return (Formatting.None, new JsonSerializerSettings {
-                    ObjectCreationHandling = ObjectCreationHandling.Replace,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                });
-            }
-            set {  _ = value; }
-        }
-
         public void BereidModelVoorMetBestuurder(BestuurderResponseDTO teBehandelenBestuurder, bool isReset = false) {
             if (teBehandelenBestuurder is null) {
                 StuurSnackbar("Kon de bestuurder niet inladen aangezien deze null is.");
@@ -61,7 +50,7 @@ namespace WPFApp.Views {
 
                 Naam = $"Bestuurder {teBehandelenBestuurder.Id} wijzigen";
                 if (isReset) {
-                    StuurSnackbar("Weergegeven bestuurder werd hersteld naar de huidige opgeslagen staat.");
+                    StuurSnackbar("Weergegeven bestuurder werd lokaal hersteld naar de oorspronkelijke staat.");
                 }
             }
         }
@@ -96,11 +85,6 @@ namespace WPFApp.Views {
 			if (_controleerVeldenVoldaanVoorWijzigen()) {
                 try {
                     BestuurderRequestDTO b = new(IngeladenBestuurderResponse.Id, Achternaam, Voornaam, RijksRegisterNummer, RijbewijsSoort, GeboorteDatum, GeselecteerdAdres, GeselecteerdeVoertuig, GeselecteerdeTankkaart);
-
-                    if(JsonConvert.SerializeObject(b, FJSS.Item1, FJSS.Item2)
-                        == JsonConvert.SerializeObject(IngeladenBestuurderRequest, FJSS.Item1, FJSS.Item2)) {
-                        throw new WarningException("Er zijn geen wijzigingen aangebracht, aldus kan er niet geupdate worden.");
-					}
 
                     _communicatieKanaal.UpdateBestuurder(b);
                     StuurSnackbar($"De bestuurder met id {b.Id} werd succesvol gewijzigd.");
