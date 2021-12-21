@@ -14,6 +14,7 @@ using WPFApp.Model.Response;
 using WPFApp.Views.MVVM;
 
 namespace WPFApp.Views {
+    // Erft over van bestuurdertoevoegen aangezien de functionaliteiten grotendeels hetzelfde zijn
 	internal sealed class BestuurderWijzigenViewModel : BestuurderToevoegenViewModel {
         #pragma warning disable CS0108
 		public string Naam { get; set; } = "Bestuurder wijzigen";

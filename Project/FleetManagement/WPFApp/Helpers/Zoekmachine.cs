@@ -44,6 +44,10 @@ namespace WPFApp.Helpers {
         private object _geefWaardeVanPropertyRecursief(List<Type> types, string propertyNaam, object instantie) {
             List<Type> huidigeTypes = types.ToList();
 
+            if(instantie is null) {
+                return null;
+			}
+
             var instantieType = instantie.GetType();
 
             foreach (var property in instantieType.GetProperties()) {
@@ -87,6 +91,10 @@ namespace WPFApp.Helpers {
 
             foreach (List<T> resultaat in dataCollectieResultaten) {
                 foreach (T b in dataCollectieResultaat) {
+                    if(b is null) {
+                        continue;
+					}
+
                     var res = _geefWaardeVanPropertyRecursief(zoekfilterParseResultaat.Key, zoekfilterParseResultaat.Value, b);
                     if (res is not null) {
                         var r1 = JsonConvert.SerializeObject(res);

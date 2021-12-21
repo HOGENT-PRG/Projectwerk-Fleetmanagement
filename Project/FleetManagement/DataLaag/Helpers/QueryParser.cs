@@ -18,10 +18,6 @@ namespace DataLaag.Helpers {
 	// Een vereiste is echter wel dat elke opslag klasse dezelfde standaard volgt met betrekking tot
 	// naamgeving van de kolomnamen zodat de parser geen probleem ondervindt bij het gebruiken van de kolom.
 	internal static class QueryParser {
-		// Indien het gewenst is om exceptions te throwen indien een parse null retourneert, deze aanzetten.
-		// Met nullable parameters wordt geen rekening gehouden aangezien deze toegelaten zijn voor de opbouw
-		// van relaties tussen objecten.
-
 		private static string MaakExceptionMessage(SqlDataReader r, string functienaam) {
 			List<DbColumn> kolommen = r.GetColumnSchema().ToList();
 			string basis = $"QueryParser - Kon de data niet parsen in functie {functienaam}\nKolommen ({r.FieldCount}) en hun waarden:";

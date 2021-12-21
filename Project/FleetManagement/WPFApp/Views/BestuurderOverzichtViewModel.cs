@@ -21,7 +21,7 @@ namespace WPFApp.Views {
         public Action<object> StuurSnackbar { get; init; }
 
         private List<string> BlacklistZoekfilters { get; init; } = new() {
-            "Chars", "Length"
+            "Chars", "Length", "Bestuurder", "GeldigVoorBrandstoffen"
         };
 
         public ObservableCollection<string> BestuurderZoekfilters { get; private set; }
@@ -89,13 +89,11 @@ namespace WPFApp.Views {
                     break;
 			}
 
-			if (zoekfilter.Contains("GeldigVoorBrandstoffen")) {
-                // CRIT TODO - implementeren zoek func voor list
-			} else {
-                Bestuurders = new ObservableCollection<BestuurderResponseDTO>(
-                    Zoekmachine.ZoekMetFilter<BestuurderResponseDTO>(dataCollectieActieBestuurders, zoekfilter, zoekterm, vergelijker).ToList()
-                );
-            }
+
+            Bestuurders = new ObservableCollection<BestuurderResponseDTO>(
+                Zoekmachine.ZoekMetFilter<BestuurderResponseDTO>(dataCollectieActieBestuurders, zoekfilter, zoekterm, vergelijker).ToList()
+            );
+            
 
             ZoekveldDate = DateTime.Now;
             ZoekveldRegular = "";
@@ -103,6 +101,7 @@ namespace WPFApp.Views {
 
         // Vergelijkt datums - zonder tijd 
         // Geen datetime.parse, dat vertraagt de boel enorm (ook met parseexact)
+        // Tevens wordt hier vergelijkt op basis van datum, de tijd die eventueel aanwezig is wordt niet in acht genomen, WPF voegt namelijk by default tijd toe wat niet wenselijk is
         public bool DatumVergelijker(object r1, object r2) {
             try {
                 if (r1.GetType() == r2.GetType() && r1.GetType() == typeof(DateTime)) {
