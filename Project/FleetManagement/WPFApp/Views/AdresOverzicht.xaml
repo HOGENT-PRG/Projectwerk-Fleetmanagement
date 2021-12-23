@@ -61,7 +61,7 @@
 
         <TextBox x:Name="zoekveld" Grid.Column="6" Margin="7,7,7,7" Grid.Row="1" Text="{Binding ZoekveldRegular}" Grid.ColumnSpan="1" />
 
-        <Button Content="Zoek" Grid.Row="1" Grid.Column="8" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26"  Command="{Binding ZoekMetFilter}" />
+        <Button Content="Zoek" Grid.Row="1" Grid.Column="8" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Command="{Binding ZoekMetFilter}" CommandParameter="0" IsEnabled="True" />
 
         <DataGrid Opacity="0.7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Adressen}" AutoGenerateColumns="False"  SelectedItem="{Binding HighlightedAdres}" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True">
             <DataGrid.Columns>
@@ -83,18 +83,17 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button
+                            <Button Click="AdresWijzigenDialogOpen_click"
                               Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                               ToolTip="MaterialDesignFloatingActionMiniLightButton"
                               IsEnabled="True"
                                 BorderThickness="0" Foreground="White" BorderBrush="AliceBlue" Background="ForestGreen"
-                                    Command="{Binding DataContext.WijzigAdresCommand, 
-                                                  RelativeSource={RelativeSource FindAncestor, 
-                                                    AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
-                                                  }
-                                             }"
-                                    CommandParameter="{Binding}">
+                                Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}"
+                                    CommandParameter="{Binding DataContext.PaginaViewModels[AdresWijzigen], RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}">
+                               
+
                                 <materialDesign:PackIcon Kind="Pencil" />
+                                
                             </Button>
                             <!-- TODO toe te voegen aan applicatieoverzicht -->
                             <!--<Button BorderThickness="0" Foreground="White" Content="✏️ Bewerk"

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using MaterialDesignThemes.Wpf;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -12,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFApp.Model.Hosts;
+using WPFApp.Views.Dialogs;
+using FSharp.Control.Tasks;
 
 namespace WPFApp.Views {
     /// <summary>
@@ -35,6 +39,12 @@ namespace WPFApp.Views {
             }
         }
 
+        private void AdresWijzigenDialogOpen_click(object sender, RoutedEventArgs e)
+        {
+            
 
-    }
+
+        }
+        }
+    
 }

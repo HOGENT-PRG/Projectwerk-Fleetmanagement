@@ -48,7 +48,11 @@
         <DataTemplate DataType="{x:Type local:BestuurderWijzigenViewModel}">
             <local:BestuurderWijzigen />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type local:AdresWijzigenViewModel}">
+            <local:AdresToevoegen />
+        </DataTemplate>
     </Window.Resources>
+   
 
     <Grid>
         <Grid.ColumnDefinitions>
