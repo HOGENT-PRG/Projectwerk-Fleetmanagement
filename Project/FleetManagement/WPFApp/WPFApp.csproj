@@ -22,6 +22,7 @@
     <None Remove="_images\add.png" />
     <None Remove="_images\addAdres.png" />
     <None Remove="_images\add_tankkaart.png" />
+    <None Remove="_images\AdresWijzigen.png" />
     <None Remove="_images\checkmark.png" />
     <None Remove="_images\cross.png" />
     <None Remove="_images\icons8-credit-control-48.png" />
@@ -75,6 +76,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="_images\add_tankkaart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="_images\AdresWijzigen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="_images\checkmark.png" />
