@@ -18,11 +18,11 @@ using WPFApp.Model.Mappers;
 
 namespace WPFApp.Views
 {
-  internal sealed  class AdresWijzigenViewModel : AdresToevoegenViewModel
+  internal sealed  class AdresWijzigenViewModel : AdresToevoegenViewModel, IPaginaViewModel
     {
 
         public string Naam { get; set; } = "Adres Wijzigen";
-        protected ICommuniceer _communicatieKanaal;
+    
         
         public AdresResponseDTO IngeladenAdresResponse { get; set; } = null;
         public AdresRequestDTO IngeladenAdresRequest { get; set; } = null;

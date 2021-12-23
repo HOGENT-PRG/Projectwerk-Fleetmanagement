@@ -21,7 +21,7 @@ namespace WPFApp.Views
     class AdresToevoegenViewModel:FilterDialogs,IPaginaViewModel
     {
         public string Naam => "Adres Toevoegen";
-        private ICommuniceer _communicatieKanaal;
+        public ICommuniceer _communicatieKanaal;
         public Action<object> StuurSnackbar { get; init; }
         public ObservableCollection<AdresResponseDTO> Adressen { get; set; } = new();
 
