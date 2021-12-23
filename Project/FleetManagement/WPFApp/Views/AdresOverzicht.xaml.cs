@@ -15,7 +15,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFApp.Model.Hosts;
 using WPFApp.Views.Dialogs;
-using FSharp.Control.Tasks;
 
 namespace WPFApp.Views {
     /// <summary>

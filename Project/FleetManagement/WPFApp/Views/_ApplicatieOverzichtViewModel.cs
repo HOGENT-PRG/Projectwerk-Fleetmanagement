@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using WPFApp.Interfaces;
+using WPFApp.Model.Response;
 using WPFApp.Views.Hosts;
 using WPFApp.Views.MVVM;
 
@@ -21,7 +22,7 @@ namespace WPFApp.Views {
 
         private ICommuniceer _communicatieKanaal = new CommunicatieRelay().CommunicatieKanaal;
 
-        // Constructie en instelling als datacontext van ApplicatieOverzicht in App.xaml.cs
+        // Constructie en instelling als datacontext van ApplicatieOverzicht in App.xaml code behind
         public ApplicatieOverzichtViewModel() {
 
             /* Overzichten */
@@ -37,7 +38,8 @@ namespace WPFApp.Views {
 			PaginaViewModels.Add(nameof(TankkaartToevoegen), new TankkaartToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
 			PaginaViewModels.Add(nameof(VoertuigToevoegen), new VoertuigToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
 
-			/* Wijzigen */
+            /* Wijzigen, overige via dialogs */
+            PaginaViewModels.Add(nameof(BestuurderWijzigen), new BestuurderWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
 
 			/* ViewModel dat gebruikt wordt bij opstart applicatie: AdresOverzicht */
 			HuidigePaginaViewModel = PaginaViewModels[nameof(AdresOverzicht)];
@@ -78,6 +80,25 @@ namespace WPFApp.Views {
 
             HuidigePaginaViewModel = PaginaViewModels.FirstOrDefault(vm => vm.Key == naam).Value;
         }
+
+        /* Wijzigen */
+
+        private void WijzigBestuurder(BestuurderResponseDTO b) {
+            VeranderViewModel(PaginaViewModels[nameof(BestuurderWijzigen)]);
+            BestuurderWijzigenViewModel bwvm = (BestuurderWijzigenViewModel)PaginaViewModels[nameof(BestuurderWijzigen)];
+            bwvm.BereidModelVoorMetBestuurder(b);
+        }
+
+        public ICommand WijzigBestuurderCommand {
+            get {
+                return new RelayCommand(
+                    p => WijzigBestuurder((BestuurderResponseDTO)p),
+                    p => p is not null
+                );
+            }
+        }
+
+        /* Wijzigen einde */
 
         public ICommand ResetViewModelCommand {
             get {
