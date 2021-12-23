@@ -68,15 +68,13 @@ namespace WPFApp.Views {
 
 		// Geen speciale gevallen hier, kan gewoon zonder switch 
 		private void _zoekMetFilter() {
-			string zoekfilter = GeselecteerdeZoekfilter;
-
 			Func<object, object, bool> vergelijker = null;
             List<Func<List<AdresResponseDTO>>> dataCollectieActieAdres = new() {
                 new Func<List<AdresResponseDTO>>(CommunicatieKanaal.GeefAdressen)
             };
 
             Adressen = new ObservableCollection<AdresResponseDTO>(
-                    Zoekmachine.ZoekMetFilter<AdresResponseDTO>(dataCollectieActieAdres, zoekfilter, GeselecteerdeZoekfilter, vergelijker).ToList()
+                    Zoekmachine.ZoekMetFilter<AdresResponseDTO>(dataCollectieActieAdres, GeselecteerdeZoekfilter, ZoekveldRegular, vergelijker).ToList()
             );
 
 		}
