@@ -40,9 +40,9 @@ namespace WPFApp.Views {
 
             /* Wijzigen, overige via dialogs */
             PaginaViewModels.Add(nameof(BestuurderWijzigen), new BestuurderWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
-
-			/* ViewModel dat gebruikt wordt bij opstart applicatie: AdresOverzicht */
-			HuidigePaginaViewModel = PaginaViewModels[nameof(AdresOverzicht)];
+            PaginaViewModels.Add(nameof(AdresWijzigen), new AdresWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
+            /* ViewModel dat gebruikt wordt bij opstart applicatie: AdresOverzicht */
+            HuidigePaginaViewModel = PaginaViewModels[nameof(AdresOverzicht)];
         }
 
 
@@ -96,6 +96,21 @@ namespace WPFApp.Views {
                     p => p is not null
                 );
             }
+        }
+        public ICommand WijzigAdresCommand
+        {
+            get
+            {
+                return new RelayCommand(
+                    p => WijzigAdres((AdresResponseDTO)p),
+                    p => p is not null);
+            }
+        }
+        private void WijzigAdres(AdresResponseDTO a)
+        {
+            VeranderViewModel(PaginaViewModels[nameof(AdresWijzigen)]);
+            AdresWijzigenViewModel awvm = (AdresWijzigenViewModel)PaginaViewModels[nameof(AdresWijzigen)];
+            awvm.BereidModelVoorAdres(a);
         }
 
         /* Wijzigen einde */
