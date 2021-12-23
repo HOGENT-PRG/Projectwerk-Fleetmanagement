@@ -30,7 +30,8 @@ namespace WPFApp.Views
         {
 
         }
-      public void BereidModelVoorAdres(AdresResponseDTO teBehandelenAdres,bool isReset = false)
+       
+        public void BereidModelVoorAdres(AdresResponseDTO teBehandelenAdres,bool isReset = false)
         {
             if(teBehandelenAdres is null)
             {
@@ -81,6 +82,7 @@ namespace WPFApp.Views
                     AdresRequestDTO a = new(IngeladenAdresResponse.Id, Straatnaam, Huisnummer, Postcode, Plaatsnaam, Provincie, Land);
                     _communicatieKanaal.UpdateAdres(a);
                     StuurSnackbar($"Adres met id {a.Id} werd succesvol gewijzigd");
+                  
                 }catch(Exception ex)
                 {
                     StuurSnackbar(ex);
@@ -119,6 +121,7 @@ namespace WPFApp.Views
                 );
             }
         }
+      
     }
 }
 
