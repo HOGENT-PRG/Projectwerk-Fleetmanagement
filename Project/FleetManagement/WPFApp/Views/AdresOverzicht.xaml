@@ -88,9 +88,12 @@
                               ToolTip="MaterialDesignFloatingActionMiniLightButton"
                               IsEnabled="True"
                                 BorderThickness="0" Foreground="White" BorderBrush="AliceBlue" Background="ForestGreen"
-                                Command="{Binding DataContext.VeranderPaginaCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}"
-                                    CommandParameter="{Binding DataContext.PaginaViewModels[AdresWijzigen], RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}}}">
-                               
+                                 Command="{Binding DataContext.WijzigAdresCommand, 
+                                                  RelativeSource={RelativeSource FindAncestor, 
+                                                    AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
+                                                  }
+                                             }"
+                                    CommandParameter="{Binding}">
 
                                 <materialDesign:PackIcon Kind="Pencil" />
                                 
