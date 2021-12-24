@@ -52,7 +52,8 @@ namespace WPFApp.Views
 
                 if (zoekfilterbox?.SelectedItem is not null)
                 {
-                    if (zoekfilterbox.SelectedItem.ToString().Contains("Vervaldatum"))
+                    if (zoekfilterbox.SelectedItem.ToString().Contains("Vervaldatum")
+                        || zoekfilterbox.SelectedItem.ToString().Contains("GeboorteDatum"))
                     {
                         zoekdate.Visibility = Visibility.Visible;
                     }
