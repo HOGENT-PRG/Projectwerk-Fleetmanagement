@@ -36,7 +36,7 @@ namespace WPFApp.Views {
 				}
 
                 if (teBehandelenTankkaart.Bestuurder is not null) {
-                    Bestuurders.Add(teBehandelenTankkaart.Bestuurder);
+                    GeselecteerdBestuurder = DTONaarDTO.ResponseNaarRequest<BestuurderRequestDTO>(teBehandelenTankkaart.Bestuurder);
                 }
                 Kaartnummer = teBehandelenTankkaart.Kaartnummer;
                 Vervaldatum = teBehandelenTankkaart.Vervaldatum;
