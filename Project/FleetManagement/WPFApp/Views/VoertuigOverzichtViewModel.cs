@@ -66,7 +66,9 @@ namespace WPFApp.Views {
         }
 
         private void _resetZoekFilter() {
-            Voertuigen = new(CommunicatieKanaal.GeefVoertuigen());
+            List<VoertuigResponseDTO> res = CommunicatieKanaal.GeefVoertuigen();
+
+            Voertuigen = new(res);
         }
 
         private void _zoekMetFilter() {

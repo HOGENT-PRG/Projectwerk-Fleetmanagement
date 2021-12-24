@@ -21,7 +21,7 @@ namespace WPFApp.Views
     class VoertuigToevoegenViewModel : FilterDialogs, IPaginaViewModel
     {
         public string Naam => "Voertuig toevoegen";
-        private ICommuniceer _communicatieKanaal;
+        public ICommuniceer _communicatieKanaal;
         public Action<object> StuurSnackbar { get; init; }
 
         public List<string> VoertuigSoorten { get; init; } = new() {
