@@ -38,10 +38,12 @@ namespace WPFApp.Views {
 			PaginaViewModels.Add(nameof(TankkaartToevoegen), new TankkaartToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
 			PaginaViewModels.Add(nameof(VoertuigToevoegen), new VoertuigToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
 
-            /* Wijzigen, overige via dialogs */
+            /* Wijzigen */
             PaginaViewModels.Add(nameof(BestuurderWijzigen), new BestuurderWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
             PaginaViewModels.Add(nameof(AdresWijzigen), new AdresWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
             PaginaViewModels.Add(nameof(VoertuigWijzigen), new VoertuigWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
+
+
             /* ViewModel dat gebruikt wordt bij opstart applicatie: AdresOverzicht */
             HuidigePaginaViewModel = PaginaViewModels[nameof(AdresOverzicht)];
         }
@@ -83,17 +85,24 @@ namespace WPFApp.Views {
         }
 
         /* Wijzigen */
+        private void WijzigAdres(AdresResponseDTO a) {
+            VeranderViewModel(PaginaViewModels[nameof(AdresWijzigen)]);
+            AdresWijzigenViewModel awvm = (AdresWijzigenViewModel)PaginaViewModels[nameof(AdresWijzigen)];
+            awvm.BereidModelVoorAdres(a);
+        }
+
+        public ICommand WijzigAdresCommand {
+            get {
+                return new RelayCommand(
+                    p => WijzigAdres((AdresResponseDTO)p),
+                    p => p is not null);
+            }
+        }
 
         private void WijzigBestuurder(BestuurderResponseDTO b) {
             VeranderViewModel(PaginaViewModels[nameof(BestuurderWijzigen)]);
             BestuurderWijzigenViewModel bwvm = (BestuurderWijzigenViewModel)PaginaViewModels[nameof(BestuurderWijzigen)];
             bwvm.BereidModelVoorMetBestuurder(b);
-        }
-        private void WijzigVoertuig(VoertuigResponseDTO v)
-        {
-            VeranderViewModel(PaginaViewModels[nameof(VoertuigWijzigen)]);
-            VoertuigWijzigenViewModel vwvm = (VoertuigWijzigenViewModel)PaginaViewModels[nameof(VoertuigWijzigen)];
-            vwvm.BereidModelVoorMetVoertuig(v);
         }
         public ICommand WijzigBestuurderCommand {
             get {
@@ -103,6 +112,14 @@ namespace WPFApp.Views {
                 );
             }
         }
+
+        private void WijzigVoertuig(VoertuigResponseDTO v)
+        {
+            VeranderViewModel(PaginaViewModels[nameof(VoertuigWijzigen)]);
+            VoertuigWijzigenViewModel vwvm = (VoertuigWijzigenViewModel)PaginaViewModels[nameof(VoertuigWijzigen)];
+            vwvm.BereidModelVoorMetVoertuig(v);
+        }
+        
         public ICommand WijzigVoertuigCommand
         {
             get
@@ -112,21 +129,6 @@ namespace WPFApp.Views {
                     p => p is not null
                 );
             }
-        }
-        public ICommand WijzigAdresCommand
-        {
-            get
-            {
-                return new RelayCommand(
-                    p => WijzigAdres((AdresResponseDTO)p),
-                    p => p is not null);
-            }
-        }
-        private void WijzigAdres(AdresResponseDTO a)
-        {
-            VeranderViewModel(PaginaViewModels[nameof(AdresWijzigen)]);
-            AdresWijzigenViewModel awvm = (AdresWijzigenViewModel)PaginaViewModels[nameof(AdresWijzigen)];
-            awvm.BereidModelVoorAdres(a);
         }
 
         /* Wijzigen einde */
