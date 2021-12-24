@@ -16,7 +16,7 @@ using PropertyChanged;
 using WPFApp.Model.Hosts;
 
 namespace WPFApp.Views {
-    internal sealed class TankkaartToevoegenViewModel : FilterDialogs, IPaginaViewModel {
+    internal class TankkaartToevoegenViewModel : FilterDialogs, IPaginaViewModel {
         public string Naam => "Tankkaart toevoegen";
         private ICommuniceer _communicatieKanaal;
         public Action<object> StuurSnackbar { get; init; }
@@ -45,7 +45,7 @@ namespace WPFApp.Views {
             PropertyChanged += FilterDialogs_PropertyChangedHandler;
         }
 
-        private void _startupRoutine() {
+        protected void _startupRoutine() {
             try {
                 _resetBestuurderFilters();
             } catch (Exception e) {
@@ -53,7 +53,7 @@ namespace WPFApp.Views {
             }
         }
 
-        private void FilterDialogs_PropertyChangedHandler(object sender, PropertyChangedEventArgs e) {
+        protected void FilterDialogs_PropertyChangedHandler(object sender, PropertyChangedEventArgs e) {
             switch (e.PropertyName) {
                 case string s when s.StartsWith("BestuurderFilter"):
                     _zoekBestuurderMetFilters();
@@ -63,7 +63,7 @@ namespace WPFApp.Views {
             }
         }
 
-        private void _zoekBestuurderMetFilters() {
+        protected void _zoekBestuurderMetFilters() {
             List<string> zoekfilters = new();
             List<object> zoektermen = new();
             List<PropertyInfo> p = this.GetType().GetProperties().Where(x => x.Name.StartsWith("BestuurderFilter")).ToList();
@@ -77,6 +77,43 @@ namespace WPFApp.Views {
                 Bestuurders = new ObservableCollection<BestuurderResponseDTO>(_communicatieKanaal.ZoekBestuurders(zoekfilters, zoektermen, likeWildcard: true));
             }
         }
+        
+        protected void _resetBestuurderFilters() {
+            Bestuurders = new ObservableCollection<BestuurderResponseDTO>(_communicatieKanaal.GeefBestuurders());
+        }
+
+        protected void _selecteerHighlightedBestuurder() {
+            try {
+                if (HighlightedBestuurder is null) {
+                    throw new Exception("Je hebt geen bestuurder geselecteerd.");
+                }
+
+                GeselecteerdBestuurder = DTONaarDTO.ResponseNaarRequest<BestuurderRequestDTO>(HighlightedBestuurder);
+            } catch (Exception e) {
+                StuurSnackbar(e.Message);
+            }
+        }
+
+        protected void _voegGeselecteerdeBrandstofToe() {
+            if (GeselecteerdeBrandstof.Length > 0) {
+                if (!GekozenBrandstoffen.Contains(GeselecteerdeBrandstof)) {
+                    GekozenBrandstoffen.Add(GeselecteerdeBrandstof);
+                } else {
+                    StuurSnackbar("Deze brandstof maakt reeds deel uit van de gekozen brandstoffen.");
+                }
+            } else {
+                StuurSnackbar("Gelieve eerst een brandstof te selecteren.");
+            }
+        }
+
+        protected void _verwijderGeselecteerdeBrandstof() {
+            if (GekozenBrandstoffen.Contains(GeselecteerdeBrandstof)) {
+                GekozenBrandstoffen.Remove(GeselecteerdeBrandstof);
+            } else {
+                StuurSnackbar("Deze brandstof maakt geen deel uit van de gekozen brandstoffen.");
+            }
+        }
+
         private bool _controleerVeldenVoldaanVoorToevoegen() {
 
             bool voldaan = !(Kaartnummer.Length < 5 || Kaartnummer.Length > 50)
@@ -87,21 +124,6 @@ namespace WPFApp.Views {
             }
 
             return voldaan;
-        }
-        private void _resetBestuurderFilters() {
-            Bestuurders = new ObservableCollection<BestuurderResponseDTO>(_communicatieKanaal.GeefBestuurders());
-        }
-
-        private void _selecteerHighlightedBestuurder() {
-            try {
-                if (HighlightedBestuurder is null) {
-                    throw new Exception("Je hebt geen bestuurder geselecteerd.");
-                }
-
-                GeselecteerdBestuurder = DTONaarDTO.ResponseNaarRequest<BestuurderRequestDTO>(HighlightedBestuurder);
-            } catch (Exception e) {
-                StuurSnackbar(e.Message);
-            }
         }
 
         private void _voegTankkaartToe() {
@@ -124,25 +146,7 @@ namespace WPFApp.Views {
             }
         }
 
-        private void _voegGeselecteerdeBrandstofToe() {
-            if(GeselecteerdeBrandstof.Length > 0) {
-				if (!GekozenBrandstoffen.Contains(GeselecteerdeBrandstof)) {
-                    GekozenBrandstoffen.Add(GeselecteerdeBrandstof);
-				} else {
-                    StuurSnackbar("Deze brandstof maakt reeds deel uit van de gekozen brandstoffen.");
-				}
-			} else {
-                StuurSnackbar("Gelieve eerst een brandstof te selecteren.");
-			}
-		}
-
-        private void _verwijderGeselecteerdeBrandstof() {
-			if (GekozenBrandstoffen.Contains(GeselecteerdeBrandstof)) {
-                GekozenBrandstoffen.Remove(GeselecteerdeBrandstof);
-			} else {
-                StuurSnackbar("Deze brandstof maakt geen deel uit van de gekozen brandstoffen.");
-			}
-		}
+        
 
         public ICommand StartupRoutine {
             get {
