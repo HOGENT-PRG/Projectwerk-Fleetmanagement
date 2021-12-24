@@ -95,7 +95,6 @@ namespace WPFApp.Views {
 			}
 		}
 
-        // todo commandos in xaml
         public ICommand BevestigWijzigBestuurder {
             get {
                 return new RelayCommand(

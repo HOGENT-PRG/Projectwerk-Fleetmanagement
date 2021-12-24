@@ -42,7 +42,7 @@ namespace WPFApp.Views {
             PaginaViewModels.Add(nameof(BestuurderWijzigen), new BestuurderWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
             PaginaViewModels.Add(nameof(AdresWijzigen), new AdresWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
             PaginaViewModels.Add(nameof(VoertuigWijzigen), new VoertuigWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
-
+            PaginaViewModels.Add(nameof(TankkaartWijzigen), new TankkaartWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
 
             /* ViewModel dat gebruikt wordt bij opstart applicatie: AdresOverzicht */
             HuidigePaginaViewModel = PaginaViewModels[nameof(AdresOverzicht)];
@@ -126,6 +126,21 @@ namespace WPFApp.Views {
             {
                 return new RelayCommand(
                     p => WijzigVoertuig((VoertuigResponseDTO)p),
+                    p => p is not null
+                );
+            }
+        }
+
+        private void WijzigTankkaart(TankkaartResponseDTO t) {
+            VeranderViewModel(PaginaViewModels[nameof(TankkaartWijzigen)]);
+            TankkaartWijzigenViewModel twvm = (TankkaartWijzigenViewModel)PaginaViewModels[nameof(TankkaartWijzigen)];
+            twvm.BereidModelVoorMetTankkaart(t);
+        }
+
+        public ICommand WijzigTankkaartCommand {
+            get {
+                return new RelayCommand(
+                    p => WijzigTankkaart((TankkaartResponseDTO)p),
                     p => p is not null
                 );
             }

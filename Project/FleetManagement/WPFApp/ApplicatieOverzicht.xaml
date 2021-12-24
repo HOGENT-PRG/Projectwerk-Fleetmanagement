@@ -45,14 +45,17 @@
         </DataTemplate>
 
         <!-- wijzigen -->
-        <DataTemplate DataType="{x:Type local:BestuurderWijzigenViewModel}">
-            <local:BestuurderWijzigen />
-        </DataTemplate>
         <DataTemplate DataType="{x:Type local:AdresWijzigenViewModel}">
             <local:AdresWijzigen />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type local:BestuurderWijzigenViewModel}">
+            <local:BestuurderWijzigen />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type local:VoertuigWijzigenViewModel}">
             <local:VoertuigWijzigen />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:TankkaartWijzigenViewModel}">
+            <local:TankkaartWijzigen />
         </DataTemplate>
     </Window.Resources>
    

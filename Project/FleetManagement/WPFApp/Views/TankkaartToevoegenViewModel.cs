@@ -18,7 +18,7 @@ using WPFApp.Model.Hosts;
 namespace WPFApp.Views {
     internal class TankkaartToevoegenViewModel : FilterDialogs, IPaginaViewModel {
         public string Naam => "Tankkaart toevoegen";
-        private ICommuniceer _communicatieKanaal;
+        protected ICommuniceer _communicatieKanaal;
         public Action<object> StuurSnackbar { get; init; }
 
         public List<string> TankkaartBrandstoffen { get; init; } = new() {
