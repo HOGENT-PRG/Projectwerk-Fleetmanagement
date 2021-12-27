@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:WPFApp" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
-    <!--StartupUri="ApplicatieOverzicht.xaml" -->
+    <!-- Door middel van de code behind wordt het ApplicatieOverzicht weergegeven -->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
