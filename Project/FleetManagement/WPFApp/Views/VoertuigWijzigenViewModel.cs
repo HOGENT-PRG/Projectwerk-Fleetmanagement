@@ -25,9 +25,9 @@ namespace WPFApp.Views
         // Response wordt gebruikt bij reset, request bij vergelijken of er wijzigingen zijn
         public VoertuigResponseDTO IngeladenVoertuigResponse { get; set; } = null;
         public VoertuigRequestDTO IngeladenVoertuigRequest { get; set; } = null;
-        public ObservableCollection<string?> GekozenMerk { get; private set; } = new();
+        //public ObservableCollection<string?> GekozenMerk { get; private set; } = new();
         //public ObservableCollection<string> MeegegevenSoort { get; private set; } = new();
-       public ObservableCollection<string?> MeegegevenBrandstof { get; private set; } = new();
+       //public ObservableCollection<string?> MeegegevenBrandstof { get; private set; } = new();
 
         public VoertuigWijzigenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar) : base(communicatieKanaal, stuurSnackbar) { }
 
@@ -44,34 +44,36 @@ namespace WPFApp.Views
                 Merk = teBehandelenVoertuig.Merk;
                 Model = teBehandelenVoertuig.Model;
                 Nummerplaat = teBehandelenVoertuig.Nummerplaat;
-                Voertuigsoort =teBehandelenVoertuig.Voertuigsoort;
+                Voertuigsoort = teBehandelenVoertuig.Voertuigsoort;
                 Brandstof = teBehandelenVoertuig.Brandstof;
                 Chassisnummer = teBehandelenVoertuig.Chassisnummer;
                 AantalDeuren = (int)teBehandelenVoertuig.AantalDeuren;
-                int idx = 0;
-               
+
+                // Index steeds opgehoogd met 1 aangezien VoertuigToevoegen index 0 gebruikt voor een lege waarde
+                // De ResponseDTO in de XAML bevat de index zoals de enum die bepaalt, en dat is zonder een eerste, lege, waarde
+                int idx = -1;
                 if (int.TryParse(teBehandelenVoertuig.Voertuigsoort, out idx))
                 {
-                    Voertuigsoort = VoertuigSoorten[idx];
-                   
-                   
+                    Voertuigsoort = VoertuigSoorten[idx+1]; 
                 }
                 else
                 {
                     Voertuigsoort = "";
                 }
+
                 if (int.TryParse(teBehandelenVoertuig.Merk, out idx))
                 {
-                    Merk = VoertuigMerken[idx];
+                    Merk = VoertuigMerken[idx+1];
                   //  GekozenMerk.Add(VoertuigMerken[idx]);
                 }
                 else
                 {
                     Merk = "";
                 }
+
                 if (int.TryParse(teBehandelenVoertuig.Brandstof, out idx))
                 {
-                    Brandstof = VoertuigBrandstoffen[idx];
+                    Brandstof = VoertuigBrandstoffen[idx+1];
                  //   MeegegevenBrandstof.Add(VoertuigBrandstoffen[idx]);
 
                 }
