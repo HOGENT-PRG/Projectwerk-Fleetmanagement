@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WPFApp.Helpers;
 using WPFApp.Interfaces;
@@ -23,6 +25,9 @@ namespace WPFApp.Views
         // Response wordt gebruikt bij reset, request bij vergelijken of er wijzigingen zijn
         public VoertuigResponseDTO IngeladenVoertuigResponse { get; set; } = null;
         public VoertuigRequestDTO IngeladenVoertuigRequest { get; set; } = null;
+        public ObservableCollection<string?> GekozenMerk { get; private set; } = new();
+        //public ObservableCollection<string> MeegegevenSoort { get; private set; } = new();
+       public ObservableCollection<string?> MeegegevenBrandstof { get; private set; } = new();
 
         public VoertuigWijzigenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar) : base(communicatieKanaal, stuurSnackbar) { }
 
@@ -34,49 +39,74 @@ namespace WPFApp.Views
             }
             else
             {
+            
                 Kleur = teBehandelenVoertuig.Kleur;
                 Merk = teBehandelenVoertuig.Merk;
                 Model = teBehandelenVoertuig.Model;
                 Nummerplaat = teBehandelenVoertuig.Nummerplaat;
-               Voertuigsoort= teBehandelenVoertuig.Voertuigsoort;
+                Voertuigsoort =teBehandelenVoertuig.Voertuigsoort;
                 Brandstof = teBehandelenVoertuig.Brandstof;
                 Chassisnummer = teBehandelenVoertuig.Chassisnummer;
                 AantalDeuren = (int)teBehandelenVoertuig.AantalDeuren;
-
-                int idx = -1;
+                int idx = 0;
+               
                 if (int.TryParse(teBehandelenVoertuig.Voertuigsoort, out idx))
                 {
                     Voertuigsoort = VoertuigSoorten[idx];
+                   
+                   
                 }
                 else
                 {
                     Voertuigsoort = "";
                 }
-
-                GeselecteerdBestuurder =DTONaarDTO.ResponseNaarRequest<BestuurderRequestDTO>(teBehandelenVoertuig.Bestuurder);
-           
-
-                IngeladenVoertuigResponse = teBehandelenVoertuig;
-      
-                IngeladenVoertuigRequest = DTONaarDTO.ResponseNaarRequest<VoertuigRequestDTO>(teBehandelenVoertuig);
-                Naam = $"Voertuig {teBehandelenVoertuig.Id} wijzigen";
-                if (isReset)
+                if (int.TryParse(teBehandelenVoertuig.Merk, out idx))
                 {
-                    StuurSnackbar("Weergegeven voertuig werd lokaal hersteld naar de oorspronkelijke staat.");
+                    Merk = VoertuigMerken[idx];
+                  //  GekozenMerk.Add(VoertuigMerken[idx]);
                 }
+                else
+                {
+                    Merk = "";
+                }
+                if (int.TryParse(teBehandelenVoertuig.Brandstof, out idx))
+                {
+                    Brandstof = VoertuigBrandstoffen[idx];
+                 //   MeegegevenBrandstof.Add(VoertuigBrandstoffen[idx]);
+
+                }
+                else
+                {
+                    Brandstof = "";
+                }
+
+              
+            }
+
+
+            GeselecteerdBestuurder = DTONaarDTO.ResponseNaarRequest<BestuurderRequestDTO>(teBehandelenVoertuig.Bestuurder);
+
+
+            IngeladenVoertuigResponse = teBehandelenVoertuig;
+
+            IngeladenVoertuigRequest = DTONaarDTO.ResponseNaarRequest<VoertuigRequestDTO>(teBehandelenVoertuig);
+            Naam = $"Voertuig {teBehandelenVoertuig.Id} wijzigen";
+            if (isReset)
+            {
+                StuurSnackbar("Weergegeven voertuig werd lokaal hersteld naar de oorspronkelijke staat.");
             }
         }
-
+    
         // Hetzelfde als bij toevoegen, met extra null check voor ingeladenbestuurder en
         // duidelijke naam
         private bool _controleerVeldenVoldaanVoorWijzigen()
         {
 
-            bool voldaan = Model.Length > 0
-                          && Nummerplaat.Length > 0
-                          && Kleur.Length > 0
-                          && Chassisnummer.Length > 0;
-                         
+            bool voldaan = (!string.IsNullOrEmpty(Nummerplaat) && !string.IsNullOrWhiteSpace(Nummerplaat) && Nummerplaat.Length < 20
+             && !string.IsNullOrEmpty(Model) && !string.IsNullOrWhiteSpace(Model) && Model.Length < 20
+            && !string.IsNullOrEmpty(Chassisnummer) && !string.IsNullOrWhiteSpace(Chassisnummer) && Chassisnummer.Length == 17)
+            && (!string.IsNullOrEmpty(Kleur) && !string.IsNullOrWhiteSpace(Kleur) && Kleur.Length < 40)
+            && (AantalDeuren > 0 && AantalDeuren < 21);
 
 
             if (!voldaan)
@@ -90,6 +120,7 @@ namespace WPFApp.Views
         {
             if (_controleerVeldenVoldaanVoorWijzigen())
             {
+             
                 try
                 {
                     VoertuigRequestDTO v = new VoertuigRequestDTO(IngeladenVoertuigResponse.Id, Merk, Model, Nummerplaat, Brandstof, Voertuigsoort, Kleur, AantalDeuren, Chassisnummer, GeselecteerdBestuurder);
