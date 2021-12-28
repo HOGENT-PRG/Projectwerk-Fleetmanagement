@@ -6,6 +6,15 @@ using System.Reflection;
 using System.Text;
 
 namespace WPFApp.Helpers {
+<<<<<<< HEAD
+=======
+    // Deze klasse laat toe om zoekfilters te genereren op basis van een object zijn properties, het laat tevens toe om in omgekeerde richting de gegenereerde zoekfilters om te zetten naar een lijst met types welke gebruikt worden om recursief op zoek te gaan naar een waarde die gelijk is met een opgegeven waarde.
+    // Wordt gebruikt in viewmodels om zoekfilters te genereren en om uit een collectie objecten te filteren welke voldoen aan de zoekcriteria
+    // Kan (zoals het momenteel uitgewerkt is) niet omgaan met collecties, wat een nadeel is
+    // ---
+    // Mocht ik het zoeken vanuit een ViewModel voor een tweede maal moeten ontwikkelen zou ik opteren voor een andere aanpak dan deze, namelijk door middel van interactie met en gebruik van goed gevormde queries en een aparte functie in de repositories.
+    // De aard van deze klasse is vrij complex, aangezien het recursief handelt en gebruik maakt van reflectie. De interpreteer-, onderhoud- en uitbreidbaarheid ervan is een delicaat gegeven.
+>>>>>>> parent of 1c00aff (ApplicatieOverzichtViewModel herwerken + inline commentaar toevoegen in meerdere files)
     public class Zoekmachine {
         private static string _diepteSeparator;
 

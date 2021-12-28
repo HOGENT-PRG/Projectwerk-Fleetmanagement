@@ -32,7 +32,11 @@
     <None Remove="_images\icons8-secure-cloud-48.png" />
     <None Remove="_images\icons8-traffic-jam-48.png" />
     <None Remove="_images\icons8-user-male-48.png" />
+<<<<<<< HEAD
     <None Remove="_images\VoertuigWijzigen.png" />
+=======
+    <None Remove="_images\TankkaartWijzigen.png" />
+>>>>>>> parent of 1c00aff (ApplicatieOverzichtViewModel herwerken + inline commentaar toevoegen in meerdere files)
     <None Remove="_images\wijzigbestuurder.png" />
   </ItemGroup>
 
@@ -95,7 +99,11 @@
     <Resource Include="_images\icons8-secure-cloud-48.png" />
     <Resource Include="_images\icons8-traffic-jam-48.png" />
     <Resource Include="_images\icons8-user-male-48.png" />
+<<<<<<< HEAD
     <Resource Include="_images\VoertuigWijzigen.png">
+=======
+    <Resource Include="_images\TankkaartWijzigen.png">
+>>>>>>> parent of 1c00aff (ApplicatieOverzichtViewModel herwerken + inline commentaar toevoegen in meerdere files)
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="_images\wijzigbestuurder.png">

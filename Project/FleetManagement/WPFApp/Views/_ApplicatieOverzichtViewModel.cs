@@ -21,9 +21,34 @@ namespace WPFApp.Views {
         private Dictionary<string, IPaginaViewModel> _paginaViewModels;
 
         private ICommuniceer _communicatieKanaal = new CommunicatieRelay().CommunicatieKanaal;
+<<<<<<< HEAD
 
         // Constructie en instelling als datacontext van ApplicatieOverzicht in App.xaml code behind
         public ApplicatieOverzichtViewModel() {
+=======
+
+        // Constructie en instelling als datacontext van ApplicatieOverzicht in App.xaml code behind
+        public ApplicatieOverzichtViewModel() {
+
+            /* Overzichten */
+            PaginaViewModels.Add(nameof(AdresOverzicht), new AdresOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(BestuurderOverzicht), new BestuurderOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(TankkaartOverzicht), new TankkaartOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(VoertuigOverzicht), new VoertuigOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(DatabankOverzicht), new DatabankOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+
+			/* Toevoegen */
+			PaginaViewModels.Add(nameof(AdresToevoegen), new AdresToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+			PaginaViewModels.Add(nameof(BestuurderToevoegen), new BestuurderToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+			PaginaViewModels.Add(nameof(TankkaartToevoegen), new TankkaartToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+			PaginaViewModels.Add(nameof(VoertuigToevoegen), new VoertuigToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+
+            /* Wijzigen */
+            PaginaViewModels.Add(nameof(BestuurderWijzigen), new BestuurderWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(AdresWijzigen), new AdresWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(VoertuigWijzigen), new VoertuigWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(TankkaartWijzigen), new TankkaartWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
+>>>>>>> parent of 1c00aff (ApplicatieOverzichtViewModel herwerken + inline commentaar toevoegen in meerdere files)
 
             /* Overzichten */
             PaginaViewModels.Add(nameof(AdresOverzicht), new AdresOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
@@ -83,18 +108,37 @@ namespace WPFApp.Views {
         }
 
         /* Wijzigen */
+<<<<<<< HEAD
+=======
+        private void WijzigAdres(AdresResponseDTO a) {
+            VeranderViewModel(PaginaViewModels[nameof(AdresWijzigen)]);
+            AdresWijzigenViewModel awvm = (AdresWijzigenViewModel)PaginaViewModels[nameof(AdresWijzigen)];
+            awvm.BereidModelVoorAdres(a);
+        }
+
+        public ICommand WijzigAdresCommand {
+            get {
+                return new RelayCommand(
+                    p => WijzigAdres((AdresResponseDTO)p),
+                    p => p is not null);
+            }
+        }
+>>>>>>> parent of 1c00aff (ApplicatieOverzichtViewModel herwerken + inline commentaar toevoegen in meerdere files)
 
         private void WijzigBestuurder(BestuurderResponseDTO b) {
             VeranderViewModel(PaginaViewModels[nameof(BestuurderWijzigen)]);
             BestuurderWijzigenViewModel bwvm = (BestuurderWijzigenViewModel)PaginaViewModels[nameof(BestuurderWijzigen)];
             bwvm.BereidModelVoorMetBestuurder(b);
         }
+<<<<<<< HEAD
         private void WijzigVoertuig(VoertuigResponseDTO v)
         {
             VeranderViewModel(PaginaViewModels[nameof(VoertuigWijzigen)]);
             VoertuigWijzigenViewModel vwvm = (VoertuigWijzigenViewModel)PaginaViewModels[nameof(VoertuigWijzigen)];
             vwvm.BereidModelVoorMetVoertuig(v);
         }
+=======
+>>>>>>> parent of 1c00aff (ApplicatieOverzichtViewModel herwerken + inline commentaar toevoegen in meerdere files)
         public ICommand WijzigBestuurderCommand {
             get {
                 return new RelayCommand(
@@ -103,6 +147,17 @@ namespace WPFApp.Views {
                 );
             }
         }
+<<<<<<< HEAD
+=======
+
+        private void WijzigVoertuig(VoertuigResponseDTO v)
+        {
+            VeranderViewModel(PaginaViewModels[nameof(VoertuigWijzigen)]);
+            VoertuigWijzigenViewModel vwvm = (VoertuigWijzigenViewModel)PaginaViewModels[nameof(VoertuigWijzigen)];
+            vwvm.BereidModelVoorMetVoertuig(v);
+        }
+        
+>>>>>>> parent of 1c00aff (ApplicatieOverzichtViewModel herwerken + inline commentaar toevoegen in meerdere files)
         public ICommand WijzigVoertuigCommand
         {
             get
@@ -113,6 +168,7 @@ namespace WPFApp.Views {
                 );
             }
         }
+<<<<<<< HEAD
         public ICommand WijzigAdresCommand
         {
             get
@@ -127,6 +183,22 @@ namespace WPFApp.Views {
             VeranderViewModel(PaginaViewModels[nameof(AdresWijzigen)]);
             AdresWijzigenViewModel awvm = (AdresWijzigenViewModel)PaginaViewModels[nameof(AdresWijzigen)];
             awvm.BereidModelVoorAdres(a);
+=======
+
+        private void WijzigTankkaart(TankkaartResponseDTO t) {
+            VeranderViewModel(PaginaViewModels[nameof(TankkaartWijzigen)]);
+            TankkaartWijzigenViewModel twvm = (TankkaartWijzigenViewModel)PaginaViewModels[nameof(TankkaartWijzigen)];
+            twvm.BereidModelVoorMetTankkaart(t);
+        }
+
+        public ICommand WijzigTankkaartCommand {
+            get {
+                return new RelayCommand(
+                    p => WijzigTankkaart((TankkaartResponseDTO)p),
+                    p => p is not null
+                );
+            }
+>>>>>>> parent of 1c00aff (ApplicatieOverzichtViewModel herwerken + inline commentaar toevoegen in meerdere files)
         }
 
         /* Wijzigen einde */
