@@ -2,9 +2,9 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using WPFApp.Interfaces.Dialogs;
+using WPFApp.Views.Dialogs;
 
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
 	// Praktisch hetzelfde als toevoegen code behind, maar zonder reset_click handler
 	public partial class BestuurderWijzigen : UserControl {
 		public BestuurderWijzigen() {

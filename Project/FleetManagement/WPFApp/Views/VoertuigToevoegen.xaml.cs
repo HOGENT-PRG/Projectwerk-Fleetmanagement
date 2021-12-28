@@ -12,9 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WPFApp.Interfaces.Dialogs;
+using WPFApp.Views.Dialogs;
 
-namespace WPFApp.Interfaces
+namespace WPFApp.Views
 {
     /// <summary>
     /// Interaction logic for VoertuigToevoegen.xaml

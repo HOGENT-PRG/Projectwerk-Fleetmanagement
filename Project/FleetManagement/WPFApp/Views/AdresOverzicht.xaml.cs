@@ -14,9 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFApp.Model.Hosts;
-using WPFApp.Interfaces.Dialogs;
+using WPFApp.Views.Dialogs;
 
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
     /// <summary>
     /// Interaction logic for AdresOverzicht.xaml
     /// </summary>

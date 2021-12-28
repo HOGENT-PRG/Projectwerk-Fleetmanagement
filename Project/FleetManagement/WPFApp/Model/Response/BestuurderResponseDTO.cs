@@ -1,5 +1,6 @@
 ﻿using System;
 using WPFApp.Interfaces;
+using WPFApp.Views;
 
 namespace WPFApp.Model.Response {
     public class BestuurderResponseDTO : IResponseDTO {

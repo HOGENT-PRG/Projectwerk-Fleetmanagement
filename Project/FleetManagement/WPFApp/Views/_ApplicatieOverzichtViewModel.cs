@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using WPFApp.Helpers;
-using WPFApp.Interfaces;
+using WPFApp.Views;
 using WPFApp.Model.Response;
-using WPFApp.Interfaces.Hosts;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.Hosts;
+using WPFApp.Views.MVVM;
+using WPFApp.Interfaces;
 
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
     /*
         Deze klasse fungeert als beheerder van de overige Views en ViewModels.
         De View ApplicatieOverzicht bevat een ContentControl waar de HuidigePaginaViewModel 

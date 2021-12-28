@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WPFApp.Exceptions;
 using WPFApp.Helpers;
 using WPFApp.Interfaces;
+using WPFApp.Views;
 
 // Zet request dto om naar response dto en omgekeerd,
 // een extra controle vind plaats mbt type waarnaar gecast wordt, heeft geen state en is dus static als helper class

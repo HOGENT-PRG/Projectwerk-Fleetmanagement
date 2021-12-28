@@ -7,15 +7,16 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using WPFApp.Interfaces;
+using WPFApp.Views;
 using WPFApp.Model.Mappers;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
 using PropertyChanged;
 using WPFApp.Model.Hosts;
+using WPFApp.Interfaces;
 
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
     internal class TankkaartToevoegenViewModel : FilterDialogs, IPaginaViewModel {
         public string Naam => "Tankkaart toevoegen";
         protected ICommuniceer _communicatieKanaal;

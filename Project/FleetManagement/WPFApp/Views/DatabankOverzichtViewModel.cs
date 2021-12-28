@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using WPFApp.Interfaces;
+using WPFApp.Views;
 using WPFApp.Model.Response;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
+using WPFApp.Interfaces;
 
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
         internal sealed class DatabankOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Databank info";  // naam van het tabblad

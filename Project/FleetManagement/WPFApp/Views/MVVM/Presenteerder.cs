@@ -7,7 +7,7 @@ using System.Windows.Media;
 // Enkele functies gebruiken nog Update
 
 // Kan van overgeerft worden, draagt ook de INotifyPropertyChanged interface over waardoor Fody de overervende klasse zal behandelen en stelt de update functie ter beschikking
-namespace WPFApp.Interfaces.MVVM {
+namespace WPFApp.Views.MVVM {
     internal abstract class Presenteerder : INotifyPropertyChanged {
         public event PropertyChangedEventHandler? PropertyChanged;
 

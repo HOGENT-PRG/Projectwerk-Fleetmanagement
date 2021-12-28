@@ -13,9 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WPFApp.Interfaces.Dialogs;
+using WPFApp.Views.Dialogs;
 
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
 	public partial class TankkaartWijzigen : UserControl {
 		public TankkaartWijzigen() {
 			InitializeComponent();

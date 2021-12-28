@@ -6,13 +6,14 @@ using DataLaag;
 using DataLaag.Repositories;
 using System;
 using System.Collections.Generic;
-using WPFApp.Interfaces;
+using WPFApp.Views;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
 using WPFApp.Model.Mappers.Business;
 using WPFApp.Exceptions;
 using System.Reflection;
 using System.Linq;
+using WPFApp.Interfaces;
 
 // De Businesscommuniceerder heeft als enigste klasse dependency op de business laag.
 // Roept functies aan van de businesslaag en converteert van en naar DTO's en domein model klasses.

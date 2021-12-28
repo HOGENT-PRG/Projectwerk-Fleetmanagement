@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFApp.Interfaces.Dialogs {
+namespace WPFApp.Views.Dialogs {
 	/// <summary>
 	/// Interaction logic for AdresFilterDialog.xaml
 	/// </summary>

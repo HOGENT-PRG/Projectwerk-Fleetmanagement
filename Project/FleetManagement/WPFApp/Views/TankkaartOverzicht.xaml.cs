@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFApp.Interfaces
+namespace WPFApp.Views
 {
     /// <summary>
     /// Interaction logic for TankkaartOverzicht.xaml

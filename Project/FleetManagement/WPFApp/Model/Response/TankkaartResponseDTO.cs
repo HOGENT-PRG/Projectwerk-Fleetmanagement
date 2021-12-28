@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WPFApp.Interfaces;
+using WPFApp.Views;
 
 namespace WPFApp.Model.Response {
     public class TankkaartResponseDTO : IResponseDTO {

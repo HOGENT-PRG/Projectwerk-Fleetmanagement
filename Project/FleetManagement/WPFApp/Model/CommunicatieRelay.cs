@@ -1,7 +1,8 @@
 ﻿using WPFApp.Helpers;
-using WPFApp.Interfaces;
+using WPFApp.Views;
 using WPFApp.Model;
 using WPFApp.Model.Communiceerders;
+using WPFApp.Interfaces;
 
 // Wat ) Bepaalt welke ICommuniceer implementatie by default beschikbaar gesteld wordt als CommunicatieKanaal, welke de viewmodels gebruiken. Fungeert als "passthrough" voor communicatie.
 

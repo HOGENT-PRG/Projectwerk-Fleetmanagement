@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using WPFApp.Helpers;
-using WPFApp.Interfaces;
+using WPFApp.Views;
 using WPFApp.Model.Mappers;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
 using WPFApp.Views.MVVM;
+using WPFApp.Interfaces;
+
 namespace WPFApp.Views {
     internal sealed class VoertuigWijzigenViewModel : VoertuigToevoegenViewModel, IWijzigViewModel {
 #pragma warning disable CS0108

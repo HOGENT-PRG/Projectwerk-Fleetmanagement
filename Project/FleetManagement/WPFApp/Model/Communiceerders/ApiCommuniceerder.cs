@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPFApp.Exceptions;
-using WPFApp.Interfaces;
+using WPFApp.Views;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
+using WPFApp.Interfaces;
 
 // Communiceert met endpoints (wellicht interessant om endpoints te verzamelen in een record) en zet om van en naar DTO's en json strings
 // Indien ontwikkeling aangevat wordt dienen de funcs verzameld te worden per groep als region

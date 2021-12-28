@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PropertyChanged;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
 
 namespace WPFApp.Model.Hosts {
 

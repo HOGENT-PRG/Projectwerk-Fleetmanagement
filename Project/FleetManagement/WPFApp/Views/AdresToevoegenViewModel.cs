@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PropertyChanged;
-using WPFApp.Interfaces;
+using WPFApp.Views;
 using WPFApp.Model.Hosts;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
 using System.ComponentModel;
 using System.Reflection;
 using WPFApp.Model.Response;
@@ -15,8 +15,9 @@ using WPFApp.Model.Request;
 using System.Windows.Input;
 using WPFApp.Helpers;
 using WPFApp.Model.Mappers;
+using WPFApp.Interfaces;
 
-namespace WPFApp.Interfaces
+namespace WPFApp.Views
 {
     class AdresToevoegenViewModel : FilterDialogs , IPaginaViewModel
     {

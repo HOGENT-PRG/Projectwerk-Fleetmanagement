@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using WPFApp.Interfaces;
+using WPFApp.Views;
 using WPFApp.Model.Response;
 using WPFApp.Model;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
 using System.Windows.Input;
 using WPFApp.Helpers;
 using System.ComponentModel;
 using System.Linq;
 using PropertyChanged;
+using WPFApp.Interfaces;
 
 // Maakt gebruik van PropertyChanged.Fody
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
         internal sealed class BestuurderOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Bestuurders";

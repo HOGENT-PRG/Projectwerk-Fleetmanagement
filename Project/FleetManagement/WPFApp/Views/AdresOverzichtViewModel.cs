@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WPFApp.Helpers;
-using WPFApp.Interfaces;
+using WPFApp.Views;
 using WPFApp.Model.Response;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
+using WPFApp.Interfaces;
 
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
     internal sealed class AdresOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Adressen";

@@ -7,13 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WPFApp.Helpers;
-using WPFApp.Interfaces;
+using WPFApp.Views;
 using WPFApp.Model.Response;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
 using PropertyChanged;
+using WPFApp.Interfaces;
 
 // Maakt gebruik van PropertyChanged.Fody, elke property is observable.
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
         internal sealed class VoertuigOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Voertuigen";

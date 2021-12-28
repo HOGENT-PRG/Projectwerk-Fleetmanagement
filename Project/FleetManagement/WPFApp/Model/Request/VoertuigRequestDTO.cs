@@ -1,4 +1,5 @@
 ﻿using WPFApp.Interfaces;
+using WPFApp.Views;
 
 namespace WPFApp.Model.Request {
     public class VoertuigRequestDTO : IRequestDTO {
