@@ -37,8 +37,8 @@ namespace BusinessLaag.Model
         }
         public void ZetKaartnummer(string kaartnummer)
         {
-            if (kaartnummer.Length < 5 || kaartnummer.Length > 50) {
-                throw new TankkaartException("Het nummer van de kaart moet minstens 5, maximum 50 karakters lang zijn.");
+            if (kaartnummer.Length < 5 || kaartnummer.Length > 60) {
+                throw new TankkaartException("Het nummer van de kaart moet minstens 5, maximum 60 karakters lang zijn.");
             }
             Kaartnummer = kaartnummer;
         }

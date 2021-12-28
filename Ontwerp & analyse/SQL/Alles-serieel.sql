@@ -3,7 +3,7 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
+-- Model klasse Adres business rules vormen geen probleem
 CREATE TABLE [dbo].[Adres](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Straatnaam] [varchar](150) NOT NULL,
@@ -24,7 +24,8 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
+-- Model klasse Tankkaart business rules gecontroleerd en vormen geen probleem, 
+-- Uitzonderingen: Pincode moet daar 4 karakters lang zijn
 CREATE TABLE [dbo].[Tankkaart](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Kaartnummer] [varchar](60) NOT NULL,
@@ -44,7 +45,8 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
+-- Model klasse Voertuig business rules gecontroleerd en vormen geen probleem, 
+-- Uitzonderingen: model, nummerplaat max 20, chassisnr fixed 17, kleur max 40, deuren value max 20
 CREATE TABLE [dbo].[Voertuig](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Merk] [varchar](50) NOT NULL,
@@ -68,7 +70,7 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
+-- Model OK (enum is restrictie)
 CREATE TABLE [dbo].[TankkaartBrandstof](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[TankkaartId] [int] NOT NULL,
@@ -92,7 +94,8 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
+-- Model klasse Bestuurder business rules gecontroleerd en vormen geen probleem, 
+-- Uitzonderingen: voornaam, naam max geen digits bevatten, min 2 chars
 CREATE TABLE [dbo].[Bestuurder](
 	[Id] [int] IDENTITY(1,1) NOT NULL,  --<< auto increment bij alle tabellen toegevoegd
 	[Naam] [varchar](75) NOT NULL,

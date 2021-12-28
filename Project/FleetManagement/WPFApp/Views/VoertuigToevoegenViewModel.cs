@@ -25,6 +25,8 @@ namespace WPFApp.Views
         protected ICommuniceer _communicatieKanaal;
         public Action<object> StuurSnackbar { get; init; }
 
+        // Todo
+        // Alternatief voor deze lijsten die de waardes van enums nabootsen is om functies aan te maken in de ICommuniceer implementaties welke de waarden vergaren, op die manier kan er geen verschil ontstaan bij het updaten van de enum
         public List<string> VoertuigSoorten { get; init; } = new() {
             "", "sedan", "berline", "bestelwagen", "terreinwagen"
         };
@@ -123,14 +125,16 @@ namespace WPFApp.Views
 
         private bool _controleerVeldenVoldaanVoorToevoegen() {
 
-            bool voldaan = Merk.Length > 0
-                          && Model.Length > 0
-                          && Brandstof.Length > 0
-                          && Nummerplaat.Length > 0
-                          && Voertuigsoort.Length > 0
-                          && Kleur.Length > 0
-                          && Chassisnummer.Length == 17
-                          && AantalDeuren.ToString().Length > 0;
+            bool voldaan = Merk.Length > 0                          // enum
+                          && (!string.IsNullOrEmpty(Model) && !string.IsNullOrWhiteSpace(Model) && Model.Length < 20)
+                          && Brandstof.Length > 0                   // enum
+                          && (!string.IsNullOrEmpty(Nummerplaat) && !string.IsNullOrWhiteSpace(Nummerplaat) && Nummerplaat.Length < 20)
+                          && Voertuigsoort.Length > 0               // enum
+                          && (!string.IsNullOrEmpty(Kleur) && !string.IsNullOrWhiteSpace(Kleur) && Kleur.Length < 40)
+                          && (!string.IsNullOrEmpty(Chassisnummer) && !string.IsNullOrWhiteSpace(Chassisnummer) && Chassisnummer.Length == 17)
+                          && AantalDeuren.ToString().Length > 0
+                          && !(AantalDeuren < 1)
+                          && !(AantalDeuren > 20);
 
             if (!voldaan) {
                 StuurSnackbar("Voertuig voldoet niet aan vereisten.\nGelieve de velden in te vullen.");

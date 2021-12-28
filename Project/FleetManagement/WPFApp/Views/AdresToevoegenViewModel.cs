@@ -58,14 +58,13 @@ namespace WPFApp.Views
         private bool _controleerVeldenVoldaanVoorToevoegen()
         {
 
-            bool voldaan = Straatnaam.Length > 0
-                          && Huisnummer.Length > 0
-                          && Postcode.Length > 0
-                          && Plaatsnaam.Length > 0
-                          && Provincie.Length > 0
-                          && Land.Length > 0;
+            bool voldaan = !(string.IsNullOrEmpty(Straatnaam) || Straatnaam.Any(char.IsDigit) || Straatnaam.Length > 150)
+                          && !(string.IsNullOrEmpty(Huisnummer) || !(Huisnummer.Any(char.IsDigit)) || Huisnummer.Length > 50)
+                          && !(string.IsNullOrEmpty(Postcode) || !(Postcode.Any(char.IsDigit)) || Postcode.Length < 4 || Postcode.Length > 49)
+                          && !(string.IsNullOrEmpty(Plaatsnaam) || Plaatsnaam.Any(char.IsDigit) || Plaatsnaam.Length > 150)
+                          && !(string.IsNullOrEmpty(Provincie) || Provincie.Any(char.IsDigit) || Provincie.Length > 150)
+                          && !(string.IsNullOrEmpty(Land) || Land.Any(char.IsDigit) || Land.Length > 100);
                        
-
             if (!voldaan)
             {
                 StuurSnackbar("Adres voldoet niet aan vereisten.\nGelieve de velden in te vullen.");

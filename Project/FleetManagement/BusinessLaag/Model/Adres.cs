@@ -35,6 +35,7 @@ namespace BusinessLaag.Model
             
             Id = id; // nullable toelaten
         }
+
         public void ZetStraatnaam(string straatnaam)
         {
             if (string.IsNullOrEmpty(straatnaam) || straatnaam.Any(char.IsDigit) || straatnaam.Length > 150) {
@@ -42,6 +43,7 @@ namespace BusinessLaag.Model
             }
             Straatnaam = straatnaam;
         }    
+
         public void ZetHuisnummer(string huisnummer)
         {
             if (string.IsNullOrEmpty(huisnummer) || !(huisnummer.Any(char.IsDigit)) || huisnummer.Length > 50) {
@@ -49,6 +51,7 @@ namespace BusinessLaag.Model
             }
             Huisnummer = huisnummer;
         }
+
         public void ZetPostcode(string postcode)
         {
             if (string.IsNullOrEmpty(postcode) || !postcode.Any(char.IsDigit)) {
@@ -56,6 +59,7 @@ namespace BusinessLaag.Model
             }
             Postcode = postcode.Length >= 4 && postcode.Length < 50 ? postcode : throw new AdresException("Postcode moet op zijn minst bestaan uit 4 karakters, maximum 50 karakters.");
         }  
+
         public void ZetPlaatsnaam(string plaatsnaam)
         {
             if (string.IsNullOrEmpty(plaatsnaam) || plaatsnaam.Any(char.IsDigit) || plaatsnaam.Length > 150) {
@@ -63,6 +67,7 @@ namespace BusinessLaag.Model
             }
             Plaatsnaam = plaatsnaam;
         } 
+
         public void ZetProvincie(string provincie)
         {
             if (string.IsNullOrEmpty(provincie) || provincie.Any(char.IsDigit) || provincie.Length > 150) {
@@ -70,6 +75,7 @@ namespace BusinessLaag.Model
             }
             Provincie = provincie;
         }
+
         public void ZetLand(string land)
         {
             if (string.IsNullOrEmpty(land) || land.Any(char.IsDigit) || land.Length > 100) {

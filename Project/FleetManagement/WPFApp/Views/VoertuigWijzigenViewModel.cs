@@ -26,9 +26,6 @@ namespace WPFApp.Views {
         // Response wordt gebruikt bij reset, request bij vergelijken of er wijzigingen zijn
         public VoertuigResponseDTO IngeladenVoertuigResponse { get; set; } = null;
         public VoertuigRequestDTO IngeladenVoertuigRequest { get; set; } = null;
-        //public ObservableCollection<string?> GekozenMerk { get; private set; } = new();
-        //public ObservableCollection<string> MeegegevenSoort { get; private set; } = new();
-        //public ObservableCollection<string?> MeegegevenBrandstof { get; private set; } = new();
 
         public VoertuigWijzigenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar) : base(communicatieKanaal, stuurSnackbar) { }
 
@@ -60,15 +57,12 @@ namespace WPFApp.Views {
 
                 if (int.TryParse(teBehandelenVoertuig.Merk, out idx)) {
                     Merk = VoertuigMerken[idx + 1];
-                    //  GekozenMerk.Add(VoertuigMerken[idx]);
                 } else {
                     Merk = "";
                 }
 
                 if (int.TryParse(teBehandelenVoertuig.Brandstof, out idx)) {
                     Brandstof = VoertuigBrandstoffen[idx + 1];
-                    //   MeegegevenBrandstof.Add(VoertuigBrandstoffen[idx]);
-
                 } else {
                     Brandstof = "";
                 }
@@ -95,11 +89,18 @@ namespace WPFApp.Views {
         // duidelijke naam
         private bool _controleerVeldenVoldaanVoorWijzigen() {
 
-            bool voldaan = (!string.IsNullOrEmpty(Nummerplaat) && !string.IsNullOrWhiteSpace(Nummerplaat) && Nummerplaat.Length < 20
-             && !string.IsNullOrEmpty(Model) && !string.IsNullOrWhiteSpace(Model) && Model.Length < 20
-            && !string.IsNullOrEmpty(Chassisnummer) && !string.IsNullOrWhiteSpace(Chassisnummer) && Chassisnummer.Length == 17)
-            && (!string.IsNullOrEmpty(Kleur) && !string.IsNullOrWhiteSpace(Kleur) && Kleur.Length < 40)
-            && (AantalDeuren > 0 && AantalDeuren < 21);
+            bool voldaan = IngeladenVoertuigRequest != null
+                          && IngeladenVoertuigResponse != null
+                          && Merk.Length > 0                          // enum
+                          && (!string.IsNullOrEmpty(Model) && !string.IsNullOrWhiteSpace(Model) && Model.Length < 20)
+                          && Brandstof.Length > 0                   // enum
+                          && (!string.IsNullOrEmpty(Nummerplaat) && !string.IsNullOrWhiteSpace(Nummerplaat) && Nummerplaat.Length < 20)
+                          && Voertuigsoort.Length > 0               // enum
+                          && (!string.IsNullOrEmpty(Kleur) && !string.IsNullOrWhiteSpace(Kleur) && Kleur.Length < 40)
+                          && (!string.IsNullOrEmpty(Chassisnummer) && !string.IsNullOrWhiteSpace(Chassisnummer) && Chassisnummer.Length == 17)
+                          && AantalDeuren.ToString().Length > 0
+                          && !(AantalDeuren < 1)
+                          && !(AantalDeuren > 20);
 
 
             if (!voldaan) {

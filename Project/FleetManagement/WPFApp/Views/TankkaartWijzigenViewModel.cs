@@ -59,8 +59,9 @@ namespace WPFApp.Views {
         private bool _controleerVeldenVoldaanVoorWijzigen() {
             bool voldaan = IngeladenTankkaartRequest is not null
                             && IngeladenTankkaartResponse is not null
-                            && !(Kaartnummer.Length < 5 || Kaartnummer.Length > 50)
-                            && !(Pincode.Length is not 4 || Pincode.ToCharArray().Any(c => !Char.IsDigit(c)));
+                            && !(Kaartnummer.Length < 5 || Kaartnummer.Length > 60)
+                            && !(Pincode.Length is not 4 || Pincode.ToCharArray().Any(c => !Char.IsDigit(c)))
+                            && GekozenBrandstoffen.Distinct().Count() == GekozenBrandstoffen.Count;
 
             if (!voldaan) {
                 StuurSnackbar("Tankkaart voldoet niet aan de vereisten.\nGelieve de velden in te vullen.");
