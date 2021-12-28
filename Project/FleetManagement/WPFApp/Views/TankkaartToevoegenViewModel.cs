@@ -16,7 +16,11 @@ using PropertyChanged;
 using WPFApp.Model.Hosts;
 
 namespace WPFApp.Views {
+<<<<<<< HEAD
     internal sealed class TankkaartToevoegenViewModel : FilterDialogs, IPaginaViewModel {
+=======
+    internal class TankkaartToevoegenViewModel : FilterDialogs, IPaginaViewModel {
+>>>>>>> parent of 87a59f3 (Fix requestDTOnaarDomein enum parsing, verplaatsen interface, RRNValideerder soft error, extra check bestuurdermgr, overbodige vpp files weg)
         public string Naam => "Tankkaart toevoegen";
         private ICommuniceer _communicatieKanaal;
         public Action<object> StuurSnackbar { get; init; }

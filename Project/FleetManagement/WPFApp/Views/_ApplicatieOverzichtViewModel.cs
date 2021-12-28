@@ -10,8 +10,18 @@ using WPFApp.Model.Response;
 using WPFApp.Views.Hosts;
 using WPFApp.Views.MVVM;
 
+<<<<<<< HEAD
 /* Deze klasse dient opgekuist te worden ivm props & de brushes die hier in staan */
 namespace WPFApp.Views {
+=======
+namespace WPFApp.Views {
+    /*
+        Deze klasse fungeert als beheerder van de overige Views en ViewModels.
+        De View ApplicatieOverzicht bevat een ContentControl waar de HuidigePaginaViewModel 
+        als Content ingesteld staat.
+        Indien HuidigePaginaViewModel wijzigt zal de weergegeven View ook wijzigen.
+    */
+>>>>>>> parent of 87a59f3 (Fix requestDTOnaarDomein enum parsing, verplaatsen interface, RRNValideerder soft error, extra check bestuurdermgr, overbodige vpp files weg)
     internal sealed class ApplicatieOverzichtViewModel : NotificatieModule, IPaginaViewModel {
 
         public string Naam => "Applicatie Overzicht";

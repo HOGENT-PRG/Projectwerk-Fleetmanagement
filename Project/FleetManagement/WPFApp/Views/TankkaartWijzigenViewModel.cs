@@ -11,7 +11,11 @@ using WPFApp.Model.Response;
 using WPFApp.Views.MVVM;
 
 namespace WPFApp.Views {
+<<<<<<< HEAD
 	internal sealed class TankkaartWijzigenViewModel : TankkaartToevoegenViewModel {
+=======
+	internal sealed class TankkaartWijzigenViewModel : TankkaartToevoegenViewModel, IWijzigViewModel {
+>>>>>>> parent of 87a59f3 (Fix requestDTOnaarDomein enum parsing, verplaatsen interface, RRNValideerder soft error, extra check bestuurdermgr, overbodige vpp files weg)
 		#pragma warning disable CS0108
 		public string Naam { get; set; } = "Tankkaart wijzigen";
 		#pragma warning restore CS0108

@@ -1,5 +1,9 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
+<<<<<<< HEAD
+=======
+using System.Windows.Media;
+>>>>>>> parent of 87a59f3 (Fix requestDTOnaarDomein enum parsing, verplaatsen interface, RRNValideerder soft error, extra check bestuurdermgr, overbodige vpp files weg)
 using WPFApp.Views.MVVM;
 
 namespace WPFApp.Views.Hosts {
