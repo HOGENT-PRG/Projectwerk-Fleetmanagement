@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using PropertyChanged;
 using WPFApp.Interfaces;
 using WPFApp.Model.Hosts;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
 using System.ComponentModel;
 using System.Reflection;
 using WPFApp.Model.Response;
@@ -16,12 +16,12 @@ using System.Windows.Input;
 using WPFApp.Helpers;
 using WPFApp.Model.Mappers;
 
-namespace WPFApp.Interfaces
+namespace WPFApp.Views
 {
-    internal class VoertuigToevoegenViewModel : FilterDialogs, IPaginaViewModel
+    class VoertuigToevoegenViewModel : FilterDialogs, IPaginaViewModel
     {
         public string Naam => "Voertuig toevoegen";
-        protected ICommuniceer _communicatieKanaal;
+        public ICommuniceer _communicatieKanaal;
         public Action<object> StuurSnackbar { get; init; }
 
         public List<string> VoertuigSoorten { get; init; } = new() {
@@ -55,7 +55,7 @@ namespace WPFApp.Interfaces
             PropertyChanged += FilterDialogs_PropertyChangedHandler;
         }
 
-        protected void _startupRoutine()
+        private void _startupRoutine()
         {
             try
             {
@@ -67,7 +67,7 @@ namespace WPFApp.Interfaces
             }
         }
 
-        protected void FilterDialogs_PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+        private void FilterDialogs_PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -79,7 +79,7 @@ namespace WPFApp.Interfaces
             }
         }
 
-        protected void _zoekBestuurderMetFilters()
+        private void _zoekBestuurderMetFilters()
         {
             List<string> zoekfilters = new();
             List<object> zoektermen = new();
@@ -97,13 +97,31 @@ namespace WPFApp.Interfaces
                 Bestuurders = new ObservableCollection<BestuurderResponseDTO>(_communicatieKanaal.ZoekBestuurders(zoekfilters, zoektermen, likeWildcard: true));
             }
         }
+        private bool _controleerVeldenVoldaanVoorToevoegen()
+        {
 
-        protected void _resetBestuurderFilters()
+            bool voldaan = Merk.Length > 0
+                          && Model.Length > 0
+                          && Brandstof.Length > 0
+                          && Nummerplaat.Length > 0
+                          && Voertuigsoort.Length > 0
+                          && Kleur.Length > 0
+                          && Chassisnummer.Length == 17
+                          && AantalDeuren.ToString().Length > 0;               
+
+            if (!voldaan)
+            {
+                StuurSnackbar("Voertuig voldoet niet aan vereisten.\nGelieve de velden in te vullen.");
+            }
+
+            return voldaan;
+        }
+        private void _resetBestuurderFilters()
         {
             Bestuurders  = new ObservableCollection<BestuurderResponseDTO>(_communicatieKanaal.GeefBestuurders());
         }
 
-        protected void _selecteerHighlightedBestuurder()
+        private void _selecteerHighlightedBestuurder()
         {
             try
             {
@@ -118,24 +136,6 @@ namespace WPFApp.Interfaces
             {
                 StuurSnackbar(e.Message);
             }
-        }
-
-        private bool _controleerVeldenVoldaanVoorToevoegen() {
-
-            bool voldaan = Merk.Length > 0
-                          && Model.Length > 0
-                          && Brandstof.Length > 0
-                          && Nummerplaat.Length > 0
-                          && Voertuigsoort.Length > 0
-                          && Kleur.Length > 0
-                          && Chassisnummer.Length == 17
-                          && AantalDeuren.ToString().Length > 0;
-
-            if (!voldaan) {
-                StuurSnackbar("Voertuig voldoet niet aan vereisten.\nGelieve de velden in te vullen.");
-            }
-
-            return voldaan;
         }
         private void _voegVoertuigToe()
         {

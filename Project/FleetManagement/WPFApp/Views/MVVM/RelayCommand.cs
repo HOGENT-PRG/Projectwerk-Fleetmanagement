@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace WPFApp.Interfaces.MVVM {
+namespace WPFApp.Views.MVVM {
     public class RelayCommand : ICommand {
 
         readonly Action<object> _uittevoeren;
@@ -35,7 +35,7 @@ namespace WPFApp.Interfaces.MVVM {
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        // Indien het uitgevoerd mag worden zal de XAML de in de ctor meegegeven functie oproepen door deze functie te callen
+        // Indien het uitgevoerd mag worden zal de XAML deze oproepen dmv onderstaande.
         public void Execute(object parameters) {
             _uittevoeren(parameters);
         }

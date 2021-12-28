@@ -8,9 +8,9 @@ using WPFApp.Interfaces;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
 
-// Communiceert met endpoints (wellicht interessant om endpoints te verzamelen in een record) en zet om van en naar DTO's en json strings
-// Indien ontwikkeling aangevat wordt dienen de funcs verzameld te worden per groep als region
-// Adres bij adres, etc - nu staan ze alfabetisch door automatisch aanvullen met quick actions
+// TODO bij uitwerken van API laag
+// Indien dit aangevat wordt dienen de funcs verzamelt te worden per groep als region
+// Adres bij adres, etc - nu staan ze alfabetisch door automatisch aanvullen
 
 namespace WPFApp.Model.Communiceerders {
 	internal class ApiCommuniceerder : ICommuniceer {
@@ -20,7 +20,7 @@ namespace WPFApp.Model.Communiceerders {
 			this.API_BASIS_PAD = api_basispad;
 		}
 
-		private string _voerAPIRequestUit(string json, string urlPad) {
+		private string _voerAPIRequestUit(string jsonConstruct, string urlPad) {
 			throw new NotImplementedException();
 		}
 

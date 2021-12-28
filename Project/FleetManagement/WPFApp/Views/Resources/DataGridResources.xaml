@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     >
-    <!-- Dient om de datagrids te stylen in de Toevoegen en Wijzigen windows, aangezien daar de ruimte optimaal benut dient te worden. De default datagrids bevatten redelijk veel margin/padding, dit brengt daar verandering in. -->
+    <!-- Dient om de datagrids te stylen -->
     <!--DATAGRID-->
     <LinearGradientBrush x:Key="ThemeDGHeader_Background" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="White" Offset="0.42"/>

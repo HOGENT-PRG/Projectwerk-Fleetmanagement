@@ -181,19 +181,11 @@ namespace BusinessLaag.Managers
                 throw new BestuurderManagerException("Meegegeven bestuurder is null of id is null / < 1.");
             }
 
-            Bestuurder bestaandeBestuurder = this.GeefBestuurderDetail((int)bestuurder.Id);
-
-            if (bestaandeBestuurder is null) {
+            if(this.GeefBestuurderDetail((int)bestuurder.Id) is null) {
                 throw new BestuurderManagerException("Er kan geen bestuurder gevonden worden om te updaten.");
 			}
 
-            if(bestuurder.RijksRegisterNummer != bestaandeBestuurder.RijksRegisterNummer) {
-                if (this.ZoekBestuurders("Rijksregisternummer", bestuurder.RijksRegisterNummer).Count > 0) {
-                    throw new BestuurderManagerException("Er bestaat reeds een bestuurder met dit RRN.");
-                }
-            }		
-
-			try {
+            try {
                 _opslag.UpdateBestuurder(bestuurder);
             } catch (Exception e) {
                 throw new BestuurderManagerException("Bestuurder kon niet geupdatet worden.", e);

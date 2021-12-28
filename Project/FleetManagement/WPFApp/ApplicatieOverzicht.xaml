@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-        xmlns:local="clr-namespace:WPFApp.Interfaces"
+        xmlns:local="clr-namespace:WPFApp.Views"
         xmlns:Presentatielaag="clr-namespace:WPFApp" 
         x:Class="WPFApp.ApplicatieOverzicht"
         mc:Ignorable="d"
@@ -45,17 +45,14 @@
         </DataTemplate>
 
         <!-- wijzigen -->
-        <DataTemplate DataType="{x:Type local:AdresWijzigenViewModel}">
-            <local:AdresWijzigen />
-        </DataTemplate>
         <DataTemplate DataType="{x:Type local:BestuurderWijzigenViewModel}">
             <local:BestuurderWijzigen />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type local:AdresWijzigenViewModel}">
+            <local:AdresWijzigen />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type local:VoertuigWijzigenViewModel}">
             <local:VoertuigWijzigen />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type local:TankkaartWijzigenViewModel}">
-            <local:TankkaartWijzigen />
         </DataTemplate>
     </Window.Resources>
    

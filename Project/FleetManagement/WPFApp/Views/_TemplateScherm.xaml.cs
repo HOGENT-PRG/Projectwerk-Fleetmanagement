@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
 	public partial class _TemplateScherm : UserControl {
 		public _TemplateScherm() {
 			InitializeComponent();

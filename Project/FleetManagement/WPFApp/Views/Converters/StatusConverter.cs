@@ -3,8 +3,8 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-// Zet een boolean om naar een image, wordt gebruikt door DatabankOverzicht voor weergave checkmark / cross afhankelijk van de waarde
-namespace WPFApp.Interfaces {
+// Zet een boolean om naar een image, voor gebruik in xaml van databank info (checkmark of red cross)
+namespace WPFApp.Views {
     public class StatusConverter : IValueConverter {
 
         private string positieveMarker = "pack://application:,,,/WPFApp;component/_images/checkmark.png";
@@ -17,7 +17,6 @@ namespace WPFApp.Interfaces {
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
-            // Dit wordt niet gebruikt maar wordt wel verwacht door IValueConverter
             throw new NotImplementedException();
         }
     }

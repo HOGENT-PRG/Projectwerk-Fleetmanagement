@@ -1,11 +1,9 @@
 ﻿using BusinessLaag.Model;
-using BusinessLaag.Model.Enum;
 using System;
 using WPFApp.Exceptions;
 using WPFApp.Helpers;
 using WPFApp.Model.Request;
 
-// Wordt gebruikt door ICommuniceer implementaties
 // Zet om naar domein objecten, kan omgaan met circulaire vermeldingen, heeft geen state en is dus static als helper class
 namespace WPFApp.Model.Mappers.Business {
 	internal static class RequestDTONaarDomein {
@@ -113,12 +111,6 @@ namespace WPFApp.Model.Mappers.Business {
                 v.Bestuurder = null;
 
                 Voertuig voertuig = BronParser.ParseCast<Voertuig>(v);
-
-                if(voertuig.Voertuigsoort.ToString() != v.Voertuigsoort) {
-                    voertuig.ZetVoertuigSoort(
-                        (Voertuigsoort)Enum.Parse(typeof(Voertuigsoort), v.Voertuigsoort)
-                    );
-				}
 
                 // wordt hier terug ingesteld en circulatie is vermeden
                 if(bestuurder is not null && bestuurder.Voertuig is not null) {

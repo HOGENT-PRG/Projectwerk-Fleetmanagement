@@ -7,9 +7,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="SplashScreenWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Views\AdresOverzicht.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -25,12 +22,12 @@
     <Compile Update="Views\VoertuigOverzicht.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\VoertuigWijzigen.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="ApplicatieOverzicht.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="SplashScreenWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\AdresOverzicht.xaml">
@@ -46,6 +43,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\VoertuigOverzicht.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\VoertuigWijzigen.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

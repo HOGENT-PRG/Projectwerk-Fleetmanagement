@@ -54,8 +54,7 @@ namespace BusinessLaag.Helpers
                     return true;
                 }
             } catch {
-                // Het RRN bevat bijvoorbeeld niet alleen cijfers waardoor het niet als int geparsed kan worden
-                return false;
+                throw new RRNValideerderException("Er ging iets mis tijdens het parsen van het opgegeven RRN.");
 			}
 
             // Validatie mislukt

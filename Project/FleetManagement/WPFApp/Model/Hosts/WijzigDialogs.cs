@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFApp.Views.MVVM;
 
-namespace WPFApp.Interfaces {
-    // Marker interface
-    internal interface IResponseDTO {
-    }
+namespace WPFApp.Model.Hosts {
+	internal class WijzigDialogs : Presenteerder {
+	}
 }

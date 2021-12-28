@@ -11,11 +11,11 @@ using WPFApp.Interfaces;
 using WPFApp.Model.Mappers;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
 
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
     // Erft over van bestuurdertoevoegen aangezien de functionaliteiten grotendeels hetzelfde zijn
-	internal sealed class BestuurderWijzigenViewModel : BestuurderToevoegenViewModel, IWijzigViewModel {
+	internal sealed class BestuurderWijzigenViewModel : BestuurderToevoegenViewModel {
         #pragma warning disable CS0108
 		public string Naam { get; set; } = "Bestuurder wijzigen";
         #pragma warning restore CS0108
@@ -26,9 +26,7 @@ namespace WPFApp.Interfaces {
 
 		public BestuurderWijzigenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar) : base(communicatieKanaal, stuurSnackbar) { }
 
-        public void BereidModelVoor(IResponseDTO responseDTO, bool isReset = false) {
-            BestuurderResponseDTO teBehandelenBestuurder = responseDTO as BestuurderResponseDTO;
-
+        public void BereidModelVoorMetBestuurder(BestuurderResponseDTO teBehandelenBestuurder, bool isReset = false) {
             if (teBehandelenBestuurder is null) {
                 StuurSnackbar("Kon de bestuurder niet inladen aangezien deze null is.");
             } else {
@@ -97,6 +95,7 @@ namespace WPFApp.Interfaces {
 			}
 		}
 
+        // todo commandos in xaml
         public ICommand BevestigWijzigBestuurder {
             get {
                 return new RelayCommand(
@@ -109,7 +108,7 @@ namespace WPFApp.Interfaces {
         public ICommand ResetNaarOrigineel {
             get {
                 return new RelayCommand(
-                    p => BereidModelVoor(this.IngeladenBestuurderResponse, true),
+                    p => BereidModelVoorMetBestuurder(this.IngeladenBestuurderResponse, true),
                     p => IngeladenBestuurderResponse is not null
                 );
             }

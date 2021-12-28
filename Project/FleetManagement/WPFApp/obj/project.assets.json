@@ -38,6 +38,12 @@
           "lib/netstandard2.0/Azure.Identity.dll": {}
         }
       },
+      "Fody/6.6.0": {
+        "type": "package",
+        "build": {
+          "build/Fody.targets": {}
+        }
+      },
       "MaterialDesignColors/2.0.3": {
         "type": "package",
         "compile": {
@@ -373,6 +379,21 @@
         },
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.Schema.dll": {}
+        }
+      },
+      "PropertyChanged.Fody/3.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Fody": "6.5.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/PropertyChanged.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/PropertyChanged.dll": {}
+        },
+        "build": {
+          "build/PropertyChanged.Fody.props": {}
         }
       },
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
@@ -756,6 +777,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "Microsoft.SqlServer.SqlManagementObjects": "161.46521.71",
+          "Newtonsoft.Json": "13.0.1",
           "System.Data.SqlClient": "4.8.3"
         },
         "compile": {
@@ -815,6 +838,39 @@
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml",
         "pkgicon.png"
+      ]
+    },
+    "Fody/6.6.0": {
+      "sha512": "NWWM8KiR9DGiAi47q9px9oI27xYBiM5KXxSnI4R5mz2/rG8LIcXJfw5zDLLH1xOgzqRNJgc8KTPQPoiQCidYUw==",
+      "type": "package",
+      "path": "fody/6.6.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.txt",
+        "build/Fody.targets",
+        "fody.6.6.0.nupkg.sha512",
+        "fody.nuspec",
+        "netclassictask/Fody.dll",
+        "netclassictask/FodyCommon.dll",
+        "netclassictask/FodyHelpers.dll",
+        "netclassictask/FodyIsolated.dll",
+        "netclassictask/Mono.Cecil.Pdb.dll",
+        "netclassictask/Mono.Cecil.Pdb.pdb",
+        "netclassictask/Mono.Cecil.Rocks.dll",
+        "netclassictask/Mono.Cecil.Rocks.pdb",
+        "netclassictask/Mono.Cecil.dll",
+        "netclassictask/Mono.Cecil.pdb",
+        "netstandardtask/Fody.dll",
+        "netstandardtask/FodyCommon.dll",
+        "netstandardtask/FodyHelpers.dll",
+        "netstandardtask/FodyIsolated.dll",
+        "netstandardtask/Mono.Cecil.Pdb.dll",
+        "netstandardtask/Mono.Cecil.Pdb.pdb",
+        "netstandardtask/Mono.Cecil.Rocks.dll",
+        "netstandardtask/Mono.Cecil.Rocks.pdb",
+        "netstandardtask/Mono.Cecil.dll",
+        "netstandardtask/Mono.Cecil.pdb"
       ]
     },
     "MaterialDesignColors/2.0.3": {
@@ -1643,6 +1699,28 @@
         "newtonsoft.json.schema.3.0.14.nupkg.sha512",
         "newtonsoft.json.schema.nuspec",
         "packageIcon.png"
+      ]
+    },
+    "PropertyChanged.Fody/3.4.0": {
+      "sha512": "IAZyq0uolKo2WYm4mjx+q7A8fSGFT0x2e1s3y+ODn4JI0kqTDoo9GF2tdaypUzRFJZfdMxfC5HZW9QzdJLtOnA==",
+      "type": "package",
+      "path": "propertychanged.fody/3.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/PropertyChanged.Fody.props",
+        "lib/net40/PropertyChanged.dll",
+        "lib/net40/PropertyChanged.xml",
+        "lib/netstandard1.0/PropertyChanged.dll",
+        "lib/netstandard1.0/PropertyChanged.xml",
+        "lib/netstandard2.0/PropertyChanged.dll",
+        "lib/netstandard2.0/PropertyChanged.xml",
+        "lib/netstandard2.1/PropertyChanged.dll",
+        "lib/netstandard2.1/PropertyChanged.xml",
+        "propertychanged.fody.3.4.0.nupkg.sha512",
+        "propertychanged.fody.nuspec",
+        "weaver/PropertyChanged.Fody.dll",
+        "weaver/PropertyChanged.Fody.xcf"
       ]
     },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
@@ -2532,27 +2610,30 @@
     "net5.0-windows7.0": [
       "BusinessLaag >= 1.0.0",
       "DataLaag >= 1.0.0",
+      "Fody >= 6.6.0",
       "MaterialDesignColors >= 2.0.3",
       "MaterialDesignThemes >= 4.2.1",
+      "Microsoft.SqlServer.SqlManagementObjects >= 161.46521.71",
       "Newtonsoft.Json >= 13.0.1",
       "Newtonsoft.Json.Schema >= 3.0.14",
+      "PropertyChanged.Fody >= 3.4.0",
       "System.Data.SqlClient >= 4.8.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\server\\.nuget\\packages\\": {}
+    "C:\\Users\\abdellah\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
+      "projectUniqueName": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
       "projectName": "WPFApp",
-      "projectPath": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
-      "packagesPath": "C:\\Users\\server\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\obj\\",
+      "projectPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
+      "packagesPath": "C:\\Users\\abdellah\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\abdellah\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2560,17 +2641,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://packagesource": {}
       },
       "frameworks": {
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
           "projectReferences": {
-            "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
-              "projectPath": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
+            "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+              "projectPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
             },
-            "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
-              "projectPath": "C:\\Users\\server\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj"
+            "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
+              "projectPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj"
             }
           }
         }
@@ -2585,6 +2667,12 @@
       "net5.0-windows7.0": {
         "targetAlias": "net5.0-windows",
         "dependencies": {
+          "Fody": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[6.6.0, )"
+          },
           "MaterialDesignColors": {
             "target": "Package",
             "version": "[2.0.3, )"
@@ -2593,6 +2681,10 @@
             "target": "Package",
             "version": "[4.2.1, )"
           },
+          "Microsoft.SqlServer.SqlManagementObjects": {
+            "target": "Package",
+            "version": "[161.46521.71, )"
+          },
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.1, )"
@@ -2600,6 +2692,10 @@
           "Newtonsoft.Json.Schema": {
             "target": "Package",
             "version": "[3.0.14, )"
+          },
+          "PropertyChanged.Fody": {
+            "target": "Package",
+            "version": "[3.4.0, )"
           },
           "System.Data.SqlClient": {
             "target": "Package",
@@ -2624,7 +2720,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

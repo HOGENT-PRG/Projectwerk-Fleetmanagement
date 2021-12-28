@@ -4,7 +4,6 @@ using WPFApp.Exceptions;
 using WPFApp.Helpers;
 using WPFApp.Model.Response;
 
-// Wordt gebruikt door ICommuniceer implementaties
 // Zet een domein object om naar response dto, ook de relaties die het bevat (vb adres in bestuurder)
 // worden meegenomen (kan ook zonder dmv inclusiefRelaties param)
 // Kan omgaan met circulaire referenties, heeft geen state en is dus static als helper class

@@ -1,127 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
-using WPFApp.Helpers;
 using WPFApp.Interfaces;
 using WPFApp.Model.Response;
-using WPFApp.Interfaces.Hosts;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.Hosts;
+using WPFApp.Views.MVVM;
 
-namespace WPFApp.Interfaces {
-    /*
-        Deze klasse fungeert als beheerder van de overige Views en ViewModels.
-        De View ApplicatieOverzicht bevat een ContentControl waar de HuidigePaginaViewModel 
-        als Content ingesteld staat.
-        Indien HuidigePaginaViewModel wijzigt zal de weergegeven View ook wijzigen.
-    */
+/* Deze klasse dient opgekuist te worden ivm props & de brushes die hier in staan */
+namespace WPFApp.Views {
     internal sealed class ApplicatieOverzichtViewModel : NotificatieModule, IPaginaViewModel {
-        // Het ViewModel welke momenteel actief is, door declaratie ervan in ApplicatieOverzicht.xaml in de Window.Resources wordt er automatisch overgeschakeld naar diens View
-        public IPaginaViewModel HuidigePaginaViewModel { get; private set; }
 
-        // ViewModels die beschikbaar zijn. Key=View naam, Value=ViewModel
-        // Zie constructor
-        public Dictionary<string, IPaginaViewModel> PaginaViewModels { get; init; }
+        public string Naam => "Applicatie Overzicht";
 
-        // Eenmalige initialisatie van CommunicatieRelay, de ViewModels worden voorzien van deze implementatie middels hun constructor
-        private ICommuniceer CommunicatieKanaal = new CommunicatieRelay().CommunicatieKanaal;
+        private ICommand _veranderPaginaCommand;
+        private IPaginaViewModel _huidigePaginaViewModel;
+        private Dictionary<string, IPaginaViewModel> _paginaViewModels;
 
-        // Alle views en viewmodels toevoegen aan de dict
-        // Aanroepen van de constructor van OverzichtViewModels wilt echter niet zeggen dat er al data ingeladen wordt, anders zou dat tijdens initialisatie te intensief / verspilling van resources zijn.
-        // Inladen van data gebeurt pas bij het renderen van de view dmv het Loaded event die de StartupRoutine command welke beschikbaar gesteld wordt door het ViewModel aanroept.
+        private ICommuniceer _communicatieKanaal = new CommunicatieRelay().CommunicatieKanaal;
+
+        // Constructie en instelling als datacontext van ApplicatieOverzicht in App.xaml code behind
         public ApplicatieOverzichtViewModel() {
 
-            // Het meegeven van de StuurSnackbar functie is mogelijk door overerving van de NotificatieModule
-            PaginaViewModels = new() {
-                /* Overzichten */
-                { nameof(AdresOverzicht), 
-                    new AdresOverzichtViewModel(CommunicatieKanaal, StuurSnackbar) 
-                },
-                { nameof(BestuurderOverzicht),
-                    new BestuurderOverzichtViewModel(CommunicatieKanaal, StuurSnackbar)
-                },
-                { nameof(TankkaartOverzicht),
-                    new TankkaartOverzichtViewModel(CommunicatieKanaal, StuurSnackbar)
-                },
-                { nameof(VoertuigOverzicht),
-                    new VoertuigOverzichtViewModel(CommunicatieKanaal, StuurSnackbar)
-                },
-                { nameof(DatabankOverzicht),
-                    new DatabankOverzichtViewModel(CommunicatieKanaal, StuurSnackbar)
-                },
-                /* Toevoegen */
-                { nameof(AdresToevoegen),
-                    new AdresToevoegenViewModel(CommunicatieKanaal, StuurSnackbar)
-                },
-                { nameof(BestuurderToevoegen),
-                    new BestuurderToevoegenViewModel(CommunicatieKanaal, StuurSnackbar)
-                },
-                { nameof(TankkaartToevoegen),
-                    new TankkaartToevoegenViewModel(CommunicatieKanaal, StuurSnackbar)
-                },
-                { nameof(VoertuigToevoegen),
-                    new VoertuigToevoegenViewModel(CommunicatieKanaal, StuurSnackbar)
-                },
-                /* Wijzigen */
-                { nameof(BestuurderWijzigen),
-                    new BestuurderWijzigenViewModel(CommunicatieKanaal, StuurSnackbar)
-                },
-                { nameof(AdresWijzigen),
-                    new AdresWijzigenViewModel(CommunicatieKanaal, StuurSnackbar)
-                },
-                { nameof(VoertuigWijzigen),
-                    new VoertuigWijzigenViewModel(CommunicatieKanaal, StuurSnackbar)
-                },
-                { nameof(TankkaartWijzigen),
-                    new TankkaartWijzigenViewModel(CommunicatieKanaal, StuurSnackbar)
-                }
-            };
+            /* Overzichten */
+            PaginaViewModels.Add(nameof(AdresOverzicht), new AdresOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(BestuurderOverzicht), new BestuurderOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(TankkaartOverzicht), new TankkaartOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(VoertuigOverzicht), new VoertuigOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(DatabankOverzicht), new DatabankOverzichtViewModel(_communicatieKanaal, this.StuurSnackbar));
 
+			/* Toevoegen */
+			PaginaViewModels.Add(nameof(AdresToevoegen), new AdresToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+			PaginaViewModels.Add(nameof(BestuurderToevoegen), new BestuurderToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+			PaginaViewModels.Add(nameof(TankkaartToevoegen), new TankkaartToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+			PaginaViewModels.Add(nameof(VoertuigToevoegen), new VoertuigToevoegenViewModel(_communicatieKanaal, this.StuurSnackbar));
+
+            /* Wijzigen, overige via dialogs */
+            PaginaViewModels.Add(nameof(BestuurderWijzigen), new BestuurderWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(AdresWijzigen), new AdresWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
+            PaginaViewModels.Add(nameof(VoertuigWijzigen), new VoertuigWijzigenViewModel(_communicatieKanaal, this.StuurSnackbar));
             /* ViewModel dat gebruikt wordt bij opstart applicatie: AdresOverzicht */
             HuidigePaginaViewModel = PaginaViewModels[nameof(AdresOverzicht)];
         }
 
+
         private object MaakNieuwViewModel(IPaginaViewModel viewModel) {
-            // In de veronderstelling dat elke ViewModel constructor deze 2 argumenten aanvaard, het zou mogelijk kunnen zijn om in de abstracte klasse Presenteerder een constructor aan te maken met deze 2 argumenten zodat aanwezigheid gewaarborgd is
-            var p = new object[] { CommunicatieKanaal, this.StuurSnackbar };
+            // in de veronderstelling dat elke view deze 2 argumenten bevat
+            var p = new object[] { _communicatieKanaal, this.StuurSnackbar };
 
             try {
-                // Aanmaken instantie
+                // aanmaken instantie
                 object o = Activator.CreateInstance(viewModel.GetType(), p);
 
-                // Indien het aangemaakte ViewModel een startuproutine command bevat wordt deze aangeroepen 
+                // indien het aangemaakte viewmodel een startuproutine command bevat wordt deze aangeroepen
+                // (bij first run gebeurt dit door Loaded event)    
                 if (o.GetType().GetProperty("StartupRoutine") != null) {
                     var x = o.GetType().GetProperty("StartupRoutine").GetGetMethod(true).Invoke(o, Array.Empty<object>());
                     var y = x.GetType().GetMethod("Execute").Invoke(x, new object[1] { "" });
                 }
 
-                // Retourneren om toe te voegen aan PaginaViewModels
                 return o;
             } catch (Exception e) { StuurSnackbar(e); }
 
-            // Aanmaken was niet mogelijk
-            StuurSnackbar("Waarschuwing: aanmaken van een ViewModel is mislukt, debugging is aangewezen.");
+            // retourneren om toe te voegen aan PaginaViewModels
             return null;
         }
 
-        #region Helpers
-        // Wordt gebruikt om te verzekeren dat een IPaginaViewModel implementatie IWijzigViewModel implementeert in ActiveerWijzigenContext
-        private static bool ImplementeertTypeInterface(Type t, Type verwachtteInterface) {
-            return t.GetInterfaces().Any(i => i.GetType() == verwachtteInterface.GetType());
-        }
-        #endregion
-
-        #region ViewModel beheer
-        // Wordt aangeroepen middels Reset knoppen in ToevoegenViewModels, het is eenvoudiger en globaal toepasbaar om de ViewModel te vervangen met een nieuwe, in plaats van in elke ViewModel alle velden / properties manueel te resetten met risico op fouten
         private void ResetViewModel(IPaginaViewModel viewModel) {
             PaginaViewModels[viewModel.GetType().Name.Replace("ViewModel", "")] = (IPaginaViewModel)MaakNieuwViewModel(viewModel);
         }
 
-        // Veranderen van ViewModel, door middel van een tabblad knop om van Overzicht te veranderen of vanuit een Overzicht om naar Toevoegen/Wijzigen te gaan
         private void VeranderViewModel(IPaginaViewModel viewModel) {
             string naam = viewModel.GetType().Name.Replace("ViewModel", "");
             if (!PaginaViewModels.Keys.Contains(naam)) {
@@ -131,38 +82,55 @@ namespace WPFApp.Interfaces {
             HuidigePaginaViewModel = PaginaViewModels.FirstOrDefault(vm => vm.Key == naam).Value;
         }
 
-        // Wordt aangeroepen vanuit een Overzicht datagrid row met als binding de datasource van die row, welke een IResponseDTO is. 
-        // Na enkele checks wordt de Wijzigen view weergegeven en de BereidModelVoor functie aangeroepen welke het WijzigenViewModel zal voorzien van de responseDTO.
-        private void ActiveerWijzigenContext(IResponseDTO responseDTO) {
-            var castedDTO = Convert.ChangeType(responseDTO, responseDTO.GetType());
-            string dtoTypeNaam = responseDTO.GetType().Name;
-            string xamlName = dtoTypeNaam.Replace("ResponseDTO", "Wijzigen");
+        /* Wijzigen */
 
-            if (!dtoTypeNaam.EndsWith("ResponseDTO")) {
-                StuurSnackbar($"Weergave van wijzigen context niet mogelijk, een implementatie van IResponseDTO dient als naamgeving steeds te eindigen op 'ResponseDTO', echter werd '{dtoTypeNaam}' ontvangen. ");
-                return;
-			}
-
-			if (!PaginaViewModels.ContainsKey(xamlName)) {
-                StuurSnackbar("Weergave van wijzigen context niet mogelijk aangezien correcte ViewModel niet gevonden kan worden.");
-                return;
-			}
-
-            IPaginaViewModel geselecteerdeViewModel = PaginaViewModels[xamlName];
-
-            if(!ImplementeertTypeInterface(geselecteerdeViewModel.GetType(), typeof(IWijzigViewModel))) {
-                StuurSnackbar("Er werd een ViewModel geselecteerd, echter implementeert deze IWijzigViewModel niet terwijl dat wel een vereiste is.");
-                return;
-			}
-
-            VeranderViewModel(PaginaViewModels[xamlName]);
-            IWijzigViewModel wijzigViewModel = PaginaViewModels[xamlName] as IWijzigViewModel;
-            wijzigViewModel.BereidModelVoor(responseDTO);
+        private void WijzigBestuurder(BestuurderResponseDTO b) {
+            VeranderViewModel(PaginaViewModels[nameof(BestuurderWijzigen)]);
+            BestuurderWijzigenViewModel bwvm = (BestuurderWijzigenViewModel)PaginaViewModels[nameof(BestuurderWijzigen)];
+            bwvm.BereidModelVoorMetBestuurder(b);
+        }
+        private void WijzigVoertuig(VoertuigResponseDTO v)
+        {
+            VeranderViewModel(PaginaViewModels[nameof(VoertuigWijzigen)]);
+            VoertuigWijzigenViewModel vwvm = (VoertuigWijzigenViewModel)PaginaViewModels[nameof(VoertuigWijzigen)];
+            vwvm.BereidModelVoorMetVoertuig(v);
+        }
+        public ICommand WijzigBestuurderCommand {
+            get {
+                return new RelayCommand(
+                    p => WijzigBestuurder((BestuurderResponseDTO)p),
+                    p => p is not null
+                );
+            }
+        }
+        public ICommand WijzigVoertuigCommand
+        {
+            get
+            {
+                return new RelayCommand(
+                    p => WijzigVoertuig((VoertuigResponseDTO)p),
+                    p => p is not null
+                );
+            }
+        }
+        public ICommand WijzigAdresCommand
+        {
+            get
+            {
+                return new RelayCommand(
+                    p => WijzigAdres((AdresResponseDTO)p),
+                    p => p is not null);
+            }
+        }
+        private void WijzigAdres(AdresResponseDTO a)
+        {
+            VeranderViewModel(PaginaViewModels[nameof(AdresWijzigen)]);
+            AdresWijzigenViewModel awvm = (AdresWijzigenViewModel)PaginaViewModels[nameof(AdresWijzigen)];
+            awvm.BereidModelVoorAdres(a);
         }
 
-        #endregion
+        /* Wijzigen einde */
 
-        // Commando's die callable zijn door ApplicatieOverzicht en zijn descendants (alle Views dus)
         public ICommand ResetViewModelCommand {
             get {
                 return new RelayCommand(
@@ -174,21 +142,37 @@ namespace WPFApp.Interfaces {
 
         public ICommand VeranderPaginaCommand {
             get {
-                return new RelayCommand(
+                if (_veranderPaginaCommand == null) {
+                    _veranderPaginaCommand = new RelayCommand(
                         p => VeranderViewModel((IPaginaViewModel)p),
-                        p => p is IPaginaViewModel
-                );
+                        p => p is IPaginaViewModel);
+                }
+
+                return _veranderPaginaCommand;
             }
         }
 
-        public ICommand WijzigItemCommand {
+        public Dictionary<string, IPaginaViewModel> PaginaViewModels {
             get {
-                return new RelayCommand(
-                    p => ActiveerWijzigenContext((IResponseDTO)p),
-                    p => p is not null
-                );
+                if (_paginaViewModels == null)
+                    _paginaViewModels = new Dictionary<string, IPaginaViewModel>();
+
+                return _paginaViewModels;
             }
         }
 
+        public IPaginaViewModel HuidigePaginaViewModel {
+            get {
+                return _huidigePaginaViewModel;
+            }
+            set {
+                Update(ref _huidigePaginaViewModel, value);
+            }
+        }
+
+        public SolidColorBrush TabbladTekstKleur => (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF312F2F"));
+        public SolidColorBrush ActiefTabbladKleur => (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFFFF"));
+        public SolidColorBrush InactiefTabbladKleur => (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE1E1E1"));
+        public SolidColorBrush TabbladOnderlijningKleur => (SolidColorBrush)(new BrushConverter().ConvertFrom("#00000000"));
     }
 }

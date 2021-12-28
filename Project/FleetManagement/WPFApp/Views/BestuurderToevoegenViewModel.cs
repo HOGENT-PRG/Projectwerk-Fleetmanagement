@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using PropertyChanged;
 using WPFApp.Interfaces;
 using WPFApp.Model.Hosts;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
 using System.ComponentModel;
 using System.Reflection;
 using WPFApp.Model.Response;
@@ -16,7 +16,7 @@ using System.Windows.Input;
 using WPFApp.Helpers;
 using WPFApp.Model.Mappers;
 
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
     // Niet sealed in dit geval, BestuurderWijzigen kan veel ontlenen.
     // Maakt gebruik van Fody.PropertyChanged
     internal class BestuurderToevoegenViewModel : FilterDialogs, IPaginaViewModel {

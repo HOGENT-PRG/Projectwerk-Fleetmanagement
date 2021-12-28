@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WPFApp.Interfaces;
 using WPFApp.Model.Response;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
 
-namespace WPFApp.Interfaces {
+namespace WPFApp.Views {
         internal sealed class DatabankOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Databank info";  // naam van het tabblad

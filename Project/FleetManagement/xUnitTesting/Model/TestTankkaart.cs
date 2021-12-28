@@ -184,8 +184,9 @@ namespace xUnitTesting.Model
         public void Test_Setter_Brandstoffen_DeleteBestaat_valid()
         {
             Assert.Contains(validBrandstof, validTankkaart.GeldigVoorBrandstoffen);
+            Assert.Single(validTankkaart.GeldigVoorBrandstoffen);
             validTankkaart.VerwijderBrandstof(validBrandstof);
-            Assert.DoesNotContain<TankkaartBrandstof>(validBrandstof, validTankkaart.GeldigVoorBrandstoffen);
+            Assert.Empty(validTankkaart.GeldigVoorBrandstoffen);
         }
 
         [Fact]

@@ -10,12 +10,6 @@ using WPFApp.Model.Response;
 
 namespace WPFApp.Interfaces {
     public interface ICommuniceer {
-        /*
-            Minimum functionaliteiten Business- en ApiCommuniceerder, bevat helper functies die gebruikt kunnen worden door een viewmodel (ValideerRRN bijvoorbeeld).
-
-            Bevat tevens functies die de functionaliteiten van de managers voorstellen, er wordt geen onderscheid meer gemaakt op vlak van manager type. 
-            Dit vormt echter geen groot probleem aangezien de function bodies gelimiteerd zijn in omvang, hun doel is namelijk louter om te communiceren met een provider (rechtstreeks met businesslaag of communicatie met api endpoint) en om te vormen van en naar DTO type.
-        */
         /* Helper functies voor WPF */
         bool ValideerRRN(string rrn);
 

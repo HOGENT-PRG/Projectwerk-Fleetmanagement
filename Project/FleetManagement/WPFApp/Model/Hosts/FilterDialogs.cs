@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PropertyChanged;
-using WPFApp.Interfaces.MVVM;
+using WPFApp.Views.MVVM;
 
 namespace WPFApp.Model.Hosts {
 
 	// De :Presenteerder overerving zorgt dat ViewModels die hiervan
 	// overerven nog steeds de overerving van Presenteerder behouden.
 
-	// Komt overeen met databank kolomnamen, filter prefixen worden van de property namen af gedaan door de betreffende viewmodel (bv AdresFilter eraf waardoor Straatnaam overblijft)
+	// Komt overeen met db model, filter prefixen worden van de property namen af gedaan door
+	// de betreffende viewmodel (bv AdresFilter eraf)
 
 	// Enums zijn string waarde (zoals in db)
 	internal class FilterDialogs : Presenteerder {

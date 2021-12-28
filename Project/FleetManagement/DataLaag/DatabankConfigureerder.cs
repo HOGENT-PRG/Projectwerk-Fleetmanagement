@@ -47,7 +47,7 @@ namespace DataLaag
 
         public DatabankConfigureerder(SortedDictionary<string, string>? tabellen =null,
                                      string databanknaam = "FleetManager",
-                                     string dataSource = @".\SQLEXPRESS",
+                                      string dataSource = @"LAPTOP-9HCGFJ8O",
                                      bool integratedSecurity = true)
         {
             if(tabellen is null) { tabellen = TabellenDefault; }
@@ -77,15 +77,13 @@ namespace DataLaag
 
             if (ConnectieSuccesvol)
             {
-                if (!DatabaseBestaat) {
+                if (!DatabaseBestaat)
                     _maakOntbrekendeDatabank(databanknaam);
-                }
 
                 _controleerBestaanTabellen(gewensteTabellenNamen); // populeert AlleTabellenBestaan
-
-                if (!AlleTabellenBestaan) {
+                
+                if (!AlleTabellenBestaan)
                     _maakOntbrekendeTabellenAan(databanknaam, gewensteTabellen);
-                }
 
                 _connecteerMetDatabase(databanknaam); // populeert DatabaseBestaat
                 _controleerBestaanTabellen(gewensteTabellenNamen); // populeert AlleTabellenBestaan

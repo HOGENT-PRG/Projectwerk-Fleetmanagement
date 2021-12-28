@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFApp.Interfaces
+namespace WPFApp.Views
 {
     /// <summary>
     /// Interaction logic for TankkaartOverzicht.xaml
@@ -52,8 +52,7 @@ namespace WPFApp.Interfaces
 
                 if (zoekfilterbox?.SelectedItem is not null)
                 {
-                    if (zoekfilterbox.SelectedItem.ToString().Contains("Vervaldatum")
-                        || zoekfilterbox.SelectedItem.ToString().Contains("GeboorteDatum"))
+                    if (zoekfilterbox.SelectedItem.ToString().Contains("Vervaldatum"))
                     {
                         zoekdate.Visibility = Visibility.Visible;
                     }
