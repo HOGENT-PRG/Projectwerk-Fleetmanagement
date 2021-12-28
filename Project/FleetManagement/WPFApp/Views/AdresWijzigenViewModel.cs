@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using PropertyChanged;
 using WPFApp.Interfaces;
 using WPFApp.Model.Hosts;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.MVVM;
 using System.ComponentModel;
 using System.Reflection;
 using WPFApp.Model.Response;
@@ -16,23 +16,21 @@ using System.Windows.Input;
 using WPFApp.Helpers;
 using WPFApp.Model.Mappers;
 
-namespace WPFApp.Views
+namespace WPFApp.Interfaces
 {
-  internal sealed  class AdresWijzigenViewModel : AdresToevoegenViewModel, IPaginaViewModel
-    {
+  internal sealed  class AdresWijzigenViewModel : AdresToevoegenViewModel, IPaginaViewModel, IWijzigViewModel {
 
         public string Naam { get; set; } = "Adres Wijzigen";
     
         
         public AdresResponseDTO IngeladenAdresResponse { get; set; } = null;
         public AdresRequestDTO IngeladenAdresRequest { get; set; } = null;
-        public AdresWijzigenViewModel(ICommuniceer communicatieKanaal,Action<object> stuurSncakbar) : base(communicatieKanaal, stuurSncakbar)
-        {
+        public AdresWijzigenViewModel(ICommuniceer communicatieKanaal,Action<object> stuurSnackbar) : base(communicatieKanaal, stuurSnackbar) { }
 
-        }
-       
-        public void BereidModelVoorAdres(AdresResponseDTO teBehandelenAdres,bool isReset = false)
+        public void BereidModelVoor(IResponseDTO responseDTO, bool isReset = false)
         {
+            AdresResponseDTO teBehandelenAdres = responseDTO as AdresResponseDTO;
+
             if(teBehandelenAdres is null)
             {
                 StuurSnackbar("Kon de adres niet inladen aangezien deze null is.");
@@ -104,7 +102,7 @@ namespace WPFApp.Views
             get
             {
                 return new RelayCommand(
-                    p => BereidModelVoorAdres(this.IngeladenAdresResponse, true),
+                    p => BereidModelVoor(this.IngeladenAdresResponse, true),
                     p => IngeladenAdresResponse is not null
                 );
             }

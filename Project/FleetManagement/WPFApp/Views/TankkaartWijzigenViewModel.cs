@@ -8,14 +8,10 @@ using WPFApp.Interfaces;
 using WPFApp.Model.Mappers;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.MVVM;
 
-namespace WPFApp.Views {
-<<<<<<< HEAD
-	internal sealed class TankkaartWijzigenViewModel : TankkaartToevoegenViewModel {
-=======
+namespace WPFApp.Interfaces {
 	internal sealed class TankkaartWijzigenViewModel : TankkaartToevoegenViewModel, IWijzigViewModel {
->>>>>>> parent of 87a59f3 (Fix requestDTOnaarDomein enum parsing, verplaatsen interface, RRNValideerder soft error, extra check bestuurdermgr, overbodige vpp files weg)
 		#pragma warning disable CS0108
 		public string Naam { get; set; } = "Tankkaart wijzigen";
 		#pragma warning restore CS0108
@@ -25,7 +21,9 @@ namespace WPFApp.Views {
 
 		public TankkaartWijzigenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar) : base(communicatieKanaal, stuurSnackbar) { }
 
-        public void BereidModelVoorMetTankkaart(TankkaartResponseDTO teBehandelenTankkaart, bool isReset = false) {
+        public void BereidModelVoor(IResponseDTO responseDTO, bool isReset = false) {
+            TankkaartResponseDTO teBehandelenTankkaart = responseDTO as TankkaartResponseDTO;
+
             if (teBehandelenTankkaart is null) {
                 StuurSnackbar("Kon de tankkaart niet inladen aangezien deze null is.");
             } else {
@@ -96,7 +94,7 @@ namespace WPFApp.Views {
         public ICommand ResetNaarOrigineel {
             get {
                 return new RelayCommand(
-                    p => BereidModelVoorMetTankkaart(this.IngeladenTankkaartResponse, true),
+                    p => BereidModelVoor(this.IngeladenTankkaartResponse, true),
                     p => IngeladenTankkaartResponse is not null
                 );
             }

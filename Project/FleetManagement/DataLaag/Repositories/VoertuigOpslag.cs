@@ -330,6 +330,9 @@ namespace DataLaag.Repositories {
 
 		// -- Update
 		public void UpdateVoertuig(Voertuig voertuig) {
+			// Vergaren alvorens de connectie te openen (door shared SqlConnection)
+			Voertuig BestaandVoertuig = this.GeefVoertuigDetail((int)voertuig.Id);
+
 			_conn.Open();
 			SqlTransaction tx = _conn.BeginTransaction();
 
@@ -362,8 +365,6 @@ namespace DataLaag.Repositories {
 				cmd.Parameters["@voertuigid"].Value = voertuig.Id;
 
 				cmd.ExecuteNonQuery();
-
-				Voertuig BestaandVoertuig = this.GeefVoertuigDetail((int)voertuig.Id);
 
 				// Controle overeenkomst
 				if (BestaandVoertuig.Bestuurder?.Id != voertuig.Bestuurder?.Id) {
@@ -399,7 +400,7 @@ namespace DataLaag.Repositories {
 			} catch (Exception ex) {
 				try {
 					tx.Rollback();
-				} catch (InvalidOperationException e) { /* Error vond plaats voor de commit, exception negeren */
+				} catch (InvalidOperationException) { /* Error vond plaats voor de commit, exception negeren */
 				} catch (Exception e) {
 					throw new VoertuigOpslagException("Rollback gaf een onverwachte foutmelding.", e);
 				}

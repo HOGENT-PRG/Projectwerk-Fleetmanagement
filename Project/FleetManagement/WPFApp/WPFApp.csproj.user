@@ -22,9 +22,6 @@
     <Compile Update="Views\VoertuigOverzicht.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\VoertuigWijzigen.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="ApplicatieOverzicht.xaml">
@@ -43,9 +40,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\VoertuigOverzicht.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\VoertuigWijzigen.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

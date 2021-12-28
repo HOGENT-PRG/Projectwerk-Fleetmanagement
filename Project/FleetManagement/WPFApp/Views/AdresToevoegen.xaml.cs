@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WPFApp.Views
+namespace WPFApp.Interfaces
 {
     /// <summary>
     /// Interaction logic for AdresToevoegen.xaml

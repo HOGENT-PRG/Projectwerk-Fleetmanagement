@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
     /// <summary>
     /// Interaction logic for BestuurderOverzicht.xaml
     /// </summary>

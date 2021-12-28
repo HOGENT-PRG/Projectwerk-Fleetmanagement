@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using WPFApp.Views;
+using WPFApp.Interfaces;
 
 namespace WPFApp
 {

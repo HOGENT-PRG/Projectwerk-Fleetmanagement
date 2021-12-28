@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\abdellah\Documents\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\
-WPFApp
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\
+WPFApp_l10j2zjq_wpftmp
 none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
-C:\Users\abdellah\Documents\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\App.xaml
-19-1951244877
+D:\Jaar2 Programm\Projectwerk\Project\FleetManagement\WPFApp\App.xaml
+11151548125
 
-69-1614946545
-241-1833796706
-ApplicatieOverzicht.xaml;Views\AdresOverzicht.xaml;Views\AdresToevoegen.xaml;Views\AdresWijzigen.xaml;Views\BestuurderOverzicht.xaml;Views\BestuurderToevoegen.xaml;Views\BestuurderWijzigen.xaml;Views\DatabankOverzicht.xaml;Views\Dialogs\AdresFilterDialog.xaml;Views\Dialogs\BestuurderFilterDialog.xaml;Views\Dialogs\TankkaartFilterDialog.xaml;Views\Dialogs\VoertuigFilterDialog.xaml;Views\Resources\DataGridResources.xaml;Views\TankkaartOverzicht.xaml;Views\TankkaartToevoegen.xaml;Views\VoertuigOverzicht.xaml;Views\VoertuigToevoegen.xaml;Views\VoertuigWijzigen.xaml;Views\_TemplateScherm.xaml;
+5-1932566106
+196816875317
+MainWindow.xaml;
 
-False
+True
 

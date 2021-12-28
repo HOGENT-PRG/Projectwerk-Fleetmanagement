@@ -40,7 +40,6 @@
           }
         }
       },
-      "Fody/6.6.0": {},
       "MaterialDesignColors/2.0.3": {
         "runtime": {
           "lib/netcoreapp3.1/MaterialDesignColors.dll": {
@@ -397,17 +396,6 @@
           "lib/netstandard2.0/Newtonsoft.Json.Schema.dll": {
             "assemblyVersion": "3.0.0.0",
             "fileVersion": "3.0.14.25421"
-          }
-        }
-      },
-      "PropertyChanged.Fody/3.4.0": {
-        "dependencies": {
-          "Fody": "6.6.0"
-        },
-        "runtime": {
-          "lib/netstandard2.1/PropertyChanged.dll": {
-            "assemblyVersion": "3.4.0.0",
-            "fileVersion": "3.4.0.0"
           }
         }
       },
@@ -783,13 +771,6 @@
       "path": "azure.identity/1.3.0",
       "hashPath": "azure.identity.1.3.0.nupkg.sha512"
     },
-    "Fody/6.6.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-NWWM8KiR9DGiAi47q9px9oI27xYBiM5KXxSnI4R5mz2/rG8LIcXJfw5zDLLH1xOgzqRNJgc8KTPQPoiQCidYUw==",
-      "path": "fody/6.6.0",
-      "hashPath": "fody.6.6.0.nupkg.sha512"
-    },
     "MaterialDesignColors/2.0.3": {
       "type": "package",
       "serviceable": true,
@@ -936,13 +917,6 @@
       "sha512": "sha512-Qnu41yEFuMEJMuD1kJgslc4cF981K+hA7SmgXQ/N6pk6Zknvxt4g5Hx7KRykycP3oKyoz3aTFRV/TX+Vp6v7uQ==",
       "path": "newtonsoft.json.schema/3.0.14",
       "hashPath": "newtonsoft.json.schema.3.0.14.nupkg.sha512"
-    },
-    "PropertyChanged.Fody/3.4.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-IAZyq0uolKo2WYm4mjx+q7A8fSGFT0x2e1s3y+ODn4JI0kqTDoo9GF2tdaypUzRFJZfdMxfC5HZW9QzdJLtOnA==",
-      "path": "propertychanged.fody/3.4.0",
-      "hashPath": "propertychanged.fody.3.4.0.nupkg.sha512"
     },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
       "type": "package",

@@ -6,15 +6,15 @@ using System.Reflection;
 using System.Text;
 
 namespace WPFApp.Helpers {
-<<<<<<< HEAD
-=======
-    // Deze klasse laat toe om zoekfilters te genereren op basis van een object zijn properties, het laat tevens toe om in omgekeerde richting de gegenereerde zoekfilters om te zetten naar een lijst met types welke gebruikt worden om recursief op zoek te gaan naar een waarde die gelijk is met een opgegeven waarde.
-    // Wordt gebruikt in viewmodels om zoekfilters te genereren en om uit een collectie objecten te filteren welke voldoen aan de zoekcriteria
-    // Kan (zoals het momenteel uitgewerkt is) niet omgaan met collecties, wat een nadeel is
-    // ---
-    // Mocht ik het zoeken vanuit een ViewModel voor een tweede maal moeten ontwikkelen zou ik opteren voor een andere aanpak dan deze, namelijk door middel van interactie met en gebruik van goed gevormde queries en een aparte functie in de repositories.
-    // De aard van deze klasse is vrij complex, aangezien het recursief handelt en gebruik maakt van reflectie. De interpreteer-, onderhoud- en uitbreidbaarheid ervan is een delicaat gegeven.
->>>>>>> parent of 1c00aff (ApplicatieOverzichtViewModel herwerken + inline commentaar toevoegen in meerdere files)
+    // Wat      ) Deze klasse laat toe om zoekfilters te genereren op basis van een object zijn properties, het laat tevens toe om in omgekeerde richting de gegenereerde zoekfilters om te zetten naar een lijst met types welke gebruikt worden om recursief op zoek te gaan naar een waarde die gelijk is met een opgegeven waarde.
+
+    // Wat niet ) Kan (zoals het momenteel uitgewerkt is) niet omgaan met collecties, wat een nadeel is
+
+    // Waar     ) Wordt gebruikt in viewmodels om zoekfilters te genereren en om uit een collectie objecten te filteren welke voldoen aan de zoekcriteria
+
+    // Reflectie ) Mocht ik het zoeken vanuit een ViewModel voor een tweede maal moeten ontwikkelen zou ik opteren voor een andere aanpak dan deze, namelijk door middel van interactie met en gebruik van goed gevormde queries en een aparte functie in de repositories.
+
+    // Onderhoudbaarheid ) De aard van deze klasse is vrij complex, aangezien het recursief handelt en gebruik maakt van reflectie. De interpreteer-, onderhoud- en uitbreidbaarheid ervan kan in vraag gesteld worden.
     public class Zoekmachine {
         private static string _diepteSeparator;
 
@@ -22,6 +22,9 @@ namespace WPFApp.Helpers {
             _diepteSeparator = diepteSeparator.StartsWith(" ") && diepteSeparator.EndsWith(" ") ? diepteSeparator : throw new ArgumentException("DiepteSeparator dient minstens 1 spatie aan voor en achterkant te bevatten");
         }
 
+        // Vormt een vooraf gevormde zoekfilter om naar een lijst met types door middel van een type die als basis dient en de zoekfilter
+        // Het retourneert een lijst met types aangezien traverseren mogelijk moet zijn
+        // Dwz door middel van bv Type A tot bij Type C geraken
         public KeyValuePair<List<Type>, string> ParseZoekFilter(Type gekozenType, string zoekfilter) {
             List<Type> pad = new() { };
             if (zoekfilter.Contains(_diepteSeparator)) {
@@ -50,6 +53,7 @@ namespace WPFApp.Helpers {
             }
         }
 
+        // Gaat recursief op zoek naar een waarde, maakt gebruik van het resultaat van parseZoekFilter
         private object _geefWaardeVanPropertyRecursief(List<Type> types, string propertyNaam, object instantie) {
             List<Type> huidigeTypes = types.ToList();
 
@@ -85,6 +89,11 @@ namespace WPFApp.Helpers {
             return null;
         }
 
+        // Maakt gebruik van functies uit de klasse. Vergelijkt waarden en retourneert een lijst met objecten van type T waarvan vastgesteld is dat zoekfilter=zoekterm
+        // Er wordt een lijst met functie pointers meegegeven die gebruikt worden om een collectie aan te maken die gebruikt wordt als basis voor het filteren.
+        // Zoekfilter is een vooraf gegenereerde zoekfilter
+        // De zoekterm is de waarde waarmee we filteren
+        // De vergelijker kan optioneel meegegeven worden en dient als alternatief voor de standaard waardenvergelijking, dit wordt in enkele viewmodels gebruikt om bv datums te vergelijken op basis van Date ipv de default Date+Time
         public List<T> ZoekMetFilter<T>(List<Func<List<T>>> dataCollectieActies, string zoekfilter, object zoekterm, Func<object, object, bool> vergelijker = null) {
 
             List<List<T>> dataCollectieResultaten = new();
@@ -140,6 +149,13 @@ namespace WPFApp.Helpers {
             return filterDataResultaat;
         }
 
+        // Genereert zoekfilters welke opgebouwt worden middels de ontdekte property namen en de diepte separator
+        // Optioneel kunnen er blacklist velden meegegeven worden, indien de zoekfilter een blacklisted value bevat maakt deze geen deel uit van de geretourneerde collectie
+        // Optioneel kunnen maxNiveau en huidigNiveau ingesteld worden om af te wijken van de default waarde, dit beinvloedt "hoe diep" er filters gegenereerd worden
+        // By default is dit 1,1 wat resulteert in zoekfilters die er zo uit zien:
+        //                          basistype >> propertynaam
+        // 2,1 resulteert dan in
+        //                          basistype >> propertynaam >> propertynaam
         public List<string> GeefZoekfilterVelden(Type huidigType, List<string> blacklistVelden = null, int maxNiveau = 1, int huidigNiveau = 1) {
             if (huidigNiveau < 1 || maxNiveau < 1) {
                 throw new ArgumentException("Huidig niveau en max niveau zijn minimum 1.");

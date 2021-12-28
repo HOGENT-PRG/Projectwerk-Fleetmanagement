@@ -6,3 +6,5 @@ build_property.ProjectTypeGuids =
 build_property.PublishSingleFile = 
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
+build_property.RootNamespace = WPFApp
+build_property.ProjectDir = D:\GitHub\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\Project\FleetManagement\WPFApp\

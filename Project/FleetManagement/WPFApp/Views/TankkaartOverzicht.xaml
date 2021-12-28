@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="WPFApp.Views.TankkaartOverzicht"
+﻿<UserControl x:Class="WPFApp.Interfaces.TankkaartOverzicht"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:WPFApp.Views"
+             xmlns:local="clr-namespace:WPFApp.Interfaces"
              xmlns:Presentatielaag="clr-namespace:WPFApp"
              Loaded="UserControl_Loaded"
              mc:Ignorable="d" 
@@ -64,9 +64,7 @@
 
         <DatePicker x:Name="zoekdate" Grid.Column="6" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch" Visibility="Hidden" SelectedDate="{Binding ZoekveldDate}"></DatePicker>
         <TextBox x:Name="zoekveld" Grid.Column="6" Margin="7,7,7,7" Grid.Row="1" Text="{Binding ZoekveldRegular}" Grid.ColumnSpan="1" />
-        <Button Content="Zoek" Grid.Row="1" Grid.Column="8" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Command="{Binding ZoekMetFilter}" />
-
-        <!--<Button Content="Zoek" Grid.Row="1" Grid.Column="7" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Command="{Binding ZoekMetFilter}" />-->
+        <Button Content="Zoek" Grid.Row="1" Grid.Column="8" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Command="{Binding ZoekMetFilter}" CommandParameter="0" IsEnabled="True" />
 
         <DataGrid Opacity="0.7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" Name="DG1" ItemsSource="{Binding Tankkaarten, Mode=OneWay}" IsSynchronizedWithCurrentItem="False" AutoGenerateColumns="False" SelectedItem="{Binding HighlightedTankkaart}" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True" >
             <DataGrid.Columns>
@@ -91,7 +89,7 @@
                               ToolTip="MaterialDesignFloatingActionMiniLightButton"
                               IsEnabled="True"
                                 BorderThickness="0" Foreground="White" BorderBrush="AliceBlue" Background="ForestGreen"
-                                    Command="{Binding DataContext.WijzigTankkaartCommand, 
+                                    Command="{Binding DataContext.WijzigItemCommand, 
                                                   RelativeSource={RelativeSource FindAncestor, 
                                                     AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
                                                   }
@@ -145,8 +143,6 @@
                                 <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding Bestuurder.Rijksregisternummer}"/>
                             </Grid>
                         </Border>
-                        <!-- TankkaartBrandstof heeft 4 opties + 1 voor header = 5 rows, niet de beste manier maar kan niet met datagrid -->
-                        <!-- TODO - CRIT, dto dient aangepast te worden om de enum string weer te geven ipv het cijfer -->
                         <Border Grid.Column="1" Name="brandstoffen" BorderBrush="Black" BorderThickness="1" Padding="5" Margin="5">
                             <Grid>
                                 <Grid.RowDefinitions>

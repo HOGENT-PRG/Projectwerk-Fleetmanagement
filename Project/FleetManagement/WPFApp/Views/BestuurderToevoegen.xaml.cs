@@ -2,9 +2,9 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using WPFApp.Views.Dialogs;
+using WPFApp.Interfaces.Dialogs;
 
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
 	/// <summary>
 	/// Interaction logic for BestuurderToevoegen.xaml
 	/// </summary>

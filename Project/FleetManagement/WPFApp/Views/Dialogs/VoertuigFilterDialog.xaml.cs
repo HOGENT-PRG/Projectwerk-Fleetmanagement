@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFApp.Views.Dialogs {
+namespace WPFApp.Interfaces.Dialogs {
 	/// <summary>
 	/// Interaction logic for VoertuigFilterDialog.xaml
 	/// </summary>

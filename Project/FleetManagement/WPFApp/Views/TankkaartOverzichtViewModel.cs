@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using WPFApp.Interfaces;
 using WPFApp.Model.Response;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.MVVM;
 using System.Windows.Input;
 using WPFApp.Helpers;
 using System.ComponentModel;
 using System.Linq;
 
 
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
     internal sealed class TankkaartOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Tankkaarten";
@@ -20,8 +20,7 @@ namespace WPFApp.Views {
         private readonly Zoekmachine Zoekmachine = new();
 
         private List<string> BlacklistZoekfilters { get; init; } = new() {
-            "Chars",
-            "Length"
+            "Chars", "Length", "GeldigVoorBrandstoffen", "Tankkaart", "Voertuig", "Adres"
         };
 
         public ObservableCollection<string> TankkaartZoekfilters { get; private set; }
@@ -32,7 +31,7 @@ namespace WPFApp.Views {
 
         public string GeselecteerdeZoekfilter { get; set; }
         public string ZoekveldRegular { get; set; }
-        public DateTime ZoekveldDate { get; set; }
+        public DateTime ZoekveldDate { get; set; } = DateTime.UnixEpoch;
 
         public TankkaartOverzichtViewModel(ICommuniceer comm, Action<object> stuurSnackbar) {
             CommunicatieKanaal = comm;
@@ -67,13 +66,12 @@ namespace WPFApp.Views {
         }
 
         private void _resetZoekFilter() {
+            ZoekveldRegular = "";
+            ZoekveldDate = DateTime.UnixEpoch;
             Tankkaarten = new(CommunicatieKanaal.GeefTankkaarten());
         }
 
-        // switch en gebruik datumvergelijker
         private void _zoekMetFilter() {
-            // ...
-
             object zoekterm;
             string zoekfilter = GeselecteerdeZoekfilter;
 
@@ -85,7 +83,7 @@ namespace WPFApp.Views {
 
             switch (GeselecteerdeZoekfilter)
             {
-                case string s when s.Contains("Vervaldatum"):
+                case string s when s.Contains("Vervaldatum") || s.Contains("GeboorteDatum"):
                     zoekterm = ZoekveldDate;
                     vergelijker = this.DatumVergelijker;
                     break;
@@ -94,18 +92,11 @@ namespace WPFApp.Views {
                     break;
             }
 
-            if (zoekfilter.Contains("GeldigVoorBrandstoffen"))
-            {
-                // CRIT TODO - implementeren zoek func voor list
-            }
-            else
-            {
-                Tankkaarten = new ObservableCollection<TankkaartResponseDTO>(
-                    Zoekmachine.ZoekMetFilter<TankkaartResponseDTO>(dataCollectieTankkaarten, zoekfilter, zoekterm, vergelijker).ToList()
-                );
-            }
+            Tankkaarten = new ObservableCollection<TankkaartResponseDTO>(
+                Zoekmachine.ZoekMetFilter<TankkaartResponseDTO>(dataCollectieTankkaarten, zoekfilter, zoekterm, vergelijker).ToList()
+            );
+            
 
-            ZoekveldDate = DateTime.Now;
             ZoekveldRegular = "";
         }
 

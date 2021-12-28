@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using PropertyChanged;
 using WPFApp.Interfaces;
 using WPFApp.Model.Hosts;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.MVVM;
 using System.ComponentModel;
 using System.Reflection;
 using WPFApp.Model.Response;
@@ -16,9 +16,9 @@ using System.Windows.Input;
 using WPFApp.Helpers;
 using WPFApp.Model.Mappers;
 
-namespace WPFApp.Views
+namespace WPFApp.Interfaces
 {
-    class AdresToevoegenViewModel:FilterDialogs,IPaginaViewModel
+    class AdresToevoegenViewModel : FilterDialogs , IPaginaViewModel
     {
         public string Naam => "Adres Toevoegen";
         public ICommuniceer _communicatieKanaal;
@@ -35,8 +35,6 @@ namespace WPFApp.Views
         {
             _communicatieKanaal = communicatiekanaal;
             StuurSnackbar = stuurSnackbar;
-
-         
         }
 
         private void _startupRoutine()

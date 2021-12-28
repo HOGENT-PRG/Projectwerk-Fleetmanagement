@@ -331,6 +331,10 @@ namespace DataLaag.Repositories
 
 		// -- Update
 		public void UpdateTankkaart(Tankkaart tankkaart) {
+			// Dient te gebeuren alvorens de connectie hier geopend wordt (shared SqlConnection)
+			Tankkaart BestaandeTankkaart = this.GeefTankkaartDetail((int)tankkaart.Id);
+			List<TankkaartBrandstof> bestaandeBrandstoffen = this.GeefTankkaartDetail((int)tankkaart.Id).GeldigVoorBrandstoffen;
+
 			_connector.Open();
 			SqlTransaction transactie = _connector.BeginTransaction();
 			try {
@@ -348,8 +352,6 @@ namespace DataLaag.Repositories
 				cmd.Parameters["@pincode"].Value = (object)tankkaart.Pincode ?? DBNull.Value;
 
 				cmd.ExecuteNonQuery();
-
-				Tankkaart BestaandeTankkaart = this.GeefTankkaartDetail((int)tankkaart.Id);
 
 				// Controle overeenkomst
 				if (BestaandeTankkaart.Bestuurder?.Id != tankkaart.Bestuurder?.Id) {
@@ -383,51 +385,41 @@ namespace DataLaag.Repositories
 
 				// We bepalen vervolgens of er wijzigingen zijn op het vlak van brandstoffen,
 				// daarvoor gebruiken we de bestaande entries en vergelijken we om te weten te komen
-				// welke verwijdert / toegevoegt dienen te worden.
+				// welke verwijderd / toegevoegd dienen te worden.
 				// Bestaande entries worden uiteraard genegeerd.
-				List<TankkaartBrandstof> bestaandeBrandstoffen = this.GeefTankkaartDetail((int)tankkaart.Id).GeldigVoorBrandstoffen;
-
-				List<TankkaartBrandstof> teVerwijderen = new();
-				List<TankkaartBrandstof> toeTeVoegen = new();
 
 				foreach (TankkaartBrandstof bestaandeBrandstof in bestaandeBrandstoffen) {
 					if (!tankkaart.GeldigVoorBrandstoffen.Contains(bestaandeBrandstof)) {
-						teVerwijderen.Add(bestaandeBrandstof);
+						SqlCommand c = _connector.CreateCommand();
+						c.Transaction = transactie;
+						c.CommandText = "DELETE FROM TankkaartBrandstof WHERE TankkaartId=@id AND Brandstof=@brandstofnaam ;";
+						c.Parameters.Add(new SqlParameter("@id", DbType.Int32));
+						c.Parameters.Add(new SqlParameter("@brandstofnaam", DbType.String));
+						c.Parameters["@id"].Value = tankkaart.Id;
+						c.Parameters["@brandstofnaam"].Value = bestaandeBrandstof.ToString();
+						c.ExecuteNonQuery();
 					}
 				}
 
 				foreach (TankkaartBrandstof potentieelNieuweBrandstof in tankkaart.GeldigVoorBrandstoffen) {
 					if (!bestaandeBrandstoffen.Contains(potentieelNieuweBrandstof)) {
-						toeTeVoegen.Add(potentieelNieuweBrandstof);
+						SqlCommand c = _connector.CreateCommand();
+						c.Transaction = transactie;
+						c.CommandText = "INSERT INTO TankkaartBrandstof (TankkaartId, Brandstof) " +
+										  "VALUES(@id, @brandstof) ;";
+						c.Parameters.Add(new SqlParameter("@id", DbType.Int32));
+						c.Parameters.Add(new SqlParameter("@brandstof", DbType.String));
+						c.Parameters["@id"].Value = tankkaart.Id;
+						c.Parameters["@brandstof"].Value = potentieelNieuweBrandstof.ToString();
+						c.ExecuteNonQuery();
 					}
-				}
-
-				foreach (TankkaartBrandstof t in teVerwijderen) {
-					SqlCommand c = _connector.CreateCommand();
-					c.Transaction = transactie;
-					c.CommandText = "DELETE FROM TankkaartBrandstof WHERE TankkaartId=@id ;";
-					c.Parameters.Add(new SqlParameter("@id", DbType.Int32));
-					c.Parameters["@id"].Value = tankkaart.Id;
-					c.ExecuteNonQuery();
-				}
-
-				foreach (TankkaartBrandstof t in toeTeVoegen) {
-					SqlCommand c = _connector.CreateCommand();
-					c.Transaction = transactie;
-					c.CommandText = "INSERT INTO TankkaartBrandstof (TankkaartId, Brandstof) " +
-									  "VALUES(@id, @brandstof) ;";
-					c.Parameters.Add(new SqlParameter("@id", DbType.Int32));
-					c.Parameters.Add(new SqlParameter("@brandstof", DbType.String));
-					c.Parameters["@id"].Value = tankkaart.Id;
-					c.Parameters["@brandstof"].Value = t.ToString();
-					c.ExecuteNonQuery();
 				}
 
 				transactie.Commit();
 			} catch (Exception ex) {
 				try {
 					transactie.Rollback();
-				} catch (InvalidOperationException e) { /* Error vond plaats voor de commit, exception negeren */
+				} catch (InvalidOperationException) { /* Error vond plaats voor de commit, exception negeren */
 				} catch (Exception e) {
 					throw new TankkaartOpslagException("Rollback gaf een onverwachte foutmelding.", e);
 				}

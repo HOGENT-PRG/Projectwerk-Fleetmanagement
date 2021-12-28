@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading.Tasks;
 
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
     /// <summary>
     /// Interaction logic for DatabankOverzicht.xaml
     /// </summary>

@@ -9,7 +9,7 @@ using WPFApp.Helpers;
 using WPFApp.Interfaces;
 
 // Zet request dto om naar response dto en omgekeerd,
-// een extra controle vindt plaats mbt type waarnaar gecast wordt, heeft geen state en is dus static als helper class
+// een extra controle vind plaats mbt type waarnaar gecast wordt, heeft geen state en is dus static als helper class
 namespace WPFApp.Model.Mappers {
 	// De wpf behandelt bijvoorbeeld de response dto's voor weergave en het viewmodel vormt
 	// deze om naar een request dto om te gebruiken bij aanroepen van ICommuniceer functies
@@ -17,14 +17,14 @@ namespace WPFApp.Model.Mappers {
 
 		// Indien t de verwachteInterface implementeert is dit true, anders false.
 		// Wordt gebruikt om te verzekeren dat er naar een response of request dto wordt omgezet
-		private static bool ImplementeertTypeInterface(Type t, Type verwachteInterface) {
-			return t.GetInterfaces().Any(i => i.GetType() == verwachteInterface.GetType());
+		private static bool ImplementeertTypeInterface(Type t, Type verwachtteInterface) {
+			return t.GetInterfaces().Any(i => i.GetType() == verwachtteInterface.GetType());
 		}
 
 		internal static T ResponseNaarRequest<T>(IResponseDTO responseDTO) {
 
 			if(responseDTO is null) {
-				return default(T);
+				return default(T); // = null
 			}
 
 			if (!ImplementeertTypeInterface(typeof(T), typeof(IRequestDTO))) {
@@ -39,7 +39,7 @@ namespace WPFApp.Model.Mappers {
 		internal static T RequestNaarResponse<T>(IRequestDTO requestDTO) {
 
 			if(requestDTO is null) {
-				return default(T);
+				return default(T); // = null
 			}
 
 			if (!ImplementeertTypeInterface(typeof(T), typeof(IResponseDTO))) {

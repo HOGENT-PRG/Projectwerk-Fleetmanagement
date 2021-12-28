@@ -9,9 +9,9 @@ using System.Windows.Input;
 using WPFApp.Helpers;
 using WPFApp.Interfaces;
 using WPFApp.Model.Response;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.MVVM;
 
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
     internal sealed class AdresOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Adressen";

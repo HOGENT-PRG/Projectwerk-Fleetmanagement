@@ -15,21 +15,26 @@ using System.Reflection;
 using System.Linq;
 
 // De Businesscommuniceerder heeft als enigste klasse dependency op de business laag.
-// Roept functies aan van de businesslaag en converteert van/naar dto's.
-// De wpf app begrijpt/behandelt louter response dto's, en de viewmodels gering request dto's.
+// Roept functies aan van de businesslaag en converteert van en naar DTO's en domein model klasses.
+// De wpf app begrijpt/behandelt louter response en request DTO's.
 //
-// In het geval dat er een API gebruikt wordt zal deze, nieuwe, laag de verantwoordelijkheid voor het
+// In het geval dat er een API gebruikt wordt zal deze nieuwe laag de verantwoordelijkheid voor het
 // beheren van de dependency en het aanmaken van de FleetManager op zich moeten nemen.
 
-// Functie return types zijn ResponseDTO(s) of POD types (string, int, ..)
-// Functie argumenten zijn RequestDTO(s) of POD types (string, int, ..)
+// Functie return types zijn ResponseDTO(s) of POD types
+// Functie argumenten zijn RequestDTO(s) of POD types
 
 namespace WPFApp.Model.Communiceerders {
     internal class BusinessCommuniceerder : ICommuniceer {
         private FleetManager _fleetManager;
 
         public BusinessCommuniceerder() {
-            _fleetManager = new(new VoertuigOpslag(), new BestuurderOpslag(), new TankkaartOpslag(), new DatabankConfigureerder(null));
+            _fleetManager = new(
+				new VoertuigOpslag(), 
+				new BestuurderOpslag(), 
+				new TankkaartOpslag(), 
+				new DatabankConfigureerder(null)
+			);
         }
 
 		#region databank info

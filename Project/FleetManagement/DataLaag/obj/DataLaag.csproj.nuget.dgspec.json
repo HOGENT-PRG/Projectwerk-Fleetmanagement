@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {}
+    "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {}
   },
   "projects": {
-    "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+    "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
+        "projectUniqueName": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
         "projectName": "BusinessLaag",
-        "projectPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
-        "packagesPath": "C:\\Users\\abdellah\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\obj\\",
+        "projectPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
+        "packagesPath": "D:\\Programs\\GlobalPackagesFolder",
+        "outputPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\abdellah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,8 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://packagesource": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -41,10 +40,6 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "Microsoft.SqlServer.SqlManagementObjects": {
-              "target": "Package",
-              "version": "[161.46521.71, )"
-            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
@@ -69,21 +64,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
+    "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
+        "projectUniqueName": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
         "projectName": "DataLaag",
-        "projectPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
-        "packagesPath": "C:\\Users\\abdellah\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\obj\\",
+        "projectPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
+        "packagesPath": "D:\\Programs\\GlobalPackagesFolder",
+        "outputPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\DataLaag\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\abdellah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -91,15 +86,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://packagesource": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
-                "projectPath": "C:\\Users\\abdellah\\Documents\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
+              "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+                "projectPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
               }
             }
           }
@@ -114,10 +108,6 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "Microsoft.SqlServer.SqlManagementObjects": {
-              "target": "Package",
-              "version": "[161.46521.71, )"
-            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.3, )"
@@ -138,7 +128,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     }

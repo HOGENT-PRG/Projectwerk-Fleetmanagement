@@ -16,8 +16,6 @@
     <None Remove="5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
     <None Remove="8815efcb12459a0eb1ffc60ad8098281.jpg" />
     <None Remove="cloud_product2.png" />
-    <None Remove="Views\AdresWijzigen.png" />
-    <None Remove="Views\VoertuigWijzigen.png" />
     <None Remove="_images\add-car2.png" />
     <None Remove="_images\add-group.png" />
     <None Remove="_images\add-user.png" />
@@ -32,11 +30,8 @@
     <None Remove="_images\icons8-secure-cloud-48.png" />
     <None Remove="_images\icons8-traffic-jam-48.png" />
     <None Remove="_images\icons8-user-male-48.png" />
-<<<<<<< HEAD
-    <None Remove="_images\VoertuigWijzigen.png" />
-=======
     <None Remove="_images\TankkaartWijzigen.png" />
->>>>>>> parent of 1c00aff (ApplicatieOverzichtViewModel herwerken + inline commentaar toevoegen in meerdere files)
+    <None Remove="_images\VoertuigWijzigen.png" />
     <None Remove="_images\wijzigbestuurder.png" />
   </ItemGroup>
 
@@ -47,7 +42,6 @@
     </PackageReference>
     <PackageReference Include="MaterialDesignColors" Version="2.0.3" />
     <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
-    <PackageReference Include="Microsoft.SqlServer.SqlManagementObjects" Version="161.46521.71" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
@@ -60,8 +54,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Views\AdresWijzigen.png" />
-    <Resource Include="Views\VoertuigWijzigen.png" />
     <Resource Include="_images\4715001_avatar_man_people_person_profile_icon.png" />
     <Resource Include="_images\5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
     <Resource Include="_images\44797_car_icon.png" />
@@ -99,11 +91,10 @@
     <Resource Include="_images\icons8-secure-cloud-48.png" />
     <Resource Include="_images\icons8-traffic-jam-48.png" />
     <Resource Include="_images\icons8-user-male-48.png" />
-<<<<<<< HEAD
-    <Resource Include="_images\VoertuigWijzigen.png">
-=======
     <Resource Include="_images\TankkaartWijzigen.png">
->>>>>>> parent of 1c00aff (ApplicatieOverzichtViewModel herwerken + inline commentaar toevoegen in meerdere files)
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="_images\VoertuigWijzigen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="_images\wijzigbestuurder.png">
