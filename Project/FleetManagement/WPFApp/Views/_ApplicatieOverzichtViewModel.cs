@@ -9,10 +9,10 @@ using System.Windows.Media;
 using WPFApp.Helpers;
 using WPFApp.Interfaces;
 using WPFApp.Model.Response;
-using WPFApp.Views.Hosts;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.Hosts;
+using WPFApp.Interfaces.MVVM;
 
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
     /*
         Deze klasse fungeert als beheerder van de overige Views en ViewModels.
         De View ApplicatieOverzicht bevat een ContentControl waar de HuidigePaginaViewModel 

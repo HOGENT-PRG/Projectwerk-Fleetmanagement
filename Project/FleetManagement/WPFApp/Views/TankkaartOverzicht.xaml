@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="WPFApp.Views.TankkaartOverzicht"
+﻿<UserControl x:Class="WPFApp.Interfaces.TankkaartOverzicht"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:WPFApp.Views"
+             xmlns:local="clr-namespace:WPFApp.Interfaces"
              xmlns:Presentatielaag="clr-namespace:WPFApp"
              Loaded="UserControl_Loaded"
              mc:Ignorable="d" 

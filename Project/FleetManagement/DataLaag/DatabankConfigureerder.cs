@@ -77,13 +77,15 @@ namespace DataLaag
 
             if (ConnectieSuccesvol)
             {
-                if (!DatabaseBestaat)
+                if (!DatabaseBestaat) {
                     _maakOntbrekendeDatabank(databanknaam);
+                }
 
                 _controleerBestaanTabellen(gewensteTabellenNamen); // populeert AlleTabellenBestaan
-                
-                if (!AlleTabellenBestaan)
+
+                if (!AlleTabellenBestaan) {
                     _maakOntbrekendeTabellenAan(databanknaam, gewensteTabellen);
+                }
 
                 _connecteerMetDatabase(databanknaam); // populeert DatabaseBestaat
                 _controleerBestaanTabellen(gewensteTabellenNamen); // populeert AlleTabellenBestaan

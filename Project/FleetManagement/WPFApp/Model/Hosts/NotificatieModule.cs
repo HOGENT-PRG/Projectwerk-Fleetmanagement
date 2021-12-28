@@ -1,9 +1,9 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
 using System.Windows.Media;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.MVVM;
 
-namespace WPFApp.Views.Hosts {
+namespace WPFApp.Interfaces.Hosts {
 
     // Deze module wordt gebruikt in het ApplicatieOverzicht
     // De ApplicatieOverzichtViewModel geeft de StuurSnackbar property mee in hun constructors

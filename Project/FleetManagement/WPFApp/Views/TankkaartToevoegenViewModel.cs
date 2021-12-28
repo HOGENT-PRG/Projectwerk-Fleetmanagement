@@ -11,11 +11,11 @@ using WPFApp.Interfaces;
 using WPFApp.Model.Mappers;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.MVVM;
 using PropertyChanged;
 using WPFApp.Model.Hosts;
 
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
     internal class TankkaartToevoegenViewModel : FilterDialogs, IPaginaViewModel {
         public string Naam => "Tankkaart toevoegen";
         protected ICommuniceer _communicatieKanaal;

@@ -10,7 +10,8 @@ DBCC CHECKIDENT ('FleetManager.dbo.TankkaartBrandstof',RESEED, 0)
 DELETE FROM Voertuig;
 DBCC CHECKIDENT ('FleetManager.dbo.Voertuig',RESEED, 0)
 
--- op het einde diverse updates zodat de data kan werken binnen applicatie (ivm model restricties)
+-- Alle bestuurders hebben hetzelfde rijksregisternummer, binnen de WPF applicatie zelf is dit uiteraard niet mogelijk door de business rules opgenomen in de manager
+-- Op het einde diverse updates zodat de data kan werken binnen applicatie (ivm model restricties)
 
 insert into FleetManager.dbo.Adres (Straatnaam, Huisnummer, Postcode, Plaatsnaam, Provincie, Land) values ('Birchwood', 44, '1170', 'Bruxelles', 'BRU', 'Belgium');
 insert into FleetManager.dbo.Adres (Straatnaam, Huisnummer, Postcode, Plaatsnaam, Provincie, Land) values ('Anzinger', 17, '1170', 'Bruxelles', 'BRU', 'Belgium');

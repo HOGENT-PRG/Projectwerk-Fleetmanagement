@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using WPFApp.Interfaces;
 using WPFApp.Model.Response;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.MVVM;
 using System.Windows.Input;
 using WPFApp.Helpers;
 using System.ComponentModel;
 using System.Linq;
 
 
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
     internal sealed class TankkaartOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Tankkaarten";

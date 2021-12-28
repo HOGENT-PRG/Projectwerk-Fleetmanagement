@@ -13,8 +13,8 @@ using WPFApp.Interfaces;
 using WPFApp.Model.Mappers;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
-using WPFApp.Views.MVVM;
-namespace WPFApp.Views
+using WPFApp.Interfaces.MVVM;
+namespace WPFApp.Interfaces
 {
     internal sealed class VoertuigWijzigenViewModel : VoertuigToevoegenViewModel, IWijzigViewModel
     {

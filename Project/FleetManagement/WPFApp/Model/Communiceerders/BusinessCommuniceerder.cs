@@ -29,7 +29,12 @@ namespace WPFApp.Model.Communiceerders {
         private FleetManager _fleetManager;
 
         public BusinessCommuniceerder() {
-            _fleetManager = new(new VoertuigOpslag(), new BestuurderOpslag(), new TankkaartOpslag(), new DatabankConfigureerder(null));
+            _fleetManager = new(
+				new VoertuigOpslag(), 
+				new BestuurderOpslag(), 
+				new TankkaartOpslag(), 
+				new DatabankConfigureerder(null)
+			);
         }
 
 		#region databank info

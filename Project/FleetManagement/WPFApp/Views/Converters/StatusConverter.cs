@@ -4,7 +4,7 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
 // Zet een boolean om naar een image, wordt gebruikt door DatabankOverzicht voor weergave checkmark / cross afhankelijk van de waarde
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
     public class StatusConverter : IValueConverter {
 
         private string positieveMarker = "pack://application:,,,/WPFApp;component/_images/checkmark.png";

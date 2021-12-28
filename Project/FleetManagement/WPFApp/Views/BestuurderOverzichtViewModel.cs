@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using WPFApp.Interfaces;
 using WPFApp.Model.Response;
 using WPFApp.Model;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.MVVM;
 using System.Windows.Input;
 using WPFApp.Helpers;
 using System.ComponentModel;
@@ -12,7 +12,7 @@ using System.Linq;
 using PropertyChanged;
 
 // Maakt gebruik van PropertyChanged.Fody
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
         internal sealed class BestuurderOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Bestuurders";

@@ -11,9 +11,9 @@ using WPFApp.Interfaces;
 using WPFApp.Model.Mappers;
 using WPFApp.Model.Request;
 using WPFApp.Model.Response;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.MVVM;
 
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
     // Erft over van bestuurdertoevoegen aangezien de functionaliteiten grotendeels hetzelfde zijn
 	internal sealed class BestuurderWijzigenViewModel : BestuurderToevoegenViewModel, IWijzigViewModel {
         #pragma warning disable CS0108

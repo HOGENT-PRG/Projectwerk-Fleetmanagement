@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace WPFApp.Views.MVVM {
+namespace WPFApp.Interfaces.MVVM {
     public class RelayCommand : ICommand {
 
         readonly Action<object> _uittevoeren;

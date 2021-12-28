@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using PropertyChanged;
 using WPFApp.Interfaces;
 using WPFApp.Model.Hosts;
-using WPFApp.Views.MVVM;
+using WPFApp.Interfaces.MVVM;
 using System.ComponentModel;
 using System.Reflection;
 using WPFApp.Model.Response;
 using WPFApp.Model.Request;
 using System.Windows.Input;
 
-namespace WPFApp.Views {
+namespace WPFApp.Interfaces {
     // Dit is een template vanuit de noodzaak "Toevoegen", minder geschikt als basis voor overzichten dus
     // bij BestuurderToevoegen is deze niet sealed
 
