@@ -4,6 +4,7 @@ using WPFApp.Exceptions;
 using WPFApp.Helpers;
 using WPFApp.Model.Request;
 
+// Wordt gebruikt door ICommuniceer implementaties
 // Zet om naar domein objecten, kan omgaan met circulaire vermeldingen, heeft geen state en is dus static als helper class
 namespace WPFApp.Model.Mappers.Business {
 	internal static class RequestDTONaarDomein {

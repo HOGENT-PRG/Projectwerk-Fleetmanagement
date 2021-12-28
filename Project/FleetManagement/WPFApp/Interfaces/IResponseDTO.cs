@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WPFApp.Interfaces {
-    // Marker interface
+    // Marker interface welke omgang vergemakkelijkt in DTOnaarDTO klasse
     internal interface IResponseDTO {
     }
 }

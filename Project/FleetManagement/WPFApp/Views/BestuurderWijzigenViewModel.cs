@@ -15,7 +15,7 @@ using WPFApp.Views.MVVM;
 
 namespace WPFApp.Views {
     // Erft over van bestuurdertoevoegen aangezien de functionaliteiten grotendeels hetzelfde zijn
-	internal sealed class BestuurderWijzigenViewModel : BestuurderToevoegenViewModel {
+	internal sealed class BestuurderWijzigenViewModel : BestuurderToevoegenViewModel, IWijzigViewModel {
         #pragma warning disable CS0108
 		public string Naam { get; set; } = "Bestuurder wijzigen";
         #pragma warning restore CS0108
@@ -26,7 +26,9 @@ namespace WPFApp.Views {
 
 		public BestuurderWijzigenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar) : base(communicatieKanaal, stuurSnackbar) { }
 
-        public void BereidModelVoorMetBestuurder(BestuurderResponseDTO teBehandelenBestuurder, bool isReset = false) {
+        public void BereidModelVoor(IResponseDTO responseDTO, bool isReset = false) {
+            BestuurderResponseDTO teBehandelenBestuurder = responseDTO as BestuurderResponseDTO;
+
             if (teBehandelenBestuurder is null) {
                 StuurSnackbar("Kon de bestuurder niet inladen aangezien deze null is.");
             } else {
@@ -107,7 +109,7 @@ namespace WPFApp.Views {
         public ICommand ResetNaarOrigineel {
             get {
                 return new RelayCommand(
-                    p => BereidModelVoorMetBestuurder(this.IngeladenBestuurderResponse, true),
+                    p => BereidModelVoor(this.IngeladenBestuurderResponse, true),
                     p => IngeladenBestuurderResponse is not null
                 );
             }

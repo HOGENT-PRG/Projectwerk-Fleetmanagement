@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Margin="16">
-
+        <!-- De bindings zullen als not found gemarkeerd zijn aangezien de datacontext at runtime toegewezen wordt, er wordt gebruik gemaakt van Hosts/Filterdialogs om de nodige properties op te nemen in een ViewModel -->
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />

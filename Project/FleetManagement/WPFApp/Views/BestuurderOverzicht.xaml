@@ -87,7 +87,7 @@
                               ToolTip="MaterialDesignFloatingActionMiniLightButton"
                               IsEnabled="True"
                                 BorderThickness="0" Foreground="White" BorderBrush="AliceBlue" Background="ForestGreen"
-                                    Command="{Binding DataContext.WijzigBestuurderCommand, 
+                                    Command="{Binding DataContext.WijzigItemCommand, 
                                                   RelativeSource={RelativeSource FindAncestor, 
                                                     AncestorType={x:Type Presentatielaag:ApplicatieOverzicht}
                                                   }

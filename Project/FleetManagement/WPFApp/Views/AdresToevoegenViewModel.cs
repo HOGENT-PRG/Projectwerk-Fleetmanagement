@@ -18,7 +18,7 @@ using WPFApp.Model.Mappers;
 
 namespace WPFApp.Views
 {
-    class AdresToevoegenViewModel:FilterDialogs,IPaginaViewModel
+    class AdresToevoegenViewModel : FilterDialogs , IPaginaViewModel
     {
         public string Naam => "Adres Toevoegen";
         public ICommuniceer _communicatieKanaal;
@@ -35,8 +35,6 @@ namespace WPFApp.Views
         {
             _communicatieKanaal = communicatiekanaal;
             StuurSnackbar = stuurSnackbar;
-
-         
         }
 
         private void _startupRoutine()

@@ -31,6 +31,7 @@
     <None Remove="_images\icons8-traffic-jam-48.png" />
     <None Remove="_images\icons8-user-male-48.png" />
     <None Remove="_images\TankkaartWijzigen.png" />
+    <None Remove="_images\VoertuigWijzigen.png" />
     <None Remove="_images\wijzigbestuurder.png" />
   </ItemGroup>
 
@@ -91,6 +92,9 @@
     <Resource Include="_images\icons8-traffic-jam-48.png" />
     <Resource Include="_images\icons8-user-male-48.png" />
     <Resource Include="_images\TankkaartWijzigen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="_images\VoertuigWijzigen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="_images\wijzigbestuurder.png">

@@ -35,7 +35,7 @@ namespace WPFApp.Views.MVVM {
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        // Indien het uitgevoerd mag worden zal de XAML deze oproepen dmv onderstaande.
+        // Indien het uitgevoerd mag worden zal de XAML de in de ctor meegegeven functie oproepen door deze functie te callen
         public void Execute(object parameters) {
             _uittevoeren(parameters);
         }

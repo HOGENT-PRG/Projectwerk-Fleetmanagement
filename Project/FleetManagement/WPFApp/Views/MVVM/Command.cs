@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-// In de plaats van RelayCommand, bevat geen predicate en kan altijd uitvoeren
-// Voor gebruik in wpf app is het wenselijk wel een predicate te hebben
+// In de plaats van RelayCommand, bevat geen predicate en kan altijd uitvoeren (L18)
+// Voor gebruik in wpf app is het wenselijk wel een predicate te hebben (zie RelayCommand)
 namespace WPFApp.Views.MVVM {
     internal sealed class Command : ICommand {
         private readonly Action<object> _action;

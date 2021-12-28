@@ -1,5 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
+using System.Windows.Media;
 using WPFApp.Views.MVVM;
 
 namespace WPFApp.Views.Hosts {
@@ -7,16 +8,15 @@ namespace WPFApp.Views.Hosts {
     // Deze module wordt gebruikt in het ApplicatieOverzicht
     // De ApplicatieOverzichtViewModel geeft de StuurSnackbar property mee in hun constructors
     // Dit laat alle viewmodels toe om snackbars inclusief dialoog te versturen
-    // De snackbar bevat een knop 'VERBERG', die het dialoog verbergt, daarnaast kan er gedubbelklikt worden op
-    // de snackbar om alle details / te lange content te kunnen zien
+    // De snackbar bevat een knop 'VERBERG', die het dialoog verbergt (alternatief op de 7s timeout), daarnaast kan er gedubbelklikt worden op de snackbar om alle details / lange content weer te geven in een dialog / popup window
 
-    // Het opnemen van de snackbar en dialoghost xaml in het ApplicatieOverzichtViewModel
-    // voorkomt het herhalen van de xaml in elke view model
+    // Het opnemen van de snackbar en dialoghost xaml in het ApplicatieOverzichtViewModel voorkomt het herhalen van de xaml in elke view model
         internal abstract class NotificatieModule : Presenteerder {
-            // Snackbar & bijhorend dialog box
-            // https://material.io/components/snackbars
-            // https://material.io/components/dialogs
+        // Snackbar & bijhorend dialog box
+        // https://material.io/components/snackbars
+        // https://material.io/components/dialogs
 
+            public string Naam => "";
             public int SnackbarLifetimeMs = 7000;
             public SnackbarMessageQueue SnackbarWachtrij { get; set; }
             public string PopupDialoogTitel { get; set; } = "Informatie";

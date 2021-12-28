@@ -16,7 +16,7 @@ using WPFApp.Model.Response;
 using WPFApp.Views.MVVM;
 namespace WPFApp.Views
 {
-    internal sealed class VoertuigWijzigenViewModel : VoertuigToevoegenViewModel
+    internal sealed class VoertuigWijzigenViewModel : VoertuigToevoegenViewModel, IWijzigViewModel
     {
 #pragma warning disable CS0108
         public string Naam { get; set; } = "Voertuig wijzigen";
@@ -31,8 +31,11 @@ namespace WPFApp.Views
 
         public VoertuigWijzigenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar) : base(communicatieKanaal, stuurSnackbar) { }
 
-        public void BereidModelVoorMetVoertuig(VoertuigResponseDTO teBehandelenVoertuig, bool isReset = false)
+
+        public void BereidModelVoor(IResponseDTO responseDTO, bool isReset = false)
         {
+            VoertuigResponseDTO teBehandelenVoertuig = responseDTO as VoertuigResponseDTO;
+
             if (teBehandelenVoertuig is null)
             {
                 StuurSnackbar("Kon het voertuig niet inladen aangezien deze null is.");
@@ -154,7 +157,7 @@ namespace WPFApp.Views
             get
             {
                 return new RelayCommand(
-                    p => BereidModelVoorMetVoertuig(this.IngeladenVoertuigResponse, true),
+                    p => BereidModelVoor(this.IngeladenVoertuigResponse, true),
                     p => IngeladenVoertuigResponse is not null
                 );
             }
