@@ -493,11 +493,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
+      "projectUniqueName": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
       "projectName": "BusinessLaag",
-      "projectPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
+      "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
       "packagesPath": "D:\\Programs\\GlobalPackagesFolder",
-      "outputPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\obj\\",
+      "outputPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",

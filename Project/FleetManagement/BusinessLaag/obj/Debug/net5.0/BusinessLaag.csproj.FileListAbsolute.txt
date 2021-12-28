@@ -18,3 +18,15 @@ C:\Users\server\Desktop\HOGENT\GithubHogent\Projectwerk-Fleetmanagement\Project\
 C:\Users\server\Desktop\HOGENT\GithubHogent\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.dll
 C:\Users\server\Desktop\HOGENT\GithubHogent\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\ref\BusinessLaag.dll
 C:\Users\server\Desktop\HOGENT\GithubHogent\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.pdb
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\bin\Debug\net5.0\BusinessLaag.deps.json
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\bin\Debug\net5.0\BusinessLaag.dll
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\bin\Debug\net5.0\ref\BusinessLaag.dll
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\bin\Debug\net5.0\BusinessLaag.pdb
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.csproj.AssemblyReference.cache
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.AssemblyInfoInputs.cache
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.AssemblyInfo.cs
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.csproj.CoreCompileInputs.cache
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.dll
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\ref\BusinessLaag.dll
+D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\BusinessLaag\obj\Debug\net5.0\BusinessLaag.pdb

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj": {}
+    "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+    "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
+        "projectUniqueName": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
         "projectName": "BusinessLaag",
-        "projectPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
+        "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
         "packagesPath": "D:\\Programs\\GlobalPackagesFolder",
-        "outputPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\obj\\",
+        "outputPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -68,14 +68,14 @@
         }
       }
     },
-    "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
+    "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
+        "projectUniqueName": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
         "projectName": "DataLaag",
-        "projectPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
+        "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
         "packagesPath": "D:\\Programs\\GlobalPackagesFolder",
-        "outputPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\DataLaag\\obj\\",
+        "outputPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -92,8 +92,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
-                "projectPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
+              "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+                "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
               }
             }
           }
@@ -108,6 +108,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "Microsoft.SqlServer.SqlManagementObjects": {
+              "target": "Package",
+              "version": "[161.46521.71, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.3, )"
@@ -132,14 +140,14 @@
         }
       }
     },
-    "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj": {
+    "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
+        "projectUniqueName": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
         "projectName": "WPFApp",
-        "projectPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
+        "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
         "packagesPath": "D:\\Programs\\GlobalPackagesFolder",
-        "outputPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\WPFApp\\obj\\",
+        "outputPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -156,11 +164,11 @@
           "net5.0-windows7.0": {
             "targetAlias": "net5.0-windows",
             "projectReferences": {
-              "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
-                "projectPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
+              "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+                "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
               },
-              "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
-                "projectPath": "D:\\GitHub\\Lijktmebest_Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Projectwerk-Fleetmanagement-fb6521dc7252e7ae806332d8386f704d10008183\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj"
+              "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
+                "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj"
               }
             }
           }
