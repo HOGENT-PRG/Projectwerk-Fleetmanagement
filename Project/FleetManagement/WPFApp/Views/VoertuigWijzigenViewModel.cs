@@ -26,9 +26,13 @@ namespace WPFApp.Views
         // Response wordt gebruikt bij reset, request bij vergelijken of er wijzigingen zijn
         public VoertuigResponseDTO IngeladenVoertuigResponse { get; set; } = null;
         public VoertuigRequestDTO IngeladenVoertuigRequest { get; set; } = null;
-        //public ObservableCollection<string?> GekozenMerk { get; private set; } = new();
+        public ObservableCollection<string?> GekozenMerk { get; private set; } = new();
         //public ObservableCollection<string> MeegegevenSoort { get; private set; } = new();
+<<<<<<< HEAD
         //public ObservableCollection<string?> MeegegevenBrandstof { get; private set; } = new();
+=======
+       public ObservableCollection<string?> MeegegevenBrandstof { get; private set; } = new();
+>>>>>>> parent of 11f9014 (selecties modelvoorbereiding)
 
         public VoertuigWijzigenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar) : base(communicatieKanaal, stuurSnackbar) { }
 
@@ -45,37 +49,49 @@ namespace WPFApp.Views
                 Merk = teBehandelenVoertuig.Merk;
                 Model = teBehandelenVoertuig.Model;
                 Nummerplaat = teBehandelenVoertuig.Nummerplaat;
-                Voertuigsoort = teBehandelenVoertuig.Voertuigsoort;
+                Voertuigsoort =teBehandelenVoertuig.Voertuigsoort;
                 Brandstof = teBehandelenVoertuig.Brandstof;
                 Chassisnummer = teBehandelenVoertuig.Chassisnummer;
                 AantalDeuren = (int)teBehandelenVoertuig.AantalDeuren;
-
-                // Index steeds opgehoogd met 1 aangezien VoertuigToevoegen index 0 gebruikt voor een lege waarde
-                // De ResponseDTO in de XAML bevat de index zoals de enum die bepaalt, en dat is zonder een eerste, lege, waarde
-                int idx = -1;
+                int idx = 0;
+               
                 if (int.TryParse(teBehandelenVoertuig.Voertuigsoort, out idx))
                 {
+<<<<<<< HEAD
                     Voertuigsoort = VoertuigSoorten[idx + 1];
+=======
+                    Voertuigsoort = VoertuigSoorten[idx];
+                   
+                   
+>>>>>>> parent of 11f9014 (selecties modelvoorbereiding)
                 }
                 else
                 {
                     Voertuigsoort = "";
                 }
-
                 if (int.TryParse(teBehandelenVoertuig.Merk, out idx))
                 {
+<<<<<<< HEAD
                     Merk = VoertuigMerken[idx + 1];
                     //  GekozenMerk.Add(VoertuigMerken[idx]);
+=======
+                    Merk = VoertuigMerken[idx];
+                  //  GekozenMerk.Add(VoertuigMerken[idx]);
+>>>>>>> parent of 11f9014 (selecties modelvoorbereiding)
                 }
                 else
                 {
                     Merk = "";
                 }
-
                 if (int.TryParse(teBehandelenVoertuig.Brandstof, out idx))
                 {
+<<<<<<< HEAD
                     Brandstof = VoertuigBrandstoffen[idx + 1];
                     //   MeegegevenBrandstof.Add(VoertuigBrandstoffen[idx]);
+=======
+                    Brandstof = VoertuigBrandstoffen[idx];
+                 //   MeegegevenBrandstof.Add(VoertuigBrandstoffen[idx]);
+>>>>>>> parent of 11f9014 (selecties modelvoorbereiding)
 
                 }
                 else
