@@ -118,7 +118,7 @@ namespace WPFApp.Views {
 
 
                     _communicatieKanaal.UpdateVoertuig(v);
-                    MessageBox.Show(v.Voertuigsoort);
+                   
                     StuurSnackbar($"Het voertuig  met id {v.Id} werd succesvol gewijzigd.");
                 } catch (Exception e) {
                     StuurSnackbar(e);
