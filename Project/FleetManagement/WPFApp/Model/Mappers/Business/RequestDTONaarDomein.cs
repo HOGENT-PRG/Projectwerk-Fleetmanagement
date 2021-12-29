@@ -106,7 +106,7 @@ namespace WPFApp.Model.Mappers.Business {
 				if (inclusiefRelaties) {
                     if(v.Bestuurder != null) {
                         v.Bestuurder.Voertuig = null; // anders stack overflow door circulatie tussen parse functies
-                        ConverteerNaarBestuurder(v.Bestuurder, true);
+                        bestuurder = ConverteerNaarBestuurder(v.Bestuurder, true);
 					}
 				}
 
