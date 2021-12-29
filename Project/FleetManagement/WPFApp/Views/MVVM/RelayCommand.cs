@@ -8,7 +8,7 @@ namespace WPFApp.Views.MVVM {
         readonly Action<object> _uittevoeren;
         readonly Predicate<object> _kanUitvoeren;
 
-        // Wordt geretourneerd bij het getten van een ICommand gedefinieerd in een ViewModel
+        // Wordt geretourneerd bij het getten van een ICommand property gedefinieerd in een ViewModel
         // We retourneren een RelayCommand om controle te hebben in het ViewModel over hetgeen
         // uitgevoerd wordt en onder welke voorwaarde dat pas mag.
         // Args:

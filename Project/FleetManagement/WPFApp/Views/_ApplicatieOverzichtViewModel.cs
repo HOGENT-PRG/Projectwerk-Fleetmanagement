@@ -184,6 +184,12 @@ namespace WPFApp.Views {
             }
         }
 
+        // Alternatieve notatie
+        //public RelayCommand ResetViewModelCommand => new(
+        //    p => ResetViewModel((IPaginaViewModel)p),
+        //    p => p is IPaginaViewModel
+        //);
+
         public ICommand VeranderPaginaCommand {
             get {
                 return new RelayCommand(

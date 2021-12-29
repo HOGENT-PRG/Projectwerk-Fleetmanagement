@@ -13,25 +13,29 @@ namespace WPFApp.Views {
         internal sealed class DatabankOverzichtViewModel : Presenteerder, IPaginaViewModel {
 
         public string Naam => "Databank info";  // naam van het tabblad
-        public Action<object> StuurSnackbar { get; private set; }
+        private Action<object> StuurSnackbar { get; set; }
 
-        private ICommuniceer _communicatieKanaal;
+        private ICommuniceer CommunicatieKanaal;
 
-        private bool _ConnectieSuccesvol;
-		private bool _DatabaseBestaat;
-		private bool _AlleTabellenBestaan;
-		private int _AantalTabellen;
-		private bool _SequentieDoorlopen;
-		private DateTime _LaatsteUpdate = DateTime.Now;
+        public bool ConnectieSuccesvol { get; private set; } = false; 
+        public bool DatabaseBestaat { get; private set; } = false;
+        public bool AlleTabellenBestaan { get; private set; } = false;
+        public int AantalTabellen { get; private set; } = -1;
+        public bool SequentieDoorlopen { get; private set; } = false;
+        public DateTime LaatsteUpdate { get; private set; } = DateTime.UnixEpoch;
 
-        public bool ConnectieSuccesvol { get => _ConnectieSuccesvol; set => Update(ref _ConnectieSuccesvol, value); } 
-        public bool DatabaseBestaat { get => _DatabaseBestaat; set => Update(ref _DatabaseBestaat, value); }
-        public bool AlleTabellenBestaan { get => _AlleTabellenBestaan; set => Update(ref _AlleTabellenBestaan, value); }
-        public int AantalTabellen { get => _AantalTabellen; set => Update(ref _AantalTabellen, value); }
-        public bool SequentieDoorlopen { get => _SequentieDoorlopen; set => Update(ref _SequentieDoorlopen, value); }
-        public DateTime LaatsteUpdate { get => _LaatsteUpdate; set => Update(ref _LaatsteUpdate, value); }
+        public DatabankOverzichtViewModel(ICommuniceer comm, Action<object> stuurSnackbar) {
+            CommunicatieKanaal = comm;
+            StuurSnackbar = stuurSnackbar;
+            VernieuwStatus.Execute("");
+        }
 
         private void UpdateStaat(DatabankStatusResponseDTO res) {
+            if(res is null) {
+                StuurSnackbar("DatabankStatusResponse werd verwacht maar null werd ontvangen, nazicht vereist.");
+                return;
+			}
+
             ConnectieSuccesvol = res.ConnectieSuccesvol ?? false;
             DatabaseBestaat = res.DatabaseBestaat ?? false;
             AlleTabellenBestaan = res.AlleTabellenBestaan ?? false;
@@ -42,14 +46,11 @@ namespace WPFApp.Views {
 
         public ICommand VernieuwStatus {
             get {
-                return new Command(_ => UpdateStaat(_communicatieKanaal.GeefDatabankStatus()));
+                return new RelayCommand(
+                    p => UpdateStaat(CommunicatieKanaal.GeefDatabankStatus()),
+                    p => p is not null
+                ); ;
             }
-        }
-
-        public DatabankOverzichtViewModel(ICommuniceer comm, Action<object> stuurSnackbar) {
-            _communicatieKanaal = comm;
-            StuurSnackbar = stuurSnackbar;
-            VernieuwStatus.Execute(null);
         }
 
         
