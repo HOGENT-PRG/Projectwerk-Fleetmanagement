@@ -70,6 +70,6 @@ namespace WPFApp
         private void Snackbar_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             PopupDialogHost.ShowDialog(PopupDialogHost.Content);
         }
-        // fin
+
     }
 }

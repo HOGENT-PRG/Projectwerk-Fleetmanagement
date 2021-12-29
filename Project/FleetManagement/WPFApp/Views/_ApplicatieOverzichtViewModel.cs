@@ -36,7 +36,7 @@ namespace WPFApp.Views {
         // Inladen van data gebeurt pas bij het renderen van de view dmv het Loaded event die de StartupRoutine command welke beschikbaar gesteld wordt door het ViewModel aanroept.
         public ApplicatieOverzichtViewModel() {
 
-            // Het meegeven van de StuurSnackbar functie is mogelijk door overerving van de NotificatieModule
+            // Het meegeven van de StuurSnackbar functie is mogelijk door overerven van deze functie uit NotificatieModule
             PaginaViewModels = new() {
                 /* Overzichten */
                 { nameof(AdresOverzicht), 
@@ -109,12 +109,7 @@ namespace WPFApp.Views {
             return null;
         }
 
-        #region Helpers
-        // Wordt gebruikt om te verzekeren dat een IPaginaViewModel implementatie IWijzigViewModel implementeert in ActiveerWijzigenContext
-        private static bool ImplementeertTypeInterface(Type t, Type verwachtteInterface) {
-            return t.GetInterfaces().Any(i => i.GetType() == verwachtteInterface.GetType());
-        }
-        #endregion
+       
 
         #region ViewModel beheer
         // Wordt aangeroepen middels Reset knoppen in ToevoegenViewModels, het is eenvoudiger en globaal toepasbaar om de ViewModel te vervangen met een nieuwe, in plaats van in elke ViewModel alle velden / properties manueel te resetten met risico op fouten
@@ -124,13 +119,29 @@ namespace WPFApp.Views {
 
         // Veranderen van ViewModel, door middel van een tabblad knop om van Overzicht te veranderen of vanuit een Overzicht om naar Toevoegen/Wijzigen te gaan
         private void VeranderViewModel(IPaginaViewModel viewModel) {
+            if(viewModel is null) {
+                StuurSnackbar("Kan niet van ViewModel veranderen aangezien het ontvangen IPaginaViewModel null is en er geen naam bepaald of type uit afgeleid kan worden.");
+                return;
+			}
+
             string naam = viewModel.GetType().Name.Replace("ViewModel", "");
             if (!PaginaViewModels.Keys.Contains(naam)) {
                 PaginaViewModels.Add(naam, (IPaginaViewModel)MaakNieuwViewModel(viewModel));
             }
 
-            HuidigePaginaViewModel = PaginaViewModels.FirstOrDefault(vm => vm.Key == naam).Value;
+            if (PaginaViewModels[naam] is not null) {
+                HuidigePaginaViewModel = PaginaViewModels.FirstOrDefault(vm => vm.Key == naam).Value;
+            } else {
+                StuurSnackbar("Kon niet overschakelen, na een poging tot aanmaken ervan is ViewModel nog steeds null.");
+			}
         }
+
+        #region Helpers
+        // Wordt gebruikt om te verzekeren dat een IPaginaViewModel implementatie IWijzigViewModel implementeert in ActiveerWijzigenContext
+        private static bool ImplementeertTypeInterface(Type t, Type verwachtteInterface) {
+            return t.GetInterfaces().Any(i => i.GetType() == verwachtteInterface.GetType());
+        }
+        #endregion
 
         // Wordt aangeroepen vanuit een Overzicht datagrid row met als binding de datasource van die row, welke een IResponseDTO is. 
         // Na enkele checks wordt de Wijzigen view weergegeven en de BereidModelVoor functie aangeroepen welke het WijzigenViewModel zal voorzien van de responseDTO.
@@ -140,24 +151,24 @@ namespace WPFApp.Views {
             string xamlName = dtoTypeNaam.Replace("ResponseDTO", "Wijzigen");
 
             if (!dtoTypeNaam.EndsWith("ResponseDTO")) {
-                StuurSnackbar($"Weergave van wijzigen context niet mogelijk, een implementatie van IResponseDTO dient als naamgeving steeds te eindigen op 'ResponseDTO', echter werd '{dtoTypeNaam}' ontvangen. ");
+                StuurSnackbar($"Weergave van wijzigen context niet mogelijk, een implementatie van IResponseDTO dient als naamgeving steeds te eindigen op 'ResponseDTO', echter werd '{dtoTypeNaam}' ontvangen. Er wordt een zekere naamgevingsstandaard geimpliceerd.");
                 return;
 			}
 
 			if (!PaginaViewModels.ContainsKey(xamlName)) {
-                StuurSnackbar("Weergave van wijzigen context niet mogelijk aangezien correcte ViewModel niet gevonden kan worden.");
+                StuurSnackbar($"Er bestaat geen view in de verzameling waarvan de naam {xamlName} is, deze naam werd afgeleid middels de naamgeving van de ResponseDTO. Er wordt een zekere naamgevingsstandaard geimpliceerd, naamswijziging en vergewissen dat de Wijzigen ViewModel in de dictionary PaginaViewModels zit kan vereist zijn.");
                 return;
 			}
 
             IPaginaViewModel geselecteerdeViewModel = PaginaViewModels[xamlName];
 
             if(!ImplementeertTypeInterface(geselecteerdeViewModel.GetType(), typeof(IWijzigViewModel))) {
-                StuurSnackbar("Er werd een ViewModel geselecteerd, echter implementeert deze IWijzigViewModel niet terwijl dat wel een vereiste is.");
+                StuurSnackbar($"Er werd een ViewModel geselecteerd dmv key {xamlName}, echter implementeert dit ViewModel IWijzigViewModel niet terwijl dat wel een vereiste is.");
                 return;
 			}
 
-            VeranderViewModel(PaginaViewModels[xamlName]);
-            IWijzigViewModel wijzigViewModel = PaginaViewModels[xamlName] as IWijzigViewModel;
+            VeranderViewModel(geselecteerdeViewModel);
+            IWijzigViewModel wijzigViewModel = geselecteerdeViewModel as IWijzigViewModel;
             wijzigViewModel.BereidModelVoor(responseDTO);
         }
 
