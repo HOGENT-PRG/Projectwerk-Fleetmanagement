@@ -24,7 +24,7 @@ namespace BusinessLaag.Model
             ZetVervaldatum(vervaldatum);
             ZetPincode(pincode);
             ZetBestuurder(bestuurder);
-            GeldigVoorBrandstoffen = geldigvoorbrandstoffen ?? new();
+            GeldigVoorBrandstoffen = geldigvoorbrandstoffen?.Distinct()?.ToList() ?? new();
        }
 
         public void ZetId(int? id) {
