@@ -11,6 +11,8 @@ using Microsoft.SqlServer.Management.Common;
 using DataLaag;
 using DataLaag.Helpers;
 
+// Voor gebruik door manager tests, maar uiteindelijk niet gebruikt/uitgewerkt.
+// Extra functionaliteiten ervan worden wel opgenomen in DatabankConfigureerderTests
 namespace xUnitTesting
 {
     public class TestDatabankConfigureerder : DatabankConfigureerder, ITestDatabankConfigureerder {

@@ -6,21 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using xUnitTesting._TESTDATA;
+using xUnitTesting.Generators;
 
+// Dit werd volledig uitgewerkt en garandeert een goede werking van zowel de DatabankConfigureerder als TestDatabankConfigureerder
 namespace xUnitTesting.Datalaag {
 
+    // Collection tag zodat de testen sequentieel uitgevoerd worden, ipv parallel
     [Collection("DisableParallelTests")]
-    public class TestDatabankConfigureerderTests {
-        // Deze unit test klasse test zowel functies van DatabankConfigureerder als van de
-        // overervende / uitbreidende inhouse klasse TestDatabankConfigureerder
+    public class DatabankConfigureerderTests {
         TestDatabankConfigureerder _beheerDatabank;
 
-        public TestDatabankConfigureerderTests() {
+        public DatabankConfigureerderTests() {
             _beheerDatabank = Gemeenschappelijk.TestDatabankConfigureerder;
         }
 
-        //Default db = FleetManagerTESTING
+        //Default db = FleetManagerTESTING, zie _TestDatabankConfigureerder
 
         #region Private helper functies
         private Int32 _geefAantalRowsVoorTabel(string tabelnaam) {
@@ -138,7 +138,7 @@ namespace xUnitTesting.Datalaag {
         }
 
         [Fact]
-        public void Test_ParametersCorrect() {
+        public void Test_ParametersNietNull_AantalTabellenMatch() {
             Assert.NotNull(_beheerDatabank.InitialisatieParameters["tabellen"]);
             Assert.NotNull(_beheerDatabank.InitialisatieParameters["databanknaam"]);
             Assert.NotNull(_beheerDatabank.InitialisatieParameters["dataSource"]);

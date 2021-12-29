@@ -101,14 +101,14 @@ namespace DataLaag
             masterBouwer.InitialCatalog = "Master";
             masterBouwer.DataSource = datasource;
             masterBouwer.IntegratedSecurity = integratedsecurity;
-            MasterConnectieString = masterBouwer.ConnectionString;
+            MasterConnectieString = masterBouwer.ConnectionString + ";TrustServerCertificate=true";
             MasterConnectie = new(MasterConnectieString);
 
             SqlConnectionStringBuilder productieBouwer = new SqlConnectionStringBuilder();
             productieBouwer.InitialCatalog = dbnaam;
             productieBouwer.DataSource = datasource;
             productieBouwer.IntegratedSecurity = integratedsecurity;
-            ProductieConnectieString = productieBouwer.ConnectionString;
+            ProductieConnectieString = productieBouwer.ConnectionString + ";TrustServerCertificate=true";
             ProductieConnectie = new(ProductieConnectieString);
         }
         protected void _connecteerMetDatabase(string databanknaam)

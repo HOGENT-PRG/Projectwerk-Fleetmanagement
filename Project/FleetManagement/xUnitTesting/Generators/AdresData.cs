@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace xUnitTesting._TESTDATA {
+// Werd niet uitgewerkt, zie hoofdstuk Unit testing in documentatie
+namespace xUnitTesting.Generators {
     internal class AdresData {
         // Beheert geen relatie met andere klassen, wordt gebruikt door Bestuurder
     }

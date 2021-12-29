@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
+// Volledig uitgewerkt
 namespace xUnitTesting.Model
 {
     public class TestTankkaart
@@ -79,7 +80,7 @@ namespace xUnitTesting.Model
         [Theory]
         [InlineData("12345")]
         [InlineData("723TUS-UYEWHIJ-QWUIDHJ")]
-        [InlineData("B1234567890123456789012345678901234567890123456789")] // 51
+        [InlineData("B12345678901234567890123456789012345678901234567890123456789")] // 60
         public void Test_Setter_ZetKaartnummer_valid(string k)
         {
             validTankkaart.ZetKaartnummer("00001");
@@ -91,7 +92,7 @@ namespace xUnitTesting.Model
         [Theory]
         [InlineData("1234")]
         [InlineData("")]
-        [InlineData("123456789012345678901234567890123456789012345678901")] // 51
+        [InlineData("123456789012345678901234567890123456789012345678901ABCDEFGHIJ")] // 61
         public void Test_Setter_ZetKaartnummer_invalid(string k)
         {
             Assert.Throws<TankkaartException>(() => validTankkaart.ZetKaartnummer(k));
@@ -100,7 +101,7 @@ namespace xUnitTesting.Model
         [Fact]
         public void Test_Setter_ZetVervaldatum_valid()
         {
-            DateTime valid1 = DateTime.Now.AddHours(24);
+            DateTime valid1 = DateTime.Now.AddHours(32);
             DateTime valid2 = DateTime.Today.AddDays(7);               // kan niet met inline data
             DateTime valid3 = DateTime.Today.AddYears(10);
             DateTime valid4 = DateTime.MaxValue;

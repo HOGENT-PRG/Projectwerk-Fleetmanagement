@@ -3,6 +3,7 @@ using BusinessLaag.Model;
 using System;
 using Xunit;
 
+// Volledig uitgewerkt
 namespace xUnitTesting.Model
 {
     public class TestAdres

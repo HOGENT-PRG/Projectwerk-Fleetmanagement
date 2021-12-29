@@ -6,7 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace xUnitTesting._TESTDATA {
+// Werd oppervlakkig uitgewerkt en wordt niet gebruikt, zie hoofdstuk Unit testing in documentatie
+namespace xUnitTesting.Generators {
     internal static class BestuurderData {
         // Beheert relaties met Tankkaart, Voertuig en Adres
 

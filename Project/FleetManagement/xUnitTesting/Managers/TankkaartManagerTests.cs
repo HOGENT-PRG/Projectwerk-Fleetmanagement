@@ -5,6 +5,7 @@ using BusinessLaag.Model;
 using System.Collections.Generic;
 using Xunit;
 
+// Werd niet uitgewerkt, zie hoofdstuk Unit testing in documentatie
 namespace xUnitTesting.Managers
 {
         // Collection tag is belangrijk!
