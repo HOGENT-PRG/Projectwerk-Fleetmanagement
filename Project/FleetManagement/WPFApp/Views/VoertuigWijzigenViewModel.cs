@@ -127,7 +127,6 @@ namespace WPFApp.Views {
             }
         }
 
-        // todo commandos in xaml
         public ICommand BevestigWijzigVoertuig {
             get {
                 return new RelayCommand(
