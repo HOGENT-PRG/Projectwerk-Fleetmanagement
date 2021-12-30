@@ -39,6 +39,11 @@ namespace DataLaag.Helpers {
 					return new Tankkaart((int?)r["TankkaartId"], (string)r["TankkaartKaartnummer"], (DateTime)r["TankkaartVervaldatum"], (string)r["TankkaartPincode"], tbs, b);
 				}
 				return null;
+			} catch (Exception e) when (e.Message.Contains("moet zich in de toekomst bevinden")) {
+				// De tankkaart is reeds vervallen, we retourneren null, in TankkaartOpslag zal deze entry overgeslaan worden, bij andere Opslag klasses de null waarde ingesteld worden als relatie
+				// Deze tankkaart zal niet langer zichtbaar zijn binnen de applicatie als relatie, noch in het overzicht
+				// Een eventuele verwijzing (FK) er naar in tabel Bestuurder blijft bestaan maar kan middels de Wijzigen window overschreven worden
+				return null;
 			} catch (Exception e) {
 					throw new ArgumentNullException(MaakExceptionMessage(r, MethodBase.GetCurrentMethod().Name), e);
 			}

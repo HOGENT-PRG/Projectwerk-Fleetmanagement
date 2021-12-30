@@ -149,6 +149,11 @@ namespace DataLaag.Repositories
 					// deze parsen we zonder meegeven brandstoflijst en bestuurder, die stellen we later in
 					Tankkaart huidigeTankkaart = QueryParser.ParseReaderNaarTankkaart(r);
 
+					if(huidigeTankkaart is null) {
+						// De QueryParser retourneert null indien de vervaldatum reeds bereikt werd en aanmaken van een geldig Tankkaart object niet meer mogelijk is
+						continue;
+					}
+
 					if (resultaten.Any(t => t.Id == huidigeTankkaart.Id)) {
 						huidigeTankkaart = resultaten.First(t => t.Id == huidigeTankkaart.Id);
 					} else {
@@ -277,6 +282,11 @@ namespace DataLaag.Repositories
 				while (r.Read()) {
 					// deze parsen we zonder meegeven brandstoflijst en bestuurder, die stellen we later in
 					Tankkaart huidigeTankkaart = QueryParser.ParseReaderNaarTankkaart(r);
+
+					if (huidigeTankkaart is null) {
+						// De QueryParser retourneert null indien de vervaldatum reeds bereikt werd en aanmaken van een geldig Tankkaart object niet meer mogelijk is
+						continue;
+					}
 
 					if (resultaten.Any(t => t.Id == huidigeTankkaart.Id)) {
 						huidigeTankkaart = resultaten.First(t => t.Id == huidigeTankkaart.Id);
