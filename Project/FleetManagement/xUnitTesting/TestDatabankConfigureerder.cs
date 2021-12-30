@@ -39,7 +39,7 @@ namespace xUnitTesting
                 tabellen = ((SortedDictionary<string, string>)InitialisatieParameters["tabellen"]).Keys.ToList() ?? new(); 
             }
 
-            IList<string> bestaandeTabellen = geefTabellenLowercase();
+            IList<string> bestaandeTabellen = GeefTabellenLowercase();
             try {
                 TestConnectie.Open();
                 foreach (string table in tabellen) {
@@ -62,7 +62,7 @@ namespace xUnitTesting
         internal List<int> VoerDataIn(string tabelnaam, List<Dictionary<string, object>> data) {
             List<int> insertRowIds = new();
 
-            IList<string> bestaandeTabellen = geefTabellenLowercase();
+            IList<string> bestaandeTabellen = GeefTabellenLowercase();
             try {
                 TestConnectie.Open();
 

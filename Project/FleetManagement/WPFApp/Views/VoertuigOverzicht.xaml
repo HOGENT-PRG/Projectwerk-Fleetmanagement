@@ -83,7 +83,6 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!-- TODO apart scherm of werken met dialog, liever laatste, bekijken  -->
                             <Button
                               Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                               ToolTip="MaterialDesignFloatingActionMiniLightButton"

@@ -60,8 +60,8 @@ namespace WPFApp.Views
             if (_controleerVeldenVoldaanVoorToevoegen())
             {
                 try
-                {  // TODO
-                    AdresRequestDTO adres = new(null,Straatnaam,Huisnummer,Postcode,Plaatsnaam,Provincie,Land);
+                {
+                    AdresRequestDTO adres = new(null, Straatnaam, Huisnummer, Postcode, Plaatsnaam, Provincie, Land);
 
                     int id = _communicatieKanaal.VoegAdresToe(adres);
                     StuurSnackbar($"Succesvol toegevoegd met id {id}");
@@ -72,9 +72,6 @@ namespace WPFApp.Views
                     Plaatsnaam = "";
                     Provincie = "";
                     Land = "";
-                  
-
-
                 }
                 catch (Exception e)
                 {

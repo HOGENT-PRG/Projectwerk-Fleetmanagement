@@ -26,26 +26,31 @@ namespace WPFApp.Views {
         protected ICommuniceer _communicatieKanaal;
         public Action<object> StuurSnackbar { get; init; }
 
+        // Todo - vragen aan CommunicatieKanaal
         public List<string> RijbewijsOpties { get; init; } = new() {
             "AM", "A", "B", "C", "D", "G"
         };
 
+        // Weergave in DataGrids
         public ObservableCollection<AdresResponseDTO> Adressen { get; set; } = new(); 
         public ObservableCollection<TankkaartResponseDTO> Tankkaarten { get; set; } = new();
         public ObservableCollection<VoertuigResponseDTO> Voertuigen { get; set; } = new();
-
-        public AdresResponseDTO HighlightedAdres { get; set; } = null;
-		public TankkaartResponseDTO HighlightedTankkaart { get; set; } = null;
-        public VoertuigResponseDTO HighlightedVoertuig { get; set; } = null;
 
         public string Achternaam { get; set; } = "";
         public string Voornaam { get; set; } = "";
         public DateTime GeboorteDatum { get; set; } = DateTime.Now;
         public string RijksRegisterNummer { get; set; } = "";
         public string RijbewijsSoort { get; set; } = ""; //enum
+
+        // Selectie uit de datagrid, highlighted is onbevestigd, geselecteerd is expliciet gekozen en
+        // reeds omgevormd voor inclusie in VoertuigRequestDTO
+        public AdresResponseDTO HighlightedAdres { get; set; } = null;
+        public TankkaartResponseDTO HighlightedTankkaart { get; set; } = null;
+        public VoertuigResponseDTO HighlightedVoertuig { get; set; } = null;
         public AdresRequestDTO GeselecteerdAdres { get; set; } = null;
         public TankkaartRequestDTO GeselecteerdeTankkaart { get; set; } = null;
         public VoertuigRequestDTO GeselecteerdeVoertuig { get; set; } = null;
+
 
         public BestuurderToevoegenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar) {
             _communicatieKanaal = communicatieKanaal;
@@ -65,6 +70,8 @@ namespace WPFApp.Views {
             }
         }
 
+        // Terwijl de gebruiker de form nog aan het invullen is deze op de hoogte
+        // brengen van het validatieresultaat indien deze negatief is
         protected void Self_PropertyChanged(object sender, PropertyChangedEventArgs e) {
 			switch (e.PropertyName) {
                 case "RijksRegisterNummer":
@@ -104,9 +111,6 @@ namespace WPFApp.Views {
             List<object> zoektermen = new();
             List<PropertyInfo> p = this.GetType().GetProperties().Where(x => x.Name.StartsWith("AdresFilter")).ToList();
             foreach (PropertyInfo prop in p) {
-
-                /*TODO: opnemen of weg, liefst geen Staat opnemen daarin, werd gebruikt bij Voetbaltrui maar zorgt voor verwarring indien wijzigdialog niet apart is:
-                                                              && !prop.Name.Contains("Staat")*/
                 if (prop.GetValue(this).ToString().Length > 0) {
                     zoekfilters.Add(prop.Name.Replace("AdresFilter", ""));
                     zoektermen.Add(prop.GetValue(this));

@@ -94,6 +94,7 @@ namespace DataLaag
 
             SequentieDoorlopen = true;
         }
+
         protected void _zetConnecties(string dbnaam, string datasource, bool integratedsecurity)
         {
             // Aanmaken SqlConnections
@@ -139,9 +140,10 @@ namespace DataLaag
                 MasterConnectie.Close();
             }
         }
+
         protected void _controleerBestaanTabellen(List<string> verwachteTabellen)
         {
-            IList<string> bestaandeTabellen = this.geefTabellenLowercase();
+            IList<string> bestaandeTabellen = this.GeefTabellenLowercase();
             _ontbrekendeTabellen.Clear();
 
             foreach (string tabel in verwachteTabellen) {
@@ -154,6 +156,7 @@ namespace DataLaag
 
             AlleTabellenBestaan = _ontbrekendeTabellen.Count > 0 ? false : true;
         }
+
         protected void _maakOntbrekendeDatabank(string databanknaam)
         {
             try
@@ -170,6 +173,7 @@ namespace DataLaag
                 MasterConnectie.Close();
             }
         }
+
         protected int _geefAantalTabellenVoorDatabase(string databanknaam)
         {
             string sql = "SELECT count(*) FROM information_schema.TABLES WHERE (TABLE_CATALOG=@dbNaam)";
@@ -202,9 +206,10 @@ namespace DataLaag
                 ProductieConnectie.Close();
             }
         }
+
         protected void _maakOntbrekendeTabellenAan(string databanknaam, SortedDictionary<string, string> tabellen)
         {
-            IList<string> bestaandeTabellen = geefTabellenLowercase();
+            IList<string> bestaandeTabellen = GeefTabellenLowercase();
             List<string> bronnenTeBehandelen = new List<string>();
 
             foreach (KeyValuePair<string, string> entry in tabellen)
@@ -214,6 +219,10 @@ namespace DataLaag
                     bronnenTeBehandelen.Add(entry.Value);
                 }
             }
+
+            if(bronnenTeBehandelen.Count == 0) {
+                return;
+			}
 
             ProductieConnectie.Open();
 
@@ -239,7 +248,7 @@ namespace DataLaag
                 }
                 catch 
                 {
-                   // throw;  //TODO: indien db problemen, best deze eens uncommenten :-)
+                   // throw;
                 }
                 finally
                 {
@@ -248,8 +257,7 @@ namespace DataLaag
             }
         }
 
-        //--
-        public IList<string> geefTabellenLowercase()
+        public IList<string> GeefTabellenLowercase()
         {
             List<string> tables = new List<string>();
             try
@@ -272,7 +280,8 @@ namespace DataLaag
                 ProductieConnectie.Close();
             }
         }
-        public Dictionary<string, object> geefInformatie()
+
+        public Dictionary<string, object> GeefInformatie()
         {
             var res = new Dictionary<string, object>();
             res.Add(nameof(ConnectieSuccesvol), ConnectieSuccesvol);

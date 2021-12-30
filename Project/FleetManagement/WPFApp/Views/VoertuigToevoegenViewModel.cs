@@ -47,9 +47,13 @@ namespace WPFApp.Views
         public string Voertuigsoort { get; set; } = "";
         public string Kleur { get; set; } = "";
         public int AantalDeuren { get; set; }
-        public BestuurderRequestDTO GeselecteerdBestuurder { get; set; } = null;
         public string Chassisnummer { get; set; }
+
+        // Selectie uit de datagrid, highlighted is onbevestigd, geselecteerd is expliciet gekozen en
+        // reeds omgevormd voor inclusie in VoertuigRequestDTO
         public BestuurderResponseDTO HighlightedBestuurder { get; set; } = null;
+        public BestuurderRequestDTO GeselecteerdBestuurder { get; set; } = null;
+
         public VoertuigToevoegenViewModel(ICommuniceer communicatieKanaal, Action<object> stuurSnackbar)
         {
             _communicatieKanaal = communicatieKanaal;

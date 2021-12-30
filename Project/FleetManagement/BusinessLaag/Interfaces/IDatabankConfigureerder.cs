@@ -12,6 +12,6 @@ namespace BusinessLaag.Interfaces
         int AantalTabellen { get; }
         bool SequentieDoorlopen { get; }
 
-        IList<string> geefTabellenLowercase();
+        IList<string> GeefTabellenLowercase();
     }
 }
