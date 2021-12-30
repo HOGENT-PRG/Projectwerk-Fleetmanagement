@@ -35,9 +35,6 @@ namespace WPFApp.Views
             GaNaarOverzicht.Command.Execute(GaNaarOverzicht.CommandParameter);
         }
 
-        protected void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            VoerStartupRoutineUit.Command.Execute("Loaded");
-        }
+
     }
 }

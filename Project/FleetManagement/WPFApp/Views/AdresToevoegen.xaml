@@ -10,7 +10,6 @@
              xmlns:conv="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
              xmlns:Presentatielaag="clr-namespace:WPFApp" 
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Royale"
-             Loaded="UserControl_Loaded"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="900"
              d:DataContext="{d:DesignInstance {x:Type local:AdresToevoegenViewModel}}">

@@ -24,7 +24,6 @@ namespace WPFApp.Views
         public string Naam => "Adres Toevoegen";
         public ICommuniceer _communicatieKanaal;
         public Action<object> StuurSnackbar { get; init; }
-        public ObservableCollection<AdresResponseDTO> Adressen { get; set; } = new();
 
         public string Straatnaam { get; set; } = "";
         public string Huisnummer { get; set; } = "";
@@ -36,22 +35,6 @@ namespace WPFApp.Views
         {
             _communicatieKanaal = communicatiekanaal;
             StuurSnackbar = stuurSnackbar;
-        }
-
-        private void _startupRoutine()
-        {
-            try
-            {
-                _resetAdresFilters();
-            }
-            catch (Exception e)
-            {
-                StuurSnackbar(e);
-            }
-        }
-        private void _resetAdresFilters()
-        {
-            Adressen = new ObservableCollection<AdresResponseDTO>(_communicatieKanaal.GeefAdressen());
         }
 
 
@@ -99,17 +82,7 @@ namespace WPFApp.Views
                 }
             }
         }
-        public ICommand StartupRoutine
-        {
-            get
-            {
-                return new RelayCommand(
-                    p => _startupRoutine(),
-                    p => p is not null
-                );
 
-            }
-        }
         public ICommand VoegAdresToe
         {
             get
@@ -120,15 +93,6 @@ namespace WPFApp.Views
                 );
             }
         }
-        public ICommand ResetAdresFilters
-        {
-            get
-            {
-                return new RelayCommand(
-                    p => _resetAdresFilters(),
-                    p => p is not null
-                );
-            }
-        }
+
     }
 }

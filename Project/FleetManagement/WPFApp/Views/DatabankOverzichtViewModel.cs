@@ -32,7 +32,7 @@ namespace WPFApp.Views {
 
         private void UpdateStaat(DatabankStatusResponseDTO res) {
             if(res is null) {
-                StuurSnackbar("DatabankStatusResponse werd verwacht maar null werd ontvangen, nazicht vereist.");
+                StuurSnackbar("DatabankStatusResponse instantie werd verwacht maar null werd ontvangen, nazicht vereist.");
                 return;
 			}
 

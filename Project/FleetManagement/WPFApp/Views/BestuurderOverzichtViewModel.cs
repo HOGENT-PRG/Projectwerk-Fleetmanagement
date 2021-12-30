@@ -41,17 +41,8 @@ namespace WPFApp.Views {
             StuurSnackbar = stuurSnackbar;
 
             _initialiseerZoekfilters();
-
-			PropertyChanged += ViewModel_PropertyChanged;
         }
 
-        // Indien je wilt abonneren op property changes
-		private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e) {
-			switch (e.PropertyName) {
-                default:
-                    break;
-			}
-		}
 
 		// Bij het daadwerkelijk renderen gaan we data opvragen en weergeven (dus niet bij initialisatie van de View+VM, aangezien dat op de achtergrond bij opstart voor alle VM's tegelijk plaatsvindt)
 		private void _startupRoutine() {
