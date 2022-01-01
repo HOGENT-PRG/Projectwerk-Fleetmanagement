@@ -311,6 +311,7 @@ namespace DataLaag.Repositories
                                   "t.Id AS TankkaartId, " +
                                   "t.Kaartnummer AS TankkaartKaartnummer, " +
                                   "t.Pincode AS TankkaartPincode, " +
+                                  "t.IsGeblokkeerd AS TankkaartIsGeblokkeerd, " +
                                   "t.Vervaldatum AS TankkaartVervalDatum, " +
                                   "tb.Brandstof AS TankkaartBrandstof, " +
                                   "b.Id AS BestuurderId, " +
@@ -433,6 +434,7 @@ namespace DataLaag.Repositories
                                   "t.Id AS TankkaartId, " +
                                   "t.Kaartnummer AS TankkaartKaartnummer, " +
                                   "t.Pincode AS TankkaartPincode, " +
+                                  "t.IsGeblokkeerd AS TankkaartIsGeblokkeerd, " +
                                   "t.Vervaldatum AS TankkaartVervalDatum, " +
                                   "tb.Brandstof AS TankkaartBrandstof, " +
                                   "b.Id AS BestuurderId, " +

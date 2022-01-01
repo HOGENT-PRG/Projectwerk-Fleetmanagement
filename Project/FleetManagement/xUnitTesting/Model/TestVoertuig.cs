@@ -38,7 +38,7 @@ namespace xUnitTesting.Model
         private static TankkaartBrandstof validBrandstof = TankkaartBrandstof.CNG;
         private static List<TankkaartBrandstof> validBrandstoffen = new List<TankkaartBrandstof>() { validBrandstof };
 
-        private static Tankkaart validTankkaart = new Tankkaart(validId, validKaartnummer, validVervaldatum, validPincode, validBrandstoffen, validBestuurder);
+        private static Tankkaart validTankkaart = new Tankkaart(validId, validKaartnummer, validVervaldatum, validPincode, validBrandstoffen, validBestuurder, false);
 
         private static Voertuig validVoertuig = new Voertuig(validId, MerkInstance, validModel, validNummerplaat, BrandstofInstance, VoertuigsoortInstance, validBestuurder, validChassisnummer, validKleur, validAantalDeuren);
 

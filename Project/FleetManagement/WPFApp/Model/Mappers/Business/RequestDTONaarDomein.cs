@@ -114,6 +114,7 @@ namespace WPFApp.Model.Mappers.Business {
 
                 Voertuig voertuig = BronParser.ParseCast<Voertuig>(v);
 
+                // Blijkbaar converteert JObject in dit geval naar de verkeerde enum waarde, nogmaals controle
                 if(voertuig.Voertuigsoort.ToString() != v.Voertuigsoort) {
                     voertuig.ZetVoertuigSoort(
                         (Voertuigsoort)Enum.Parse(typeof(Voertuigsoort), v.Voertuigsoort)

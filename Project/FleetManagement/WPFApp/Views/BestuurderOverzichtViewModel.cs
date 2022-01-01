@@ -34,6 +34,7 @@ namespace WPFApp.Views {
         public string GeselecteerdeZoekfilter { get; set; }
         public string ZoekveldRegular { get; set; }
         public DateTime ZoekveldDate { get; set; } = DateTime.Now;
+        public bool ZoekveldBool { get; set; } = false;
 
 
         public BestuurderOverzichtViewModel(ICommuniceer comm, Action<object> stuurSnackbar) {
@@ -76,6 +77,9 @@ namespace WPFApp.Views {
                     zoekterm = ZoekveldDate;
                     vergelijker = this.DatumVergelijker;
                     break;
+                case string s when s.Contains("IsGeblokkeerd"):
+                    zoekterm = ZoekveldBool;
+                    break;
                 default:
                     zoekterm = ZoekveldRegular;
                     break;
@@ -87,7 +91,6 @@ namespace WPFApp.Views {
             );
             
 
-            ZoekveldDate = DateTime.Now;
             ZoekveldRegular = "";
         }
 

@@ -36,7 +36,7 @@ namespace DataLaag.Helpers {
 		public static Tankkaart ParseReaderNaarTankkaart(SqlDataReader r, List<TankkaartBrandstof> tbs = null, Bestuurder b = null) {
 			try {
 				if (!r.IsDBNull(r.GetOrdinal("TankkaartId"))) {
-					return new Tankkaart((int?)r["TankkaartId"], (string)r["TankkaartKaartnummer"], (DateTime)r["TankkaartVervaldatum"], (string)r["TankkaartPincode"], tbs, b);
+					return new Tankkaart((int?)r["TankkaartId"], (string)r["TankkaartKaartnummer"], (DateTime)r["TankkaartVervaldatum"], (string)r["TankkaartPincode"], tbs, b, (bool)r["TankkaartIsGeblokkeerd"]);
 				}
 				return null;
 			} catch (Exception e) when (e.Message.Contains("moet zich in de toekomst bevinden")) {

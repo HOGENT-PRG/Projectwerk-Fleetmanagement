@@ -33,6 +33,7 @@ namespace WPFApp.Views {
         public string Kaartnummer { get; set; } = "";
         public DateTime Vervaldatum { get; set; } = DateTime.Now.AddDays(2);
         public string Pincode { get; set; } = "";
+        public bool IsGeblokkeerd { get; set; } = false;
         public ObservableCollection<string> GekozenBrandstoffen { get; private set; } = new();
         public string GeselecteerdeBrandstof { get; set; } = "";
 
@@ -131,7 +132,7 @@ namespace WPFApp.Views {
         private void _voegTankkaartToe() {
             if (_controleerVeldenVoldaanVoorToevoegen()) {
                 try {
-                    TankkaartRequestDTO tankkaart = new(null, Kaartnummer, Vervaldatum, Pincode, GekozenBrandstoffen.ToList(), GeselecteerdBestuurder);
+                    TankkaartRequestDTO tankkaart = new(null, Kaartnummer, Vervaldatum, Pincode, GekozenBrandstoffen.ToList(), GeselecteerdBestuurder, IsGeblokkeerd);
 
                     int id = _communicatieKanaal.VoegTankkaartToe(tankkaart);
                     StuurSnackbar($"Succesvol nieuwe tankkaart toegevoegd met id {id}");

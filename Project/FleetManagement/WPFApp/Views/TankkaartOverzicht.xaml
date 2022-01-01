@@ -63,6 +63,9 @@
         <ComboBox x:Name="zoekfilterbox" Grid.ColumnSpan="1" Grid.Column="3" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" VerticalAlignment="Stretch" BorderBrush="#000000" BorderThickness="1" IsDropDownOpen="False" IsReadOnly="True" ItemsSource="{Binding TankkaartZoekfilters}" SelectedItem="{Binding GeselecteerdeZoekfilter}" SelectionChanged="zoekfilterbox_SelectionChanged" />
 
         <DatePicker x:Name="zoekdate" Grid.Column="6" HorizontalAlignment="Stretch" Margin="7,7,7,7" Grid.Row="1" Text="Zoekterm..." VerticalAlignment="Stretch" Visibility="Hidden" SelectedDate="{Binding ZoekveldDate}"></DatePicker>
+        <CheckBox x:Name="zoekbool" Grid.Column="6" HorizontalAlignment="Center" Margin="7,7,7,7" Grid.Row="1"
+                  VerticalAlignment="Center" IsChecked="{Binding ZoekveldBool}" Visibility="Hidden"></CheckBox>
+        
         <TextBox x:Name="zoekveld" Grid.Column="6" Margin="7,7,7,7" Grid.Row="1" Text="{Binding ZoekveldRegular}" Grid.ColumnSpan="1" />
         <Button Content="Zoek" Grid.Row="1" Grid.Column="8" VerticalAlignment="Center" Background="#FFFAFAF9" BorderBrush="#000000" Grid.ColumnSpan="1" Margin="5,5,5,5" BorderThickness="1" FontSize="12" FontStyle="Normal" FontWeight="Bold" Height="26" Command="{Binding ZoekMetFilter}" CommandParameter="0" IsEnabled="True" />
 
@@ -101,6 +104,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridCheckBoxColumn Header="Is geblokkeerd?" Binding="{Binding IsGeblokkeerd}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Kaartnummer" Binding="{Binding Kaartnummer}" />
                 <DataGridTextColumn Header="Vervaldatum" Binding="{Binding Vervaldatum}" />
                 <DataGridTextColumn Header="Pincode" Binding="{Binding Pincode}" />

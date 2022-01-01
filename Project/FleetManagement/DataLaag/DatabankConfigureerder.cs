@@ -39,7 +39,7 @@ namespace DataLaag
         // Volgorde is van belang (denk hierbij aan de foreign keys, welke tabel eerst moet aangemaakt worden)
         protected SortedDictionary<string, string> TabellenDefault = new SortedDictionary<string, string> { 
             {"Adres", "https://pastebin.com/raw/jHuhQpx7"},                  // geen fk's
-            {"Tankkaart", "https://pastebin.com/raw/TzX54cM6"},              // geen fk's
+            {"Tankkaart", "https://pastebin.com/raw/34N62PL1"},              // geen fk's
             {"Voertuig", "https://pastebin.com/raw/PUKHBXca"},               // geen fk's
             {"TankkaartBrandstof", "https://pastebin.com/raw/jgDci5Yu"},     // 1 fk: Tankkaart
             {"Bestuurder", "https://pastebin.com/raw/kNy4sQ0V"},             // 3 fk's: Adres, Voertuig en Tankkaart

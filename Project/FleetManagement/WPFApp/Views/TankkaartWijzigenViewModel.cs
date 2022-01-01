@@ -44,6 +44,7 @@ namespace WPFApp.Views {
                 Kaartnummer = teBehandelenTankkaart.Kaartnummer;
                 Vervaldatum = teBehandelenTankkaart.Vervaldatum;
                 Pincode = teBehandelenTankkaart.Pincode;
+                IsGeblokkeerd = teBehandelenTankkaart.IsGeblokkeerd;
 
                 IngeladenTankkaartResponse = teBehandelenTankkaart;
                 IngeladenTankkaartRequest = DTONaarDTO.ResponseNaarRequest<TankkaartRequestDTO>(teBehandelenTankkaart);
@@ -73,7 +74,7 @@ namespace WPFApp.Views {
         private void _wijzigTankkaart() {
             if (_controleerVeldenVoldaanVoorWijzigen()) {
                 try {
-                    TankkaartRequestDTO t = new(IngeladenTankkaartResponse.Id, Kaartnummer, Vervaldatum, Pincode, GekozenBrandstoffen.ToList(), GeselecteerdBestuurder);
+                    TankkaartRequestDTO t = new(IngeladenTankkaartResponse.Id, Kaartnummer, Vervaldatum, Pincode, GekozenBrandstoffen.ToList(), GeselecteerdBestuurder, IsGeblokkeerd);
 
                     _communicatieKanaal.UpdateTankkaart(t);
                     StuurSnackbar($"Tankkaart met id {t.Id} werd succesvol gewijzigd.");

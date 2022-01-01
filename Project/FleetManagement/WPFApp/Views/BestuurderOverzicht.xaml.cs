@@ -29,6 +29,7 @@ namespace WPFApp.Views {
         private void _verbergAlleZoekfilters() {
             zoekveld.Visibility = Visibility.Hidden;
             zoekdate.Visibility = Visibility.Hidden;
+            zoekbool.Visibility = Visibility.Hidden;
         }
 
         private void zoekfilterbox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -39,6 +40,8 @@ namespace WPFApp.Views {
                     if (zoekfilterbox.SelectedItem.ToString().Contains("GeboorteDatum")
                         || zoekfilterbox.SelectedItem.ToString().Contains("Vervaldatum")) {
                         zoekdate.Visibility = Visibility.Visible;
+                    } else if (zoekfilterbox.SelectedItem.ToString().Contains("IsGeblokkeerd")) {
+                        zoekbool.Visibility = Visibility.Visible;
                     } else {
                         zoekveld.Visibility = Visibility.Visible;
                     }

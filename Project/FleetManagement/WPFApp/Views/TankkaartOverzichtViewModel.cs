@@ -32,6 +32,7 @@ namespace WPFApp.Views {
         public string GeselecteerdeZoekfilter { get; set; }
         public string ZoekveldRegular { get; set; }
         public DateTime ZoekveldDate { get; set; } = DateTime.UnixEpoch;
+        public bool ZoekveldBool { get; set; } = false;
 
         public TankkaartOverzichtViewModel(ICommuniceer comm, Action<object> stuurSnackbar) {
             CommunicatieKanaal = comm;
@@ -78,6 +79,9 @@ namespace WPFApp.Views {
                 case string s when s.Contains("Vervaldatum") || s.Contains("GeboorteDatum"):
                     zoekterm = ZoekveldDate;
                     vergelijker = this.DatumVergelijker;
+                    break;
+                case string s when s.Contains("IsGeblokkeerd"):
+                    zoekterm = ZoekveldBool;
                     break;
                 default:
                     zoekterm = ZoekveldRegular;

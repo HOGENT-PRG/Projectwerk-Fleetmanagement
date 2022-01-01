@@ -89,17 +89,20 @@
 
         <Label Content="Vervaldatum" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="6" Grid.RowSpan="1" VerticalAlignment="Top" FontSize="12" FontWeight="DemiBold" Grid.Column="2" />
         <DatePicker SelectedDate="{Binding Vervaldatum}" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="6" Grid.RowSpan="1" VerticalAlignment="Stretch" Margin="10,5,50,5" BorderBrush="Black" Height="45"  DisplayDateStart="{Binding VervaltTenVroegste}"/>
-
+        <!-- -->
         <Label Content="Gekozen brandstoffen" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="7" Grid.RowSpan="1" VerticalAlignment="Top" FontSize="12" FontWeight="DemiBold" Grid.Column="2" />
-        <ListBox Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="10,5,50,5" ItemsSource="{Binding GekozenBrandstoffen}" TabIndex="3" BorderBrush="Black" BorderThickness="0.5"></ListBox>
+        <ListBox Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10,5,50,5" ItemsSource="{Binding GekozenBrandstoffen}" TabIndex="3" BorderBrush="Black" BorderThickness="0.5"></ListBox>
 
-        <Label Content="Kies brandstoffen" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="10" Grid.RowSpan="1" VerticalAlignment="Top" FontSize="12" FontWeight="DemiBold" Grid.Column="2" />
-        <ComboBox ItemsSource="{Binding TankkaartBrandstoffen}" Grid.Row="10" Grid.Column="3" Grid.ColumnSpan="2" Margin="10,5,50,5" SelectedItem="{Binding GeselecteerdeBrandstof}"></ComboBox>
-        <Button Content="Toevoegen" Grid.RowSpan="1" Grid.Column="3" Margin="10,5,10,5" Grid.Row="11" VerticalAlignment="Center" Background="#FF7AF4A9" BorderBrush="Black" BorderThickness="1" FontSize="12" Grid.ColumnSpan="1" Command="{Binding VoegGeselecteerdeBrandstofToe}"
+        <Label Content="Kies brandstoffen" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="9" Grid.RowSpan="1" VerticalAlignment="Top" FontSize="12" FontWeight="DemiBold" Grid.Column="2" />
+        <ComboBox ItemsSource="{Binding TankkaartBrandstoffen}" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2" Margin="10,5,50,5" SelectedItem="{Binding GeselecteerdeBrandstof}"></ComboBox>
+        <Button Content="Toevoegen" Grid.RowSpan="1" Grid.Column="3" Margin="10,5,10,5" Grid.Row="10" VerticalAlignment="Center" Background="#FF7AF4A9" BorderBrush="Black" BorderThickness="1" FontSize="12" Grid.ColumnSpan="1" Command="{Binding VoegGeselecteerdeBrandstofToe}"
                 CommandParameter="0"/>
-        <Button Content="Verwijderen" Grid.RowSpan="1" Grid.Column="4" Margin="10,5,50,5" Grid.Row="11" VerticalAlignment="Center" Background="IndianRed" BorderBrush="Black" BorderThickness="1" FontSize="12" Grid.ColumnSpan="1" Command="{Binding VerwijderGeselecteerdeBrandstof}"
+        <Button Content="Verwijderen" Grid.RowSpan="1" Grid.Column="4" Margin="10,5,50,5" Grid.Row="10" VerticalAlignment="Center" Background="IndianRed" BorderBrush="Black" BorderThickness="1" FontSize="12" Grid.ColumnSpan="1" Command="{Binding VerwijderGeselecteerdeBrandstof}"
                 CommandParameter="0"/>
-
+        <!-- -->
+        <Label Content="Is geblokkeerd?" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="11" Grid.RowSpan="1" VerticalAlignment="Center" FontSize="12" FontWeight="DemiBold" Grid.Column="2" />
+        <CheckBox Grid.Row="11" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding IsGeblokkeerd}" ></CheckBox>
+        <!-- -->
         <DataGrid Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="13" Margin="20,10,10,4" BorderBrush="Black" BorderThickness="1" Grid.RowSpan="2" 
                   IsReadOnly="True"
                   ItemsSource="{Binding Bestuurders, Mode=OneWay}"

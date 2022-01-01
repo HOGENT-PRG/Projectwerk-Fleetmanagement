@@ -29,12 +29,14 @@ namespace DataLaag.Repositories
 				SqlCommand command = _connector.CreateCommand();
 				command.Transaction = tx;
 
-				command.CommandText = "INSERT INTO Tankkaart (Kaartnummer, Vervaldatum, Pincode) " +
+				command.CommandText = "INSERT INTO Tankkaart (IsGeblokkeerd, Kaartnummer, Vervaldatum, Pincode) " +
 									  "OUTPUT INSERTED.Id " +
-									  "VALUES(@kaartnummer, @vervaldatum, @pincode ) ;";
+									  "VALUES(@isgeblokkeerd, @kaartnummer, @vervaldatum, @pincode ) ;";
+				command.Parameters.Add(new SqlParameter("@isgeblokkeerd", DbType.Boolean));
 				command.Parameters.Add(new SqlParameter("@kaartnummer", DbType.String));
 				command.Parameters.Add(new SqlParameter("@vervaldatum", DbType.DateTime));
 				command.Parameters.Add(new SqlParameter("@pincode", DbType.String));
+				command.Parameters["@isgeblokkeerd"].Value = tankkaart.IsGeblokkeerd;
 				command.Parameters["@kaartnummer"].Value = tankkaart.Kaartnummer;
 				command.Parameters["@vervaldatum"].Value = tankkaart.Vervaldatum;
 				command.Parameters["@pincode"].Value = tankkaart.Pincode;
@@ -100,6 +102,7 @@ namespace DataLaag.Repositories
 				cmd.CommandText = "SELECT t.Id AS TankkaartId," +
 								  "t.Kaartnummer AS TankkaartKaartnummer," +
 								  "t.Pincode AS TankkaartPincode," +
+								  "t.IsGeblokkeerd AS TankkaartIsGeblokkeerd, " +
 								  "t.Vervaldatum AS TankkaartVervalDatum," +
 								  "tb.Brandstof AS TankkaartBrandstof, " +
 								  "b.Id AS BestuurderId, " +
@@ -228,6 +231,7 @@ namespace DataLaag.Repositories
 				cmd.CommandText = "SELECT t.Id AS TankkaartId," +
 								  "t.Kaartnummer AS TankkaartKaartnummer," +
 								  "t.Pincode AS TankkaartPincode," +
+								  "t.IsGeblokkeerd AS TankkaartIsGeblokkeerd, " +
 								  "t.Vervaldatum AS TankkaartVervalDatum," +
 								  "tb.Brandstof AS TankkaartBrandstof, " +
 								  "b.Id AS BestuurderId, " +
@@ -350,13 +354,15 @@ namespace DataLaag.Repositories
 			try {
 				SqlCommand cmd = _connector.CreateCommand();
 				cmd.Transaction = transactie;
-				cmd.CommandText = "UPDATE Tankkaart SET Kaartnummer=@kaartnummer, Vervaldatum=@vervaldatum, Pincode=@pincode WHERE Id=@id ;";
+				cmd.CommandText = "UPDATE Tankkaart SET IsGeblokkeerd=@isgeblokkeerd,  Kaartnummer=@kaartnummer, Vervaldatum=@vervaldatum, Pincode=@pincode WHERE Id=@id ;";
 
 				cmd.Parameters.Add(new SqlParameter("@id", DbType.Int32));
+				cmd.Parameters.Add(new SqlParameter("@isgeblokkeerd", DbType.Boolean));
 				cmd.Parameters.Add(new SqlParameter("@kaartnummer", DbType.String));
 				cmd.Parameters.Add(new SqlParameter("@vervaldatum", DbType.DateTime));
 				cmd.Parameters.Add(new SqlParameter("@pincode", DbType.String));
 				cmd.Parameters["@id"].Value = tankkaart.Id;
+				cmd.Parameters["@isgeblokkeerd"].Value = tankkaart.IsGeblokkeerd;
 				cmd.Parameters["@kaartnummer"].Value = tankkaart.Kaartnummer;
 				cmd.Parameters["@vervaldatum"].Value = tankkaart.Vervaldatum;
 				cmd.Parameters["@pincode"].Value = (object)tankkaart.Pincode ?? DBNull.Value;

@@ -34,6 +34,7 @@ namespace WPFApp.Views
         {
             zoekveld.Visibility = Visibility.Hidden;
             zoekdate.Visibility = Visibility.Hidden;
+            zoekbool.Visibility = Visibility.Hidden;
         }
 
         private void VerwijderTankkaart_click(object sender, RoutedEventArgs e)
@@ -53,17 +54,14 @@ namespace WPFApp.Views
                 if (zoekfilterbox?.SelectedItem is not null)
                 {
                     if (zoekfilterbox.SelectedItem.ToString().Contains("Vervaldatum")
-                        || zoekfilterbox.SelectedItem.ToString().Contains("GeboorteDatum"))
-                    {
+                        || zoekfilterbox.SelectedItem.ToString().Contains("GeboorteDatum")) {
                         zoekdate.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
+                    }  else if (zoekfilterbox.SelectedItem.ToString().Contains("IsGeblokkeerd")) {
+                        zoekbool.Visibility = Visibility.Visible;
+					} else {
                         zoekveld.Visibility = Visibility.Visible;
                     }
-                }
-                else
-                {
+                } else {
                     zoekveld.Visibility = Visibility.Visible;
                 }
             }

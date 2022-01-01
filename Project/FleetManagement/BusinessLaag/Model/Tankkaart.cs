@@ -13,16 +13,18 @@ namespace BusinessLaag.Model
         public string Kaartnummer { get; private set; }
         public DateTime Vervaldatum { get; private set; }
         public string? Pincode { get; private set; } // nullable toegelaten
+        public bool IsGeblokkeerd { get; private set; }
         public List<TankkaartBrandstof> GeldigVoorBrandstoffen { get; private set; }
         public Bestuurder Bestuurder { get; private set; }
 
         public Tankkaart(int? id, string kaartnummer, DateTime vervaldatum, 
-            string pincode, List<TankkaartBrandstof>? geldigvoorbrandstoffen, Bestuurder bestuurder)
+            string pincode, List<TankkaartBrandstof>? geldigvoorbrandstoffen, Bestuurder bestuurder, bool isGeblokkeerd)
         {
             ZetId(id);
             ZetKaartnummer(kaartnummer);
             ZetVervaldatum(vervaldatum);
             ZetPincode(pincode);
+            IsGeblokkeerd = isGeblokkeerd;
             ZetBestuurder(bestuurder);
             GeldigVoorBrandstoffen = geldigvoorbrandstoffen?.Distinct()?.ToList() ?? new();
        }
@@ -48,7 +50,10 @@ namespace BusinessLaag.Model
 
             if (DateTime.Compare(minimumdate, vervaldatum) < 0) {
                 Vervaldatum = vervaldatum;
-            } else throw new TankkaartException("De vervaldatum van de kaart moet zich in de toekomst bevinden en minimum 1 dag geldig zijn.");            
+            } else {
+                // (!) Indien de foutboodschap aangepast wordt dient het gebruik ervan nagekeken te worden in QueryParser.ParseReaderNaarTankkaart, when e.Message.Contains 
+                throw new TankkaartException("De vervaldatum van de kaart moet zich in de toekomst bevinden en minimum 1 dag geldig zijn."); 
+            }   
         }
         public void ZetPincode(string pincode)
         {
@@ -79,9 +84,20 @@ namespace BusinessLaag.Model
             if (Bestuurder == bestuurder && bestuurder is not null) {
                 throw new TankkaartException("Bestuurder hoort al bij deze tankkaart");
             } else {
-                Bestuurder = bestuurder;
-            }
+                #pragma warning disable CS8601 // Possible null reference assignment.
+				Bestuurder = bestuurder;
+                #pragma warning restore CS8601 // Possible null reference assignment.
+			}
         }
+
+        public void WijzigBlokkeringsStatus(bool gewenstResultaat) {
+            if(IsGeblokkeerd == gewenstResultaat) {
+                throw new TankkaartException("Tankkaart heeft reeds deze blokkeringsstatus.");
+			}
+
+            IsGeblokkeerd = gewenstResultaat;
+		}
+
     }
 #nullable disable
 }

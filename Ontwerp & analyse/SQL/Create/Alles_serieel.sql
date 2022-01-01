@@ -31,12 +31,15 @@ CREATE TABLE [dbo].[Tankkaart](
 	[Kaartnummer] [varchar](60) NOT NULL,
 	[Vervaldatum] [date] NOT NULL,
 	[Pincode] [varchar](50) NULL,
-	-- [Brandstof] [varchar](50) NULL, --<< deze valt weg en krijgt tussentabel
+	[IsGeblokkeerd] [bit] NOT NULL,
  CONSTRAINT [PK_Tankkaart] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+-- Default value is niet geblokkeerd bij een nieuwe insertion, kan anders meegegeven worden om te overriden
+ALTER TABLE [dbo].[Tankkaart] ADD  DEFAULT ((0)) FOR [IsGeblokkeerd]
 GO
 ----------------------------------
 /****** Object:  Table [dbo].[Voertuig]    Script Date: 22/10/2021 19:47:33 ******/

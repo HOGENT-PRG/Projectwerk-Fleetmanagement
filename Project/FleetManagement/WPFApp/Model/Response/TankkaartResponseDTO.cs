@@ -9,6 +9,7 @@ namespace WPFApp.Model.Response {
         public string Kaartnummer { get; set; }
         public DateTime Vervaldatum { get; set; }
         public string? Pincode { get; set; }
+        public bool IsGeblokkeerd { get; set; }
         public List<string> GeldigVoorBrandstoffen { get; set; }
         public BestuurderResponseDTO? Bestuurder { get; set; }
     }

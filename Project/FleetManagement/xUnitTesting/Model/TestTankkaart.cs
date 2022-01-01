@@ -3,9 +3,6 @@ using BusinessLaag.Model.Enum;
 using BusinessLaag.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 // Volledig uitgewerkt
@@ -21,6 +18,7 @@ namespace xUnitTesting.Model
         private static string validKaartnummer = "12345678908765432";
         private static DateTime validVervaldatum = DateTime.Now.AddDays(30);
         private static string validPincode = "1111";
+        private static bool validIsGeblokkeerd = false;
         private static Adres validAdres = new Adres(1, "Leliestraat", "1B", "9000", "Gent", "Oost-vlaanderen", "Belgium");
         private static Voertuig validVoertuig = new Voertuig(1, Merk.AlfaRomeo, "1XYZ", "1BCD111", VoertuigBrandstof.Diesel, Voertuigsoort.berline, null, "11111111111111111", "rood", null);
         private static Bestuurder validBestuurder = new Bestuurder(validId, validNaam, validVoornaam, validAdres, validGeboortedatum, validRRN, RijbewijsSoort.B, validVoertuig, null);
@@ -28,14 +26,14 @@ namespace xUnitTesting.Model
         private static TankkaartBrandstof validBrandstof = TankkaartBrandstof.CNG;
         private static List<TankkaartBrandstof> validBrandstoffen = new List<TankkaartBrandstof>() { validBrandstof};
 
-        private static Tankkaart validTankkaart = new Tankkaart(validId, validKaartnummer, validVervaldatum, validPincode, new List<TankkaartBrandstof>() { TankkaartBrandstof.CNG }, validBestuurder);
+        private static Tankkaart validTankkaart = new Tankkaart(validId, validKaartnummer, validVervaldatum, validPincode, new List<TankkaartBrandstof>() { TankkaartBrandstof.CNG }, validBestuurder, validIsGeblokkeerd);
 
         [Theory]
         [InlineData(null)]  
         [InlineData(1)]
         public void Test_Ctor_valid(int? id)
         {
-            Tankkaart t = new Tankkaart(id, validKaartnummer, validVervaldatum, validPincode, validBrandstoffen, validBestuurder);
+            Tankkaart t = new Tankkaart(id, validKaartnummer, validVervaldatum, validPincode, validBrandstoffen, validBestuurder, validIsGeblokkeerd);
 
             if (id is null) Assert.Null(t.Id);
             else Assert.Equal(id, t.Id);
@@ -54,7 +52,7 @@ namespace xUnitTesting.Model
         [InlineData(int.MinValue)]
         public void Test_Ctor_InvalidId(int id)
         {
-            Assert.Throws<TankkaartException>(() => new Tankkaart(id, validKaartnummer, validVervaldatum, validPincode, validBrandstoffen, validBestuurder));
+            Assert.Throws<TankkaartException>(() => new Tankkaart(id, validKaartnummer, validVervaldatum, validPincode, validBrandstoffen, validBestuurder, validIsGeblokkeerd));
         }
 
         [Theory]
@@ -151,6 +149,29 @@ namespace xUnitTesting.Model
         public void Test_Setter_ZetPincode_invalid(string p)
         {
             Assert.Throws<TankkaartException>(() => validTankkaart.ZetPincode(p));
+        }
+
+        [Fact]
+        public void Test_Setter_IsGeblokkeerd_valid() {
+            try {
+                validTankkaart.WijzigBlokkeringsStatus(true);
+            } catch { }
+
+            Assert.True(validTankkaart.IsGeblokkeerd);
+            validTankkaart.WijzigBlokkeringsStatus(false);
+            Assert.False(validTankkaart.IsGeblokkeerd);
+            validTankkaart.WijzigBlokkeringsStatus(true);
+            Assert.True(validTankkaart.IsGeblokkeerd);
+        }
+
+        [Fact]
+        public void Test_Setter_IsGeblokkeerd_invalid() {
+            try {
+                validTankkaart.WijzigBlokkeringsStatus(true);
+            } catch { }
+
+            Assert.True(validTankkaart.IsGeblokkeerd);
+            Assert.Throws<TankkaartException>(() => validTankkaart.WijzigBlokkeringsStatus(true));
         }
 
         [Theory]
