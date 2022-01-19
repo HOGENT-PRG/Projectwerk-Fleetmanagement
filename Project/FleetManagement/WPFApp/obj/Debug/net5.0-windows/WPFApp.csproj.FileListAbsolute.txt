@@ -94,7 +94,6 @@ D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\n
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\Views\VoertuigOverzicht.g.cs
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\Views\VoertuigToevoegen.g.cs
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\Views\VoertuigWijzigen.g.cs
-D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\Views\_TemplateScherm.g.cs
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\App.g.cs
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\GeneratedInternalTypeHelper.g.cs
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\WPFApp_MarkupCompile.cache
@@ -118,7 +117,6 @@ D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\n
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\Views\VoertuigOverzicht.baml
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\Views\VoertuigToevoegen.baml
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\Views\VoertuigWijzigen.baml
-D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\Views\_TemplateScherm.baml
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\WPFApp.g.resources
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\WPFApp.GeneratedMSBuildEditorConfig.editorconfig
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\obj\Debug\net5.0-windows\WPFApp.AssemblyInfoInputs.cache

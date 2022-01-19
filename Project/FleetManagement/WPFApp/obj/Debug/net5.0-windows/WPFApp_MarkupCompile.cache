@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 D:\GitHub\Projectwerk-Fleetmanagement\Project\FleetManagement\WPFApp\App.xaml
-20-1532353770
+19-742088491
 
-72137276374
+67-1212141912
 242-1787514372
-ApplicatieOverzicht.xaml;Views\AdresOverzicht.xaml;Views\AdresToevoegen.xaml;Views\AdresWijzigen.xaml;Views\BestuurderOverzicht.xaml;Views\BestuurderToevoegen.xaml;Views\BestuurderWijzigen.xaml;Views\DatabankOverzicht.xaml;Views\Dialogs\AdresFilterDialog.xaml;Views\Dialogs\BestuurderFilterDialog.xaml;Views\Dialogs\TankkaartFilterDialog.xaml;Views\Dialogs\VoertuigFilterDialog.xaml;Views\Resources\DataGridResources.xaml;Views\TankkaartOverzicht.xaml;Views\TankkaartToevoegen.xaml;Views\TankkaartWijzigen.xaml;Views\VoertuigOverzicht.xaml;Views\VoertuigToevoegen.xaml;Views\VoertuigWijzigen.xaml;Views\_TemplateScherm.xaml;
+ApplicatieOverzicht.xaml;Views\AdresOverzicht.xaml;Views\AdresToevoegen.xaml;Views\AdresWijzigen.xaml;Views\BestuurderOverzicht.xaml;Views\BestuurderToevoegen.xaml;Views\BestuurderWijzigen.xaml;Views\DatabankOverzicht.xaml;Views\Dialogs\AdresFilterDialog.xaml;Views\Dialogs\BestuurderFilterDialog.xaml;Views\Dialogs\TankkaartFilterDialog.xaml;Views\Dialogs\VoertuigFilterDialog.xaml;Views\Resources\DataGridResources.xaml;Views\TankkaartOverzicht.xaml;Views\TankkaartToevoegen.xaml;Views\TankkaartWijzigen.xaml;Views\VoertuigOverzicht.xaml;Views\VoertuigToevoegen.xaml;Views\VoertuigWijzigen.xaml;
 
 False
 
