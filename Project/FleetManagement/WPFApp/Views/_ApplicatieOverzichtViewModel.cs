@@ -86,6 +86,7 @@ namespace WPFApp.Views {
             HuidigePaginaViewModel = PaginaViewModels[nameof(AdresOverzicht)];
         }
 
+        #region ViewModel beheer
         private object MaakNieuwViewModel(IPaginaViewModel viewModel) {
             // In de veronderstelling dat elke ViewModel constructor deze 2 argumenten aanvaard, het zou mogelijk kunnen zijn om in de abstracte klasse Presenteerder een constructor aan te maken met deze 2 argumenten zodat aanwezigheid gewaarborgd is
             var p = new object[] { CommunicatieKanaal, this.StuurSnackbar };
@@ -111,7 +112,7 @@ namespace WPFApp.Views {
 
        
 
-        #region ViewModel beheer
+       
         // Wordt aangeroepen middels Reset knoppen in ToevoegenViewModels, het is eenvoudiger en globaal toepasbaar om de ViewModel te vervangen met een nieuwe, in plaats van in elke ViewModel alle velden / properties manueel te resetten met risico op fouten
         private void ResetViewModel(IPaginaViewModel viewModel) {
             PaginaViewModels[viewModel.GetType().Name.Replace("ViewModel", "")] = (IPaginaViewModel)MaakNieuwViewModel(viewModel);
