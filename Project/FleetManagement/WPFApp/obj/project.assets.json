@@ -3365,16 +3365,16 @@
     ]
   },
   "packageFolders": {
-    "D:\\Programs\\GlobalPackagesFolder": {}
+    "C:\\Users\\server\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
+      "projectUniqueName": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
       "projectName": "WPFApp",
-      "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
-      "packagesPath": "D:\\Programs\\GlobalPackagesFolder",
-      "outputPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\obj\\",
+      "projectPath": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\WPFApp.csproj",
+      "packagesPath": "C:\\Users\\server\\.nuget\\packages\\",
+      "outputPath": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\WPFApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3391,11 +3391,11 @@
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
           "projectReferences": {
-            "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
-              "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
+            "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+              "projectPath": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
             },
-            "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
-              "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj"
+            "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
+              "projectPath": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj"
             }
           }
         }
@@ -3459,7 +3459,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

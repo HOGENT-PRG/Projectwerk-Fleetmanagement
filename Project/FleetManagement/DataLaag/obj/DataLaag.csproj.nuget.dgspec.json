@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {}
+    "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+    "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
+        "projectUniqueName": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
         "projectName": "BusinessLaag",
-        "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
-        "packagesPath": "D:\\Programs\\GlobalPackagesFolder",
-        "outputPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\obj\\",
+        "projectPath": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj",
+        "packagesPath": "C:\\Users\\server\\.nuget\\packages\\",
+        "outputPath": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -64,18 +64,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
+    "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
+        "projectUniqueName": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
         "projectName": "DataLaag",
-        "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
-        "packagesPath": "D:\\Programs\\GlobalPackagesFolder",
-        "outputPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\obj\\",
+        "projectPath": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\DataLaag.csproj",
+        "packagesPath": "C:\\Users\\server\\.nuget\\packages\\",
+        "outputPath": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\DataLaag\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\server\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -92,8 +92,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
-                "projectPath": "D:\\GitHub\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
+              "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj": {
+                "projectPath": "D:\\Github\\HOGENT-PRG\\Organisatie\\Projectwerk-Fleetmanagement\\Project\\FleetManagement\\BusinessLaag\\BusinessLaag.csproj"
               }
             }
           }
@@ -136,7 +136,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

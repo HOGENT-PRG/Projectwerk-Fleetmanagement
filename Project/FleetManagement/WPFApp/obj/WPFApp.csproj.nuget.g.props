@@ -4,21 +4,18 @@
     <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
-    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">D:\Programs\GlobalPackagesFolder</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">D:\Programs\GlobalPackagesFolder</NuGetPackageFolders>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\server\.nuget\packages\</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
-    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">5.11.1</NuGetToolVersion>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.0.1</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="D:\Programs\GlobalPackagesFolder\" />
+    <SourceRoot Include="C:\Users\server\.nuget\packages\" />
   </ItemGroup>
-  <PropertyGroup>
-    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-  </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)\propertychanged.fody\3.4.0\build\PropertyChanged.Fody.props" Condition="Exists('$(NuGetPackageRoot)\propertychanged.fody\3.4.0\build\PropertyChanged.Fody.props')" />
+    <Import Project="$(NuGetPackageRoot)propertychanged.fody\3.4.0\build\PropertyChanged.Fody.props" Condition="Exists('$(NuGetPackageRoot)propertychanged.fody\3.4.0\build\PropertyChanged.Fody.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgMaterialDesignThemes Condition=" '$(PkgMaterialDesignThemes)' == '' ">D:\Programs\GlobalPackagesFolder\materialdesignthemes\4.2.1</PkgMaterialDesignThemes>
+    <PkgMaterialDesignThemes Condition=" '$(PkgMaterialDesignThemes)' == '' ">C:\Users\server\.nuget\packages\materialdesignthemes\4.2.1</PkgMaterialDesignThemes>
   </PropertyGroup>
 </Project>
