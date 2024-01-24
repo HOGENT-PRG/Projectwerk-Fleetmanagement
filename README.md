@@ -2,6 +2,8 @@
 
 ### Ontwikkeld door
 #### Abdellah Akhayad & Benjamin Van Renterghem 
+
+Note: the exception handling within this repository is suboptimal, as well as other things, keep in mind this was a project designed and written as part of our time at HOGENT.
 --------------
 #### [📖 Lees de documentatie](https://docs.google.com/document/d/1FPR8E7Mz1UUCKthUxlO18xKNvESPpX2dkBMap34k-n0/edit?usp=sharing)
 #### [🧮 Download klassendiagram](/Ontwerp%20%26%20analyse/Klassendiagram/Klassen_v3.vpp)
